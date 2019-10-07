@@ -1,0 +1,487 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>闻人的技术博客</title>
+<meta name="description" content="做一个终生学习者" />
+<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1570432632262">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://wrcj12138aaa.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="闻人的技术博客 - Atom Feed" href="https://wrcj12138aaa.github.io//atom.xml">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://wrcj12138aaa.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://wrcj12138aaa.github.io//images/avatar.png?v=1570432632262" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">闻人的技术博客</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%85%B3%E4%BA%8E%E6%A0%87%E9%A2%98">关于标题</a>
+<ul>
+<li><a href="#%E5%9F%BA%E6%9C%AC%E5%8E%9F%E5%88%99">基本原则</a></li>
+</ul>
+</li>
+<li><a href="#%E5%85%B3%E4%BA%8E%E6%96%87%E6%9C%AC">关于文本</a>
+<ul>
+<li><a href="#%E5%AD%97%E9%97%B4%E8%B7%9D">字间距</a></li>
+<li><a href="#%E5%8F%A5%E5%AD%90">句子</a></li>
+<li><a href="#%E5%86%99%E4%BD%9C%E9%A3%8E%E6%A0%BC">写作风格</a></li>
+<li><a href="#%E8%8B%B1%E6%96%87%E5%A4%84%E7%90%86">英文处理</a></li>
+</ul>
+</li>
+<li><a href="#%E6%AE%B5%E8%90%BD">段落</a>
+<ul>
+<li><a href="#%E5%8E%9F%E5%88%99">原则</a></li>
+<li><a href="#%E5%BC%95%E7%94%A8">引用</a></li>
+</ul>
+</li>
+<li><a href="#%E6%A0%87%E7%82%B9%E7%AC%A6%E5%8F%B7">标点符号</a>
+<ul>
+<li><a href="#%E5%8E%9F%E5%88%99-2">原则</a></li>
+</ul>
+</li>
+<li><a href="#%E6%96%87%E6%A1%A3%E7%BB%93%E6%9E%84">文档结构</a></li>
+<li><a href="#%E5%85%B6%E4%BB%96">其他</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99">参考资料</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="remixicon-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"></div>
+    <a class="rss" href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">中文技术写作规范摘要</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2019-02-18 / 6 min read
+        </div>
+        
+        <div class="post-content yue">
+          <blockquote>
+<p>无论是工作还是学习，都会遇到写技术文档，或者技术文章的情况，但是由于写作规范的不统一，让内容并不能清晰地展示出来，学习下通用的写作规范是很有必要的，先整理一版，后续再根据自己的使用情况进行迭代吧。</p>
+</blockquote>
+<!--more-->
+<h2 id="关于标题">关于标题</h2>
+<p>标题分为四级,但是尽量避免使用四级标题.</p>
+<ul>
+<li>一级标题: 文章的标题</li>
+<li>二级标题: 文章主要部分的标题</li>
+<li>三级标题: 二级标题下的小标题</li>
+<li>四级标题: 三级标题下的某一方面的小标题</li>
+</ul>
+<pre><code># 标题
+
+## 正文
+
+### 小节标题
+
+#### 四级标题
+</code></pre>
+<h3 id="基本原则">基本原则</h3>
+<ol>
+<li>各级标题要有层次,一级标题下, 不能直接出现三级标题.</li>
+</ol>
+<p>下面的文章结构,缺少了二级标题.</p>
+<pre><code># 一级标题
+### 三级标题
+</code></pre>
+<p>2）下级标题不重复上一级标题的名字。</p>
+<pre><code>## 概述
+### 概述
+</code></pre>
+<p>3）谨慎使用四级标题，尽量避免出现，保持层级的简单，防止出现过于复杂的章节。</p>
+<p>如果三级标题下有并列性的内容，建议只使用项目列表。</p>
+<pre><code>### 三级标题
+
+**（1）A**
+
+**（2）B**
+
+**（3）C**
+</code></pre>
+<h2 id="关于文本">关于文本</h2>
+<h3 id="字间距">字间距</h3>
+<ul>
+<li>
+<p>全角中文字符与半角英文字符之间，应有一个半角空格。</p>
+<pre><code>本文介绍如何快速启动 Windows 系统。
+</code></pre>
+</li>
+<li>
+<p>半角英文字符和半角阿拉伯数字，与全角标点符号之间不留空格。</p>
+<pre><code>他的电脑是 MacBook Air。
+</code></pre>
+</li>
+</ul>
+<h3 id="句子">句子</h3>
+<ul>
+<li>
+<p>避免使用长句， 长度尽量保持在 20 个字以内。</p>
+<pre><code>本产品适用于多种体系结构。无论是由一台服务器（单一节点结构），还是由多台服务器（并行处理结构）进行动作控制，均可以使用本产品。
+</code></pre>
+</li>
+<li>
+<p>尽量使用简单句和并列句，避免使用复合句。</p>
+<pre><code>他昨天生病了，没有参加会议。
+</code></pre>
+</li>
+<li>
+<p>同样一个意思，尽量使用肯定句表达，不使用否定句表达, 避免使用双重否定句。</p>
+<pre><code>请确认装置的电源已关闭。
+</code></pre>
+</li>
+</ul>
+<h3 id="写作风格">写作风格</h3>
+<ul>
+<li>
+<p>多使用主动语态，而不是被动语态</p>
+<pre><code>假如尚未安装这个软件，
+</code></pre>
+</li>
+<li>
+<p>使用代词时（比如“其”、“该”、“此”、“这”等词），必须明确指代的内容，保证只有一个含义。</p>
+<pre><code>错误：从管理系统可以监视中继系统和受其直接控制的分配系统。
+
+正确：从管理系统可以监视两个系统：中继系统和受中继系统直接控制的分配系统。
+</code></pre>
+</li>
+<li>
+<p>名词前不要使用过多的形容词。</p>
+</li>
+</ul>
+<h3 id="英文处理">英文处理</h3>
+<ul>
+<li>
+<p>外文缩写可以使用半角圆点(<code>.</code>)表示缩写。</p>
+<pre><code>U.S.A.
+Apple, Inc.
+</code></pre>
+</li>
+<li>
+<p>第一次出现英文词汇时，在括号中给出中文标注。此后再次出现时，直接使用英文缩写即可。</p>
+<pre><code>IOC（International Olympic Committee，国际奥林匹克委员会）。这样定义后，便可以直接使用“IOC”了。
+</code></pre>
+</li>
+<li>
+<p>专有名词中每个词第一个字母均应大写，非专有名词则不需要大写。</p>
+<pre><code>“American Association of Physicists in Medicine”（美国医学物理学家协会）是专有名词，需要大写。
+“online transaction processing”（在线事务处理）不是专有名词，不应大写。
+</code></pre>
+</li>
+</ul>
+<h2 id="段落">段落</h2>
+<h3 id="原则">原则</h3>
+<ul>
+<li>一个段落只能有一个主题，或一个中心句子。</li>
+<li>段落的中心句子放在段首，对全段内容进行概述。后面陈述的句子为核心句服务。</li>
+<li>一个段落的长度不能超过七行，最佳段落长度小于等于四行。</li>
+<li>段落的句子语气要使用陈述和肯定语气，避免使用感叹语气。</li>
+<li>段落之间使用一个空行隔开。</li>
+<li>段落开头不要留出空白字符。</li>
+</ul>
+<h3 id="引用">引用</h3>
+<p>引用第三方内容时，应注明出处。</p>
+<pre><code>One man’s constant is another man’s variable. — Alan Perlis
+</code></pre>
+<p>如果是全篇转载，请在全文开头显著位置注明作者和出处，并链接至原文。</p>
+<pre><code>本文转载自 WikiQuote
+</code></pre>
+<p>使用外部图片时，必须在图片下方或文末标明来源。</p>
+<pre><code>本文部分图片来自 Wikipedia
+</code></pre>
+<h2 id="标点符号">标点符号</h2>
+<h3 id="原则-2">原则</h3>
+<ul>
+<li>中文语句的标点符号，均应该采取全角符号，这样可以保证视觉的一致。</li>
+<li>如果整句为英文，则该句使用英文/半角标点。</li>
+<li>句号、问号、叹号、逗号、顿号、分号和冒号不得出现在一行之首。</li>
+</ul>
+<h2 id="文档结构">文档结构</h2>
+<p>写系列文章，可以采用下面的结构进行内容组织。</p>
+<ul>
+<li>
+<p><strong>简介</strong>（Introduction）： [必备][文件] 提供对产品和文档本身的总体的、扼要的说明</p>
+</li>
+<li>
+<p><strong>快速上手</strong>（Getting Started）：[可选] [文件] 如何最快速地使用产品</p>
+</li>
+<li>
+<p>入门篇</p>
+<p>（Basics）： [必备] [目录] 又称”使用篇“，提供初级的使用教程</p>
+<ul>
+<li><strong>环境准备</strong>（Prerequisite）：[必备] [文件] 软件使用需要满足的前置条件</li>
+<li><strong>安装</strong>（Installation）：[可选][文件] 软件的安装方法</li>
+<li><strong>设置</strong>（Configuration）：[必备] [文件] 软件的设置</li>
+</ul>
+</li>
+<li>
+<p><strong>进阶篇</strong>（Advanced)：[可选] [目录] 又称”开发篇“，提供中高级的开发教程</p>
+</li>
+<li>
+<p><strong>API</strong>（Reference）：[可选][目录|文件] 软件 API 的逐一介绍</p>
+</li>
+<li>
+<p><strong>FAQ</strong>：[可选][文件] 常见问题解答</p>
+</li>
+</ul>
+<h2 id="其他">其他</h2>
+<ul>
+<li>
+<p>中英文之间需要增加空格</p>
+<pre><code>今天出去买菜花了 5000 元。
+</code></pre>
+</li>
+<li>
+<p>中文与数字之间需要增加空格</p>
+<pre><code>新 MacBook Pro 有 15% 的 CPU 性能提升。
+</code></pre>
+</li>
+<li>
+<p>不重复使用标点符号</p>
+<pre><code>德国队竟然战胜了巴西队！！
+</code></pre>
+</li>
+<li>
+<p>专有名词使用正确的大小写</p>
+<pre><code>使用 GitHub 登录
+</code></pre>
+</li>
+<li>
+<p>不要使用不地道的缩写</p>
+<pre><code>错误：我们需要一位熟悉 Js、h5，至少理解一种框架（如 backbone、angular、RJS 等）的 FED。
+正确：我们需要一位熟悉 JavaScript、HTML5，至少理解一种框架（如 Backbone.js、AngularJS、React 等）的前端开发者。
+</code></pre>
+</li>
+</ul>
+<h2 id="参考资料">参考资料</h2>
+<ul>
+<li><a href="https://github.com/mzlogin/chinese-copywriting-guidelines">中文文案排版指北</a></li>
+<li><a href="https://github.com/ruanyf/document-style-guide">ruanyf-<strong>document-style-guide</strong></a></li>
+</ul>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://wrcj12138aaa.github.io//tag/lAAhJazi9O">
+            <span class="flex-auto">写作</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://wrcj12138aaa.github.io//post/20190407-Linux OS 下 Maven 环境搭建">
+                <h3 class="post-title">
+                  <i class="remixicon-arrow-left-line"></i>
+                  Linux OS 的 Maven 环境搭建
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://wrcj12138aaa.github.io//post/20190217-Spring Boot 快速集成 Ehcache3">
+                <h3 class="post-title">
+                  Spring Boot 快速集成 Ehcache3
+                  <i class="remixicon-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '2ba76d6fe50ad2b384eb',
+    clientSecret: '90db763ed48942571725d6aef11229900c8bb656',
+    repo: 'wrcj12138aaa.github.io',
+    owner: 'wrcj12138aaa',
+    admin: ['wrcj12138aaa'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+      </div>
+    </div>
+
+    <script src="https://wrcj12138aaa.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>
