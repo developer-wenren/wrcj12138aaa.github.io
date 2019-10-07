@@ -1,0 +1,405 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>闻人的技术博客</title>
+<meta name="description" content="做一个终生学习者" />
+<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1570431429087">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://wrcj12138aaa.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="闻人的技术博客 - Atom Feed" href="https://wrcj12138aaa.github.io//atom.xml">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://wrcj12138aaa.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://wrcj12138aaa.github.io//images/avatar.png?v=1570431429087" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">闻人的技术博客</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#yapi-%E4%BB%8B%E7%BB%8D">YApi 介绍</a></li>
+<li><a href="#%E7%AC%AC%E4%B8%80%E4%B8%AA-yapi">第一个 YApi</a>
+<ul>
+<li><a href="#%E7%99%BB%E5%BD%95%E6%B3%A8%E5%86%8C">登录注册</a></li>
+<li><a href="#%E9%A1%B9%E7%9B%AE%E6%8E%A5%E5%8F%A3">项目接口</a></li>
+</ul>
+</li>
+<li><a href="#mock-%E6%8E%A5%E5%8F%A3">Mock 接口</a></li>
+<li><a href="#%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5">最佳实践</a>
+<ul>
+<li><a href="#%E6%8E%A5%E5%8F%A3%E5%88%86%E7%BA%A7">接口分级</a></li>
+<li><a href="#%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE">环境配置</a></li>
+<li><a href="#%E8%AF%B7%E6%B1%82%E9%85%8D%E7%BD%AE">请求配置</a></li>
+<li><a href="#%E6%95%B0%E6%8D%AE%E5%AF%BC%E5%85%A5%E5%AF%BC%E5%87%BA">数据导入导出</a></li>
+</ul>
+</li>
+<li><a href="#%E7%BB%93%E8%AF%AD">结语</a></li>
+<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="remixicon-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"></div>
+    <a class="rss" href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">YApi使用指南</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2019-07-07 / 12 min read
+        </div>
+        
+        <div class="post-content yue">
+          <figure data-type="image" tabindex="1"><img src="http://ww2.sinaimg.cn/large/006tNc79gy1g4r7dbwihmj30jg0a83yy.jpg" alt="API"></figure>
+<h2 id="前言">前言</h2>
+<p>在日常的开发模式里，前端负责页面和动态脚本的处理，服务端负责业务逻辑和接口的实现。当前端需要服务端提供的接口实现动态数据展示和交互时，服务端完成接口开发后会提供一个接口文档给到前端按照文档规范再进行开发。这样模式下往往会出现两种情况：一种是往前端开发的进度往与服务端开发的进度不会完全同步，这就存在了一方等待另一方的情况，这多少会影响整体项目开发进度；另一种就是当前端对接不同的服务端人员所开发的接口，如果没有了统一的接口文档规范，每个人输出的接口文档都不尽相同，在后期对项目接口的更新和维护会是很大的时间成本。</p>
+<p>所以很有必要有一个前后端通用的接口管理平台，简化接口对接和维护的流程。前后端可以通过接口管理平台，制定接口数据和格式，然后通过模拟数据生成假接口，前后端再各自独立开发，直至双方都开发完成后对接真实接口数据进行微调即可。并且通过接口管理平台，开发人员可以更便捷地管理项目所有接口数据。</p>
+<p>这里本文将主要认识学习一下目前国内开源较火的接口管理平台 YApi，看如何使用它帮助我们提高开发效率和便捷对接口的管理。</p>
+<blockquote>
+<p>本文不会描述 YApi 的安装部署过程，想要详细了解如何部署YApi可以参见文末提供的参考链接：<a href="https://hellosean1025.github.io/yapi/devops/index.html">YApi 安装部署</a>，<a href="https://www.jianshu.com/p/a97d2efb23c5">使用 Docker 构建 Yapi</a></p>
+</blockquote>
+<h2 id="yapi-介绍">YApi 介绍</h2>
+<p>YApi 是一个可本地部署的、打通前后端及QA的、可视化的接口管理平台，以开发、产品、测试人员提供更优雅的接口管理服务为目标，该项目由去哪儿网大前端技术团队开源的，托管在 <a href="https://github.com/YMFE/yapi">Github</a> 上，已经 9000 多星。</p>
+<p>YApi 作为 API 管理平台主要提供三大块功能：</p>
+<ul>
+<li>项目管理：提供基本的项目分组，项目管理，接口管理功能，成员权限管理</li>
+<li>接口管理：提供友好的接口文档，支持多人协作接口编辑功能，以及类 Postman 测试工具便于高效调试接口</li>
+<li>Mock 服务：基于<a href="http://mockjs.com/">Mock.js</a>，通过随机数据生成，模拟各种接口数据，充分发挥前后端分离的优势。</li>
+</ul>
+<blockquote>
+<p><strong>什么是Mock</strong>.<strong>js</strong></p>
+<p><strong>Mock</strong>.<strong>js是</strong>一个模拟数据生成器，帮助前端开发和原型与后端进度分离，减少一些单调，特别<strong>是</strong>在编写自动化测试时。</p>
+<p>--- <a href="https://juejin.im/post/58f9eec0a22b9d00658ee4b7">mock.js那点事(上)</a></p>
+</blockquote>
+<p>当然 YApi 还有很多强大的功能，比如自动化测试，插件机制，二次开发等等。</p>
+<p>下图是YApi 官方提供了使用 YApi 的工作流程，从这里可以简单了解下如何在日常开发中使用 YApi。</p>
+<figure data-type="image" tabindex="2"><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g4ltwicwalj30fr05mmxc.jpg" alt=""></figure>
+<h2 id="第一个-yapi">第一个 YApi</h2>
+<h3 id="登录注册">登录注册</h3>
+<p>使用 YApi 前，必须要先有登录账号，所以一开始需要在所搭建的 YApi 网站上注册一个账号,注册成功就可以用用户名或者邮箱进行登录。</p>
+<figure data-type="image" tabindex="3"><img src="http://ww4.sinaimg.cn/large/006tNc79ly1g4lui9szzej30hs0h63zi.jpg" alt=""></figure>
+<p>注册成功后就会自动登录进入 YApi 首页，后面再次使用就可以直接用账号登录了。</p>
+<p>需要注意的是作为新注册的用户，没有任何分组与项目的权限，只能对“公开项目” 的接口进行搜索、浏览 ，此时需要联系平台管理员将你加入对应项目。</p>
+<p>下图为一个正常账户登录 YApi 首页的基本内容：</p>
+<figure data-type="image" tabindex="4"><img src="http://ww4.sinaimg.cn/large/006tNc79ly1g4lvcdoqchj30z30iwmz9.jpg" alt=""></figure>
+<ol>
+<li>
+<p>首页头部展示了当前所在的位置、搜索框、新建项目、查看文档和用户信息。</p>
+</li>
+<li>
+<p>首页左侧展示分组信息，“分组”是“项目”的集合，只有超级管理员可以管理分组。</p>
+</li>
+<li>
+<p>首页右侧是分组下的项目和成员列表，点击左侧的某个分组，右侧会出现该分组下的项目和成员信息。</p>
+</li>
+<li>
+<p>点击项目右上角的星星即可关注项目，关注的项目可以在“我的关注”页面查看。</p>
+</li>
+<li>
+<p>点击头像进入“个人中心”，允许查看和修改个人信息。</p>
+</li>
+</ol>
+<h3 id="项目接口">项目接口</h3>
+<p>首先在项目列表选择一个项目进入(如果没有可用的项目，<strong>一种方式是找管理员分配项目权限</strong>，一种是在左上角点击 <strong>&quot;添加项目&quot;</strong> 新建一个项目），进入项目后可大致看到如下内容：</p>
+<figure data-type="image" tabindex="5"><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g4lvmhjuoxj32ds0gu76z.jpg" alt="image-20190702224455234"></figure>
+<ol>
+<li>接口列表，展示该项目的所有接口名称，并且按照文件夹分类，默认都在公共分类下，也可以自定义添加分类。</li>
+<li>测试集合，用于保存接口运行正常的数据信息和接口状态，便于后续直接使用测试集合中的接口测试。</li>
+<li>添加接口，为项目添加接口，默认在公共分类下，需要指定接口名，请求方式和接口路径，保存后自动添加到接口列表下。</li>
+<li>用于接口数据的导入导出，便于接口数据的迁移归档。</li>
+<li>对项目信息的基本设置，如环境地址，接口路径，Mock 设置等。</li>
+</ol>
+<p>现在我们再来看下一个简单接口的页面展示内容：</p>
+<figure data-type="image" tabindex="6"><img src="http://ww3.sinaimg.cn/large/006tNc79ly1g4lwy0q71qj31ot0u0qbg.jpg" alt="image-20190702233037382"></figure>
+<p>接口信息框内有四个面板可以切换，分别为预览，编辑，运行和高级 Mock，我们在<strong>编辑</strong>面板里可以通过接口的请求方式，请求数据，响应数据，接口描述等信息进行编辑，保存后都会在<strong>预览</strong>面板内清晰展示出来，当需要进行接口测试时就需要在<strong>运行</strong>面板里操作，里面的操作方式跟 Postman 很相似，相信使用过 Postman 的小伙伴应该能很快上手。</p>
+<blockquote>
+<p>注意：使用接口测试服务时，如果是 Chrome 浏览器 ，需安装测试增强插件,官方也提供了下载地址和安装教程。</p>
+</blockquote>
+<p>这里有一个小技巧可以分享下：每次进入接口的运行面板，上次使用请求参数都会被情况，每次都需要重新填写，如果请求接口参数一多就十分繁琐；这里我们可以把测试过的接口通过<strong>保存</strong>按钮加入到测试集合中，后面可以直接在测试集合中找到所记录的接口和有效的请求参数，并且能直接使用。</p>
+<figure data-type="image" tabindex="7"><img src="http://ww3.sinaimg.cn/large/006tNc79gy1g4ni0ohvx0j320i0u0grq.jpg" alt="image-20190704082517792"></figure>
+<p>高级Mock 一栏则是对接口模拟数据的设置，具体用法在后面会详细介绍。</p>
+<p>到这里，YApi 的简单使用介绍完毕，使用 YApi 进行基本的接口测试和维护应该问题不大了，后续介绍 YApi 的更高级用法和最佳实践。</p>
+<h2 id="mock-接口">Mock 接口</h2>
+<p>本节主要描述如何通过 YApi 的 Mock 服务模拟接口的数据。</p>
+<p>首先在接口面板里选择<strong>高级Mock</strong>一栏，选择添加期望来定义所实现模拟的条件和数据。</p>
+<figure data-type="image" tabindex="8"><img src="http://ww4.sinaimg.cn/large/006tNc79gy1g4q58uwh2nj31mk0jy76i.jpg" alt="image-20190706151957646"></figure>
+<p>添加期望时分为两部分，一块是填关于期望的基本信息，如名称，白名单IP，匹配的参数等，另外一块就是期望模拟的响应数据，如响应头信息，响应体数据，甚至响应时间也可以设置。</p>
+<p>在这里设置响应体数据时，除了使用常规的固定假数据返回，我们可以使用 Mock.js 支持的语法，让假数据随机生成，例如下方的示例模拟一个简单的响应数据： <code>code</code>  为 200 或者 400，<code>message</code> 为重复出现 1~10次的测试两次。</p>
+<p><img src="http://ww1.sinaimg.cn/large/006tNc79gy1g4q5frzj1mj31440n0jsr.jpg" alt="image-20190706152640885">保存之后，我们对接口的 Mock 地址*（预览面板中 Mock 地址链接）*进行多次请求就随机获得以下的请求数据：</p>
+<pre><code class="language-json">{
+&quot;code&quot;: 200,
+&quot;message&quot;: &quot;测试测试测试&quot;,
+&quot;data&quot;: {}
+}
+
+{
+&quot;code&quot;: 400,
+&quot;message&quot;: &quot;测试测试测试测试测试测试&quot;,
+&quot;data&quot;: {}
+}
+</code></pre>
+<p>当然除了这样方式定义模拟数据的生成，还有许多丰富的形式，具体的数据定义语法可以参见 Mock.js 提供的官方示例：<a href="http://mockjs.com/examples.html">http://mockjs.com/examples.html</a></p>
+<h2 id="最佳实践">最佳实践</h2>
+<h3 id="接口分级">接口分级</h3>
+<p>YApi 以项目为单位进行接口的管理，基于此还提供的分类的功能，新生成的接口都有默认的分类为公共分类。</p>
+<p>为了能更清晰，更直观有效地管理接口，我们可以从项目的业务角度出发，在 YApi 中将业务转换为接口分类，每个业务分类下管理各自相关的接口，而一些公共接口统一在公共分类中管理，比如下图所示，将订单业务和支付业务分别生成各自的接口分类，在该分类下都是跟自身业务紧密相关的接口。</p>
+<figure data-type="image" tabindex="9"><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g4q7fnyv61j30k40u6ta8.jpg" alt="image-20190706163548920"></figure>
+<h3 id="环境配置">环境配置</h3>
+<p>当日常开发中一个程序都会有不同环境要求，接口请求的地址也不同，为了便于多环境接口的切换，我们可以在项目设置的<code>环境配置</code> 一项添加该项目下接口的多个环境，并且这里增加了全局 <code>header</code>，项目中设置全局 <code>header</code> 值。</p>
+<figure data-type="image" tabindex="10"><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g4q62cpsssj31fm0u041f.jpg" alt="image-20190706154822768"></figure>
+<p>除此之外，用户可以在每个环境配置项中定义 <code>global</code> 全局变量的名称和值, 接口运行或者测试集合里面可以通过 <code>{{ global.Name }}</code> 来访问当前环境变量下定义的全局变量。</p>
+<p>设置保存之后，我们就可以在该项目下任一接口的运行面板里切换环境地址，如下<img src="http://ww4.sinaimg.cn/large/006tNc79ly1g4q677juu6j314w0jcada.jpg" alt="image-20190706155307573"></p>
+<h3 id="请求配置">请求配置</h3>
+<p>YApi 支持 <code>pre-script</code>, 就是通过自定义 js 脚本方式改变请求的参数和返回的 Response 数据，而这个功能可以满足当我们请求和响应的数据都是通过加密处理的使用场景。</p>
+<p>请求配置的位置同样在项目设置里，针对项目的所有接口生效，对外提供公共变量 <code>context</code> 对象包含的请求和响应的所有数据 。</p>
+<figure data-type="image" tabindex="11"><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g4q730zf86j30u011ljvq.jpg" alt="image-20190706162341811"></figure>
+<p>如果我们需要在一组接口的 URL 上增加一个公共的 <code>token</code> 参数，可以在 Pre-request Script 里写如下脚本：</p>
+<pre><code class="language-javascript">context.query.token = context.utils.md5(context.pathname + 'salt');
+</code></pre>
+<p>而如果我们需要修改响应数据中某个值进行修改，可以填写如下 Pre-response Script 里写如下脚本：</p>
+<pre><code class="language-javascript">context.responseData.key = newValue;
+</code></pre>
+<p>另外，全局变量 <code>context</code> 还提供的工具函数，让我们使用：</p>
+<pre><code class="language-javascript">context.utils = {
+  _         //underscore 函数,详细 API 查看官网 http://underscorejs.org/
+  CryptoJS  // crypto-js（v1.3.21+新增）, 详细用法看 https://github.com/brix/crypto-js
+  base64    //转换字符串为 base64 编码
+  md5       //转换字符串为 md5 编码
+  sha1      //转换字符串为 sha1 编码
+  sha224    //转换字符串为 sha224 编码
+  sha256    //转换字符串为 sha256 编码
+  sha384    //转换字符串为 sha384 编码
+  sha512    //转换字符串为 sha512 编码
+  unbase64  //转换 base64 编码为字符串  
+  axios     // axios 库，可用于 api 请求，官网 https://github.com/axios/axios
+}
+</code></pre>
+<p>结合工具函数，我们就可以进行接口请求时和响应时的加密处理，例如我们需要对响应体中 <code>data</code> 数据进行 Base64 加密，可以定义如下脚本：</p>
+<pre><code class="language-javascript">context.responseData.data = context.utils.base64(context.responseData.data);
+</code></pre>
+<h3 id="数据导入导出">数据导入导出</h3>
+<p>在数据管理上，YApi 提供了简单而有效的方案来支持数据的导入和导出。</p>
+<p>YApi 支持快速导入其他格式的接口数据，以方便快速添加接口。YApi 目前支持 Postman, Swagger, JSON 数据导入等，方便我们进行接口数据迁移。</p>
+<p>而当我们需要把接口分享给非项目组内的人时，我们可以使用数据导出功能，以 HTML，Markdown 或者 JSON 的格式导出项目接口文档数据，只需要将文档文件给到他人就行了。</p>
+<figure data-type="image" tabindex="12"><img src="http://ww4.sinaimg.cn/large/006tNc79ly1g4q914qmuij318w0u0djh.jpg" alt="image-20190706173104594"></figure>
+<h2 id="结语">结语</h2>
+<p>本文主要记录了开源接口管理平台- YApi的基本介绍和使用。面对多人多项目的团队开发，有个统一的管理平台来进行接口管理和维护，还是很有必要的，也是很基础的，对项目的开发效率提高也有很大帮助，如果你有正在使用 YApi 有更好的使用姿势或者遇到什么坑，更或者在使用过其他的接口管理平台框架，也欢迎留言交流讨论😃。</p>
+<figure data-type="image" tabindex="13"><img src="http://ww2.sinaimg.cn/large/006tNc79gy1g4qez0uahnj30p00dwwm4.jpg" alt="公众号扫码"></figure>
+<h2 id="参考">参考</h2>
+<ul>
+<li>
+<p>YApi 安装部署：https://hellosean1025.github.io/yapi/devops/index.html</p>
+</li>
+<li>
+<p>使用 Docker 构建 Yapi： https://www.jianshu.com/p/a97d2efb23c5</p>
+</li>
+<li>
+<p>YApi 官方教程：https://hellosean1025.github.io/yapi/documents/index.html</p>
+</li>
+<li>
+<p>Github 地址：https://github.com/YMFE/yapi</p>
+</li>
+<li>
+<p>mock.js那点事(上)：https://juejin.im/post/58f9eec0a22b9d00658ee4b7</p>
+</li>
+</ul>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://wrcj12138aaa.github.io//tag/TAZvLWZOvg">
+            <span class="flex-auto">开发工具</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://wrcj12138aaa.github.io//post/20190714-掌握设计模式之装饰者模式">
+                <h3 class="post-title">
+                  <i class="remixicon-arrow-left-line"></i>
+                  掌握设计模式之装饰者模式
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://wrcj12138aaa.github.io//post/20190630-掌握设计模式之适配器模式">
+                <h3 class="post-title">
+                  掌握设计模式之适配器模式
+                  <i class="remixicon-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+
+      </div>
+    </div>
+
+    <script src="https://wrcj12138aaa.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>

@@ -1,0 +1,676 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>闻人的技术博客</title>
+<meta name="description" content="做一个终生学习者" />
+<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1570431429087">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://wrcj12138aaa.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="闻人的技术博客 - Atom Feed" href="https://wrcj12138aaa.github.io//atom.xml">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://wrcj12138aaa.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://wrcj12138aaa.github.io//images/avatar.png?v=1570431429087" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">闻人的技术博客</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#1-%E5%89%8D%E8%A8%80">1. 前言</a></li>
+<li><a href="#2-%E6%AD%A3%E6%96%87">2. 正文</a>
+<ul>
+<li><a href="#21-%E5%AE%89%E8%A3%85-lombok">2.1 安装 Lombok</a></li>
+<li><a href="#22-gettersetter">2.2 @Getter/@Setter</a></li>
+<li><a href="#23-nonnull">2.3 @NonNull</a></li>
+<li><a href="#24-%E6%9E%84%E9%80%A0%E5%99%A8%E6%B3%A8%E8%A7%A3">2.4 构造器注解</a></li>
+<li><a href="#25-tostring">2.5 @ToString</a></li>
+<li><a href="#26-equalsandhashcode">2.6 @EqualsAndHashCode</a></li>
+<li><a href="#27-datavalue">2.7 @Data/@Value</a></li>
+<li><a href="#28-builder">2.8 @Builder</a></li>
+<li><a href="#29-%E6%97%A5%E5%BF%97%E6%B3%A8%E8%A7%A3">2.9 日志注解</a></li>
+<li><a href="#210-cleanup">2.10 @Cleanup</a></li>
+<li><a href="#211-sneakythrows">2.11 @SneakyThrows</a></li>
+<li><a href="#212-valvar">2.12 val/var</a></li>
+</ul>
+</li>
+<li><a href="#3-%E7%BB%93%E8%AF%AD">3. 结语</a></li>
+<li><a href="#4-%E5%8F%82%E8%80%83">4. 参考</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="remixicon-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"></div>
+    <a class="rss" href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">Java必备之Lombok必知必会</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2019-06-02 / 15 min read
+        </div>
+        
+        <div class="post-content yue">
+          <figure data-type="image" tabindex="1"><img src="http://ww3.sinaimg.cn/large/006tNc79ly1g3n874zfg1j30p00dwq4y.jpg" alt="公众号"></figure>
+<h2 id="1-前言">1. 前言</h2>
+<p>在目前众多编程语言中，Java 语言的表现还是抢眼，不论是企业级服务端开发，还是 Andorid 客户端开发，都是作为开发语言的首选，甚至在大数据开发领域，Java 语言也能占有一席之地，如 Hadoop，Spark，Flink 大数据等。而作为已经诞生 24 年的 Java 相比其他语言来说，编写起来略显得冗长和复杂，而为了能极大提升 Java 开发的效率和代码简洁性，一个 Java 库 Lombok 就这样诞生了。</p>
+<p>首先我们还是看下 Lombok 官方的描述：</p>
+<blockquote>
+<p><a href="https://projectlombok.org/">Project Lombok</a> is a java library that automatically plugs into your editor and build tools, spicing up your java. Never write another getter or equals method again, with one annotation your class has a fully featured builder, Automate your logging variables, and much more.</p>
+</blockquote>
+<p>从上面的说明里我们可以初步认识一下 Lombok，一个作用于编辑器和构建工具的 Java 库，可以对编写的 Java 代码进行增强，比如说不用再写实体类的 <code>getter</code> 方法，<code>equals</code> 方法而是自动生成，自动生成日志输出变量等等，减少重复模板的代码。大概知道了 Lombok 框架提供的功能后，接下来我们就真正使用一下 Lombok 提供的注解，看它是如何帮助我们提高书写 Java 代码的简洁性和效率的。</p>
+<p>本文主要内容涉及如下：</p>
+<ul>
+<li>Lombok 插件安装</li>
+<li>Lombok 常用注解使用</li>
+</ul>
+<blockquote>
+<p>示例项目：https://github.com/wrcj12138aaa/lombok-actions</p>
+<ul>
+<li>lombok-actions：</li>
+</ul>
+<p>环境支持：</p>
+<ul>
+<li>JDK 8</li>
+<li>SpringBoot 2.1.4</li>
+<li>Maven 3.6.0</li>
+</ul>
+</blockquote>
+<h2 id="2-正文">2. 正文</h2>
+<h3 id="21-安装-lombok">2.1 安装 Lombok</h3>
+<p>使用 Lombok 之前我们先要在所使用的 IDE 中进行集成安装，这里以 IDEA 为例，安装步骤十分简单：</p>
+<ul>
+<li>
+<p>前往 <code>File -&gt; Settings -&gt; Plugin -&gt; Marketplace</code> ，搜索 Lombok</p>
+<figure data-type="image" tabindex="2"><img src="http://ww4.sinaimg.cn/large/006tNc79ly1g3n864zsuhj31120jo40x.jpg" alt="image-20190602193640583"></figure>
+</li>
+<li>
+<p>选择搜索结果 Lombok ，点击 Install 安装。</p>
+</li>
+<li>
+<p>安装完成后重启即可。</p>
+</li>
+</ul>
+<blockquote>
+<p>基于 Eclipse 的 Lombok 插件安装方法这里就不详细描述了，官方也给了对应的文档说明：https://projectlombok.org/setup/eclipse</p>
+</blockquote>
+<p>在 IDE 安装了 Lombok 插件后，我们就可以在 <code>pom.xml</code> 文件中添加 Lombok 的依赖进行使用了。</p>
+<pre><code class="language-xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;
+    &lt;artifactId&gt;lombok&lt;/artifactId&gt;
+    &lt;version&gt;1.18.8&lt;/version&gt;
+    &lt;scope&gt;provided&lt;/scope&gt;
+&lt;/dependency&gt;
+</code></pre>
+<blockquote>
+<p>注意：<code>pom</code> 依赖设置 scope 为 <code>provided</code>，是为了让 Lombok 库不被打包进程序。</p>
+</blockquote>
+<h3 id="22-gettersetter">2.2 @Getter/@Setter</h3>
+<p>通常我们编写实体类无论多少个字段，都要为其提供 <code>getter</code> 和 <code>setter</code> 方法，如下面的示例类 <code>User.java</code></p>
+<figure data-type="image" tabindex="3"><img src="http://ww4.sinaimg.cn/large/006tNc79ly1g3n866pq0qj30bn0ghjs7.jpg" alt="image-20190602195006495"></figure>
+<p>我们常会遇到这种情况：某个实体类新增和修改某个字段，我们都需要单独处理调整，十分麻烦并且重复。这时候如果我们使用 Lombok 提供 <code>@Getter/@Setter</code> 注解就能帮我们省去 getter 和 <code>setter</code> 方法的维护，由 Lombok 对 <code>User</code> 类自动生成 <code>getter</code> 和 <code>setter</code> 方法,两者最终的字节码时一样的，而我们现在在 <code>User.java</code> 上编写的代码仅仅 7 行即可：</p>
+<pre><code class="language-java">@Getter
+@Setter
+public class User {
+    private Integer id;
+    private String username;
+    private String password;
+}
+</code></pre>
+<p>然后用测试类 <code>UserTests.java</code> 测试结果如下：</p>
+<pre><code class="language-java">public class UserTests {
+    @Test
+    public void test() {
+        User user = new User();
+        user.setUsername(&quot;one&quot;);
+        user.setPassword(&quot;zxc123&quot;);
+        Assert.assertEquals(user.getUsername(), &quot;one&quot;);
+        Assert.assertEquals(user.getPassword(), &quot;zxc123&quot;);
+    }
+}
+</code></pre>
+<p><code>@Getter/@Setter</code> 注解不仅可以使用在类上，还可以使用在字段上，这样就是表示针对该字段自动生成 <code>getter /setter</code> 方法。</p>
+<pre><code class="language-java">@Getter
+@Setter
+private String password;
+</code></pre>
+<p>这里该注解使用在类上，还是在字段上的区别就是，如果注解使用在类上，只针对这个类的非静态字段有效。</p>
+<p>需要注意的一点是：如果 <code>@Getter</code> 注解修饰了 <code>boolean</code> 类型的变量，其生成的 <code>getter</code> 方法签名是 <code>isXXX</code> 形式，而不是 <code>getXXX</code>形式。</p>
+<p>除此之外，<code>@Getter/@Setter</code> 还提供访问权限控制的属性 <code>lombok.AccessLevel value()</code>, 默认为 <code>PUBLIC</code>，而其他选值都是枚举类型：<code>MODULE, PROTECTED, PACKAGE, PRIVATE</code></p>
+<h3 id="23-nonnull">2.3 @NonNull</h3>
+<p>顾名思义，<code>@NonNull</code> 用于标记类中不能允许为 <code>null</code> 的字段或者参数上，任何使用该字段的地方都生成空指针判断代码，若<code>@NonNull</code> 标记的变量为 null，抛出 <code>NullPointException</code> （NPE） 异常。比如下面示例代码：</p>
+<pre><code class="language-java">public class User {
+    private Integer id;
+    private String username;
+    private String password;
+
+    public User(Integer id, @NonNull String username, @NonNull String password) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+    }
+}
+</code></pre>
+<p>使用了 <code>@NonNull</code> 注解之后我们可以获取到反编译之后的字节码信息如下，这就是 Lombok 给我们生成的最终的代码：</p>
+<pre><code class="language-java">public class User {
+    private Integer id;
+    private String username;
+    private String password;
+
+    public User(Integer id, @NonNull String username, @NonNull String password) {
+        if (username == null) {
+            throw new NullPointerException(&quot;username is marked non-null but is null&quot;);
+        } else if (password == null) {
+            throw new NullPointerException(&quot;password is marked non-null but is null&quot;);
+        } else {
+            this.id = id;
+            this.username = username;
+            this.password = password;
+        }
+    }
+}
+</code></pre>
+<h3 id="24-构造器注解">2.4 构造器注解</h3>
+<p>再来看下平时经常会遇见的场景，为实体类编写构造器方法，Lombok 提供了三个不同构造器注解 <code>@NoArgsConstructor / @AllArgsConstructor / @RequiredArgsConstructor</code> 分别对用不同构造器方法处理方式，接下来就一一描述。</p>
+<ul>
+<li>
+<p><code>@NoArgsConstructor</code> 为实体类生成无参的构造器方法</p>
+</li>
+<li>
+<p><code>@AllArgsConstructor</code> 为实体类生成除了<code>static</code>修饰的字段之外带有各参数的构造器方法。</p>
+</li>
+<li>
+<p><code>@RequiredArgsConstructor</code> 为实体类生成指定字段的构造器方法，而这些字段需要被 <code>final</code>，或者 <code>@NonNull</code> 修饰。</p>
+<pre><code>```java
+  @RequiredArgsConstructor
+  public class User3 {
+      private Integer id;
+      private final String username;
+      @NonNull
+      private String password;
+  }
+```
+</code></pre>
+<p>编译成功后使用构造器方法时就是这样的效果：<code>User3 user3 = new User3(&quot;user3&quot;, &quot;zxc123&quot;);</code></p>
+</li>
+</ul>
+<h3 id="25-tostring">2.5 @ToString</h3>
+<p><code>@ToString</code> 会给类自动生成易阅读的 <code>toString</code> 方法，带上有所非静态字段的属性名称和值，这样就十分便于我们日常开发时进行的打印操作。</p>
+<pre><code class="language-java">@Getter
+@Setter
+@AllArgsConstructor
+@ToString
+public class User2 {
+    private Integer id;
+    private String username;
+    private String password;
+}
+</code></pre>
+<p>最终编译成字节码，反编译结果如下：</p>
+<pre><code class="language-java">public class User2 {
+    private Integer id;
+    private String username;
+    private String password;
+    // 省去 setter/getter
+    public String toString() {
+        return &quot;User2(id=&quot; + this.getId() + &quot;, username=&quot; + this.getUsername() + &quot;, password=&quot; + this.getPassword() + &quot;)&quot;;
+    }
+}
+</code></pre>
+<p>另外，注解 <code>@ToString</code> 还支持设置指定哪些字段的日志化输出，哪些不需要出现在 <code>toString</code> 方法中。使用属性 <code>@ToString.Exclude</code>排除不需要在 <code>toString</code> 中出现的字段，使用 <code>@ToString.Include</code>标记需要出现在 <code>toString</code> 中的字段，具体用法可参见示例：</p>
+<pre><code class="language-java">@Getter
+@Setter
+@AllArgsConstructor
+@ToString
+public class User2 {
+    @ToString.Exclude
+    private Integer id;
+    @ToString.Include
+    private String username;
+    @ToString.Include
+    private String password;
+}
+</code></pre>
+<p>打印 <code>User2</code> 对象的日志效果就是：<code>User2(username=user2, password=zcx123)</code>。</p>
+<h3 id="26-equalsandhashcode">2.6 @EqualsAndHashCode</h3>
+<p><code>@EqualsAndHashCode</code> 注解就是用于根据类所拥有的非静态字段自动重写 <code>equals</code> 方法和 hashCode 方法,方便我们用于对象间的比较。类似 <code>@ToString</code>，<code>@EqualsAndHashCode</code> 还可以使用需要作为比较的字段和排除不需要比较的字段，具体用法可以看如下示例：</p>
+<pre><code class="language-java">@Getter
+@Setter
+@AllArgsConstructor
+@ToString
+@EqualsAndHashCode
+public class User4 {
+    @EqualsAndHashCode.Exclude
+    private Integer id;
+    @EqualsAndHashCode.Include
+    private String username;
+    @EqualsAndHashCode.Exclude
+    private String password;
+}
+</code></pre>
+<p>写完实体类代码，我们编写测试方法试下效果：</p>
+<pre><code class="language-java">@Test
+public void testEqual() {
+    User4 user4 = new User4(1, &quot;user4&quot;, &quot;zxc&quot;);
+    User4 user4_2 = new User4(1, &quot;user4&quot;, &quot;123&quot;);
+    Assert.assertEquals(user4, user4_2); // ture
+}
+</code></pre>
+<h3 id="27-datavalue">2.7 @Data/@Value</h3>
+<p><code>@Data/@Value</code> 注解，提供了更综合的生成代码功能，等价于下面几个注解</p>
+<pre><code class="language-java">@Getter
+@Setter
+@AllArgsConstructor
+@ToString
+@EqualsAndHashCode
+</code></pre>
+<p>两个注解都只能使用在类上，与 <code>@Data</code> 不同， <code>@Value</code> 用来修饰不可变的类上。一般实体类没有特别的限制的话，通常可以直接使用 <code>@Data</code> 注解修饰。</p>
+<h3 id="28-builder">2.8 @Builder</h3>
+<p><code>@Builder</code> 是一个非常强大的注解，提供了一种基于建造者模式的构建对象的 API。使用 <code>@Builder</code> 注解为给我们的实体类自动生成 <code>builder()</code> 方法，并且直接根据字段名称方法进行字段赋值，最后使用 <code>build()</code>方法构建出一个实体对象。</p>
+<pre><code class="language-java">@Data
+@Builder
+public class User6 {
+    private Integer id;
+    private String username;
+    private String password;
+}
+
+@Test
+public void testBuilder() {
+    User6 user6 = User6.builder().id(1).username(&quot;user6&quot;).password(&quot;zxc123&quot;).build();
+    log.warn(&quot;testLog: {}&quot;, user6); // User6(id=1, username=user6, password=zxc123)
+}
+</code></pre>
+<p>需要注意的是 <code>@Builder</code> 不支持父类字段的生成，当一个实体类存在父类时，<code>@Builder</code> 只能生成当前类的字段构建方法。若需要用到父类的字段方法时， Lombok 提供了新的注解 <code>@SuperBuilder</code> 来应对这种情况，下面是 <code>@SuperBuilder</code> 注解的使用方式:</p>
+<pre><code class="language-java">@SuperBuilder
+@Getter
+@Setter
+public class Parent {
+   private int id;
+   private String name;
+}
+
+@SuperBuilder
+@Data
+public class Child extends Parent {
+    private String childName;
+}
+</code></pre>
+<p>调用示例:</p>
+<pre><code class="language-java">Child child = Child.builder().id(1).name(&quot;父类名称&quot;).childName(&quot;子类名称&quot;).build();
+System.out.println(child.getId());
+</code></pre>
+<blockquote>
+<p>由于 Lombok Plugin 还未更新支持<code>@SuperBuilder</code>，所以以上写法在 IDEA 下还会提示编译错误，无法找到 <code>builder()</code>方法。</p>
+</blockquote>
+<p>也可以参考此文方式去处理继承的情况：https://reinhard.codes/2015/09/16/lomboks-builder-annotation-and-inheritance/</p>
+<h3 id="29-日志注解">2.9 日志注解</h3>
+<p>正对程序类中常见不同框架 Logger 对象，Lombok 也提供了注解，来自动生成 Logger 对象，实现优雅地输出日志,只需要在类上使用日志注解如 <code>@Log</code>。当然 Lombok 支持了多个日志框架，并且提供对应的注解如下：</p>
+<ul>
+<li>
+<p><code>@CommonsLog</code> 等价效果： <code>private static final org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(LogExample.class);</code></p>
+</li>
+<li>
+<p><code>@Flogger</code> 等价效果： <code>private static final com.google.common.flogger.FluentLogger log = com.google.common.flogger.FluentLogger.forEnclosingClass();</code></p>
+</li>
+<li>
+<p><code>@JBosLog</code> 等价效果： <code>private static final org.jboss.logging.Logger log = org.jboss.logging.Logger.getLogger(LogExample.class);</code></p>
+</li>
+<li>
+<p><code>@Log</code> 等价效果： <code>private static final java.util.logging.Logger log = java.util.logging.Logger.getLogger(LogExample.class.getName());</code></p>
+</li>
+<li>
+<p><code>@Log4j</code> 等价效果： <code>private static final org.apache.log4j.Logger log = org.apache.log4j.Logger.getLogger(LogExample.class);</code></p>
+</li>
+<li>
+<p><code>@Log4j2</code> 等价效果： <code>private static final org.apache.logging.log4j.Logger log = org.apache.logging.log4j.LogManager.getLogger(LogExample.class);</code></p>
+</li>
+<li>
+<p><code>@Slf4j</code> 等价效果： <code>private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(LogExample.class);</code></p>
+</li>
+<li>
+<p><code>@XSlf4j</code> 等价效果: <code>private static final org.slf4j.ext.XLogger log = org.slf4j.ext.XLoggerFactory.getXLogger(LogExample.class);</code></p>
+</li>
+</ul>
+<p>下面代码使用 <code>@Slf4j</code> 注解进行日志输出：</p>
+<pre><code class="language-java">@Slf4j
+public class UserTests {
+    // ....
+    @Test
+    public void testLog() {
+        User5 user5 = new User5();
+        user5.setId(1);
+        user5.setUsername(&quot;user5&quot;);
+        user5.setPassword(&quot;zxc123&quot;);
+        log.warn(&quot;testLog: {}&quot;, user5);
+   // 21:57:15.488 [main] WARN com.one.learn.lombok.UserTests - testLog: User5(id=1, username=user5, password=zxc123)
+    }
+}
+</code></pre>
+<h3 id="210-cleanup">2.10 @Cleanup</h3>
+<p><code>@Cleanup</code> 用于标记需要释放清理操作的资源对象变量，如 <code>FileInputStream</code>, <code>FileOutputStream</code> 等，标记之后资源对象使用完毕后，就会被自动关闭和清理，实际上这里 Lombok 实现效果与 Java7 特性 <code>try with resource</code> 一样, 为我们屏蔽了关闭资源的模板代码，下面给出 <code>@Cleanup</code> 的使用示例：</p>
+<pre><code class="language-java">public class CleanupExample {
+    public static void main(String[] args) throws IOException {
+        @Cleanup InputStream in = new FileInputStream(args[0]);
+        @Cleanup OutputStream out = new FileOutputStream(args[1]);
+        byte[] b = new byte[10000];
+        while (true) {
+            int r = in.read(b);
+            if (r == -1) {
+                break;
+            }
+            out.write(b, 0, r);
+        }
+    }
+}
+</code></pre>
+<p>将 <code>CleanupExample.java</code> 编译生成的字节码反编译可以得到如下结果：</p>
+<pre><code class="language-java">public class CleanupExample {
+    //...
+    public static void main(String[] args) throws IOException {
+        FileInputStream in = new FileInputStream(args[0]);
+        try {
+            FileOutputStream out = new FileOutputStream(args[1]);
+            try {
+                byte[] b = new byte[10000];
+                while(true) {
+                    int r = in.read(b);
+                    if (r == -1) {
+                        return;
+                    }
+                    out.write(b, 0, r);
+                }
+            } finally {
+                if (Collections.singletonList(out).get(0) != null) {
+                    out.close();
+                }
+            }
+        } finally {
+            if (Collections.singletonList(in).get(0) != null) {
+                in.close();
+            }
+        }
+    }
+}
+</code></pre>
+<h3 id="211-sneakythrows">2.11 @SneakyThrows</h3>
+<p><code>@SneakyThrows</code> 主要用于在没有 <code>throws</code> 关键字的情况下，隐蔽地抛出受检查异常，为我们平常开发中需要异常抛出时省去的 <code>throw</code> 操作,下面为使用 <code>@SneakyThrows</code> 的示例代码：</p>
+<pre><code class="language-java">public class SneakyThrowsExample implements Runnable {
+  @SneakyThrows(UnsupportedEncodingException.class)
+  public String utf8ToString(byte[] bytes) {
+    return new String(bytes, &quot;UTF-8&quot;);
+  }
+
+  @SneakyThrows
+  public void run() {
+    throw new Throwable();
+  }
+}
+</code></pre>
+<p>最终编译成字节码，反编译结果如下：</p>
+<pre><code class="language-java">public class SneakyThrowsExample implements Runnable {
+    public SneakyThrowsExample() {
+    }
+
+    public String utf8ToString(byte[] bytes) {
+        try {
+            return new String(bytes, &quot;UTF-8&quot;);
+        } catch (UnsupportedEncodingException var3) {
+            throw var3;
+        }
+    }
+
+    public void run() {
+        try {
+            throw new Throwable();
+        } catch (Throwable var2) {
+            throw var2;
+        }
+    }
+}
+</code></pre>
+<h3 id="212-valvar">2.12 val/var</h3>
+<p><code>val/var</code> 用于局部变量的修饰，有了这注解修饰后，变量的类型就会自动通过等号右边的表达式推断出来，这个功能借鉴于许多编程语言的自动类型推断的特性。 而 <code>val</code> 与 <code>var</code> 的区别在于， <code>val</code> 用于修饰不可变变量，var 修饰可变变量。当 <code>val</code> 修饰的变量被重新赋值时，编译器就会提示异常：<code>Error: java: 无法为最终变量 X 分配值</code>。实际用法也比较简单，可参考下面代码：</p>
+<pre><code class="language-java">@Slf4j
+public class VarValExample {
+    public static void main(String[] args) {
+        val text = &quot;abc&quot;;
+        // text = &quot;1&quot;; // Error: java: 无法为最终变量 text 分配值`。
+        var num = 1;
+        num = 2;
+        log.info(&quot;text:{},num:{}&quot;, text, num); // text:abc,num:2
+    }
+}
+</code></pre>
+<h2 id="3-结语">3. 结语</h2>
+<p>到这里我们学习了 Lombok 的近乎 80% 常用的注解，应用在我们的日常开发中已经是绰绰有余了，开始尝试 使用 Lombok 吧，慢慢地就会感受下效率的提升以及代码的优雅。</p>
+<p>如果读完觉得有收获的话，欢迎点【好看】，点击文章头图，扫码关注【闻人的技术博客】😄😄😄。</p>
+<h2 id="4-参考">4. 参考</h2>
+<ul>
+<li>
+<p>Project Lombok: https://projectlombok.org/</p>
+</li>
+<li>
+<p>https://stackabuse.com/project-lombok-reducing-java-boilerplate-code/</p>
+</li>
+<li>
+<p>Project Lombok: Reducing Java Boilerplate Code：https://stackabuse.com/project-lombok-reducing-java-boilerplate-code/</p>
+</li>
+<li>
+<p>Lombok 常用注解的使用总结：https://segmentfault.com/a/1190000017459838</p>
+</li>
+<li>
+<p>Lombok @Builder with Inheritance: https://www.baeldung.com/lombok-builder</p>
+</li>
+<li>
+<p><a href="http://blog.didispace.com/java-lombok-1/">http://blog.didispace.com/java-lombok-1/</a></p>
+</li>
+<li>
+<p>Lombok’s @Builder annotation and inheritance： https://reinhard.codes/2015/09/16/lomboks-builder-annotation-and-inheritance/</p>
+</li>
+<li>
+<p>Lombok：让 JAVA 代码更优雅：http://blog.didispace.com/java-lombok-1/</p>
+</li>
+<li>
+<p>Lombok 简介：https://mp.weixin.qq.com/s?__biz=MzIzNzYxNDYzNw==&amp;mid=2247483823&amp;idx=1&amp;sn=ff10d5050e4c95d6724520a14a4f9528&amp;chksm=e8c4a2eddfb32bfb8c9a11bca96461cfeb695914156c4ca1a06b52c99d80b9e6b7fe57eb817c&amp;mpshare=1&amp;scene=1&amp;srcid=0601m7OKSdsR9JlWGGJPm3dX%23rd</p>
+</li>
+</ul>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://wrcj12138aaa.github.io//tag/llypUO29A">
+            <span class="flex-auto">Java</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://wrcj12138aaa.github.io//post/20190609-Java 开发看的 Scala 入门">
+                <h3 class="post-title">
+                  <i class="remixicon-arrow-left-line"></i>
+                  Java开发看的Scala入门
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://wrcj12138aaa.github.io//post/20190526-一起学Spring之事件处理">
+                <h3 class="post-title">
+                  一起学Spring之事件处理
+                  <i class="remixicon-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+
+      </div>
+    </div>
+
+    <script src="https://wrcj12138aaa.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>

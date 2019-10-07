@@ -1,0 +1,512 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>闻人的技术博客</title>
+<meta name="description" content="做一个终生学习者" />
+<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1570431429087">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://wrcj12138aaa.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="闻人的技术博客 - Atom Feed" href="https://wrcj12138aaa.github.io//atom.xml">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://wrcj12138aaa.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://wrcj12138aaa.github.io//images/avatar.png?v=1570431429087" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">闻人的技术博客</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#1-%E5%89%8D%E8%A8%80">1 前言</a></li>
+<li><a href="#21-spring-%E6%A0%87%E5%87%86%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86">2.1 Spring 标准事件处理</a>
+<ul>
+<li><a href="#211-%E6%B3%A8%E8%A7%A3%E9%A9%B1%E5%8A%A8%E7%9A%84%E4%BA%8B%E4%BB%B6%E4%BE%A6%E5%90%AC">2.1.1 注解驱动的事件侦听</a>
+<ul>
+<li><a href="#%E5%BC%95%E5%85%A5-eventlistener">引入 @EventListener</a></li>
+<li><a href="#%E4%BA%8B%E4%BB%B6%E7%9A%84%E4%BC%A0%E9%80%92">事件的传递</a></li>
+</ul>
+</li>
+<li><a href="#212-%E4%BE%A6%E5%90%AC%E5%99%A8%E4%BC%98%E5%85%88%E7%BA%A7">2.1.2 侦听器优先级</a></li>
+</ul>
+</li>
+<li><a href="#22-%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BA%8B%E4%BB%B6">2.2 自定义事件</a>
+<ul>
+<li><a href="#221-%E8%87%AA%E5%AE%9A%E4%B9%89-application-event">2.2.1 自定义 <strong>Application</strong> Event</a></li>
+<li><a href="#222-%E8%87%AA%E5%AE%9A%E4%B9%89-publisher">2.2.2 自定义 Publisher</a></li>
+<li><a href="#223-%E8%87%AA%E5%AE%9A%E4%B9%89-listener">2.2.3 自定义 Listener</a></li>
+<li><a href="#224-%E5%BC%82%E6%AD%A5%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86">2.2.4 异步事件处理</a></li>
+</ul>
+</li>
+<li><a href="#23-spring-boot-%E4%BA%8B%E4%BB%B6%E4%B8%8E%E4%BE%A6%E5%90%AC">2.3 Spring Boot 事件与侦听</a></li>
+<li><a href="#3-%E7%BB%93%E8%AF%AD">3 结语</a></li>
+<li><a href="#4-%E5%8F%82%E8%80%83">4 参考</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="remixicon-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"></div>
+    <a class="rss" href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">一起学Spring之事件处理</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2019-05-26 / 12 min read
+        </div>
+        
+        <div class="post-content yue">
+          <figure data-type="image" tabindex="1"><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g3eyykzk1lj30p00dwq4p.jpg" alt=""></figure>
+<h2 id="1-前言">1 前言</h2>
+<p>本次我们来学习 Spring 的事件处理，源于实际工作中遇到的项目需求：在一个支付的下单场景中，当用户真正支付成功，服务器收到回调后就需要及时更新订单数据状态来保证数据一致。通常做法就是在回调方法里直接使用订单服务更新数据， 然而这样实现上两个模块出现了紧密耦合，如果订单更新的操作需要进行调整，那么在支付回调的代码块中也需要被修改。</p>
+<p>为了避免这样情况发生，我采用了 Spring 事件发布与订阅的方式来实现接受支付回调，发布通知更新订单状态的这个功能，让订单服务更新数据的操作只依赖特定的事件，而不用关心具体的触发对象，也能达到代码复用的目的。</p>
+<p>本文主要内容涉及如下：</p>
+<ul>
+<li>Spring 标准事件的处理</li>
+<li>Spring 中自定义事件扩展实现</li>
+<li>Spring Boot 的事件与侦听</li>
+</ul>
+<blockquote>
+<p>示例项目：</p>
+<ul>
+<li>spring-events：https://github.com/wrcj12138aaa/spring-events</li>
+</ul>
+<p>环境支持：</p>
+<ul>
+<li>JDK 8</li>
+<li>SpringBoot 2.1.4</li>
+<li>Maven 3.6.0</li>
+</ul>
+</blockquote>
+<h2 id="21-spring-标准事件处理">2.1 Spring 标准事件处理</h2>
+<p>Spring 程序启动过程中会有不同的事件通知，内置标准的事件有 5 种：</p>
+<table>
+<thead>
+<tr>
+<th>事件</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ContextRefreshedEvent</code></td>
+<td>当 Spring 容器处于初始化或者刷新阶段时就会触发，事实是<code>ApplicationContext#refresh()</code>方法被调用时，此时容器已经初始化完毕。</td>
+</tr>
+<tr>
+<td><code>ContextStartedEvent</code></td>
+<td>当调用 <code>ConfigurableApplicationContext</code>接口下的 <code>start()</code> 方法时触发，表示 Spring 容器启动；通常用于 Spring 容器显式关闭后的启动。</td>
+</tr>
+<tr>
+<td><code>ContextStoppedEvent</code></td>
+<td>当调用 <code>ConfigurableApplicationContext</code> 接口下的 <code>stop()</code>方法时触发，表示 Spring 容器停止，此时能通过其 <code>start()</code>方法重启容器。</td>
+</tr>
+<tr>
+<td><code>ContextClosedEvent</code></td>
+<td>当 Spring 容器调用 <code>ApplicationContext#close()</code> 方法时触发，此时 Spring 的 beans 都已经被销毁，并且不会重新启动和刷新。</td>
+</tr>
+<tr>
+<td><code>RequestHandledEvent</code></td>
+<td>只在 Web 应用下存在，当接受到 HTTP 请求并处理后就会触发，实际传递的默认实现类 <code>ServletRequestHandledEvent</code></td>
+</tr>
+</tbody>
+</table>
+<p>通常情况下，Spring 程序都会接收到 <code>ContextRefreshedEvent</code>, <code>ContextClosedEvent</code> 事件的通知。</p>
+<p>知道了 Spring 自带的事件有哪些后，我们就可以针对一些场景利用事件机制来实现需求，比如说在 Spring 启动后初始化资源，加载缓存数据到内存中等等。代码实现也很简单，如下：</p>
+<pre><code class="language-java">@Component
+public class InitalizeListener implements ApplicationListener&lt;ContextRefreshedEvent&gt; {
+    @Override
+    public void onApplicationEvent(ContextRefreshedEvent event) {
+        ApplicationContext applicationContext = event.getApplicationContext();
+        System.out.println(&quot;Spring 容器启动  获取到 Application Context 对象 &quot; + applicationContext);
+        //TODO 初始化资源，加载缓存数据到内存
+    }
+}
+
+// 启动 Spring 程序后，控制台出现如下日志：
+// Spring 容器启动  获取到 Application Context 对象 org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@6950ed69, started on Sun May 26 12:19:33 CST 2019
+</code></pre>
+<p>我们可以从 <code>ContextRefreshedEvent</code> 事件中获取到 <code>ApplicationContext</code> 对象，从而获取 Spring 容器中任何已经装载的 Bean 进行自定义的操作。</p>
+<h3 id="211-注解驱动的事件侦听">2.1.1 注解驱动的事件侦听</h3>
+<h4 id="引入-eventlistener">引入 @EventListener</h4>
+<p>从 Spring 4.2 开始，Spring 又提供了更灵活的，注解驱动的事件侦听处理方式。主要使用 <code>@EventListener</code> 注解来标记需要监听程序事件的方法，底层由 <code>EventListenerMethodProcessor</code> 对象将标注的方法转为成 <code>ApplicationListener</code> 实例。</p>
+<p>为什么说这个注解方式侦听事件更加灵活呢，我们可以先看下 <code>@EventListener</code> 注解的源码。</p>
+<pre><code class="language-java">@Target({ElementType.METHOD, ElementType.ANNOTATION_TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+public @interface EventListener {
+
+    @AliasFor(&quot;classes&quot;)
+    Class&lt;?&gt;[] value() default {};
+
+    @AliasFor(&quot;value&quot;)
+    Class&lt;?&gt;[] classes() default {};
+
+    String condition() default &quot;&quot;;
+}
+</code></pre>
+<p><code>EventListener</code> 注解主要有两个属性：<code>classes</code> 和 <code>condition</code>。 <code>classes</code> 表示所需要侦听的事件类型，是个数组，所以允许在单个方法里进行多个不同事件的侦听，以此做到复用的效果；<code>condition</code> 顾名思义就是用来定义所侦听事件是否处理的前置条件，这里需要注意的是使用 <a href="https://docs.spring.io/spring/docs/4.3.10.RELEASE/spring-framework-reference/html/expressions.html">Spring Expression Language</a> （SpEL）定义条件，比如 <code>#root.event</code> 表示了具体的 <code>ApplicationEvent</code>对象, 使用方式可以参考下方示例代码：</p>
+<pre><code class="language-java">@Component
+public class AnnotationListener {
+
+    @EventListener(value = {ContextRefreshedEvent.class, ContextStartedEvent.class, ContextStoppedEvent.class, ContextClosedEvent.class, RequestHandledEvent.class}, condition = &quot;#root.event != null&quot;)
+    public void listener(ApplicationEvent event) {
+        System.out.println(Thread.currentThread() + &quot; 接收到 Spring 事件：&quot; + event);
+    }
+}
+</code></pre>
+<p>这里需要注意的是，注解 <code>@EventListener</code>标记的方法参数类型不再限制必须是 <code>ApplicationEvent</code>的子类，没有实现 <code>ApplicationListener</code> 接口方法的约束，也让事件变得更加灵活。</p>
+<h4 id="事件的传递">事件的传递</h4>
+<p>另外，使用 <code>@EventListener</code> 还支持事件的传递，将当前事件处理好的结果封装后发布一个新的事件，实现的方式就是让侦听方法返回非 <code>null</code> 值时，就视为事件继续传播,如下面的示例代码：</p>
+<pre><code class="language-java">@Component
+@Order(2)
+public class CustomEventListener {
+    @EventListener
+    public SecondCustomEvent listener(CustomEvent event) {
+        System.out.println(Thread.currentThread() + &quot;CustomEventListener接受到自定义事件：&quot; + event);
+        return new SecondCustomEvent(this, event.toString());
+    }
+}
+</code></pre>
+<h3 id="212-侦听器优先级">2.1.2 侦听器优先级</h3>
+<p>当我们对单个事件存在多个侦听器时，可能会由于需求想要指定侦听器的执行顺序，这一点 Spring 也为我们考虑到了，只要使用 <code>@Order</code>注解声明监听类或者监听方法即可，根据 <code>@Order</code> 的 <code>value</code> 大小来确定执行顺序，越小越优先执行。</p>
+<pre><code class="language-java">@EventListener
+@Order(42)
+public void processEvent(Event event) {
+}
+</code></pre>
+<h2 id="22-自定义事件">2.2 自定义事件</h2>
+<p>在了解如何侦听 Spring 事件后，我们再来看下如何实现自定义的事件发布和侦听处理。首先就要介绍 Spring 中事件机制的三类对象：</p>
+<ul>
+<li><code>Event</code> ：所需要触发的具体事件对象，通常扩展 <code>ApplicationEvent</code> 实现。</li>
+<li><code>Publisher</code>：触发事件发布的对象，Spring 提供了 <code>ApplicationEventPublisher</code> 对象供我们使用，使用它的<code>publishEvent()</code> 方法就可以发布该事件。</li>
+<li><code>Listener</code>：侦听事件发生的对象，也就是接受回调进行处理的地方，可以通过 实现 <code>ApplicationListener</code>接口，或者使用前面提到的 <code>@EventListener</code>注解声明为事件的侦听器。</li>
+</ul>
+<p>接下来就简单看下，一个自定义事件从声明到发布订阅的代码示例。</p>
+<h3 id="221-自定义-application-event">2.2.1 自定义 <strong>Application</strong> Event</h3>
+<pre><code class="language-java">public class CustomEvent extends ApplicationEvent {
+    private String data;
+
+    public CustomEvent(Object source, String data) {
+        super(source);
+        this.data = data;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    @Override
+    public String toString() {
+        return &quot;CustomEvent{&quot; +
+                &quot;data='&quot; + data + '\'' +
+                &quot;, source=&quot; + source +
+                '}';
+    }
+}
+</code></pre>
+<h3 id="222-自定义-publisher">2.2.2 自定义 Publisher</h3>
+<pre><code class="language-java">@Component
+public class CustomeEventPublisher implements ApplicationEventPublisherAware {
+    private ApplicationEventPublisher applicationEventPublisher;
+
+    @Override
+    public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
+        this.applicationEventPublisher = applicationEventPublisher;
+    }
+
+    public void publishEvent(String message) {
+        System.out.println(&quot;开始发布事件 &quot; + message);
+        applicationEventPublisher.publishEvent(new CustomEvent(this, message));
+    }
+}
+</code></pre>
+<p>创建事件发布者有两种方式，一种是使用 <code>@Autowire</code>注解，通过 Spring 容器的依赖注入功能，直接注入 <code>ApplicationEventPublisher</code>对象，或者实现 <code>ApplicationEventPublisherAware</code>接口，在 Spring 容器启动时由 Spring 设置。</p>
+<h3 id="223-自定义-listener">2.2.3 自定义 Listener</h3>
+<pre><code class="language-java">@Component
+public class CustomEventListener implements ApplicationListener&lt;CustomEvent&gt; {
+    @Override
+    public void onApplicationEvent(CustomEvent event) {
+        System.out.println(Thread.currentThread()+&quot;CustomEventListener接受到自定义事件：&quot; + event);
+    }
+}
+</code></pre>
+<p>定义事件侦听器时，我们通过实现 <code>ApplicationListener</code> 接口，指定了事件类型，这样在处理事件时就不避免了事件类型判断和转换。</p>
+<p>关于事件侦听器还需要注意的一点是：Spring 事件处理默认是同步的，这一点在 Spring 官方文档所有提及，我们先解读下官方描述：</p>
+<blockquote>
+<p>You can register as many event listeners as you wish, but note that, by default, event listeners receive events synchronously. This means that the <code>publishEvent()</code> method blocks until all listeners have finished processing the event. One advantage of this synchronous and single-threaded approach is that, when a listener receives an event, it operates inside the transaction context of the publisher if a transaction context is available. If another strategy for event publication becomes necessary, See the javadoc for Spring’s <a href="https://docs.spring.io/spring-framework/docs/5.1.6.RELEASE/javadoc-api/org/springframework/context/event/ApplicationEventMulticaster.html"><code>ApplicationEventMulticaster</code></a> interface.</p>
+</blockquote>
+<p>当发布者执行了 <code>publishEvent()</code> 方法，默认情况下方法所在的当前线程就会阻塞，直到所有该事件相关的侦听器将事件处理完成。而这样采用单线程同步方式处理的好处主要是可以保证让事件处理与发布者处于同一个事务环境里，如果多个侦听方法涉及到数据库操作时保证了事务的存在。</p>
+<h3 id="224-异步事件处理">2.2.4 异步事件处理</h3>
+<p>当然 Spring 也提供了异步侦听事件的方式，这里主要依赖 <code>ApplicationEventMulticaster</code>接口,可以理解为广播方式，为了便于使用，Spring 提供一个简易的实现类 <code>SimpleApplicationEventMulticaster</code> 供我们直接使用,只需要将这个对象注册到 Spring 容器即可。</p>
+<pre><code class="language-java">@Configuration
+public class AsynchronousSpringEventsConfig {
+    @Bean(name = &quot;applicationEventMulticaster&quot;)
+    public ApplicationEventMulticaster simpleApplicationEventMulticaster() {
+        SimpleApplicationEventMulticaster eventMulticaster
+                = new SimpleApplicationEventMulticaster();
+        eventMulticaster.setTaskExecutor(new SimpleAsyncTaskExecutor());
+        return eventMulticaster;
+    }
+}
+</code></pre>
+<p>这里 <code>ApplicationEventMulticaster</code>Bean 需要一个 <code>java.util.concurrent.Executor</code>对象作为事件处理的线程池，我们直接使用 Spring 提供的 <code>SimpleAsyncTaskExecutor</code> 对象，每次事件处理都会有创建新的线程。</p>
+<blockquote>
+<p>注意：注册 <code>ApplicationEventMulticaster</code> Bean 后所有的事件侦听处理都会变成的异步形式，如果需要针对特定的事件侦听采用异步方式的话：可以使用 <code>@EventListener</code> 和<code>@Async</code> 组合来实现。(前提是 Spring 程序启用 <code>@EnableAsync</code> 注解)</p>
+</blockquote>
+<p>这里再提下使用异步方式处理事件的利弊，好处在于让我们程序在处理事件更加有效率，而缺点就在针对异常发生的处理更加复杂，需要借助 <code>AsyncUncaughtExceptionHandler</code>接口实现。</p>
+<h2 id="23-spring-boot-事件与侦听">2.3 Spring Boot 事件与侦听</h2>
+<p>学习了那么多 Spring Framework 的事件处理相关的内容后，我们现在再来看看在 Spring Boot 里事件处理有什么需要额外学习的地方。还是一样，我们先从 Spring Boot 官方文档下手，在 Spring Boot</p>
+<p>Doc 的 <a href="https://docs.spring.io/spring-boot/docs/2.1.4.RELEASE/reference/htmlsingle/#boot-features-application-events-and-listeners">23.5 Application Events and Listeners</a> 一节中提到了事件处理:</p>
+<blockquote>
+<ul>
+<li>
+<p>In addition to the usual Spring Framework events, such as <a href="https://docs.spring.io/spring/docs/5.1.6.RELEASE/javadoc-api/org/springframework/context/event/ContextRefreshedEvent.html"><code>ContextRefreshedEvent</code></a>, a <code>SpringApplication</code> sends some additional application events.</p>
+</li>
+<li>
+<p>Application events are sent by using Spring Framework’s event publishing mechanism.</p>
+</li>
+</ul>
+</blockquote>
+<p>可以看出 Spring Boot 仍是基于 Spring Framework 的事件发布机制去处理事件，只是在此基础了新增了几个 <code>SpringApplication</code> 相关的事件：</p>
+<ul>
+<li><code>ApplicationStartingEvent</code> ：程序启动时发生。</li>
+<li><code>ApplicationEnvironmentPreparedEvent</code> ：程序中<code>Environment</code> 对象就绪时发生。</li>
+<li><code>ApplicationPreparedEvent</code> ：程序启动后但还未刷新时发生。</li>
+<li><code>ApplicationStartedEvent</code>：程序启动刷新后发生。</li>
+<li><code>ApplicationReadyEvent</code>：程序启动完毕，等待请求时发生。</li>
+<li><code>ApplicationFailedEvent</code> ：程序启动过程中出现异常时发生。</li>
+</ul>
+<p>并且它们的执行顺序也是列举书顺序依次触发的。</p>
+<p>另外，需要注意的是，当需要触发的事件是在 <code>ApplicationContext</code> 创建之前发生时，用 <code>@Bean</code> 方式注册的侦听器就不会执行，而 Spring Boot 为此提供了三种方式来处理这种情况：</p>
+<ol>
+<li>
+<p>使用 <code>SpringApplication.addListeners(…)</code> 方法注册侦听器</p>
+<pre><code class="language-java">SpringApplication springApplication = new SpringApplication(SpringEventsApplication.class);
+springApplication.addListeners(new NormalCustomEventListener());
+springApplication.run(args);
+</code></pre>
+</li>
+<li>
+<p>使用 <code>SpringApplicationBuilder.listeners(…)</code>方法注册侦听器</p>
+<pre><code class="language-java">SpringApplicationBuilder springApplicationBuilder = new SpringApplicationBuilder(SpringEventsApplication.class);
+springApplicationBuilder.listeners(new NormalCustomEventListener()).run(args);
+</code></pre>
+</li>
+<li>
+<p>在应用资源文件夹新建文件 <code>META-INF/spring.factories</code>，并将 <code>org.springframework.context.ApplicationListener</code> 作为键，指定需要注册的侦听器类，如:</p>
+<pre><code class="language-properties">org.springframework.context.ApplicationListener=\
+com.one.learn.spring.springevents.listener.NormalSecondCutomEventListener
+</code></pre>
+</li>
+</ol>
+<h2 id="3-结语">3 结语</h2>
+<p>到这里我们学习 Spring 事件相关的内容就结束了，了解 Spring 的事件机制，并适当应用，可以为我们完成程序的某个功能时提供一个更加解耦，灵活的实现方式。</p>
+<p>如果读完觉得有收获的话，欢迎点【好看】，点击文章头图，扫码关注【闻人的技术博客】😄😄😄。</p>
+<h2 id="4-参考">4 参考</h2>
+<p>Spring context-functionality-events: https://docs.spring.io/spring/docs/5.1.6.RELEASE/spring-framework-reference/core.html#context-functionality-events</p>
+<p>Spring boot-features-application-events-and-listeners：https://docs.spring.io/spring-boot/docs/2.1.4.RELEASE/reference/htmlsingle/#boot-features-application-events-and-listeners</p>
+<p>Spring Expression Language: https://docs.spring.io/spring/docs/4.3.10.RELEASE/spring-framework-reference/html/expressions.html</p>
+<p>SpringEvents: https://www.baeldung.com/spring-events</p>
+<p>Better application events in Spring Framework 4.2: https://spring.io/blog/2015/02/11/better-application-events-in-spring-framework-4-2</p>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://wrcj12138aaa.github.io//tag/VSWLYuWEZR">
+            <span class="flex-auto">Spring</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://wrcj12138aaa.github.io//post/20190602-Java必备之Lombok必知必会">
+                <h3 class="post-title">
+                  <i class="remixicon-arrow-left-line"></i>
+                  Java必备之Lombok必知必会
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://wrcj12138aaa.github.io//post/20190518-一起学 Spring 之异常处理">
+                <h3 class="post-title">
+                  一起学 Spring 之 异常处理
+                  <i class="remixicon-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+
+      </div>
+    </div>
+
+    <script src="https://wrcj12138aaa.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>

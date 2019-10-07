@@ -1,0 +1,411 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>闻人的技术博客</title>
+<meta name="description" content="做一个终生学习者" />
+<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1570431429087">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://wrcj12138aaa.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="闻人的技术博客 - Atom Feed" href="https://wrcj12138aaa.github.io//atom.xml">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://wrcj12138aaa.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://wrcj12138aaa.github.io//images/avatar.png?v=1570431429087" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">闻人的技术博客</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#spring-boot-profiles-%E7%AE%80%E4%BB%8B">Spring Boot Profiles 简介</a></li>
+<li><a href="#spring-profiles-%E5%AE%9E%E6%88%98">Spring  Profiles 实战</a>
+<ul>
+<li><a href="#xml-%E9%85%8D%E7%BD%AE%E5%AE%9A%E4%B9%89-profile">XML 配置定义 Profile</a></li>
+<li><a href="#%E6%B3%A8%E8%A7%A3-profiles-%E5%AE%9A%E4%B9%89profile">注解 @Profiles 定义Profile</a></li>
+</ul>
+</li>
+<li><a href="#spring-boot-profile-%E5%AE%9E%E6%88%98">Spring Boot Profile 实战</a>
+<ul>
+<li><a href="#spring-boot-api-%E6%96%B9%E5%BC%8F%E6%BF%80%E6%B4%BB-profile">Spring Boot API 方式激活 Profile</a></li>
+</ul>
+</li>
+<li><a href="#%E6%80%BB%E7%BB%93">总结</a></li>
+<li><a href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81">示例代码</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99">参考资料</a></li>
+<li><a href="#%E6%8E%A8%E8%8D%90%E9%98%85%E8%AF%BB">推荐阅读</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="remixicon-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"></div>
+    <a class="rss" href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">一文掌握 Spring Boot Profiles</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2019-07-28 / 9 min read
+        </div>
+        
+        <div class="post-content yue">
+          <h2 id="spring-boot-profiles-简介">Spring Boot Profiles 简介</h2>
+<p>Profile 的概念其实很早在 Spring Framework 就有了，在  Spring Framework 3.1 版本引入了注解 <code>@Profile</code> 和 <code>Environment</code> 环境配置的抽象，只是在 Spring Boot 框架里再进一步将 Profiles 功能进行扩展，使它也成为了 Spring Boot 特性之一，为此单独在 <a href="https://docs.spring.io/spring-boot/docs/2.1.4.RELEASE/reference/htmlsingle/#boot-features-profiles">官方文档 25. Profiles</a> 一节里介绍，文档里把 Spring Boot Profiles 也叫做 Spring Profiles。</p>
+<p>那么什么又是 Spring Profiles，为什么需要它呢？我们先来看一个熟悉的场景：我们平常项目开发，经常需要根据不同的环境进行配置的修改，比如在本地开发会加载本机的配置和开发环境数据库，在测试服务器上部署时就需要加载测试环境配置和数据库，同样地，当项目发布生产环境时就需要设置为生产环境配置和数据库。这样一来，不同的环境部署都需要额外的处理来调整环境的配置，维护起来十分繁琐，还容易出错。</p>
+<p>为了解决不同环境需要的配置切换问题，Spring Profiles 提供了一种方式允许我们指定在特定环境下只加载对应的程序配置，每一种环境配置对应一个 Profile，只有当前 Profile 处于激活状态时，才会将该 Profile 所对应的配置和 Bean 加载到 Spring 程序中。</p>
+<blockquote>
+<p><strong>Spring Profiles 就是针对应用程序，不同环境需要不同配置加载的一种解决方案。</strong></p>
+</blockquote>
+<p>当然 Spring 允许多个 Profile 处于激活状态，比如将应用配置进行细分成数据库配置，消息中间件配置，缓存配置等，都为各自在不同环境定义不同的 Profile 名称，在需要激活环境对应配置时，指定多个 Profile。</p>
+<h2 id="spring-profiles-实战">Spring  Profiles 实战</h2>
+<p>在 Spring 程序中有两种方式使用 Profiles：XML 配置和注解 <code>@Profile</code>。</p>
+<h3 id="xml-配置定义-profile">XML 配置定义 Profile</h3>
+<p>虽然现在 XML 配置方式使用越来越少，还是简单介绍下，通常我们在 XML 文件定义的 Bean 时都有根元素 <code>&lt;beans&gt;</code>，在 <code>beans</code> 元素上多了一个属性 <code>profile</code> 可以指定环境，比如说把开发环境的 <code>profile</code> 定义为 dev,生产环境的 <code>profile</code> 为：prod。</p>
+<pre><code class="language-xml">&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+       xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd&quot;&gt;
+    &lt;beans profile=&quot;dev&quot;&gt;
+        &lt;bean id=&quot;city&quot; class=&quot;com.one.learn.springboot.actions.profiles.domain.City&quot;&gt;
+            &lt;constructor-arg name=&quot;name&quot; type=&quot;java.lang.String&quot; value=&quot;beijing&quot;/&gt;
+            &lt;constructor-arg name=&quot;postCode&quot; type=&quot;java.lang.String&quot; value=&quot;100000&quot;/&gt;
+        &lt;/bean&gt;
+    &lt;/beans&gt;
+    &lt;beans profile=&quot;prod&quot;&gt;
+        &lt;bean id=&quot;city&quot; class=&quot;com.one.learn.springboot.actions.profiles.domain.City&quot;&gt;
+            &lt;constructor-arg name=&quot;name&quot; type=&quot;java.lang.String&quot; value=&quot;shanghai&quot;/&gt;
+            &lt;constructor-arg name=&quot;postCode&quot; type=&quot;java.lang.String&quot; value=&quot;200000&quot;/&gt;
+        &lt;/bean&gt;
+    &lt;/beans&gt;
+&lt;/beans&gt;
+</code></pre>
+<p>需要注意的是：必须要使用 Spring XML Beans Schema 版本为 4.0 以上才支持 <code>profile</code> 属性。在 XML 文件定义之后我们只需要激活指定的 Profile 名称就可以加载对应的 Bean 对象了，在 Spring 程序中激活的方式主要两种：</p>
+<ul>
+<li>
+<p>Java API 方式，获取当前 Spring 容器的环境 Bean，设置 <code>activeProfiles</code> 属性，然后启动容器</p>
+<pre><code class="language-java">AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
+ctx.getEnvironment().setActiveProfiles(&quot;dev&quot;);
+ctx.refresh();
+</code></pre>
+</li>
+</ul>
+<ul>
+<li>采用启动参数方式指定，固定格式：<code>-Dspring.profiles.active=dev</code></li>
+</ul>
+<h3 id="注解-profiles-定义profile">注解 @Profiles 定义Profile</h3>
+<p>使用注解定义 Profile 也比较简单，引入一个新的注解  <code>@Profiles</code>，通常 <code>@Profiles</code> 配合 <code>@Component</code> 或者 <code>@Configuration</code> 使用，如下示例：</p>
+<pre><code class="language-java">// DevConfig.java
+@Configuration
+@Profile(&quot;dev&quot;)
+public class DevConfig {
+    @Bean
+    public City city() {
+        return new City(&quot;beijing&quot;, &quot;100000&quot;);
+    }
+}
+
+// ProdConfig.java
+@Configuration
+@Profile(&quot;prod&quot;)
+public class ProdConfig {
+    @Bean
+    public City city() {
+        return new City(&quot;shanghai&quot;, &quot;200000&quot;);
+    }
+}
+</code></pre>
+<p>激活 Profile 的方式都是一样的，只要指定 Profile 被激活，其对应的 Bean 才会加载。在 Spring 程序中 Profile 默认为 default，当前我们可以通过 <code>spring.profiles.default</code> 配置方式或者 <code>org.springframework.core.env.AbstractEnvironment#setDefaultProfiles</code> API 方式修改。</p>
+<h2 id="spring-boot-profile-实战">Spring Boot Profile 实战</h2>
+<p>好了，现在我们再来看下在 Spring Boot 程序中如何使用 Profile。通常一个 Spring Boot 程序的配置文件为 yml 或者 properties 格式，由于 yml 格式文件的结构简洁已读，备受官方推崇，我们可以看下如何在 <code>application.yml</code> 定义 Profile 和对应的配置。</p>
+<pre><code class="language-yml">server:
+  port: 9000
+---
+spring:
+  profiles: dev
+app:
+  enviroment: dev
+---
+spring:
+  profiles: prod
+app:
+  enviroment: prod
+</code></pre>
+<p>与yml格式文件不同，正对不同的 Profile，无法在一个 properties 文件设置，官方采用命名形式为  <code>applications-${profile}.properties</code> 格式来达成一样的效果。为了看到指定 Profile 激活后的效果，我们可以通过下方的一个例子实践下，通过激活不同 Profile 启动程序，来请求 <code>/enviroment</code> 接口来获取当前的环境配置变量。</p>
+<pre><code class="language-java">@RestController()
+public class ProfileController {
+    @Value(&quot;${app.enviroment}&quot;)
+    private String enviroment;
+
+    @GetMapping(&quot;/enviroment&quot;)
+    public String enviroment() {
+        return &quot;current app enviroment is &quot; + enviroment;
+    }
+}
+</code></pre>
+<p>这里我们介绍如何在配置文件中激活 Profile 的方式：在 <code>application.yml</code> 顶部添加如下配置，表明当前所激活的 Profile 为 prod，当然也可以前文介绍的启动参数方式激活：</p>
+<pre><code class="language-yaml">spring:
+  profiles:
+    active: prod
+</code></pre>
+<p>然后启动程序，curl 方式访问 <code>http://localhost:9000/enviroment</code> 可以得到如下输出结果：</p>
+<pre><code class="language-shell">curl http://localhost:9000/enviroment
+current app enviroment is prod
+</code></pre>
+<p>同样如果上述的 <code>active</code> 属性值指定为 <code>dev</code>，将输出内容： <code>current app enviroment is prod</code>。</p>
+<h3 id="spring-boot-api-方式激活-profile">Spring Boot API 方式激活 Profile</h3>
+<p>在 Spring Boot 程序除了上述的方法来激活 Profile 外，还可以使用 Spring Boot API 方式激活：</p>
+<ul>
+<li>
+<p><code>SpringApplication.setAdditionalProfiles(…)</code></p>
+<pre><code class="language-java">SpringApplication springApplication = new SpringApplication(SpringbootActionsProfilesApplication.class);
+springApplication.setAdditionalProfiles(&quot;prod&quot;);
+springApplication.run(args);
+</code></pre>
+</li>
+<li>
+<p><code>SpringApplicationBuilder.profiles(...)</code></p>
+<pre><code class="language-java">SpringApplicationBuilder builder = new SpringApplicationBuilder(SpringbootActionsProfilesApplication.class);
+builder.profiles(&quot;prod&quot;).run(args);
+</code></pre>
+</li>
+</ul>
+<p>但需要注意的是使用 Spring Boot API 的话需要在程序启动前设置，也就是 <code>SpringApplication.run(...)</code> 方法执行前，否则没有效果。 采用 Spring Boot API 方式添加的Profile 是属于额外激活的 Profile，也就是说覆盖掉外部传入的 <code>spring.profiles.activie</code> 指定的 Profile。</p>
+<h2 id="总结">总结</h2>
+<p>在Spring Boot 程序中，我们通常定义不同 Profiles 的配置文件，如 <code>application-{profile}.properties</code>，在默认配置文件 <code>application.properties</code> 中设置 <code>spring.profiles.active=dev</code> ，用于平常开发使用，当需要打包上传服务器时，通过启动参数方式 <code>jar -Dspring.profiles.active=prod xxx.jar</code>  指定对应环境的 Profile 启动程序来加载对应环境的配置，到这里我们学习如何通过 Spring Boot Profiles 特性来应对程序中不同环境配置的切换，希望对工作中的小伙伴有所帮助，也欢迎小伙伴留言分享应对项目环境配置区分加载的实践心得。若有错误或者不当之处，还请大家批评指正，一起学习交流。</p>
+<blockquote>
+<p>下篇文章将通过解读源码的方式具体讲解 Spring Boot Profiles 实现原理，敬请关注期待。</p>
+</blockquote>
+<figure data-type="image" tabindex="1"><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g5fq7eonnaj30p00dwahn.jpg" alt=""></figure>
+<h2 id="示例代码">示例代码</h2>
+<p>本文示例代码可以通过下面仓库地址获取：</p>
+<ul>
+<li>springboot-actions-profiles：https://github.com/wrcj12138aaa/springboot-actions-profiles</li>
+</ul>
+<p>环境支持：</p>
+<ul>
+<li>JDK 8</li>
+<li>SpringBoot 2.1.6</li>
+<li>Maven 3.6.0</li>
+</ul>
+<h2 id="参考资料">参考资料</h2>
+<ul>
+<li>How to use profiles in Spring Boot Application：http://1t.click/yUj</li>
+<li>Spring Boot Doc：http://1t.click/yUh</li>
+<li>Spring Doc：http://1t.click/yUg</li>
+<li>全面解读 Spring Profile 的用法：https://mp.weixin.qq.com/s/0iWpGefYPqnkly4EmaPAug</li>
+</ul>
+<h2 id="推荐阅读">推荐阅读</h2>
+<ul>
+<li>
+<p><a href="https://mp.weixin.qq.com/s/-t2hrrVMBpPmVEzDcC8J5w">如何优雅关闭 Spring Boot 应用</a></p>
+</li>
+<li>
+<p><a href="https://mp.weixin.qq.com/s/2qkNz4VPgnixXjaVYUkvvQ">Java 之 Lombok 必知必会</a></p>
+</li>
+<li>
+<p><a href="https://mp.weixin.qq.com/s/vS36glyNoD26GL6cbNs5Qw">Java 微服务新生代之 Nacos</a></p>
+</li>
+<li>
+<p><a href="https://mp.weixin.qq.com/s/GCjXZybnweHNKi0dVpR46A">Java 微服务新生代 Nacos 之配置管理</a></p>
+</li>
+<li>
+<p><a href="https://mp.weixin.qq.com/s/9zrcG2Bar6VkcS8brRIx2g">掌握设计模式之适配器模式</a></p>
+</li>
+</ul>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://wrcj12138aaa.github.io//tag/rqKiVec5UR">
+            <span class="flex-auto">SpringBoot</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://wrcj12138aaa.github.io//post/20190813-SpringBootProfiles源码解析">
+                <h3 class="post-title">
+                  <i class="remixicon-arrow-left-line"></i>
+                  Spring Boot Profiles 源码解析
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://wrcj12138aaa.github.io//post/20190721-如何优雅关闭 Spring Boot 应用">
+                <h3 class="post-title">
+                  如何优雅关闭 Spring Boot 应用
+                  <i class="remixicon-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+
+      </div>
+    </div>
+
+    <script src="https://wrcj12138aaa.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>
