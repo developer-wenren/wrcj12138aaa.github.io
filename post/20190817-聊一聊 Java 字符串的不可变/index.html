@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>聊一聊 Java 字符串的不可变 | 闻人的技术博客</title>
+<meta name="description" content="做一个终生学习者">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1570431263888">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://wrcj12138aaa.github.io//styles/main.css">
+
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+  </head>
+  <body>
+  
+    <nav class="navbar border fixed split-nav">
+  <div class="nav-brand">
+    <h3><a href="https://wrcj12138aaa.github.io/">闻人的技术博客</a></h3>
+  </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+      <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+        
+          <li>
+            
+              <a href="/" class="menu">
+                首页
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/archives" class="menu">
+                归档
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/tags" class="menu">
+                标签
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/about" class="menu">
+                关于
+              </a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div id="top" class="row site">
+      <div class="sm-12 md-8 col">
+        <div class="paper">
+          <article class="article">
+            <h1>聊一聊 Java 字符串的不可变</h1>
+            <p class="article-meta">
+              2019-08-17
+              
+                <a href="https://wrcj12138aaa.github.io//tag/llypUO29A" class="badge warning">
+                  Java
+                </a>
+              
+            </p>
+            
+            <div class="post-content">
+              <h2 id="前言">前言</h2>
+<p>在 Java 开发中 String （字符串）对象是我们使用最频繁的对象，也是很重要的对象。正是使用得如此频繁，String 在实现层面上不断进行优化，从 Java6 到 Java7，再到 Java9 的新实现 ，都是为了提升 String 对象的性能，而其中不变的是 String 所生俱来的特性：不可变。本文主要聊一聊 String 的不可变，以及为什么存在的。</p>
+<h2 id="什么是-string-的不可变">什么是 String 的不可变</h2>
+<p>首先我们先来看下什么是不可变对象：<strong>一旦对象被创建并初始化后，内部的状态数据就会保持不变</strong>。查看 JDK 源码中的 String 类，可以看到类本身被 final 修饰，并且内部的大部分属性都是 final 修饰的，除了字段 hash 是通过字符串内容计算并缓存起来的。这样的行为让 String 类无法被扩展，内部属性也无法被修改。</p>
+<p>接着我们再来用画图的形式来说明下 String 的不可变性。</p>
+<p>通常我们初始化字符串都是以下形式：<img src="http://ww4.sinaimg.cn/large/006tNc79gy1g6449rba87j311s03wwei.jpg" alt=""></p>
+<p>String 类型的引用变量 <code>a</code> 保留了一个字符串对象 <code>string</code> 的引用，就如同下图所示，箭头则表示了变量 <code>a</code> 与真正 String 对象的引用关系。</p>
+<figure data-type="image" tabindex="1"><img src="http://ww3.sinaimg.cn/large/006tNc79gy1g63x04p4ofj30vi0g20uc.jpg" alt=""></figure>
+<figure data-type="image" tabindex="2"><img src="http://ww1.sinaimg.cn/large/006tNc79gy1g644ac50eyj311s03wjrc.jpg" alt=""></figure>
+<p>再通过上述代码，我们将变量 <code>a</code> 赋值给变量 <code>b</code> ，变量 <code>b</code> 也存储了字符串对象 <code>string</code>的引用，它们指向的是同一个对象。</p>
+<figure data-type="image" tabindex="3"><img src="http://ww4.sinaimg.cn/large/006tNc79gy1g63x8m4y36j30we0gsjt9.jpg" alt=""></figure>
+<p>当我们尝试对变量 <code>a</code> 重新赋值，看下对变量 <code>b</code> 会不会有影响呢</p>
+<figure data-type="image" tabindex="4"><img src="http://ww1.sinaimg.cn/large/006tNc79gy1g647oodezyj311s05aq37.jpg" alt=""></figure>
+<p>想必小伙伴一看就知道，打印的结果肯定是 <code>string2,string</code>，同样用画图的方式展示这两个变量与字符串对象的引用关系。</p>
+<figure data-type="image" tabindex="5"><img src="http://ww3.sinaimg.cn/large/006tNc79gy1g63xolkt6rj30w40hgdhz.jpg" alt=""></figure>
+<p>将变量 <code>a</code> 重新赋值后，保存了新的引用，而不是直接在原有的字符串对象上进行数据改变，同时变量 <code>b</code> 仍然存的是对象 <code>string</code> 的引用，变量 <code>a</code> 和 <code>b</code> 两者相互独立，不影响，这也正是说明了 String 对象的不可变。</p>
+<p>在这里初认 Java 的小伙伴还可能会有些困惑：对一个String对象 <code>a</code> 赋值 <code>string</code>，然后又让 <code>a</code> 值为 <code>string2</code>，这个时候a的值变成 了<code>string2</code>, <code>a</code> 的值改变了，为什么还说 String 对象不可变呢。</p>
+<p>其实问题也很简单，这里的 <code>a</code> 只是存储 String 对象的引用，并不是对象本身，<code>a</code> 存储的是指向对象所在内存的地址引用罢了，当第二次赋值时，<code>a</code> 引用指向了对象 <code>string2</code>的内存地址，而对象 <code>string2</code> 是重新创建的，之前的 <code>string</code> 对象仍在内存中，并且由变量 <code>b</code> 引用着。</p>
+<p>除此之外，String 类的返回 String 对象的方法不会改变自身，都是返回一个新的 String 对象来实现，比如 <code>concat</code>，<code>replace</code>，<code>substring</code> 等等。</p>
+<figure data-type="image" tabindex="6"><img src="http://ww1.sinaimg.cn/large/006tNc79gy1g644ankj6uj311s0gegno.jpg" alt=""></figure>
+<h2 id="为什么-string-需要不可变">为什么 String 需要不可变</h2>
+<p>聊完什么是 String 的不可变后，接下来我们再说说 String 为什么需要不可变呢，又有什么好处呢？</p>
+<h3 id="字符串常量池的实现">字符串常量池的实现</h3>
+<p>在Java中，我们通常有两种方式创建字符串对象，一种是通过字符串字面量方式创建，就如上文的代码，另外一种就是通过 new 方式去创建，如 <code>String c = new String(&quot;string 3&quot;);</code> 而两者区别就在于通过字符串字面量的方式创建时，JVM 会现在字符串池中检查字符串内容是否已经存在，如果存在就会直接返回对应的引用，而不是再次分配内存进行创建，如果不存在就会分配在内存中创建的同时将字符串数据缓存在字符串池中，便于重用。正是是由于字符串的不可变，同样的字符串内容可以让 JVM 可以减少额外的内存分配操作，直接使用在字符串池中字符串对象即可，对性能提升和内存节省都大有好处。</p>
+<figure data-type="image" tabindex="7"><img src="http://ww1.sinaimg.cn/large/006tNc79gy1g63zckg8slj30pb0fndgr.jpg" alt=""></figure>
+<p>关于字符串池，这里稍微简单介绍一下：**Java 的字符串池属于 JVM 专门给指定的特殊内存区域，用来存储字符串字面量。**在 Java 7 之前，分配于 JVM 的方法区内，属于常量池的一部分；而 Java7 之后字符串池被移至堆内存进行管理，这样的好处就是允许被 JVM 进行垃圾回收操作，将未被引用的字符串所占内存即使回收，以此节省内存。</p>
+<h3 id="hashcode-缓存">Hashcode 缓存</h3>
+<p>字符串作为基础的数据结构，大量地应用在一些集合容器之中，尤其是一些散列集合，在散列集合中，存放元素都要根据对象的 <code>hashCode()</code> 方法来确定元素的位置。由于字符串  <code>hashcode</code>  属性不会变更，保证了唯一性，使得类似 HashMap，HashSet 等容器才能实现相应的缓存功能。由于 String 的不可变，避免重复计算 <code>hashcode</code>，只有使用缓存的 <code>hashcode</code> 即可，这样一来大大提高了在散列集合中使用 String 对象的性能。</p>
+<h3 id="线程安全">线程安全</h3>
+<p>在多线程中，只有不变的对象和值是线程安全的，可以在多个线程中共享数据。由于 String 天然的不可变，当一个线程”修改“了字符串的值，只会产生一个新的字符串对象，不会对其他线程的访问产生副作用，访问的都是同样的字符串数据，不需要任何同步操作。</p>
+<h3 id="安全性">安全性</h3>
+<p>由于字符串无论在任何 Java 系统中都广泛使用，会用来存储敏感信息，如账号，密码，网络路径，文件处理等场景里，保证字符串 String 类的安全性就尤为重要了，如果字符串是可变的，容易被篡改，那我们就无法保证使用字符串进行操作时，它是安全的，很有可能出现 SQL 注入，访问危险文件等操作。</p>
+<h2 id="结语">结语</h2>
+<p>通过本文，我们介绍 String 是不可变的，可以将它们的引用可以被当作一个普通的变量来使用，无论是在方法间，还是线程间传递它们，都不用担心它指向的实际 String 对象发生改变，并且不可变的特性也在语言层面和程序层面上带了许多好处，在平常编程实践中我们也应该多学习效仿，用  James Gosling，Java之父的话说就是”我会尽可能地使用不可变对象“。</p>
+<figure data-type="image" tabindex="8"><img src="http://ww3.sinaimg.cn/large/006tNc79gy1g645sxo8k0j30p00dw7bh.jpg" alt=""></figure>
+<h2 id="推荐阅读">推荐阅读</h2>
+<ul>
+<li><a href="https://mp.weixin.qq.com/s/TfA8rSwYNpW3YV_N8oLJnw">一文掌握 Spring Boot Profiles</a></li>
+<li><a href="https://mp.weixin.qq.com/s/-t2hrrVMBpPmVEzDcC8J5w">如何优雅关闭 Spring Boot 应用</a></li>
+<li><a href="https://mp.weixin.qq.com/s/uWRnRhH4et-XSD101Xh6LQ">需要接口管理的你了解一下？</a></li>
+<li><a href="https://mp.weixin.qq.com/s/2qkNz4VPgnixXjaVYUkvvQ">Java 之 Lombok 必知必会</a></li>
+<li><a href="https://mp.weixin.qq.com/s/vS36glyNoD26GL6cbNs5Qw">Java 微服务新生代之 Nacos</a></li>
+</ul>
+<h2 id="参考资料">参考资料</h2>
+<ul>
+<li>
+<p>Diagram to show Java String’s Immutability：https://www.programcreek.com/2009/02/diagram-to-show-java-strings-immutability/</p>
+</li>
+<li>
+<p>Why String is Immutable in Java：https://www.baeldung.com/java-string-immutable</p>
+</li>
+<li>
+<p>Guide to Java String Pool：https://www.baeldung.com/java-string-pool</p>
+</li>
+<li>
+<p>Why String is immutable in Java： https://www.programcreek.com/2013/04/why-string-is-immutable-in-java/</p>
+</li>
+<li>
+<p>The Structure of the Java Virtual Machine：https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-2.html</p>
+</li>
+</ul>
+
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://wrcj12138aaa.github.io//post/hello-gridea">
+                <h3 class="post-title">
+                  Hello Gridea
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+      </div>
+
+      <div class="sm-12 md-4 col sidebar">
+  <div class="paper info-container">
+    <img src="https://wrcj12138aaa.github.io//images/avatar.png?v=1570431263888" class="no-responsive avatar">
+    <div class="text-muted">做一个终生学习者</div>
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      最新文章
+    </div>
+    <div class="row">
+      <ul>
+        
+          
+            <li>
+              <a href="https://wrcj12138aaa.github.io//post/arraylist-de-quan-mian-tu-ji">ArrayList的全面突击</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wrcj12138aaa.github.io//post/20190825-掌握 Maven 私服">掌握 Maven 私服</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wrcj12138aaa.github.io//post/20190817-聊一聊 Java 字符串的不可变">聊一聊 Java 字符串的不可变</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wrcj12138aaa.github.io//post/hello-gridea">Hello Gridea</a>
+            </li>
+          
+        
+      </ul>
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      标签列表
+    </div>
+    <div class="row">
+      
+        <a href="https://wrcj12138aaa.github.io//tag/llypUO29A" class="badge warning">
+          Java
+        </a>
+      
+        <a href="https://wrcj12138aaa.github.io//tag/ugGILDm1l" class="badge secondary">
+          Gridea
+        </a>
+      
+    </div>
+  </div>
+  <div class="paper">
+     | <a class="rss" href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+</script>
+
+
+
+
+  </body>
+</html>
