@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>ArrayList的全面突击 | 闻人的技术博客</title>
+<meta name="description" content="做一个终生学习者">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1570430744891">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://wrcj12138aaa.github.io//styles/main.css">
+
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+  </head>
+  <body>
+  
+    <nav class="navbar border fixed split-nav">
+  <div class="nav-brand">
+    <h3><a href="https://wrcj12138aaa.github.io/">闻人的技术博客</a></h3>
+  </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+      <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+        
+          <li>
+            
+              <a href="/" class="menu">
+                首页
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/archives" class="menu">
+                归档
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/tags" class="menu">
+                标签
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/about" class="menu">
+                关于
+              </a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div id="top" class="row site">
+      <div class="sm-12 md-8 col">
+        <div class="paper">
+          <article class="article">
+            <h1>ArrayList的全面突击</h1>
+            <p class="article-meta">
+              2019-09-01
+              
+                <a href="https://wrcj12138aaa.github.io//tag/llypUO29A" class="badge warning">
+                  Java
+                </a>
+              
+            </p>
+            
+            <div class="post-content">
+              <h2 id="前言">前言</h2>
+<p>ArrayList 作为 Java 集合框架中最常用的类，在一般情况下，用它存储集合数据最适合不过。知其然知其所以然，为了能更好地认识和使用 ArrayList，本文将从下面几方面深入理解 ArrayList：</p>
+<ul>
+<li>为什么不用数组，用 ArrayList</li>
+<li>ArrayList 特性的源码分析</li>
+<li>Java 8 后 的 ArrayList</li>
+<li>正确的 ArrayList 使用姿势</li>
+</ul>
+<h2 id="为什么不用数组用-arraylist">为什么不用数组，用 ArrayList。</h2>
+<p>在 Java 语言中，由于普通数组受到长度限制，初始化时就需要限定数组长度，无法根据元素个数动态扩容，并且 Java 数组供开发者调用方法有限，只有取元素，获取数组长度和添加元素一些简单操作。后台在 Java 1.2 引入了强大丰富的 Collection 框架，其中用 ArrayList 来作为可动态扩容数组的列表实现来代替 Array 在日常开发的使用，ArrayList 实现所有列表的操作方法，方便开发者操作列表集合。这里我们先列举下 ArrayList 的主要特点，在后文进行一一阐述：</p>
+<ul>
+<li>
+<p>有序存储元素</p>
+</li>
+<li>
+<p>允许元素重复，允许存储 <code>null</code> 值</p>
+</li>
+<li>
+<p>支持动态扩容</p>
+</li>
+<li>
+<p>非线程安全</p>
+</li>
+</ul>
+<p>为了更好地认识 ArrayList，我们首先来看下从 ArrayList 的UML类图：<img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g6k8bml5xtj318i0lg3zz.jpg" alt=""></p>
+<p>从上图可以看出 ArrayList 继承了 AbstractList, 直接实现了 Cloneable, Serializable，RandomAccess 类型标志接口。</p>
+<ul>
+<li>AbstractList 作为列表的抽象实现，将元素的增删改查都交给了具体的子类去实现，在元素的迭代遍历的操作上提供了默认实现。</li>
+<li>Cloneable 接口的实现，表示了 ArrayList 支持调用 Object 的 <code>clone</code> 方法，实现 ArrayList 的拷贝。</li>
+<li>Serializable 接口实现，说明了 ArrayList 还支持序列化和反序列操作，具有固定的 <code>serialVersionUID</code> 属性值。</li>
+<li>RandomAccess 接口实现，表示 ArrayList 里的元素可以被高效效率的随机访问，以下标数字的方式获取元素。实现 RandomAccess 接口的列表上在遍历时可直接使用普通的<code>for</code>循环方式，并且执行效率上给迭代器方式更高。</li>
+</ul>
+<h2 id="arraylist-源码分析">ArrayList 源码分析</h2>
+<p>进入 ArrayList 源代码，从类的结构里很快就能看到 ArrayList 的两个重要成员变量：<code>elementData</code> 和 <code>size</code>。</p>
+<figure data-type="image" tabindex="1"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g6k7ipbb2kj311a0ccgnr.jpg" alt=""></figure>
+<ul>
+<li><code>elementData</code> 是一个 Object 数组，存放的元素，正是外部需要存放到 ArrayList 的元素，即 ArrayList 对象维护着这个对象数组 Object[]，对外提供的增删改查以及遍历都是与这个数组有关，也因此添加到 ArrayList 的元素都是有序地存储在数组对象 <code>elementData</code> 中。</li>
+<li><code>size</code> 字段表示着当前添加到 ArrayList 的元素个数，需要注意的是它必定小于等于数组对象 <code>elementData</code> 的长度。一旦当 <code>size</code> 与 <code>elementData</code> 长度相同，并且还在往列表里添加元素时，ArrayList 就会执行扩容操作，用一个更长的数组对象存储先前的元素。</li>
+</ul>
+<p>由于底层维护的是一个对象数组，所以向 ArrayList 集合添加的元素自然是可以重复的，允许为 <code>null</code> 的，并且它们的索引位置各不一样。</p>
+<h3 id="如何扩容">如何扩容</h3>
+<p>了解完 ArrayList 为何有序存储元素和元素可以重复，我们再来看下作为动态数组列表，底层扩容是如何实现的。</p>
+<p>首先，要确定下扩容的时机会是在哪里，就如上面描述 <code>size</code> 字段时提到的，当 <code>size</code> 与 <code>elementData</code> 长度相同，此刻再添加一个元素到集合就会出现容量不够的情况，需要进行扩容，也就是说 ArrayList 的扩容操作发生在添加方法中，并且满足一定条件时才会发生。</p>
+<p>现在我们再来看下 ArrayList 类的代码结构，可以看到有四个添加元素的方法，分为两类：添加单个元素和添加另一个集合内的所有元素。</p>
+<figure data-type="image" tabindex="2"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g6k7yqr5guj311i0qoq7u.jpg" alt=""></figure>
+<p>先从简单的方法下手分析，查看 <code>add(E):boolean</code> 方法实现：</p>
+<pre><code class="language-java">public boolean add(E e) {
+    ensureCapacityInternal(size + 1);
+    elementData[size++] = e; 
+    return true;
+}
+</code></pre>
+<p>从上面可以看出第三行代码是简单地添加单个元素，并让 <code>size</code> 递增加 1；那么扩容实现就在 <code>ensureCapacityInternal</code> 方法中，这里传入参数为 <code>size</code>+1，就是要在真正添加元素前判断添加后的元素个数，也就是集合所需要的最小容量是否会超过原数组的长度。再看下这个 <code>ensureCapacityInternal</code> 方法实现</p>
+<pre><code class="language-java">private void ensureCapacityInternal(int minCapacity) {
+    ensureExplicitCapacity(calculateCapacity(elementData,minCapacity));
+}
+</code></pre>
+<p>其内部仍有两个方法调用，首先看下比较简单的 <code>calculateCapacity</code> 方法：</p>
+<pre><code class="language-java">private static int calculateCapacity(Object[] elementData, int minCapacity) {
+    if (elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA) {
+        return Math.max(DEFAULT_CAPACITY, minCapacity);
+    }
+    return minCapacity;
+}
+</code></pre>
+<p>当 <code>elementData</code> 与 <code>DEFAULTCAPACITY_EMPTY_ELEMENTDATA</code> 相等，也就是空数组时，返回一个可添加元素的默认最小容量值 <code>DEFAULT_CAPACITY</code> 对应的10 ，否则按照传入的 <code>size</code> +1 为最小容量值；执行完之后接着看 <code>ensureExplicitCapacity</code> 方法：</p>
+<pre><code class="language-java">private void ensureExplicitCapacity(int minCapacity) {
+    modCount++;
+
+    if (minCapacity - elementData.length &gt; 0)
+        grow(minCapacity);
+}
+</code></pre>
+<p>从代码中可以看到扩容实现在 <code>grow</code> 方法之中，并且只有当数组长度小于所需要的最小容量时执行：当数组存储元素已满，无法再存储将新加入的元素。</p>
+<pre><code class="language-java">private void grow(int minCapacity) {
+    int oldCapacity = elementData.length;
+    int newCapacity = oldCapacity + (oldCapacity &gt;&gt; 1);
+    if (newCapacity - minCapacity &lt; 0)
+        newCapacity = minCapacity;
+    if (newCapacity - MAX_ARRAY_SIZE &gt; 0)
+        newCapacity = hugeCapacity(minCapacity);
+    elementData = Arrays.copyOf(elementData, newCapacity);
+}
+</code></pre>
+<p>进一步跳转到 <code>grow</code> 方法的实现，可以看到第8行利用工具类方法 <code>java.util.Arrays#copyOf(T[], int)</code> ,对原有数组进行拷贝，将内部所有的元素存放到长度为 <code>newCapacity</code> 的新数组中，并将对应新数组的引用赋值给 <code>elementData</code>。此刻 ArrayList 内部引用的对象就是更新长度了的新数组，实现效果就如下图一样：<img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g6k9c9y18cj30zk0hqt9r.jpg" alt=""></p>
+<p>现在我们再来关注下代表数组新容量的 <code>newCapacity</code> 被调整为多少。首先 <code>newCapacity</code> 通过 <code>oldCapacity + (oldCapacity &gt;&gt; 1)</code> 计算获得，使用位运算将原容量值 <code>oldCapacity</code> 通过右移一位，获得其一半的值（向下取整）, 然后加上原来的容量值，那么就是原容量值 <code>oldCapacity</code> 的1.5倍。</p>
+<blockquote>
+<p><code>&gt;&gt;</code>  右位运算符，会将左操作数进行右移，相当于除以2，并且向下取整，比如表达式 <code>(7 &gt;&gt; 1) == 3</code> 结果为真。</p>
+</blockquote>
+<p>当计算得到的 <code>newCapacity</code> 仍然小于传入最小容量值时，说明当前数组个数为空，采用默认的 <code>DEFAULT_CAPACITY</code>作为容量值分配数组。</p>
+<p>额外需要注意的是还有最大数组个数的判断，<code>MAX_ARRAY_SIZE</code> 在文件对应的代码定义如下：</p>
+<pre><code class="language-java">private static final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;
+</code></pre>
+<p>ArrayList 存储元素个数有最大限制，如果超过限制就会导致 JVM 抛出 <code>OutOfMemoryError</code> 异常。</p>
+<p>到这里 <code>java.util.ArrayList#add(E)</code> 方法的扩容逻辑就分析结束了。类似的，在其他添加元素的方法里实现内我们都可以看到 <code>ensureCapacityInternal</code> 方法的调用，在真正操作底层数组前都会进行容量的确认，容量不够则进行动态扩容。</p>
+<figure data-type="image" tabindex="3"><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g6ka4qkzpoj31xk0ekq9y.jpg" alt=""></figure>
+<h3 id="序列化与反序列化">序列化与反序列化</h3>
+<pre><code class="language-java">transient Object[] elementData;
+</code></pre>
+<p>在 ArrayList 源码看到的 <code>elementData</code> 带有关键字 <code>transient</code>，而通常 <code>transient</code> 关键字修饰了字段则表示该字段不会被序列化，但是 ArrayList 实现了序列化接口，并且提供的序列化方法 <code>writeObject</code> 与反序列化方法 <code>readObject</code> 的实现, 这是如何做到的呢？</p>
+<figure data-type="image" tabindex="4"><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g6khxdanx6j30t40kodj0.jpg" alt=""></figure>
+<p>我们首先来看下 ArrayList 进行序列化的代码：</p>
+<pre><code class="language-java">private void writeObject(java.io.ObjectOutputStream s)
+        throws java.io.IOException {
+    int expectedModCount = modCount;
+    s.defaultWriteObject();
+
+    s.writeInt(size);
+
+    for (int i = 0; i &lt; size; i++) {
+        s.writeObject(elementData[i]);
+    }
+
+    if (modCount != expectedModCount) {
+        throw new ConcurrentModificationException();
+    }
+}
+</code></pre>
+<p>第4行代码首先将当前对象的非 <code>static</code> 修饰，非 <code>transient</code> 修饰的字段写出到流中；第6行将写出元素的个数作为容量。</p>
+<p>接下来就是通过循环将包含的所有元素写出到流，在这一步可以看出 ArrayList 在自己实现的序列化方法中没有将无存储数据的内存空间进行序列化，节省了空间和时间。</p>
+<p>同样地，在反序列化中根据读进来的流数据中获取 <code>size</code> 属性，然后进行数组的扩容，最后将流数据中读到的所有元素数据存放到持有的对象数组中。</p>
+<pre><code class="language-java">private void readObject(java.io.ObjectInputStream s)
+        throws java.io.IOException, ClassNotFoundException {
+    elementData = EMPTY_ELEMENTDATA;
+
+    s.defaultReadObject();
+
+    s.readInt(); // ignored
+
+    if (size &gt; 0) {
+        int capacity = calculateCapacity(elementData, size);
+        SharedSecrets.getJavaOISAccess().checkArray(s, Object[].class, capacity);
+        ensureCapacityInternal(size);
+
+        Object[] a = elementData;
+        for (int i = 0; i &lt; size; i++) {
+            a[i] = s.readObject();
+        }
+    }
+}
+</code></pre>
+<h3 id="关于拷贝">关于拷贝</h3>
+<p>针对列表元素的拷贝，ArrayList 提供自定义的 clone 实现如下：</p>
+<pre><code class="language-java">public Object clone() {
+  try {
+    ArrayList&lt;?&gt; v = (ArrayList&lt;?&gt;) super.clone();
+    v.elementData = Arrays.copyOf(elementData, size);
+    v.modCount = 0;
+    return v;
+  } catch (CloneNotSupportedException e) {
+    // this shouldn't happen, since we are Cloneable
+    throw new InternalError(e);
+  }
+}
+</code></pre>
+<p>从上述代码可以清楚看出执行的 <code>copyOf</code> 操作是一次浅拷贝操作，原 ArrayList 对象的元素不会被拷贝一份存到新的 ArrayList 对象然后返回，它们各自的字段 <code>elementData</code> 里各位置存放的都是一样元素的引用，一旦哪个列表修改了数组中的某个元素，另一个列表也将受到影响。</p>
+<h2 id="jdk-18-后的-arraylist">JDK 1.8 后的 ArrayList</h2>
+<p>从源码角度分析完 ArrayList 的特性之后，我们再来看下 JDK 1.8 之后在 ArrayList 类上有什么新的变化。</p>
+<h3 id="新增-removeif-方法">新增 removeIf 方法</h3>
+<p><code>removeIf</code> 是 Collection 接口新增的接口方法，ArrayList 由于父类实现该接口，所以也有这个方法。<code>removeIf</code> 方法用于进行指定条件的从数组中删除元素。</p>
+<pre><code class="language-java">public boolean removeIf(Predicate&lt;? super E&gt; filter){...}
+</code></pre>
+<p>传入一个代表条件的函数式接口参数 <code>Predicate</code>，也就是Lambda 表达式进行条件匹配，如果条件为 <code>true</code>， 则将该元素从数组中删除，例如下方代码示例：</p>
+<pre><code class="language-java">List&lt;Integer&gt; numbers = new ArrayList&lt;&gt;(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10));
+numbers.removeIf(i -&gt; i % 2 == 0);
+System.out.println(numbers); // [1, 3, 5, 7, 9]
+</code></pre>
+<h3 id="新增-spliterator-方法">新增 spliterator 方法</h3>
+<p>这个方法也是来自于 Collection 接口，ArrayList 对此方法进行了重写。该方法会返回 ListSpliterator 实例，该实例用于遍历和分离容器所存储的元素。</p>
+<pre><code class="language-java">@Override
+public Spliterator&lt;E&gt; spliterator() {
+    return new ArrayListSpliterator&lt;&gt;(this, 0, -1, 0);
+}
+</code></pre>
+<p>在 ArrayList 的实现中，该方法返回一个内部静态类对象 ArrayListSpliterator，通过它可以就可以集合元素进行操作。</p>
+<p>它的主要操作方法有下面三种：</p>
+<ul>
+<li><code>tryAdvance</code> 迭代单个元素，类似于 <code>iterator.next()</code></li>
+<li><code>forEachRemaining</code> 迭代剩余元素</li>
+<li><code>trySplit</code> 将元素切分成两部分并行处理,但需要注意的 Spliterator 并不是线程安全的。</li>
+</ul>
+<p>虽然这个三个方法不常用，还是有必要了解，可以简单看下方法的使用方式</p>
+<pre><code class="language-java">ArrayList&lt;Integer&gt; numbers = new ArrayList&lt;&gt;(Arrays.asList(1,2,3,4,5,6));
+Spliterator&lt;Integer&gt; numbers = numbers.spliterator();
+
+numbers.tryAdvance( e -&gt; System.out.println( e ) ); // 1
+
+numbers.forEachRemaining( e -&gt; System.out.println( e ) ); // 2 3 4 5 6
+
+Spliterator&lt;Integer&gt; numbers2 = numbers.trySplit();
+
+numbers.forEachRemaining( e -&gt; System.out.println( 3 ) );      //4 5 6
+numbers2.forEachRemaining( e -&gt; System.out.println( 3 ) );      //1 2 3
+</code></pre>
+<h2 id="必会的使用姿势">必会的使用姿势</h2>
+<p>接触了 ArrayList 源码和新API 之后，我们最后学习如何在平常开发中高效地使用 ArrayList。</p>
+<h3 id="高效的初始化">高效的初始化</h3>
+<p>ArrayList 实现了三个构造函数, 默认创建时会分配到空数组对象 <code>EMPTY_ELEMENTDATA</code>；第二个是传入一个集合类型数据进行初始化；第三个允许传入集合长度的初始化值，也就是数组长度。由于每次数组长度不够会导致扩容，重新申请更长的内存空间，并进行复制。而让我们初始化 ArrayList 指定数组初始大小，可以减少数组的扩容次数，提供性能。</p>
+<pre><code class="language-java">public ArrayList(int initialCapacity) {
+    if (initialCapacity &gt; 0) {
+        this.elementData = new Object[initialCapacity];
+    } else if (initialCapacity == 0) {
+        this.elementData = EMPTY_ELEMENTDATA;
+    } else {
+        throw new IllegalArgumentException(&quot;Illegal Capacity: &quot;+
+                                            initialCapacity);
+    }
+}
+
+public ArrayList() {
+    this.elementData = DEFAULTCAPACITY_EMPTY_ELEMENTDATA;
+}
+
+public ArrayList(Collection&lt;? extends E&gt; c) {
+    elementData = c.toArray();
+    if ((size = elementData.length) != 0) {
+        if (elementData.getClass() != Object[].class)
+            elementData = Arrays.copyOf(elementData, size, Object[].class);
+    } else {
+        this.elementData = EMPTY_ELEMENTDATA;
+    }
+}
+</code></pre>
+<h3 id="元素遍历">元素遍历</h3>
+<p>JDK 1.8前，ArrayList 只支持3种遍历方式：迭代器遍历，普通 <code>for</code> 循环，<code>for-each</code> 增强，在 JDK1.8 引入了 Stream API 之后，同属于 Collection 集合的 ArrayList，可以使用 <code>stream.foreach()</code> 方法一个个地获取元素：</p>
+<pre><code class="language-java">ArrayList&lt;String&gt; names = new ArrayList&lt;String&gt;(Arrays.asList( &quot;alex&quot;, &quot;brian&quot;, &quot;charles&quot;));
+names.forEach(name -&gt; System.out.println(name)); // alex brian charles
+</code></pre>
+<h3 id="转换-array">转换  Array</h3>
+<p>ArrayList 提供两个方法用于列表向数组的转换</p>
+<pre><code class="language-java">public Object[] toArray();
+public &lt;T&gt; T[] toArray(T[] a);
+</code></pre>
+<ol>
+<li>第一个方法直接返回 Object 类型数组</li>
+<li>在第二个方法中，返回数组的类型为所传入的指定数组的类型。 并且如果列表的长度符合传入的数组，将元素拷贝后数组后，则在其中返回数组。 否则，将根据传入数组的类型和列表的大小重新分配一个新数组，拷贝完成后再返回。</li>
+</ol>
+<p>从上述描述可以看出使用第二个方法更加合适，能保留原先类型：</p>
+<pre><code class="language-java">ArrayList&lt;String&gt; list = new ArrayList&lt;&gt;(4);
+list.add(&quot;A&quot;);
+list.add(&quot;B&quot;);
+list.add(&quot;C&quot;);
+list.add(&quot;D&quot;);
+
+String[] array = list.toArray(new String[list.size()]);
+System.out.println(Arrays.toString(array)); // [A, B, C, D]
+</code></pre>
+<h3 id="应对多线程">应对多线程</h3>
+<p>在这里需要说明的是 ArrayList 本身是非线程安全的，如果需要使用线程安全的列表通常采用的方式是 <code>java.util.Collections#synchronizedList(java.util.List&lt;T&gt;)</code> 或者 使用 Vector 类代替。还有一种方式是使用并发容器类 CopyOnWriteArrayList 在多线程中使用，它底层通过创建原数组的副本来实现更新，添加等原本需同步的操作，不仅线程安全，减少了对线程的同步操作。</p>
+<h3 id="应对头部结点的增删">应对头部结点的增删</h3>
+<p>ArrayList是数组实现的，使用的是连续的内存空间，当有在数组头部将元素添加或者删除的时候，需要对头部以后的数据进行复制并重新排序，效率很低。针对有大量类似操作的场景，出于性能考虑，我们应该使用 LinkedList 代替。由于LinkedList 是基于链表实现，当需要操作的元素位置位于List 前半段时，就从头开始遍历，马上找到后将把元素在相应的位置进行插入或者删除操作。</p>
+<h2 id="结语">结语</h2>
+<p>到这里我们学习总结 ArrayList 的实现和常见使用，作为基础容器集合，越是多些了解，对我们日常使用越顺手。由于上文提到了另一个列表集合 LinkedList，它与 ArrayList 实现方式不同，使用场景也不同，将作为下一篇文章分析的集合登场，感兴趣的小伙伴欢迎关注我的微信公众号，期待更新。</p>
+<figure data-type="image" tabindex="5"><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g6kircgfk8j30p00dwdhv.jpg" alt=""></figure>
+<h2 id="参考">参考</h2>
+<ul>
+<li>https://www.cnblogs.com/skywang12345/p/3308556.html</li>
+<li>https://docs.oracle.com/javase/8/docs/api/java/util/ArrayList.html</li>
+<li>https://yuqirong.me/2018/01/21/ArrayList%E5%86%85%E9%83%A8%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90/</li>
+<li>https://juejin.im/post/5a58aa62f265da3e4d72a51b</li>
+<li>https://howtodoinjava.com/java-arraylist/</li>
+<li>http://cmsblogs.com/?p=4727</li>
+</ul>
+
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://wrcj12138aaa.github.io//post/20190825-掌握 Maven 私服">
+                <h3 class="post-title">
+                  掌握 Maven 私服
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+      </div>
+
+      <div class="sm-12 md-4 col sidebar">
+  <div class="paper info-container">
+    <img src="https://wrcj12138aaa.github.io//images/avatar.png?v=1570430744891" class="no-responsive avatar">
+    <div class="text-muted">做一个终生学习者</div>
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      最新文章
+    </div>
+    <div class="row">
+      <ul>
+        
+          
+            <li>
+              <a href="https://wrcj12138aaa.github.io//post/arraylist-de-quan-mian-tu-ji">ArrayList的全面突击</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wrcj12138aaa.github.io//post/20190825-掌握 Maven 私服">掌握 Maven 私服</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wrcj12138aaa.github.io//post/hello-gridea">Hello Gridea</a>
+            </li>
+          
+        
+      </ul>
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      标签列表
+    </div>
+    <div class="row">
+      
+        <a href="https://wrcj12138aaa.github.io//tag/llypUO29A" class="badge secondary">
+          Java
+        </a>
+      
+        <a href="https://wrcj12138aaa.github.io//tag/ugGILDm1l" class="badge secondary">
+          Gridea
+        </a>
+      
+    </div>
+  </div>
+  <div class="paper">
+     | <a class="rss" href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+</script>
+
+
+
+
+  </body>
+</html>

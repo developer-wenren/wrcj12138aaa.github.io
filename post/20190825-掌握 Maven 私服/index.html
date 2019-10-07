@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>掌握 Maven 私服 | 闻人的技术博客</title>
+<meta name="description" content="做一个终生学习者">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1570430744891">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="stylesheet" href="https://unpkg.com/papercss@1.6.1/dist/paper.min.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://wrcj12138aaa.github.io//styles/main.css">
+
+
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+  </head>
+  <body>
+  
+    <nav class="navbar border fixed split-nav">
+  <div class="nav-brand">
+    <h3><a href="https://wrcj12138aaa.github.io/">闻人的技术博客</a></h3>
+  </div>
+  <div class="collapsible">
+    <input id="collapsible1" type="checkbox" name="collapsible1">
+    <button>
+      <label for="collapsible1">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+      </label>
+    </button>
+    <div class="collapsible-body">
+      <ul class="inline">
+        
+          <li>
+            
+              <a href="/" class="menu">
+                首页
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/archives" class="menu">
+                归档
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/tags" class="menu">
+                标签
+              </a>
+            
+          </li>
+        
+          <li>
+            
+              <a href="/post/about" class="menu">
+                关于
+              </a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div id="top" class="row site">
+      <div class="sm-12 md-8 col">
+        <div class="paper">
+          <article class="article">
+            <h1>掌握 Maven 私服</h1>
+            <p class="article-meta">
+              2019-08-25
+              
+                <a href="https://wrcj12138aaa.github.io//tag/llypUO29A" class="badge success">
+                  Java
+                </a>
+              
+            </p>
+            
+            <div class="post-content">
+              <h2 id="前言">前言</h2>
+<p>在 Java EE 开发中，我们使用 Maven 构建工具主要来管理项目的第三方库的依赖，以及公司内部其他项目服务的依赖，而 Maven 私服就是必不可少的一环，本文主要对 Maven 私服的三大方面进行介绍：</p>
+<ul>
+<li>什么是 Maven 私服</li>
+<li>如何搭建 Maven 私服</li>
+<li>如何使用 Maven 私服</li>
+</ul>
+<blockquote>
+<p>本文面对的读者应有 Maven 使用经验，了解 Maven 的一些基本概念，如果不太熟悉可以参见文末的参考资料学习。</p>
+</blockquote>
+<h2 id="什么是-maven-私服">什么是 Maven 私服</h2>
+<p>在介绍 Maven 私服之前，我们首先清楚下什么是 Maven 仓库。</p>
+<p><strong>Maven 仓库：Maven 统一存储所有Maven项目依赖，插件，以及所上传项目的地方。</strong></p>
+<p>并且 Maven 仓库还分成两类：本地仓库和远程仓库。</p>
+<ul>
+<li>本地仓库，就是我们本地电脑安装Maven后，在 配置文件 setting.xml 里 <code>localRepository</code> 所需要指定目录的那个文件夹。</li>
+<li>远程仓库，就是在外部网络里（包括局域网）指定 URL 的专门存放 Java 库，Maven插件等的服务器，，例如中央仓库，就是一个典型的远程仓库，它包含了世界上绝大多数开源的 Java 库，类似的还有许多其他的公开库</li>
+</ul>
+<p>而本文提到的私服，就是另一种特殊的远程仓库，它通常架设在局域网内的一台服务器上，用于代理所有外部的远程仓库，并且能接受内部项目的上传和获取。</p>
+<figure data-type="image" tabindex="1"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g6bylbdlpij315q0myq4t.jpg" alt=""></figure>
+<p>而这些仓库又有是什么用呢？当 Maven 项目需要依赖一些其他项目的 Java 库时，Maven 首先会在本地仓库查找，如果存在对应的库，就直接使用；如果本地仓库不存在，Maven 就会去远程仓库查找，找到对应的 Java 库后下载到本地仓库再使用，以便于下次需要该Java库时，直接使用缓存在本地仓库的依赖库即可，省去了重复通过网络查找并下载的时间，对于 Maven 插件也是同样的过程。</p>
+<p>通常情况下，中央仓库是Maven 默认的远程仓库，而当引入了私服后，本地仓库查找结束未找到所需要的依赖库时，就先从私服仓库开始查找，仍未找到的话，最后再去中央仓库查找，具体过程可以参考下图：</p>
+<figure data-type="image" tabindex="2"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g6bzczhk5zj31bq0kgdia.jpg" alt="image-20190825155914631"></figure>
+<p>在这里我们再看下私服的作用有哪些：</p>
+<ul>
+<li>内网访问，节省外网带宽。</li>
+<li>一次外网下载，内网所有用户就可以只下载私服缓存，加速 Maven 项目构建。</li>
+<li>允许上传和下载私有库，并且不被外部访问，更加安全。</li>
+<li>减少外部网络因素，提供项目构建的稳定性。</li>
+<li>方便内部项目服务的依赖引用，而不需要其他项目的完整源代码。</li>
+</ul>
+<p>这里对最后一小点的作用添加下具体描述：当我们有独立的两个Maven 项目，比如订单服务项目和会员服务项目，其中订单服务项目需要会员服务，依赖会员服务的 API 包，通过私服可以将编译后的会员服务的 API 包上传，然后订单服务程序直接下载引用私服上的会员服务 API 包即可，这样就不需要导入会员服务项目代码，也不用关心会员服务具体实现了，起到了内部服务项目轻度引用的作用，描述可参见下图。</p>
+<figure data-type="image" tabindex="3"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g6c0ax37pcj30pw0jc0ud.jpg" alt=""></figure>
+<h2 id="搭建-maven-私服">搭建 Maven 私服</h2>
+<p>了解 Maven 私服之后，我们进一步学习。我们首先来搭建一个 Maven 私服。在这里我们使用最流行的开源 Maven 仓库管理软件 -  Nexus，来快速搭建 Maven 私服，传统的搭建方式为在 Nexus 官网上下载开源版的 Nexus OSS 进行安装：https://www.sonatype.com/nexus-repository-oss。而本文将采用 Docker 方式安装 Nexus，不仅快速简单，而占用更少的机器资源。</p>
+<blockquote>
+<p>如果对 Docker 不熟悉的同学，可以参见 <a href="https://juejin.im/post/5d4522c1f265da03e05af5f5?utm_source=gold_browser_extension%23heading-34">10分钟快速掌握Docker必备基础知识</a> 学习了解下，简单使用 Docker 也是十分容易的。</p>
+</blockquote>
+<h3 id="下载-nexus-镜像">下载 Nexus 镜像</h3>
+<p>在终端控制台上使用 Docker 指令下载 Nexus 官方提供的Docker 镜像：<img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g6cahq8wslj311s03wt8p.jpg" alt=""></p>
+<p>看到下图结果时，就表示镜像下载完成，可以通过 <code>docker images</code> 查看。</p>
+<figure data-type="image" tabindex="4"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g6c0zl1pbbj310q0aqgn6.jpg" alt="image-20190825165531217"></figure>
+<h3 id="启动-nexus-容器">启动 Nexus 容器</h3>
+<p>使用下方指令启动 Nexus 容器：<img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g6cahdg9jtj31kw05awf6.jpg" alt=""></p>
+<p>在这里对输入的 Docker 指令的参数进行简单的说明：</p>
+<ul>
+<li>
+<p><code>-d</code> 表示让容器后台运行。</p>
+</li>
+<li>
+<p><code>-p 8081:8081</code> 表示了容器启动时开放内部端口 8081（后者的8081） 映射主机端口的 8081 ，即通过 <code>localhost:8081</code>  可以访问到 Nexus 容器所提供的服务。</p>
+</li>
+<li>
+<p><code>-v /Users/One/Desktop/Nexus/nexus-data:/nexus-data</code> 表示将容器内部 <code>/var/nexus-data</code> 挂载到当前主机的指定目录，需要注意的是，<code>-v</code> 指定的外部路径必须为全路径。</p>
+</li>
+<li>
+<p><code>--restart=always</code> 比较简单，表示当 docker 服务启动时，该容器也跟着启动。</p>
+</li>
+</ul>
+<p>执行上述指令后，稍等片刻，访问 <code>http://localhost:8081/</code> ，看到对应的 Nexus 后台就表示私服安装完成了，是不是很简单呢。<br>
+<img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g6c1hyrynij32fu0p2tbx.jpg" alt=""></p>
+<blockquote>
+<p>容器启动过程中，由于机器配置的不同，可能会出现启动慢的情况，只需耐心等待即可。</p>
+</blockquote>
+<p>启动完成后，我们可以在所挂载的本机目录下查看 Nexus 容器运行产生的文件。</p>
+<figure data-type="image" tabindex="5"><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g6c9t93pizj30xy07gq3i.jpg" alt=""></figure>
+<h2 id="配置-maven-私服">配置 Maven 私服</h2>
+<p>私服安装之后，我们首先进行登录操作，点击页面左上角的 Sign In 按钮，就会出现和下图一样的提示：</p>
+<figure data-type="image" tabindex="6"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g6c23iu75mj31hu0u0jub.jpg" alt=""></figure>
+<p>说明了 Nexus 默认登录账号为 admin，并且密码位于文件 <code>/nexus-data/admin.password</code> 下，我们只需在本地配置的挂载目录下查看该文件即可。</p>
+<figure data-type="image" tabindex="7"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g6c26l36ejj30zw04sgm9.jpg" alt=""></figure>
+<p>输入默认的账号密码之后成功登录之后，Nexus 就会强制要求修改 admin 的密码,并且设置基本访问权限，完成之后就正式进入了 Nexus 私服后台。</p>
+<figure data-type="image" tabindex="8"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g6c2gijrt2j32fk0icdj4.jpg" alt=""></figure>
+<p>这里简单对界面元素进行介绍：</p>
+<ol>
+<li>默认的浏览界面，可以搜索查看仓库的组件，以及进行上传操作。</li>
+<li>用于管理私服程序的配置。</li>
+<li>账户信息查看，允许修改密码。</li>
+</ol>
+<p>进入私服程序的配置界面，我们需要对默认配置进行几点调整。</p>
+<h3 id="中央仓库的代理路径设置">中央仓库的代理路径设置</h3>
+<p>将私服配置里中央仓库的代理仓库路径更新为<a href="https://maven.aliyun.com/mvn/view">阿里云仓库</a>提供的代理地址：https://maven.aliyun.com/repository/central  这样一来可以更快速地访问在中央仓库上所需要的依赖和插件。</p>
+<figure data-type="image" tabindex="9"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g6c2pxiw3jj31ac0u0k12.jpg" alt=""></figure>
+<h3 id="新建自定义的仓库">新建自定义的仓库</h3>
+<p>点击<code>Create repository</code>,然后选择类型为 <code>maven2(hosted)</code></p>
+<figure data-type="image" tabindex="10"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g6c33pl9hzj317m0rmtbj.jpg" alt=""></figure>
+<p>然后输入仓库名称 private-release，并在 Version policy 一栏中选择 Release，表示这个仓库的存储依赖为正式发布的组件，然后在 Deployment policy 一栏中选择 Allow redeploy，允许部署和更新私服上的组件。</p>
+<figure data-type="image" tabindex="11"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g6c359czrej30zq0u0adq.jpg" alt=""></figure>
+<p>最后点击蓝色按钮-<code>Create repository</code> 之后，就可以在仓库列表看到自定义的仓库了，有了 release 仓库，我们再按照同样方式操作添加一个 snapshot 仓库，只需在  Version policy  一栏调整为 Snapshot 即可。</p>
+<figure data-type="image" tabindex="12"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g6c3cg9wuhj329k0pkn51.jpg" alt=""></figure>
+<h3 id="添加角色">添加角色</h3>
+<p>Nexus 默认只有两种角色：<code>nx-anonymous</code> 和 <code>nx-admin</code>，前者只有浏览的权限，后者为管理员权限，一般情况下，我们还需要正对开发人员创建个角色。点击 <code>Create Role</code>，添加一个 Role ID 为 <code>developer</code> 的自定义角色,  并且只添加自定义仓库的使用权限，删除操作除外。</p>
+<figure data-type="image" tabindex="13"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g6c7nbl8q6j312d0u07h1.jpg" alt=""></figure>
+<p>保存之后，新增的角色就展示在列表中，有了角色，就可以关联用户，进行权限分配了。</p>
+<figure data-type="image" tabindex="14"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g6c4msmur8j31w80l6gpf.jpg" alt="image-20190825190139940"></figure>
+<h3 id="添加用户">添加用户</h3>
+<p>跟权限类似，默认的用户只有两种：<code>admin</code> 和 anonymous，我们同样需要创建属于开发者的用户对象。点击 <code>Create local user</code>，填入用户名，密码等必填信息之后，关联我们先前的创建的角色，并保存即可。</p>
+<figure data-type="image" tabindex="15"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g6c4r9flvqj316e0u0ahw.jpg" alt=""></figure>
+<p>用户创建完成之后，我们就可以用新的用户登录私服，查看对应权限的内容了，例如我们用新建的用户登录，所能操作的只有查看和搜索自定义的私服仓库。</p>
+<figure data-type="image" tabindex="16"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g6c4txtbt8j32fi0gediz.jpg" alt=""></figure>
+<p>这样一来我们就创建好了自己的私服仓库，配置完成之后，开发者就可以在 Maven 项目开发中使用了。</p>
+<h2 id="使用-maven-私服">使用 Maven 私服</h2>
+<p>有了私服和用于开发的账号，我们就需要在本地 Maven 配置文件 setting.xml 进行关联。</p>
+<p>设置 server 账户信息：<img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g6caenutlsj311s0j640d.jpg" alt=""></p>
+<p>设置私服仓库地址：（这里的地址，可以通过 Nexus 后台上仓库页面的 <code>cpoy</code> 按钮自动复制得到）<img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g6caek5x1mj313c0ri777.jpg" alt=""></p>
+<h3 id="maven-项目部署到私服">Maven 项目部署到私服</h3>
+<p>配置完成后，我们可以创建一个Maven工程，尝试下打包到 Maven 私服。利用 IDE 快速生成 Maven 项目，在 POM 文件添加 <code>distributionManagement</code> 节点，并且指定对应的私服仓库 id 和地址，如下：<img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g6cafcau8cj313e0u0jv6.jpg" alt=""></p>
+<p>最后只要执行部署命令  <code>mvn clean deploy</code> 或者利用 IDE 的 部署插件即可，当控制台出现 <code>BUILD SUCCESS</code> ，如下图类似时则说明部署完成。</p>
+<figure data-type="image" tabindex="17"><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g6c7z3lna1j31fl0u0156.jpg" alt=""></figure>
+<p>从日志上可以看出，我们的项目上传都了 private- snapshot 仓库下，此时我们可以在私服网站上的  private- snapshot 仓库查看到上传的 jar。</p>
+<figure data-type="image" tabindex="18"><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g6c83m7uozj316e0jo402.jpg" alt=""></figure>
+<blockquote>
+<p>如果部署过程中出现如下提示：带有 <code>Access denied to</code> 则说明在 setting.xml 配置的用户权限不足，无法将 jar 部署到对应私服仓库上去。</p>
+<figure data-type="image" tabindex="19"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g6c7kijqodj31ie08imz4.jpg" alt=""></figure>
+</blockquote>
+<p>需要注意的是，对于一个Maven项目而言，如果项目的版本号中有 “SNAPSHOT” 字样，则表示当前处于开发版本，Maven 会将发布到 <code>snapshotRepository</code> 节点对应地址上去。否则，Maven则认为这是一个发布版本，将程序发布到 <code>repository</code> 节点对应的地址上。由于示例项目的版本为 <code>1.0.0-SNAPSHOT</code> ，所以最终项目上传到了 <code>private-snapshot</code> 这个 Snapshot 类型的仓库下。</p>
+<p>接下来如果其他项目要依赖这个 jar 时，只需要在其 POM 文件引入对应的坐标即可。</p>
+<figure data-type="image" tabindex="20"><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g6cag20juzj311s09gt9j.jpg" alt=""></figure>
+<h3 id="将第三方-jar-包部署到-maven-私服">将第三方 jar 包部署到 Maven 私服</h3>
+<p>这里说到了第三方 jar 包，不是平常所提到的开源库，更多的是来自其他第三方系统的 jar 包，由于项目需要，使用项目导入的方式来很不方便，更好的处理方式就是将第三方系统的 jar 包手动上传到 Maven 私服上，需要使用的项目直接从私服仓库中拉取即可。</p>
+<p>这种方式实现起来也比较方便，分为两种：可视化界面操作和命令行操作。</p>
+<p>可视化界面操作：就是在 Nexus 后台上进去，执行上传操作必须要对于的上传权限才可以，一般都是管理员账号进行操作，选择仓库后进去上传页面，指定本地需要上传的项目，自定义完坐标信息保存即可。</p>
+<figure data-type="image" tabindex="21"><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g6c99d2l6nj31dx0u0wlh.jpg" alt=""></figure>
+<p>命令行方式：直接在终端输入下面指令即可：<img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g6cagfocvtj31kw05a3zd.jpg" alt=""></p>
+<ul>
+<li>-DgroupId 和 -DartifactId 构成了该jar包在 pom.xml 的坐标， 即对应依赖的 <code>groupId</code> 和 <code>artifactId</code></li>
+<li>-<code>Dfile</code> 表示需要上传的jar包的绝对路径</li>
+<li>-Durl 为私服仓库的url精确地址</li>
+<li>-DrepositoryId 为私服仓库定义的id</li>
+<li>-Dversion 指定了版本号</li>
+<li>-Dpackaging 指定了打包方式</li>
+</ul>
+<p>当控制台日志出现 <code>BUILD SUCCESS</code> 信息时则表示打包成功，如果出现打包失败，很有可能是 Maven 配置文件里 <code>server</code> 元素下的用户权限不足导致，需要 Nexus 后台对用户角色进行上传权限的分配。</p>
+<h2 id="结语">结语</h2>
+<p>在 Java 企业级项目开发中，建立并维护私服是使用 Maven 必不可少的一步，本文从 Maven 的简单介绍，到快速搭建和使用来进一步掌握 Maven 私服，为后续的企业微服务架构做好铺垫。</p>
+<figure data-type="image" tabindex="22"><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g6ca7tzjs7j30p00dw404.jpg" alt=""></figure>
+<h2 id="推荐阅读">推荐阅读</h2>
+<ul>
+<li><a href="https://mp.weixin.qq.com/s/TfA8rSwYNpW3YV_N8oLJnw">一文掌握 Spring Boot Profiles</a></li>
+<li><a href="https://mp.weixin.qq.com/s/-t2hrrVMBpPmVEzDcC8J5w">如何优雅关闭 Spring Boot 应用</a></li>
+<li><a href="https://mp.weixin.qq.com/s/uWRnRhH4et-XSD101Xh6LQ">需要接口管理的你了解一下？</a></li>
+<li><a href="https://mp.weixin.qq.com/s/2qkNz4VPgnixXjaVYUkvvQ">Java 之 Lombok 必知必会</a></li>
+<li><a href="https://mp.weixin.qq.com/s/vS36glyNoD26GL6cbNs5Qw">Java 微服务新生代之 Nacos</a></li>
+</ul>
+<h2 id="参考资料">参考资料</h2>
+<ul>
+<li>
+<p>Maven入门，读完这篇就够了：https://juejin.im/post/5a4a5e2bf265da4322418d7f#heading-2</p>
+</li>
+<li>
+<p>Maven 实战：https://book.douban.com/subject/5345682/</p>
+</li>
+<li>
+<p>私服 maven 仓库命令上传 jar 包： https://www.jianshu.com/p/ccd7b643624c</p>
+</li>
+<li>
+<p>What is a Maven Repository：https://medium.com/@chris.shellenbarger/what-is-a-maven-repository-6fa22991fad9</p>
+</li>
+</ul>
+
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
+          
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://wrcj12138aaa.github.io//post/hello-gridea">
+                <h3 class="post-title">
+                  Hello Gridea
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+        
+      </div>
+
+      <div class="sm-12 md-4 col sidebar">
+  <div class="paper info-container">
+    <img src="https://wrcj12138aaa.github.io//images/avatar.png?v=1570430744891" class="no-responsive avatar">
+    <div class="text-muted">做一个终生学习者</div>
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      最新文章
+    </div>
+    <div class="row">
+      <ul>
+        
+          
+            <li>
+              <a href="https://wrcj12138aaa.github.io//post/arraylist-de-quan-mian-tu-ji">ArrayList的全面突击</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wrcj12138aaa.github.io//post/20190825-掌握 Maven 私服">掌握 Maven 私服</a>
+            </li>
+          
+        
+          
+            <li>
+              <a href="https://wrcj12138aaa.github.io//post/hello-gridea">Hello Gridea</a>
+            </li>
+          
+        
+      </ul>
+    </div>
+  </div>
+  <div class="paper">
+    <div class="sidebar-title">
+      标签列表
+    </div>
+    <div class="row">
+      
+        <a href="https://wrcj12138aaa.github.io//tag/llypUO29A" class="badge secondary">
+          Java
+        </a>
+      
+        <a href="https://wrcj12138aaa.github.io//tag/ugGILDm1l" class="badge success">
+          Gridea
+        </a>
+      
+    </div>
+  </div>
+  <div class="paper">
+     | <a class="rss" href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+
+
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+</script>
+
+
+
+
+  </body>
+</html>
