@@ -1,0 +1,416 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>闻人的技术博客</title>
+<meta name="description" content="做一个终生学习者" />
+<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1570432921998">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://wrcj12138aaa.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="闻人的技术博客 - Atom Feed" href="https://wrcj12138aaa.github.io//atom.xml">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://wrcj12138aaa.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://wrcj12138aaa.github.io//images/avatar.png?v=1570432921998" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">闻人的技术博客</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#%E6%AD%A3%E6%96%87">正文</a>
+<ul>
+<li><a href="#pom-%E6%96%87%E4%BB%B6">POM 文件</a></li>
+<li><a href="#%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E6%B5%81%E7%A8%8B">项目构建流程</a></li>
+<li><a href="#%E5%A4%9A%E7%8E%AF%E5%A2%83%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86profile">多环境资源管理Profile</a></li>
+<li><a href="#%E9%A1%B9%E7%9B%AE%E5%B1%9E%E6%80%A7">项目属性</a></li>
+</ul>
+</li>
+<li><a href="#%E7%BB%93%E8%AF%AD">结语</a><br>
+*
+<ul>
+<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="remixicon-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"></div>
+    <a class="rss" href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">Java 修炼之道:Maven</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2018-10-19 / 6 min read
+        </div>
+        
+        <div class="post-content yue">
+          <h2 id="前言">前言</h2>
+<p>构建工具出现主要目的就是为了提高开发协作速度和项目构建效率. 而Maven 是目前主流的构建工具, <strong>约定优于配置</strong>的原则备受推崇. Maven会对项目构建的生命周期,项目结构等按照约定的规范去实现, 但也提供了打破默认约定配置的方法.</p>
+<p>Maven 构建工具,功能也很强大有</p>
+<ul>
+<li>依赖管理</li>
+<li>规范目录结果</li>
+<li>完整的项目构建阶段</li>
+<li>支持丰富插件</li>
+<li>方便集成</li>
+</ul>
+<h2 id="正文">正文</h2>
+<h3 id="pom-文件">POM 文件</h3>
+<p>Maven 基于 POM (Project Object Model) 进行组织项目的.项目的所有配置信息都会被放置在 pom.xml 文件中,包括项目类型,名字,依赖关系,插件等.</p>
+<pre><code class="language-xml">&lt;project&gt;
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+  &lt;groupId&gt;com.mycompany.app&lt;/groupId&gt;
+  &lt;artifactId&gt;my-app&lt;/artifactId&gt;
+  &lt;version&gt;1&lt;/version&gt;
+&lt;/project
+</code></pre>
+<p>在 Pom.XML 文件中主要节点有:</p>
+<ul>
+<li>
+<p>groupId:artifactId:version 来标识Maven 工程唯一的版本,</p>
+</li>
+<li>
+<p>package 表示打包方式,常用的就jar,pom, war 这三种.</p>
+</li>
+<li>
+<p>propertie 配置全局属性</p>
+</li>
+<li>
+<p>depenencies 管理依赖</p>
+</li>
+<li>
+<p>plugins 管理插件</p>
+</li>
+<li>
+<p>resources  管理资源</p>
+</li>
+<li>
+<p>modules 管理项目模块</p>
+</li>
+</ul>
+<p>POM 文件还支持继承,前提是父项目的 POM 文件 package 值为parent,然后在父 POM文件中完成统一配置管理, 其中子 POM中配置级别高于父 POM.</p>
+<pre><code class="language-xml">&lt;project&gt;
+  &lt;parent&gt;
+    &lt;groupId&gt;com.mycompany.app&lt;/groupId&gt;
+    &lt;artifactId&gt;my-app&lt;/artifactId&gt;
+    &lt;version&gt;1&lt;/version&gt;
+	&lt;relativePath&gt;../parent/pom.xml&lt;/relativePath&gt;
+  &lt;/parent&gt;
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+  &lt;groupId&gt;com.mycompany.app&lt;/groupId&gt;
+  &lt;artifactId&gt;my-module&lt;/artifactId&gt;
+  &lt;version&gt;1&lt;/version&gt;
+&lt;/project&gt;
+</code></pre>
+<p>Maven 的依赖管理通过 <code>&lt;dependencis&gt;</code>来定义, 一项 jar 依赖由 groupId:artifactId:version 标识; 项目的所有依赖呈现树状结构,采用就近原则,离最近的依赖优先级高.</p>
+<p>编译是否参与编译部署可用参数 scope 指定,它值只有complie, test, provide, system,import 这5种,默认为 complie.</p>
+<h3 id="项目构建流程">项目构建流程</h3>
+<p>基于约定由于配置原则, Maven 的构建生命周期内置有 default, clean,site三种;default处理项目部署, clean来清理项目, site处理项目相关的文档创建.</p>
+<p>Maven 的一个构建生命周期是由多个不同的构建阶段组成的.比如 default 生命周期的构建阶段有下面7个:</p>
+<ul>
+<li><code>validate</code> - 确定项目是正确的，</li>
+<li>`compile  - 编译项目的源代码</li>
+<li><code>test</code> - 使用合适的单元测试框架测试编译的源代码。</li>
+<li><code>package</code>  - 采用编译的代码，并将其打包成可发布格式，例如 JAR</li>
+<li><code>verify</code> - 对集成测试结果进行检查</li>
+<li><code>install</code>   - 将软件包安装到本地存储库，作为本地其他项目的依赖项使用</li>
+<li><code>deploy</code>  - 在构建环境中完成，将最终包复制到远程存储库，以便与其他开发人员和项目共享</li>
+</ul>
+<p>这些生命周期阶段的执行顺序固定,不会出现错误.</p>
+<h3 id="多环境资源管理profile">多环境资源管理Profile</h3>
+<p>profile 解决根据不同环境而打包不同文件的问题, 使用时加 -P 指定 profile 即可生效.</p>
+<pre><code class="language-xml">&lt;profiles&gt;
+  &lt;profile&gt;
+    &lt;id&gt;dev&lt;/id&gt;
+    &lt;activation&gt;
+      &lt;property&gt;
+        &lt;name&gt;environment&lt;/name&gt;
+        &lt;value&gt;dev&lt;/value&gt;
+      &lt;/property&gt;
+    &lt;/activation&gt;
+	&lt;id&gt;release&lt;/id&gt;
+    &lt;activation&gt;
+      &lt;property&gt;
+        &lt;name&gt;environment&lt;/name&gt;
+        &lt;value&gt;release&lt;/value&gt;
+      &lt;/property&gt;
+    &lt;/activation&gt;
+    ...
+  &lt;/profile&gt;
+&lt;/profiles&gt;
+</code></pre>
+<p>允许使用参数方式指定Profile 运行:</p>
+<pre><code class="language-bash">mvn groupId:artifactId:goal -Denvironment=dev
+# 或者
+mvn groupId:artifactId:goal -Pdev
+</code></pre>
+<p>可以使用 <code>&lt;activeProfiles&gt;</code> 指定默认构建的profile:</p>
+<pre><code class="language-xml">&lt;settings&gt;
+  ...
+  &lt;activeProfiles&gt;
+    &lt;activeProfile&gt;profile-1&lt;/activeProfile&gt;
+  &lt;/activeProfiles&gt;
+  ...
+&lt;/settings&gt;
+</code></pre>
+<h3 id="项目属性">项目属性</h3>
+<p>Maven 允许在 POM 中同时使用自己的和预先定义的变量,做到重用变量的作用, 如要访问变量 <code>project.version</code>,就可以这样引用.但要注意的是变量的定义优先级是子 POM 文件高,如果子 POM 文件与父 POM 文件存在想通变量的定义,那么最终采用的是子 POM 文件中的.</p>
+<pre><code> &lt;version&gt;${project.version}&lt;/version&gt;
+</code></pre>
+<p>自定义属性定义的位置在 POM 文件的 properties 节点下,具体使用方式如下</p>
+<pre><code class="language-xml">&lt;project&gt;
+  ...
+  &lt;properties&gt;
+    &lt;mavenVersion&gt;2.1&lt;/mavenVersion&gt;
+  &lt;/properties&gt;
+  &lt;dependencies&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.apache.maven&lt;/groupId&gt;
+      &lt;artifactId&gt;maven-artifact&lt;/artifactId&gt;
+      &lt;version&gt;${mavenVersion}&lt;/version&gt;
+    &lt;/dependency&gt;
+  &lt;/dependencies&gt;
+  ...
+&lt;/project&gt;
+</code></pre>
+<p>Maven预定义的变量:</p>
+<ul>
+<li>project.basedir 当前项目所在目录路径</li>
+<li>project.baseUri 当前项目所在目录的 URI 表示</li>
+<li>maven.build.timestamp  表示构建生成的时间戳,可以通过 <code>maven.build.timestamp.format</code>定义格式</li>
+</ul>
+<h2 id="结语">结语</h2>
+<p>本文主要介绍了 Maven 作为主流构建工具的优势和特点,介绍其 POM 文件和常用节点的用法.</p>
+<h4 id="参考">参考</h4>
+<ul>
+<li>http://maven.apache.org/</li>
+<li>http://maven.apache.org/guides/getting-started/index.html</li>
+</ul>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://wrcj12138aaa.github.io//tag/BSi-UaPL6k">
+            <span class="flex-auto">构建工具</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://wrcj12138aaa.github.io//post/20181021-SpringBoot实战分析-MongoDB操作">
+                <h3 class="post-title">
+                  <i class="remixicon-arrow-left-line"></i>
+                  SpringBoot实战分析-MongoDB操作
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://wrcj12138aaa.github.io//post/20181018-Maven 常用命令">
+                <h3 class="post-title">
+                  Java 修炼之道:Maven 常用命令清单
+                  <i class="remixicon-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '2ba76d6fe50ad2b384eb',
+    clientSecret: '90db763ed48942571725d6aef11229900c8bb656',
+    repo: 'wrcj12138aaa.github.io',
+    owner: 'wrcj12138aaa',
+    admin: ['wrcj12138aaa'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+      </div>
+    </div>
+
+    <script src="https://wrcj12138aaa.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>

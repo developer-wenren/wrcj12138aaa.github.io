@@ -1,0 +1,822 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>闻人的技术博客</title>
+<meta name="description" content="做一个终生学习者" />
+<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1570432921998">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://wrcj12138aaa.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="闻人的技术博客 - Atom Feed" href="https://wrcj12138aaa.github.io//atom.xml">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://wrcj12138aaa.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://wrcj12138aaa.github.io//images/avatar.png?v=1570432921998" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">闻人的技术博客</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%85%B3%E4%BA%8Eguava">关于Guava</a></li>
+<li><a href="#%E5%B8%B8%E7%94%A8%E7%B1%BB">常用类</a>
+<ul>
+<li><a href="#optional-%E7%B1%BB">Optional 类</a>
+<ul>
+<li><a href="#%E4%B8%BB%E8%A6%81%E6%96%B9%E6%B3%95"><strong>主要方法</strong></a></li>
+</ul>
+</li>
+<li><a href="#preconditions-%E7%B1%BB">Preconditions 类</a>
+<ul>
+<li><a href="#%E4%B8%BB%E8%A6%81%E6%96%B9%E6%B3%95-2">主要方法</a></li>
+</ul>
+</li>
+<li><a href="#range-%E7%B1%BB">Range 类</a>
+<ul>
+<li><a href="#%E4%B8%BB%E8%A6%81%E6%96%B9%E6%B3%95-3">主要方法</a></li>
+</ul>
+</li>
+<li><a href="#loadingcache">LoadingCache</a>
+<ul>
+<li><a href="#%E7%94%A8%E6%B3%95"><strong>用法</strong></a></li>
+</ul>
+</li>
+<li><a href="#ordering-%E7%B1%BB">Ordering 类</a>
+<ul>
+<li><a href="#%E7%94%A8%E6%B3%95-2">用法</a></li>
+</ul>
+</li>
+<li><a href="#%E6%89%A9%E5%B1%95%E9%9B%86%E5%90%88%E7%B1%BB">扩展集合类</a></li>
+</ul>
+</li>
+<li><a href="#%E7%BB%93%E8%AF%AD">结语</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="remixicon-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"></div>
+    <a class="rss" href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">Guava入门</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2018-09-02 / 16 min read
+        </div>
+        
+        <div class="post-content yue">
+          <h2 id="关于guava">关于Guava</h2>
+<p>Guava 是一个谷歌开源的Java库,为了帮助Java开发者更好编写程序,减少编码错误,提供Java编码的最佳实践. 同时Guava 为集合,缓存,并发,注解,字符串处理,IO等提供了许多工具方法.通过从官方文档的学习,简单记录下Guava的常用类的API和用法,方便工作中使用和进一步扩展.</p>
+<!--more-->
+<h2 id="常用类">常用类</h2>
+<h3 id="optional-类">Optional 类</h3>
+<p>包含一个not-null对象的不可变对象,用来表示null 不存在的值,帮助代码处理检查可以或者不可用来代替null的检查.</p>
+<pre><code>@GwtCompatible(serializable = true)
+public abstract class Optional&lt;T&gt; extends Object implements Serializable
+</code></pre>
+<h4 id="主要方法"><strong>主要方法</strong></h4>
+<pre><code class="language-java">// 返回没有引用的Optional对象
+static &lt;T&gt; Optional&lt;T&gt;	absent(){...}
+
+// 用法
+Optional&lt;Object&gt; absent = Optional.absent();        
+System.out.println(absent.isPresent()); // false
+
+
+// 返回一个不可变的单例集合,如果存在引用,则包含在集合中;
+// 如果不存在,则为空集合
+abstract Set&lt;T&gt; asSet(){...}
+
+Optional&lt;String&gt; haha = Optional.of(&quot;haha&quot;);        
+System.out.println(haha.asSet());// [haha]
+Optional&lt;Object&gt; absent = Optional.absent();
+Set&lt;Object&gt; objects = absent.asSet();
+System.out.println(objects); //[]
+System.out.println(objects.isEmpty()); //true
+
+
+// 如果 object为Optional对象,且引用相同则返回true,包含都是null的情况;
+// 其他都返回false
+abstract boolean equals(Object object){...}
+
+Optional&lt;Integer&gt; num1 = Optional.of(5);
+Optional&lt;Integer&gt; num2 = Optional.of(5);
+System.out.println(num1.equals(num2)); // true
+System.out.println(num1.equals(null)); // false
+Optional&lt;Integer&gt; empty1 = Optional.absent();
+Optional&lt;Integer&gt; empty2 = Optional.absent();
+System.out.println(empty1.equals(empty2)); // true
+System.out.println(empty1.equals(null)); // false
+
+
+// 返回一个Optional对象,如果nullableReference不为null,返回包含该引用的实例对象;
+否则返回 调用absent()返回的Optional对象.
+static &lt;T&gt; Optional&lt;T&gt;	fromNullable(T nullableReference){...}
+
+String a = null;
+Optional&lt;String&gt; stringOptional = Optional.fromNullable(a);
+System.out.println(stringOptional.isPresent()); // false
+a = &quot;5&quot;;
+Optional&lt;String&gt; secondOptional = Optional.fromNullable(a);
+System.out.println(secondOptional.isPresent()); // false
+System.out.println(secondOptional.get()); // &quot;5&quot;
+
+// 返回含有引用的实例,否则抛异常
+abstract T	get(){...}
+
+String a = &quot;5&quot;;
+Optional&lt;String&gt; secondOptional = Optional.fromNullable(a);
+System.out.println(secondOptional.get()); // &quot;5&quot;
+
+
+// 返回对象的哈希码
+abstract int hashCode()
+
+Optional&lt;String&gt; abc = Optional.of(&quot;abc&quot;);
+System.out.println(abc.hashCode()); // 1502572926
+
+
+// 若Optional对象含有非null的引用,则返回true,否则返回false
+abstract boolean isPresent(){...}
+
+a = &quot;5&quot;;
+Optional&lt;String&gt; secondOptional = Optional.fromNullable(a);
+System.out.println(secondOptional.isPresent()); // true
+
+
+// 返回包含T类型引用reference的Optinal对象
+static &lt;T&gt; Optional&lt;T&gt;	of(T reference){...}
+
+a = &quot;5&quot;;
+Optional&lt;String&gt; optional = Optional.of(a);
+System.out.println(optional.isPresent()); // true
+System.out.println(optional.get()); // &quot;5&quot;
+
+// 返回当前Optinal对象,若为缺少则返回备用Optinal对象 secondChoice
+abstract Optional&lt;T&gt; or(Optional&lt;? extends T&gt; secondChoice){...}
+// 返回当前Optinal对象所引用的对象,若没有则返回 默认值 supplier
+abstract T or(Supplier&lt;? extends T&gt; supplier){...}
+abstract T or(T defaultValue){...}
+
+Integer a = null;
+Optional&lt;Integer&gt; integerOptional = Optional.fromNullable(a);
+System.out.println(integerOptional.or(5)); // 5
+Optional&lt;Integer&gt; integer2Optional = Optional.fromNullable(5);
+System.out.println(integer2Optional.or(integer2Optional)); //Optional.of(5)
+
+
+// 返回所引用的实例,若实例不存在,则返回null
+abstract T or(T defaultValue){...}
+
+Optional&lt;Integer&gt; integerOptional = Optional.of(5);
+System.out.println(integerOptional.orNull());// 5
+integerOptional = Optional.fromNullable(null);
+System.out.println(integerOptional.orNull());// null
+
+
+// 返回Optional集合的Iterable对象,在遍历过程若出现引用不存在时跳过当前循环
+static &lt;T&gt; Iterable&lt;T&gt; presentInstances(Iterable&lt;? extends Optional&lt;? extends T&gt;&gt; optionals){...}
+
+List&lt;Optional&lt;String&gt;&gt; list = new ArrayList&lt;&gt;();
+list.add(Optional.of(&quot;5&quot;));
+list.add(Optional.&lt;String&gt;absent());
+list.add(Optional.of(&quot;7&quot;));
+Iterable&lt;String&gt; objects = Optional.presentInstances(list);
+for (Object obj : objects) {
+    System.out.println(obj); // 5,7
+}
+
+
+// 返回当前引用的字符串形式
+abstract String toString(){...}
+
+
+//如果引用存在，则将它随着给定的函数进行转换并返回; 否则，返回 absent()。
+abstract &lt;V&gt; Optional&lt;V&gt; transform(Function&lt;? super T,V&gt; function){...}
+
+Optional&lt;Integer&gt; integerOptional = Optional.of(5);
+Function&lt;? super Integer, Integer&gt; function = new Function&lt;Integer, Integer&gt;() {
+    @NullableDecl
+    @Override
+    public Integer apply(@NullableDecl Integer input) {
+        return input * 2;
+    }
+};
+Optional&lt;Integer&gt; transform = integerOptional.transform(function);
+System.out.println(transform); // 10
+</code></pre>
+<h3 id="preconditions-类">Preconditions 类</h3>
+<p>用来检查方法或者构造器的参数是否正确, 若不符合期望,则会抛出IllegalArgumentException 异常.</p>
+<pre><code class="language-java">@GwtCompatible
+public final class Preconditions {...}
+</code></pre>
+<h4 id="主要方法-2">主要方法</h4>
+<pre><code class="language-java">/**
+* 检查一个或者多个参数的正确性,若expression为false,则抛出异常,允许自定义异常描述
+* static void checkArgument(boolean expression)
+* static void checkArgument(boolean expression, Object errorMessage)
+* static void checkArgument(boolean expression, String errorMessageTemplate, Object. errorMessageArgs)
+*/
+Preconditions.checkArgument(1==2);
+Preconditions.checkArgument(1==2,&quot;两者不相等&quot;);
+Preconditions.checkArgument(1 == 2, &quot;%s,%s不相等&quot;,1,2);
+
+
+/**
+ * 检查访问数组的索引是否超过其大小,若超过则抛异常
+ * static int   checkElementIndex(int index, int size)
+ * static int checkElementIndex(int index, int size, String desc)
+ */
+Preconditions.checkElementIndex(6,strings.length);
+Preconditions.checkElementIndex(6,strings.length,&quot;访问索引过界&quot;);
+
+
+/**
+ * 检查引用是否为null,若为null抛异常
+ * static &lt;T&gt; T checkNotNull(T reference)
+ * static &lt;T&gt; T checkNotNull(T reference, Object errorMessage)
+ * static &lt;T&gt; T checkNotNull(T reference, String errorMessageTemplate, Object... errorMessageArgs)
+ */
+
+String a= null;
+//Preconditions.checkNotNull(a);
+//Preconditions.checkNotNull(a,&quot;a不能为null&quot;);
+Preconditions.checkNotNull(a,&quot;a变量不能为%s&quot;,a);
+
+
+/**
+ * 检查索引是否在指定数组、列表或大小字符串中的有效位置,否则抛异常
+ * static int   checkPositionIndex(int index, int size)
+ * static int checkPositionIndex(int index, int size, String desc)
+ */
+String string = &quot;abcd&quot;;
+int size = string.length();
+int index = 5;
+//Preconditions.checkPositionIndex(index,size);
+Preconditions.checkPositionIndex(index,size,&quot;超过字符串长度&quot;);
+
+
+/**
+ * 用于检查状态变量的正确性,不正确则抛异常处理,允许对异常描述信息自定义
+ * static void checkState(boolean expression)
+ * static void checkState(boolean expression, Object errorMessage)
+ * static void checkState(boolean expression, Object errorMessage)
+ */
+boolean isTrue = false;
+//Preconditions.checkState(isTrue);
+//Preconditions.checkState(isTrue,&quot;flag is false&quot;);
+Preconditions.checkState(isTrue,&quot;flag is %s&quot;,isTrue);
+</code></pre>
+<h3 id="range-类">Range 类</h3>
+<p>代表一个间隔或一个序列。 它被用来获取一组数字 / 字符串位于一个特定的范围.</p>
+<pre><code class="language-java">@GwtCompatible
+public final class Range&lt;C extends Comparable&gt; extends RangeGwtSerializationDependencies{...}
+</code></pre>
+<h4 id="主要方法-3">主要方法</h4>
+<pre><code class="language-java">/**
+* static &lt;C extends Comparable&lt;?&gt;&gt; Range&lt;C&gt; all()
+* 返回包含类型 c 的每个值的范围。
+*/
+Range&lt;Comparable&lt;?&gt;&gt; all = Range.all();
+
+/**
+* static &lt;C extends Comparable&lt;?&gt;&gt; Range&lt;C&gt; atLeast(C endpoint)
+*/
+@Test
+public void atLeastTest() {
+    Range&lt;Integer&gt; integerRange = Range.atLeast(5);
+}
+
+/**
+* static &lt;C extends Comparable&lt;?&gt;&gt; Range&lt;C&gt; atMost(C endpoint)
+*/
+@Test
+public void atMostTest() {
+    Range&lt;Integer&gt; integerRange = Range.atMost(5);
+}
+
+/**
+     * static &lt;C extends Comparable&lt;?&gt;&gt; Range&lt;C&gt; closed(C lower, C upper)
+     * 表示闭区间的范围,[x..y]
+     */
+@Test
+public void closedTest() {
+    Range&lt;Integer&gt; closed = Range.closed(1, 5);
+    System.out.println(closed);
+}
+
+/**
+* static &lt;C extends Comparable&lt;?&gt;&gt; Range&lt;C&gt; closedOpen(C lower, C upper)
+* 上开区间的范围, [x..y)
+*/
+@Test
+public void closedOpenTest() {
+    Range&lt;Integer&gt; closedOpen = Range.closedOpen(1, 5);
+    System.out.println(closedOpen);
+}
+
+/**
+* boolean containsAll(Iterable&lt;? extends C&gt; values)
+* 若果集合所有元素在此范围内,返回 true
+*/
+@Test
+public void containsAllTest() {
+    Range&lt;Integer&gt; closed = Range.closedOpen(1, 4);
+    List list = new ArrayList();
+    list.add(1);
+    list.add(2);
+    list.add(3);
+    list.add(4);
+    boolean b = closed.containsAll(list); // false
+    System.out.println(b);
+}
+
+/**
+* static &lt;C extends Comparable&lt;?&gt;&gt; Range&lt;C&gt; open(C lower, C upper)
+* 表示闭区间的范围, (x..y)
+*
+* static &lt;C extends Comparable&lt;?&gt;&gt; Range&lt;C&gt; openClosed(C lower, C upper)
+* 表示下开区间的范围 (x..y]
+*/
+@Test
+public void openTest() {
+    Range&lt;Integer&gt; closed = Range.open(1, 4);
+    List list = new ArrayList();
+    list.add(2);
+    list.add(3);
+    list.add(4);
+    boolean b = closed.containsAll(list);
+    System.out.println(b);// false;
+    Range&lt;Integer&gt; openClosed = Range.openClosed(1, 4);
+    boolean b1 = openClosed.containsAll(list);
+    System.out.println(b1); // true
+}
+</code></pre>
+<h3 id="loadingcache">LoadingCache</h3>
+<p>提供强大的基于内存的缓存机制,值在缓存中自动加载.</p>
+<pre><code class="language-java">@GwtCompatible
+public interface LoadingCache&lt;K, V&gt; extends Cache&lt;K, V&gt;, Function&lt;K, V&gt; {...}
+</code></pre>
+<h4 id="用法"><strong>用法</strong></h4>
+<pre><code class="language-java">public void cacaheTest() {
+    LoadingCache&lt;String, String&gt; employyeeCache = CacheBuilder.newBuilder()
+        .maximumSize(100)
+        .expireAfterAccess(10, TimeUnit.SECONDS).build(new CacheLoader&lt;String, String&gt;() {
+        @Override
+        public String load(String key) throws Exception {
+            return getFromDatabase(key);
+        }
+    });
+
+    String s = null;
+    try {
+        s = employyeeCache.get(&quot;100&quot;);
+        // String s = employyeeCache.getUnchecked(&quot;100&quot;);
+        System.out.println(s);
+        // 第二次获取直接从缓存中获取
+        s = employyeeCache.getUnchecked(&quot;100&quot;);
+        System.out.println(s);
+        Thread.sleep(10000);
+        // 缓存失效后再次db里读
+        s = employyeeCache.get(&quot;100&quot;);
+        System.out.println(s);
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+</code></pre>
+<h3 id="ordering-类">Ordering 类</h3>
+<p>Ordering 类具具有增强的链式方法,多个工具方法,和多类型排序.</p>
+<pre><code class="language-java">@GwtCompatible
+public abstract class Ordering&lt;T&gt; implements Comparator&lt;T&gt; {...}
+</code></pre>
+<h4 id="用法-2">用法</h4>
+<pre><code class="language-java">/**
+* static Ordering&lt;Object&gt; allEqual()
+* 返回一个 Ordering 对象,其表示在排序算法中不会改变元素的顺序
+*/
+@Test
+public void allEqualTest() {
+    Ordering&lt;Object&gt; objectOrdering = Ordering.allEqual();
+    System.out.println(objectOrdering);
+    List&lt;Integer&gt; numbers = new ArrayList&lt;Integer&gt;();
+
+}
+
+/**
+* static Ordering&lt;Object&gt; arbitrary()
+* 返回一个Ordering对象,排序任意
+*/
+@Test
+public void arbitrayTest() {
+    Ordering&lt;Object&gt; arbitrary = Ordering.arbitrary();
+    List&lt;String&gt; list = new ArrayList&lt;&gt;();
+    list.add(&quot;k&quot;);
+    list.add(&quot;5&quot;);
+    list.add(&quot;a&quot;);
+    list.add(&quot;9&quot;);
+    list.add(&quot;z&quot;);
+    Collections.sort(list, arbitrary);
+    System.out.println(list);
+}
+
+/**
+* abstract int compare(T left, T right)
+* 比较两个元素
+*/
+@Test
+public void binarySearchTest() {
+    Ordering&lt;Object&gt; arbitrary = Ordering.arbitrary();
+    String a = &quot;a&quot;;
+    String b = &quot;b&quot;;
+    int compare = arbitrary.compare(b, a);
+    System.out.println(compare); //1 表示前者大于后者
+
+}
+
+/**
+* &lt;U extends T&gt; Ordering&lt;U&gt; compound(Comparator&lt;? super U&gt; secondaryComparator)
+*/
+@Test
+public void compoundTest() {
+    Ordering&lt;Object&gt; arbitrary = Ordering.arbitrary();
+    Iterable&lt;? extends Comparator&lt;? super Object&gt;&gt; second = null;
+    //        Ordering&lt;Object&gt; compound = arbitrary.compound(second);
+
+}
+
+/**
+* &lt;E extends T&gt; E max(Iterator&lt;E&gt; iterator)
+* &lt;E extends T&gt; E max(Iterable&lt;E&gt; iterable)
+* &lt;E extends T&gt; E max(E a, E b)
+* &lt;E extends T&gt; E max(E a, E b, E c, E... rest)
+* 取两个比较对象的最大值
+*/
+@Test
+public void maxTest() {
+    Ordering&lt;Comparable&gt; natural = Ordering.natural();
+    Integer max = natural.max(2, 8);
+    System.out.println(max);
+
+}
+
+/**
+* &lt;E extends T&gt; E min(Iterator&lt;E&gt; iterator)
+* &lt;E extends T&gt; E min(Iterable&lt;E&gt; iterable)
+* &lt;E extends T&gt; E min(E a, E b)
+* &lt;E extends T&gt; E min(E a, E b, E c, E... rest)
+* 取两个比较对象的最大值
+*/
+@Test
+public void minTest() {
+    Ordering&lt;Comparable&gt; natural = Ordering.natural();
+    Integer min = natural.min(2, 8);
+    System.out.println(min);
+}
+
+/**
+* static &lt;C extends Comparable&gt; Ordering&lt;C&gt; natural()
+* 返回一个Ordering 对象,可序列化且使用值的自然顺序排序
+*/
+@Test
+public void naturalTest() {
+    Ordering&lt;Comparable&gt; natural = Ordering.natural();
+    System.out.println(natural);
+}
+
+/**
+* &lt;S extends T&gt; Ordering&lt;S&gt; nullsFirst()
+* 返回一个Ordering对象,会将null视为最小值进行排序
+x*/
+*/
+@Test
+public void nullsFirstTest() {
+    Ordering&lt;Comparable&gt; natural = Ordering.natural();
+    Ordering&lt;Comparable&gt; nullsFirst = natural.nullsFirst();
+    List&lt;String&gt; list = new ArrayList&lt;&gt;();
+    list.add(&quot;5&quot;);
+    list.add(&quot;a&quot;);
+    list.add(&quot;9&quot;);
+    list.add(&quot;z&quot;);
+    list.add(&quot;k&quot;);
+    list.add(null);
+    Collections.sort(list, nullsFirst);
+    System.out.println(list);//[null, 5, 9, a, k, z]
+}
+
+/**
+* &lt;S extends T&gt; Ordering&lt;S&gt; nullsLast()
+* 返回一个Ordering对象,会将null视为最大值进行排序
+*/
+@Test
+public void nullsLastTest() {
+    Ordering&lt;Comparable&gt; natural = Ordering.natural();
+    Ordering&lt;Comparable&gt; nullsLast = natural.nullsLast();
+    List&lt;String&gt; list = new ArrayList&lt;&gt;();
+    list.add(&quot;5&quot;);
+    list.add(&quot;a&quot;);
+    list.add(&quot;9&quot;);
+    list.add(&quot;z&quot;);
+    list.add(&quot;k&quot;);
+    list.add(null);
+    Collections.sort(list, nullsLast);
+    System.out.println(list);//[null, 5, 9, a, k, z]
+}
+
+/**
+* &lt;S extends T&gt; Ordering&lt;S&gt; reverse()
+* 获得能反序的Ordering对象
+*/
+@Test
+public void reverseTest() {
+    Ordering&lt;Comparable&gt; natural = Ordering.natural();
+    List&lt;String&gt; list = new ArrayList&lt;&gt;();
+    list.add(&quot;5&quot;);
+    list.add(&quot;a&quot;);
+    list.add(&quot;9&quot;);
+    list.add(&quot;z&quot;);
+    list.add(&quot;k&quot;);
+    Collections.sort(list, natural.reverse());
+    System.out.println(list); // [z, k, a, 9, 5]
+}
+
+/**
+* &lt;F&gt; Ordering&lt;F&gt; onResultOf(Function&lt;F,? extends T&gt; function)
+* 对元素应用特定的函数,再进行排序
+*/
+@Test
+public void onResultOfTest() {
+    Ordering&lt;Comparable&gt; natural = Ordering.natural();
+    Ordering&lt;String&gt; stringOrdering = natural.onResultOf(new Function&lt;String, Comparable&gt;() {
+        @NullableDecl
+        @Override
+        public Comparable apply(@NullableDecl String input) {
+            return Math.random() + input;
+        }
+    });
+    List&lt;String&gt; list = new ArrayList&lt;&gt;();
+    list.add(&quot;5&quot;);
+    list.add(&quot;a&quot;);
+    list.add(&quot;9&quot;);
+    list.add(&quot;z&quot;);
+    list.add(&quot;k&quot;);
+    Collections.sort(list, stringOrdering);
+    System.out.println(list); // [z, k, a, 9, 5]
+}
+
+/**
+* static Ordering&lt;Object&gt; usingToString()
+* 返回一个 Ordering,根据其toString()进行自然排序
+*/
+@Test
+public void usingToStringTest() {
+    Ordering&lt;Comparable&gt; natural = Ordering.natural();
+    List&lt;String&gt; list = new ArrayList&lt;&gt;();
+    list.add(&quot;5&quot;);
+    list.add(&quot;a&quot;);
+    list.add(&quot;9&quot;);
+    list.add(&quot;z&quot;);
+    list.add(&quot;k&quot;);
+    Collections.sort(list, natural.usingToString());
+    System.out.println(list); // [5, 9, a, k, z]
+}
+</code></pre>
+<h3 id="扩展集合类">扩展集合类</h3>
+<p>Guava提供更多高级的集合,主要如下:</p>
+<ul>
+<li>multiset 允许重复元素的set.</li>
+<li>multimap 允许key对应多个value的map.</li>
+<li>biMap 对Map的反向操作扩展.</li>
+<li>table 两个key决定一个value的特殊映射集合.</li>
+</ul>
+<h2 id="结语">结语</h2>
+<p>本文主要对Guava的常用类和api进行简单介绍和使用, 更多Guava具体更高级的功能需要在项目里根据实际需要去学习使用,来真正提供自己的开发效率.</p>
+<p><strong>参考资料</strong></p>
+<ul>
+<li>https://github.com/google/guava/wiki</li>
+<li>https://www.tutorialspoint.com/guava/index.htm</li>
+</ul>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://wrcj12138aaa.github.io//tag/llypUO29A">
+            <span class="flex-auto">Java</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://wrcj12138aaa.github.io//post/20180906-后端环境搭建系列 之 Nginx">
+                <h3 class="post-title">
+                  <i class="remixicon-arrow-left-line"></i>
+                  后端架构搭建系列之 Nginx
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://wrcj12138aaa.github.io//post/20180826-学习笔记-《如何成为有效学习高手》">
+                <h3 class="post-title">
+                  学习笔记-《如何成为有效学习高手》
+                  <i class="remixicon-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '2ba76d6fe50ad2b384eb',
+    clientSecret: '90db763ed48942571725d6aef11229900c8bb656',
+    repo: 'wrcj12138aaa.github.io',
+    owner: 'wrcj12138aaa',
+    admin: ['wrcj12138aaa'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+      </div>
+    </div>
+
+    <script src="https://wrcj12138aaa.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>

@@ -1,0 +1,530 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>闻人的技术博客</title>
+<meta name="description" content="做一个终生学习者" />
+<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1570432921998">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://wrcj12138aaa.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="闻人的技术博客 - Atom Feed" href="https://wrcj12138aaa.github.io//atom.xml">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://wrcj12138aaa.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://wrcj12138aaa.github.io//images/avatar.png?v=1570432921998" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">闻人的技术博客</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%B9%B6%E5%8F%91%E6%A6%82%E5%BF%B5">并发概念</a></li>
+<li><a href="#%E5%B9%B6%E5%8F%91%E5%9F%BA%E7%A1%80">并发基础</a></li>
+<li><a href="#%E9%94%81%E4%BC%98%E5%8C%96">锁优化</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="remixicon-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"></div>
+    <a class="rss" href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">《实战Java高并发程序设计》读书笔记</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2018-10-11 / 5 min read
+        </div>
+        
+        <div class="post-content yue">
+          <h2 id="并发概念">并发概念</h2>
+<ul>
+<li>
+<p>同步与异步</p>
+<ul>
+<li>
+<p>一次方法调用中,需要等待方法返回后再继续执行的是同步方法; 无需等待直接返回,继续执行的是异步方法</p>
+</li>
+<li></li>
+</ul>
+<figure data-type="image" tabindex="1"><img src="https://mubu.com/document_image/2e81bd80-f158-4f26-908c-e82ac4ceb7ef-695634.jpg" alt="img"></figure>
+<ul>
+<li>生活例子: 商城买冰箱与网购买冰箱</li>
+</ul>
+</li>
+<li>
+<p>并发与并行</p>
+<ul>
+<li>
+<p>并发指多个任务交替执行; 而并行表示多个任务同时执行</p>
+</li>
+<li></li>
+</ul>
+<figure data-type="image" tabindex="2"><img src="https://mubu.com/document_image/1a8bbdb6-ad41-4fd8-80eb-bf091e795a25-695634.jpg" alt="img"></figure>
+</li>
+<li>
+<p>临界区</p>
+<ul>
+<li>会被多个线程使用到的共享数据,一旦有个线程占用它,其他线程想要使用只能等待</li>
+<li>生活例子: 排队上厕所</li>
+</ul>
+</li>
+<li>
+<p>阻塞与非阻塞</p>
+<ul>
+<li>一个线程占用临界区资源时,其他线程需要这个资源就要处于阻塞状态,如果占用资源的线程不释放资源,所有阻塞的线程就不能工作; 而非阻塞表示线程间执行不会相互妨碍</li>
+</ul>
+</li>
+<li>
+<p>死锁, 饥饿和活锁</p>
+<ul>
+<li>死锁: 线程间相互占用对方的锁,而导致各线程无法工作</li>
+<li>饥饿: 线程长时间无法获取所需资源,导致无法执行</li>
+<li>活锁: 共享资源在两个线程间不断切换,两个线程都无法正常执行</li>
+</ul>
+</li>
+<li>
+<p>并行的双定律</p>
+<ul>
+<li>Amdahl 定律和Gustafason 定律
+<ul>
+<li>加速比 = 优化前系统耗时 / 优化后系统耗时;</li>
+<li>提高系统的速度,仅增加CPU数不够,更应该提供系统中并行化的模块比重</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>JMM Java 内存模型</p>
+<ul>
+<li>
+<p>原子性</p>
+<ul>
+<li>一个操作不可中断</li>
+<li>在多线程环境中,32位程序对 long 型数据读写不是原子性的,会被相互干扰</li>
+</ul>
+</li>
+<li>
+<p>可见性</p>
+<ul>
+<li>
+<p>一个线程修改了某一个共享变量,其他线程能读到最新的数据</p>
+</li>
+<li>
+<p>CPU 缓存优化,指令重排序都会造成可见性问题</p>
+</li>
+<li></li>
+</ul>
+<figure data-type="image" tabindex="3"><img src="https://mubu.com/document_image/bf16dbc8-0d83-4497-abf8-d6f23f0639db-695634.jpg" alt="img"></figure>
+</li>
+<li>
+<p>有序性</p>
+<ul>
+<li>
+<p>程序执行时代码顺序会一定严格按照写的先后执行,可能会出现指令重排序</p>
+</li>
+<li>
+<p>指令重排会保证串行下语义一致,但不保证多线程下一致</p>
+</li>
+<li>
+<p>指令重排</p>
+<ul>
+<li>
+<p>为什么要指令重排: 不改变语义情况下, 减少中断指令流水线</p>
+</li>
+<li>
+<p>a = b + c; d=e-f 的指令重排</p>
+<figure data-type="image" tabindex="4"><img src="https://mubu.com/document_image/ebefb1e9-6d13-4a25-8d96-00a5a623dcc5-695634.jpg" alt="img"></figure>
+</li>
+<li>
+<p>重排规则: Happen-Before</p>
+<ul>
+<li>一个线程内保证语义的串行</li>
+<li>volatile 写先于读</li>
+<li>锁的解锁必须发生在加锁之前</li>
+<li>传递性, A先于B,B先于C,那A先于C</li>
+<li>线程的start 方法先于它的其他任何方法</li>
+<li>线程中断先于被中断线程的代码</li>
+<li>构造函数执行,结束先于 finalize方法</li>
+<li>线程所有操作先去线程的终结</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="并发基础">并发基础</h2>
+<ul>
+<li>
+<p>线程与进程</p>
+<ul>
+<li>
+<p>进程</p>
+<ul>
+<li>代表着运行的一个程序</li>
+<li>进程相当于一个容器,包含线程</li>
+<li>例子: 住在房子了的一家三口</li>
+</ul>
+</li>
+<li>
+<p>线程</p>
+<ul>
+<li>
+<p>线程生命周期: 6 个状态</p>
+<figure data-type="image" tabindex="5"><img src="https://mubu.com/document_image/73b2a12e-c5aa-49bb-bb00-07394b1378b3-695634.jpg" alt="img"></figure>
+</li>
+<li>
+<p>线程终止 stop( )</p>
+<ul>
+<li>不要Thread 的sotp方法: 强制终止线程,会导致数据不一致</li>
+<li>可以在写线程设置一个标记变量表示线程的停止,用volatile修饰</li>
+</ul>
+</li>
+<li>
+<p>线程中断 interrupt( )</p>
+<ul>
+<li>使用 interrupt( ) 方法主动中断线程,使用 isInterrupted( ) 方法判断是否被中断</li>
+<li>线程中出现 wait( ) 和 sleep( ) 时可以靠 interrupt( ) 中断</li>
+</ul>
+</li>
+<li>
+<p>线程休眠 sleep( )</p>
+<ul>
+<li>
+<p>在线程休眠过程中调用 interrupt( )方法会中断休眠,并且抛出 InterruptedException 异常,而抛出异常后会将 中断标记清除, 需要额外再手动调用 interrupt( ) 方法保证线程退出当前循环</p>
+</li>
+<li></li>
+</ul>
+<figure data-type="image" tabindex="6"><img src="https://mubu.com/document_image/309dc615-021c-46a8-b8e7-afaf581e7de9-695634.jpg" alt="img"></figure>
+</li>
+<li>
+<p>线程的等待和通知 wait( ) &amp; notify( )</p>
+<ul>
+<li>
+<p>通过object.wait( ) 方法来挂起当前线程, 让其他等待object对象的线程执行,再通过object.notify( )方法唤醒挂起的进程.</p>
+</li>
+<li>
+<p>notify( ) 与 notifyAll( ) 区别在于前者只会唤醒一个处于等待的线程,并且是随机的;后者是唤醒所有线程.</p>
+</li>
+<li>
+<p>wait( ) 和 notify( ) 的执行细节</p>
+<figure data-type="image" tabindex="7"><img src="https://mubu.com/document_image/ca0d6059-0186-4e7e-9b8f-242d9d6b86c8-695634.jpg" alt="img"></figure>
+</li>
+<li>
+<p>wait( ) 和 notify( ) 的执行必须在 synchronized 代码块内,并且临界值为调用这两个方法的对象</p>
+</li>
+<li>
+<p>即使notify( )后,当前线程也要执行完 synchronized 内自身的代码,才能允许wait的其他线程唤醒</p>
+</li>
+</ul>
+</li>
+<li>
+<p>等待线程join( ) 和 yield( )</p>
+<ul>
+<li>join( ) 表示等待当前线程执行完成; 本质是让当前线程 wait</li>
+<li>yield( ) 表示当前线程让出 CPU资源, 和其他线程重新竞争CPU资源</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>volatile</p>
+<ul>
+<li>修饰的变量一旦修改,所有线程能立即获取更新后的值</li>
+<li>修饰的变量会被虚拟机特别处理,减少原有的指令优化</li>
+</ul>
+</li>
+<li>
+<p>synchronized</p>
+<ul>
+<li>实现线程间的同步,,每次只有一个线程能进入同步块</li>
+<li>既能保证线程间的可见性,有序性,一致性</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="锁优化">锁优化</h2>
+<ul>
+<li>
+<p>如何提升锁性能</p>
+<ul>
+<li>只在必要时进行同步,减少线程持有锁的时间</li>
+<li>减小锁粒度
+<ul>
+<li>ConcurrentHashMap的size性能差,获取全局信息时会全局锁</li>
+</ul>
+</li>
+<li>读写分离锁来替换独占锁
+<ul>
+<li>写会阻塞,允许多线程读</li>
+</ul>
+</li>
+<li>锁分离,一个操作对应一个锁</li>
+<li>锁粗化</li>
+</ul>
+</li>
+<li>
+<p>JVM的锁优化</p>
+<ul>
+<li>锁偏向:同一线程请求相同的锁,省去锁申请工作</li>
+<li>轻量级锁: 偏向锁失败后进行轻量级锁申请</li>
+<li>自旋锁: 当无法获取大锁时,线程进行几个空循环再尝试获取</li>
+<li>锁消除: 对不存在共享资源竞争的锁进行消除</li>
+</ul>
+</li>
+<li>
+<p>ThreadLocal</p>
+<ul>
+<li>线程的局部变量,只有当前线程才能访问的数据</li>
+<li>及时使用remove()回收对象</li>
+</ul>
+</li>
+<li>
+<p>无锁模式</p>
+<ul>
+<li>比较交换 CAS
+<ul>
+<li>需要更新的值,期望值,新值</li>
+</ul>
+</li>
+<li>Java的指针Unsafe类
+<ul>
+<li>封装指针的操作</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>死锁</p>
+<ul>
+<li>如何避免:无锁算法,重入锁中断</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://wrcj12138aaa.github.io//tag/57Dac-1wia">
+            <span class="flex-auto">多线程</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://wrcj12138aaa.github.io//post/20181012-Spring Boot 初体验">
+                <h3 class="post-title">
+                  <i class="remixicon-arrow-left-line"></i>
+                  SpringBoot实战-初体验
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://wrcj12138aaa.github.io//post/20181008-Linux环境yum安装JDK   ">
+                <h3 class="post-title">
+                  Linux环境安装JDK-yum方式
+                  <i class="remixicon-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '2ba76d6fe50ad2b384eb',
+    clientSecret: '90db763ed48942571725d6aef11229900c8bb656',
+    repo: 'wrcj12138aaa.github.io',
+    owner: 'wrcj12138aaa',
+    admin: ['wrcj12138aaa'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+      </div>
+    </div>
+
+    <script src="https://wrcj12138aaa.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>

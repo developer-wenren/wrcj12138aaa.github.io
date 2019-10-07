@@ -1,0 +1,357 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>闻人的技术博客</title>
+<meta name="description" content="做一个终生学习者" />
+<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1570432921998">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://wrcj12138aaa.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="闻人的技术博客 - Atom Feed" href="https://wrcj12138aaa.github.io//atom.xml">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://wrcj12138aaa.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://wrcj12138aaa.github.io//images/avatar.png?v=1570432921998" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">闻人的技术博客</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E6%AD%A3%E6%96%87">正文</a>
+<ul>
+<li><a href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87">环境准备</a></li>
+<li><a href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA">环境搭建</a></li>
+<li><a href="#%E7%BB%93%E6%9E%9C%E9%AA%8C%E8%AF%81">结果验证</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="remixicon-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"></div>
+    <a class="rss" href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">Docker 方式 MySQL 主从搭建</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2019-01-20 / 2 min read
+        </div>
+        
+        <div class="post-content yue">
+          <h2 id="正文">正文</h2>
+<h3 id="环境准备">环境准备</h3>
+<ul>
+<li>CentOS 7</li>
+<li>Docker 18.09.0</li>
+<li>MySQL 5.7</li>
+</ul>
+<h3 id="环境搭建">环境搭建</h3>
+<ol>
+<li>使用 Docker 搜索 MySQL 镜像,并且拉取 MySQL 5.7 版本.</li>
+</ol>
+<pre><code class="language-docker">docker search mysql
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://ws4.sinaimg.cn/large/006tNc79ly1fzd5ou3re4j30ty058q35.jpg" alt=""></figure>
+<pre><code class="language-docker">docker pull mysql:5.7
+</code></pre>
+<figure data-type="image" tabindex="2"><img src="https://ws4.sinaimg.cn/large/006tNc79ly1fzd5ov2htxj30lu02tweg.jpg" alt=""></figure>
+<ol start="2">
+<li>首先新建一个文件夹 master 里面存放 MySQL 主节点的配置文件 my.cnf</li>
+</ol>
+<pre><code> mkdir master &amp;&amp; vi ./master/my.cnf
+</code></pre>
+<p>开启 bin log 和指定 server-id</p>
+<pre><code class="language-shell">[mysqld]
+## 开启二进制日志功能
+log-bin = mysql-bin
+## 设置server_id，一般设置为IP,注意要唯一
+server-id = 3310
+</code></pre>
+<ol start="3">
+<li>Docker 运行 MySQL 镜像</li>
+</ol>
+<pre><code class="language-docker">docker run -d -e MYSQL_ROOT_PASSWORD=123456 --name master -v $PWD/master:/etc/mysql/conf.d -p 3310:3306 mysql:5.7
+</code></pre>
+<p>运行成功后使用 <code>docker ps mysql</code> 查看 MySQL 实例运行状态</p>
+<figure data-type="image" tabindex="3"><img src="https://ws4.sinaimg.cn/large/006tNc79ly1fzd5ovod0ij310m01y0sq.jpg" alt=""></figure>
+<ol start="4">
+<li>Docker 方式连接 MySQL</li>
+</ol>
+<pre><code class="language-docker">docker exec -it master bash
+ mysql -uroot -p
+</code></pre>
+<figure data-type="image" tabindex="4"><img src="https://ws1.sinaimg.cn/large/006tNc79ly1fzd5ovxvz1j30iv0doglx.jpg" alt=""></figure>
+<ol start="5">
+<li>检查 主节点 MySQL 的 master 状态和 bin log 开启情况</li>
+</ol>
+<figure data-type="image" tabindex="5"><img src="https://ws3.sinaimg.cn/large/006tNc79ly1fzd5ovbd6hj30lt09uq31.jpg" alt=""></figure>
+<ol start="6">
+<li>同样方式搭建从节点 MySQL 实例</li>
+</ol>
+<pre><code>mkdir slave &amp;&amp; vi ./slave/my.cnf
+</code></pre>
+<figure data-type="image" tabindex="6"><img src="https://ws2.sinaimg.cn/large/006tNc79ly1fzd5ouyfmzj30f502izk6.jpg" alt=""></figure>
+<ol start="7">
+<li>Docker 方式运行从节点 MySQL 实例</li>
+</ol>
+<pre><code class="language-docker">docker run -d -e MYSQL_ROOT_PASSWORD=123456 --name slave -v $PWD/slave:/etc/mysql/conf.d -p 3311:3306 mysql:5.7
+</code></pre>
+<figure data-type="image" tabindex="7"><img src="https://ws4.sinaimg.cn/large/006tNc79ly1fzd5ovod0ij310m01y0sq.jpg" alt=""></figure>
+<ol start="8">
+<li>进入从节点 MySQL 实例关联主节点 MySQL 实例</li>
+</ol>
+<pre><code>change master to master_host='localhost', master_user='root', master_password='123456', master_port=3310, master_log_file='mysql-bin.000003', master_log_pos=154, master_connect_retry=60;
+</code></pre>
+<ol start="9">
+<li>从节点 MySQL 开启同步,并且查看同步状态</li>
+</ol>
+<pre><code class="language-mysql">start slave
+show slave status
+</code></pre>
+<p><img src="https://ws1.sinaimg.cn/large/006tNc79ly1fzd5ovj6n1j30ik0arq33.jpg" alt=""><br>
+当 SlaveIORunning 和 SlaveSQLRunning 都是 Yes 了，表明同步开启成功,接下来就是验证了.</p>
+<h3 id="结果验证">结果验证</h3>
+<ol>
+<li>首先连接进入主节点 MySQL 实例,并且创建数据库 test</li>
+</ol>
+<pre><code>docker exec -it master bash
+mysql -uroot -p123456
+create database test;
+</code></pre>
+<figure data-type="image" tabindex="8"><img src="https://ws3.sinaimg.cn/large/006tNc79ly1fzd5qhnqusj30i10aat9g.jpg" alt=""></figure>
+<ol start="2">
+<li>连接进入从节点 MySQL 实例,查看当前数据库</li>
+</ol>
+<pre><code>docker exec -it slave bash
+mysql -uroot -p123456
+show databases;
+</code></pre>
+<figure data-type="image" tabindex="9"><img src="https://ws3.sinaimg.cn/large/006tNc79ly1fzd5pyxvszj30l00dkmy1.jpg" alt=""></figure>
+<p>可以从图中看到此刻主节点新增数据库的操作也同步到从节点上了.</p>
+<p>到此, Docker 方式的简单版本 MySQL 主从搭建就算完成了.</p>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://wrcj12138aaa.github.io//tag/bt50ok2BUl">
+            <span class="flex-auto">MySQL</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://wrcj12138aaa.github.io//post/20190121-HaProxy 实现 MySQL 负载均衡">
+                <h3 class="post-title">
+                  <i class="remixicon-arrow-left-line"></i>
+                  HaProxy 实现 MySQL 负载均衡
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://wrcj12138aaa.github.io//post/20181127-JSON 序列化与反序列化框架 - Gson">
+                <h3 class="post-title">
+                  Json序列化与反序列化框架-Gson 入门
+                  <i class="remixicon-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '2ba76d6fe50ad2b384eb',
+    clientSecret: '90db763ed48942571725d6aef11229900c8bb656',
+    repo: 'wrcj12138aaa.github.io',
+    owner: 'wrcj12138aaa',
+    admin: ['wrcj12138aaa'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+      </div>
+    </div>
+
+    <script src="https://wrcj12138aaa.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>

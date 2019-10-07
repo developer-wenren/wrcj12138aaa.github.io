@@ -1,0 +1,437 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>闻人的技术博客</title>
+<meta name="description" content="做一个终生学习者" />
+<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1570432921998">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://wrcj12138aaa.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="闻人的技术博客 - Atom Feed" href="https://wrcj12138aaa.github.io//atom.xml">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://wrcj12138aaa.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://wrcj12138aaa.github.io//images/avatar.png?v=1570432921998" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">闻人的技术博客</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#%E6%AD%A3%E6%96%87">正文</a>
+<ul>
+<li><a href="#spring-initializer">Spring Initializer</a></li>
+<li><a href="#maven%E9%85%8D%E7%BD%AE">Maven配置</a></li>
+<li><a href="#main%E6%96%B9%E6%B3%95">Main方法</a></li>
+<li><a href="#%E5%AE%9E%E7%8E%B0rest%E8%AF%B7%E6%B1%82">实现Rest请求</a></li>
+<li><a href="#%E5%90%AF%E5%8A%A8springboot">启动SpringBoot</a></li>
+</ul>
+</li>
+<li><a href="#%E7%BB%93%E8%AF%AD">结语</a>
+<ul>
+<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="remixicon-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"></div>
+    <a class="rss" href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">SpringBoot实战-初体验</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2018-10-12 / 7 min read
+        </div>
+        
+        <div class="post-content yue">
+          <h2 id="前言">前言</h2>
+<p>在分布式时代潮流中, 随着微服务的流行, <code>Spring Boot</code> 作为用来快速交付微服务的<code>Java</code>开源框架名声大噪,<code>Spring Boot</code>依托于请强大的<code>Spring Framework</code>,其优势在于</p>
+<ul>
+<li>
+<p>快捷开发具备生产能力的<code>Spring</code>程序</p>
+</li>
+<li>
+<p>提高生产力,减少开发效率</p>
+</li>
+<li>
+<p>自动化配置,没有繁琐的<code>XML</code>配置</p>
+</li>
+</ul>
+<p>这篇文章将以实战方式创建一个基于<code>Spring Boot</code>搭建的简单Rest服务程序,来学习下如何开发<code>Spring Boot</code>程序.</p>
+<!--more-->
+<h2 id="正文">正文</h2>
+<h3 id="spring-initializer">Spring Initializer</h3>
+<p><code>Spring Initializer</code> 是官方提供用来快速启动<code>Spring Boot</code>程序的工具,在<a href="https://start.spring.io">Spring Initializer网站</a>上,我们可以选择<code>Spring Boot</code>的版本和平台,并且需要提供一系列<code>Maven</code>坐标<code>GroupId</code>,<code>ArtifactId</code> 和程序所需要的依赖.</p>
+<p>如下图所示,我们现在创建一个<code>SpringBoot</code>的<code>Maven</code>工程,使用<code>Java</code>定义语言, 版本为2.0.5,定义好<code>Group</code>和<code>Artifact</code>,在 <code>Dependencies</code> 依赖项一栏搜索<code>Web</code>,添加 <code>spring-boot-starter-web</code>依赖来搭建一个<code>Web</code>项目.</p>
+<blockquote>
+<p>SpringBoot 2.0.5 依赖</p>
+<p>Java 8</p>
+<p>Spring Framework 5.0.9</p>
+</blockquote>
+<figure data-type="image" tabindex="1"><img src="https://ws2.sinaimg.cn/large/006tNbRwly1fw4nhp85lgj31kw0r9af5.jpg" alt="image-20181011222617148"></figure>
+<p>点击生成工程, <code>Spring Initializer</code> 就帮我们生成一个有<code>Web</code>环境依赖的项目压缩包,解压后就可以直接用<code>IDEA</code>打开使用,也就是所说的开箱即用.</p>
+<h3 id="maven配置">Maven配置</h3>
+<p>首先我们打开项目里<code>pom.xml</code>文件,来看下项目<code>Maven</code>配置有什么特别之处.</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+	xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;
+	&lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+	&lt;groupId&gt;com.one&lt;/groupId&gt;
+	&lt;artifactId&gt;springboot-quickstart&lt;/artifactId&gt;
+	&lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;
+	&lt;packaging&gt;jar&lt;/packaging&gt;
+
+	&lt;name&gt;springboot-quickstart&lt;/name&gt;
+	&lt;description&gt;Demo project for Spring Boot&lt;/description&gt;
+    
+	&lt;parent&gt;
+		&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+		&lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;
+		&lt;version&gt;2.0.5.RELEASE&lt;/version&gt;
+		&lt;relativePath/&gt; &lt;!-- lookup parent from repository --&gt;
+	&lt;/parent&gt;
+
+	&lt;properties&gt;
+		&lt;project.build.sourceEncoding&gt;UTF-8&lt;/project.build.sourceEncoding&gt;
+		&lt;project.reporting.outputEncoding&gt;UTF-8&lt;/project.reporting.outputEncoding&gt;
+		&lt;java.version&gt;1.8&lt;/java.version&gt;
+	&lt;/properties&gt;
+
+	&lt;dependencies&gt;
+		&lt;dependency&gt;
+			&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+			&lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+		&lt;/dependency&gt;
+
+		&lt;dependency&gt;
+			&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+			&lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
+			&lt;scope&gt;test&lt;/scope&gt;
+		&lt;/dependency&gt;
+	&lt;/dependencies&gt;
+
+	&lt;build&gt;
+		&lt;plugins&gt;
+			&lt;plugin&gt;
+				&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+				&lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+			&lt;/plugin&gt;
+		&lt;/plugins&gt;
+	&lt;/build&gt;
+&lt;/project&gt;
+</code></pre>
+<p><code>Spring Initializer</code>生成的项目自动给我们添加测试环境的依赖:</p>
+<pre><code class="language-xml">&lt;dependency&gt;
+			&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+			&lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
+			&lt;scope&gt;test&lt;/scope&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>而<code>Web</code>环境的依赖,是我们生成前手动关联的,所有也有对应配置:</p>
+<pre><code class="language-xml">&lt;dependency&gt;
+			&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+			&lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>还有值得注意一点的是, <code>Maven</code>配置有<code>parent</code>节点坐标,这说明该项目是以父<code>pom</code>文件的配置为基础上进行的定制.</p>
+<pre><code class="language-xml">&lt;parent&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;
+    &lt;version&gt;2.0.5.RELEASE&lt;/version&gt;
+    &lt;relativePath/&gt; &lt;!-- lookup parent from repository --&gt;
+&lt;/parent&gt;
+</code></pre>
+<h3 id="main方法">Main方法</h3>
+<figure data-type="image" tabindex="2"><img src="https://ws4.sinaimg.cn/large/006tNbRwly1fw51yr0kdbj30r60iodhw.jpg" alt="image-20181012064703304"></figure>
+<p>这里我用<code>IDEA</code>打开生成的项目,发现只有一个<code>Java</code>类 <code>SpringbootQuickstartApplication</code>,只有一个<code>Main</code>方法, 而这个类正是是<code>SpringBoot</code>程序的启动类.</p>
+<pre><code class="language-java">/**
+ * @author One
+ */
+@SpringBootApplication
+public class SpringbootQuickstartApplication {
+
+	public static void main(String[] args) {
+        SpringApplication.run(SpringbootQuickstartApplication.class, args);
+	}
+}
+</code></pre>
+<p><code>SpringbootQuickstartApplication</code>类用 <code>@SpringBootApplication</code>注解修饰,来表明他是个<code>SpringBoot</code>程序.</p>
+<h3 id="实现rest请求">实现Rest请求</h3>
+<p>现在我们可以来实现能处理<code>HelloWorld</code>的<code>Rest</code>请求的<code>SpringBoot</code>程序,为了简单起见,直接在 <code>SpringbootQuickstartApplication</code>类上进行修改即可.</p>
+<ol>
+<li>类上添加 <code>@RestController</code>注解,表明该类是一个处理<code>Rest</code>请求的<code>Controller</code></li>
+<li>实现一个请求处理方法 <code>hello()</code> 使用注解 <code>@RequestMapping</code>表明所要处理对应的请求路径</li>
+<li>请求处理方法 <code>hello()</code>直接返回 <code>Hello World</code> 字符串,作为<code>Rest</code>请求的响应</li>
+</ol>
+<pre><code class="language-java">/**
+ * @author One
+ */
+@SpringBootApplication
+@RestController
+public class SpringbootQuickstartApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(SpringbootQuickstartApplication.class, args);
+	}
+
+	@RequestMapping(value = &quot;/&quot;)
+	public String hello() {
+	    return &quot;Hello World&quot;;
+	}
+}
+</code></pre>
+<h3 id="启动springboot">启动SpringBoot</h3>
+<p>简单的编码完成后,就可以运行程序了. 如果在<code>IDEA</code>环境下,这个程序可以直接通过运行<code>Main</code>方法来启动,这样比较简单就多说.还有一种情况就是以<code>jar</code> 包的形式启动,这里具体介绍下这种启动方式.</p>
+<ol>
+<li>首先我们可以利用 <code>Maven</code>命令生成程序的可执行<code>jar</code>,在项目源路径下输入下命令:</li>
+</ol>
+<pre><code class="language-bash">mvn clean install
+</code></pre>
+<p>执行命令后,看到<code>BUILD SUCCESS</code>信息后,就可以在<code>target</code>目录下看到一个可执行<code>jar</code>文件:  <code>springboot-quickstart-0.0.1-SNAPSHOT.jar</code></p>
+<figure data-type="image" tabindex="3"><img src="https://ws4.sinaimg.cn/large/006tNbRwly1fw5313ziqmj31kw09cq56.jpg" alt="image-20181012072354461"></figure>
+<ol start="2">
+<li>使用<code>java</code>命令运行<code>jar</code>包</li>
+</ol>
+<pre><code class="language-bash">java -jar springboot-quickstart-0.0.1-SNAPSHOT.jar
+</code></pre>
+<p>当控制台出现下图内容时就表示程序启动成功了.</p>
+<figure data-type="image" tabindex="4"><img src="https://ws4.sinaimg.cn/large/006tNbRwly1fw534si1kjj31kw05j0v8.jpg" alt="image-20181012072727582"></figure>
+<p>从控制台信息可以看到,<code>Spring Boot</code>程序已经部署在<code>Tomcat</code>上了,且服务端口为8080(<code>http</code>),现在就可以打开浏览器,输入 http://localhost:8080/ 访问.</p>
+<figure data-type="image" tabindex="5"><img src="https://ws3.sinaimg.cn/large/006tNbRwly1fw537aezgrj31120ekgnn.jpg" alt="image-20181012072951431"></figure>
+<p>到此,一个最简单的处理<code>Rest</code>请求的<code>Spring Boot</code>程序就完成了. 🎉🎉🎉</p>
+<h2 id="结语">结语</h2>
+<p>本文通过<code>Spring Initializer</code>来实现快速搭建可以运行<code>Spring Boot</code>程序,支持清单的<code>Web</code>请求. 主要学习<code>Spring Boot</code>程序的基本开发形式和项目搭建流程.</p>
+<p>更多<code>Spring Boot</code>开发内容将在后续文章中更新,敬请期待.😁😁😁</p>
+<h3 id="参考">参考</h3>
+<ul>
+<li>https://www.tutorialspoint.com/spring_boot/spring_boot_bootstrapping.htm</li>
+</ul>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://wrcj12138aaa.github.io//tag/rqKiVec5UR">
+            <span class="flex-auto">SpringBoot</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://wrcj12138aaa.github.io//post/20181013-定位Java程序CPU满负载元凶">
+                <h3 class="post-title">
+                  <i class="remixicon-arrow-left-line"></i>
+                  快速定位Java程序CPU满负载元凶
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://wrcj12138aaa.github.io//post/20181011-实战Java高并发程序设计笔记">
+                <h3 class="post-title">
+                  《实战Java高并发程序设计》读书笔记
+                  <i class="remixicon-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '2ba76d6fe50ad2b384eb',
+    clientSecret: '90db763ed48942571725d6aef11229900c8bb656',
+    repo: 'wrcj12138aaa.github.io',
+    owner: 'wrcj12138aaa',
+    admin: ['wrcj12138aaa'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+      </div>
+    </div>
+
+    <script src="https://wrcj12138aaa.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>

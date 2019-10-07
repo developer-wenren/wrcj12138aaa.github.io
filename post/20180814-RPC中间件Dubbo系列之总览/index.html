@@ -1,0 +1,413 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>闻人的技术博客</title>
+<meta name="description" content="做一个终生学习者" />
+<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1570432921998">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://wrcj12138aaa.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="闻人的技术博客 - Atom Feed" href="https://wrcj12138aaa.github.io//atom.xml">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://wrcj12138aaa.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://wrcj12138aaa.github.io//images/avatar.png?v=1570432921998" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">闻人的技术博客</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#dubbo%E6%98%AF%E4%BB%80%E4%B9%88">Dubbo是什么</a></li>
+<li><a href="#%E9%82%A3%E4%BA%9B%E5%B9%B4%E7%9A%84rpc-%E6%A1%86%E6%9E%B6">那些年的RPC 框架</a></li>
+<li><a href="#dubbo-%E5%A5%BD%E4%B8%8E%E5%9D%8F">Dubbo 好与坏</a></li>
+<li><a href="#dubbo%E7%9A%84%E6%9E%B6%E6%9E%84%E4%B8%8E%E7%BB%84%E6%88%90">Dubbo的架构与组成</a>
+<ul>
+<li><a href="#dubbo-%E7%9A%84%E6%9E%B6%E6%9E%84">Dubbo 的架构</a></li>
+<li><a href="#dubbo-%E6%95%B4%E4%BD%93%E8%AE%BE%E8%AE%A1">Dubbo 整体设计</a></li>
+<li><a href="#dubbo%E7%9A%84%E6%A8%A1%E5%9D%97">Dubbo的模块</a></li>
+</ul>
+</li>
+<li><a href="#%E7%BB%93%E8%AF%AD">结语</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="remixicon-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"></div>
+    <a class="rss" href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">RPC框架Dubbo系列之总览</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2018-08-14 / 8 min read
+        </div>
+        
+        <div class="post-content yue">
+          <h2 id="前言">前言</h2>
+<p>现在后端开发圈子里,分布式和微服务的概念越来越火;而其中作为后端领域重要组成部分的Java 社区里,相关分布式,微服务的框架更是火热发展, 如 分布式全家桶 Spring Cloud, 注册中心 ZooKeeper, RPC框架 gRPC,Dubbo 等等. 在分布式环境下每一个组件都至关重要,都值得深入研究一番,让自己对分布式框架的理解更深刻,也能更好地因地制宜.由于公司从一开始就使用Dubbo作为分布式系统的基础组件,为了更好地应用和应对使用中的问题, 本系列文章就 RPC框架 Dubbo 进行学习和源码分析. 按照What(这是什么技术)-&gt;Why(为什么有这个技术)-&gt;How(如何掌握这个技术)的学习方式来一步步深入,本文主要探究 Dubbo 的 What 层面.</p>
+<!--more-->
+<h2 id="dubbo是什么">Dubbo是什么</h2>
+<p>先来看下Dubbo官网自己的定义:</p>
+<blockquote>
+<p>Dubbo 是一款高性能、轻量级的开源Java RPC框架，它提供了三大核心能力：面向接口的远程方法调用，智能容错和负载均衡，以及服务自动注册和发现。</p>
+</blockquote>
+<p>从这句可以提取最重要的信息: Dubbo 是一款高性能、轻量级的开源Java RPC框架; 而这里描述中的 RPC 框架都是什么的? 以下是 wikipedia 的定义:</p>
+<blockquote>
+<p>RPC 全称为 Remote Procedure Call;<br>
+在分布式计算中，远程过程调用(RPC)是指一个计算机程序在一个不同的地址空间(通常在共享网络上的另一台计算机上)执行的过程;</p>
+</blockquote>
+<p>以个人理解来说, RPC 就是将原来的本地方法调用扩展成允许程序间通过不同网络来实现方法调用, 而其中涉及了网络传输,数据压缩等等复杂细节.</p>
+<h2 id="那些年的rpc-框架">那些年的RPC 框架</h2>
+<p>那在Java后端领域里,目前有哪些开源RPC框架呢,在这里做一个简单的列举:</p>
+<table>
+<thead>
+<tr>
+<th>Thrift</th>
+<th>由Facebook开源,跨语言,可扩展,高性能的RPC框架</th>
+<th>https://thrift.apache.org/</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dubbo</td>
+<td>由阿里巴巴开源,高性能、轻量,功能丰富,支持扩展的RPC框架</td>
+<td>http://dubbo.apache.org/zh-cn/index.html</td>
+</tr>
+<tr>
+<td>gRPC</td>
+<td>由Google开源的,高性能,将移动和HTTP/2放在首位的通用的RPC框架</td>
+<td>https://grpc.io</td>
+</tr>
+<tr>
+<td>Motan</td>
+<td>由微博开源的,简单、易用，是一个轻量级 RPC框架</td>
+<td>https://github.com/weibocom/motan</td>
+</tr>
+<tr>
+<td>Spring Cloud</td>
+<td>基于 Spring 生态圈,是基于REST API的 RPC 框架</td>
+<td>https://projects.spring.io/spring-cloud/</td>
+</tr>
+</tbody>
+</table>
+<h2 id="dubbo-好与坏">Dubbo 好与坏</h2>
+<p>Dubbo 自从 2017年底恢复了更新后, Dubbo 社区又开始活跃起来, 相关资料也不断出现,讨论量不但上升, 呈现出了框架生命力蓬勃的景象; 尤其是在 中小型公司中 Dubbo 这样轻量级的服务框架备受欢迎, 现在又迎来了官方的维护支持, 更是鼓舞人心. 那么 Dubbo 作为服务框架,有哪些优缺点呢, 这里先做个简单的分析.</p>
+<p>来看下Dubbo的优势所在:</p>
+<ul>
+<li>面向接口的高性能调用.</li>
+<li>服务自动注册与发现支持.</li>
+<li>运行时流量控制包含路由控制,灰度发布,服务降级.</li>
+<li>支持多个负载均衡策略.</li>
+<li>高度可扩展,基于SPI实现插件化集成自定义实现.</li>
+<li>提供可视化服务监控平台,方便服务治理和运维.</li>
+<li>....</li>
+</ul>
+<p>当然 Dubbo 也存在某些不足,需要在后面的日子里不断改进和增强</p>
+<ul>
+<li>未实现对支持分布式事务.</li>
+<li>在微服务生态圈中,只是用来服务之间治理, 核心部件缺少,比如网关,配置中心,服务跟踪等.</li>
+</ul>
+<h2 id="dubbo的架构与组成">Dubbo的架构与组成</h2>
+<h3 id="dubbo-的架构">Dubbo 的架构</h3>
+<figure data-type="image" tabindex="1"><img src="https://camo.githubusercontent.com/660e543510891254fa0ca6138af3350458aa0582/687474703a2f2f647562626f2e6170616368652e6f72672f696d672f6172636869746563747572652e706e67" alt="Architecture"></figure>
+<p>根据官方给的Dubbo架构所示,Dubbo框架中的主要角色,有如下:</p>
+<ol>
+<li><strong>Registry 注册中心</strong>, 负责服务的注册,订阅和发现,来协调服务生产方和服务消费方的资源.</li>
+<li><strong>Provider 服务生产者</strong>, 对外暴露服务,让所提供的服务通过Registry 注册,然后允许消费方根据 Registry 找到服务引用,进行调用.</li>
+<li><strong>Container 服务容器</strong>, 用于部署服务,允许让服务在非Web容器环境下允许.</li>
+<li><strong>Consumer 服务消费者</strong>, 服务代理对象,通过向 Registry 订阅 所需要的方法,然后引用调用,一旦所引用的服务配置更新,就会收到 Registry 的通知.</li>
+<li><strong>Monitor 监控中心</strong>, 主要负责服务次数和时间监控,服务可视化治理, 在Dubbo中并不是必须的.</li>
+</ol>
+<h3 id="dubbo-整体设计">Dubbo 整体设计</h3>
+<figure data-type="image" tabindex="2"><img src="https://ws4.sinaimg.cn/large/006tNbRwly1fudtkizqixj30g00bzq7r.jpg" alt="07DB4E69-8C91-4C80-A9EC-AC01A4A4974E"></figure>
+<p>整体设计图的左侧为服务消费方使用的接口,右侧为服务生成方使用的接口,而中间接口为两者共同使用到的接口:</p>
+<ul>
+<li>
+<p>Service 和 Config 层为 外部使用的API,允许通过配置文件或者代码方式来创建服务对象和配置对象, 扩展接口对应为 ServiceConfig, ReferenceConfig .</p>
+</li>
+<li>
+<p>Proxy 层负责服务提供者和消费者对象的动态代理, 扩展接口为 ProxyFactory,;</p>
+</li>
+<li>
+<p>Registry 层负责封装服务地址的注册与发现，扩展接口为 Registry.</p>
+</li>
+<li>
+<p>Cluster 层封装多个提供者的路由及负载均衡，并桥接注册中心，扩展接口为 Cluster , Directory , Router ,LoadBalance.</p>
+</li>
+<li>
+<p>Monitor 层主要负责RPC 调用次数和调用时间监控，扩展接口为 MonitorFactory , Monitor , MonitorService.</p>
+</li>
+<li>
+<p>Protocol 层封装 RPC 调用;扩展接口为 Protocol , Invoker , Exporter.</p>
+</li>
+<li>
+<p>Exchange 层负责信息交换,封装请求响应数据, 同步与异步的转换;扩展接口为 Exchanger , ExchangeChannel ,ExchangeClient , ExchangeServer.</p>
+</li>
+<li>
+<p>Transport 层抽象 mina 和 netty 为统一接口扩展接口为 Channel , Transporter , Client , Server , Codec</p>
+</li>
+<li>
+<p>Serialize 层：负责数据序列化,并提供一些可复用的工具，扩展接口为 Serialization ,</p>
+<p>ObjectInput , ObjectOutput , ThreadPool.</p>
+</li>
+</ul>
+<h3 id="dubbo的模块">Dubbo的模块</h3>
+<figure data-type="image" tabindex="3"><img src="https://ws3.sinaimg.cn/large/006tNbRwly1fudsemx85nj30d308tt9p.jpg" alt="2BACFDCB-1FF8-40F3-AE5A-D08C575FF13F"></figure>
+<ul>
+<li><strong>dubbo-common</strong> 公共逻辑模块: 一些工具类和通用模型.</li>
+<li>**dubbo-remoting **远程通讯模块: 主要是Dubbo 协议的实现,包含Transport 传输层和 Exchange 信息交换层,提供RPC调用的通讯基础.</li>
+<li>**dubbo-rpc **远程通讯模块: 包含各自协议和动态代理的模块,包含一对一的远程调用, 但不关心集群的管理.</li>
+<li><strong>dubbo-cluster</strong> 集群模块：将多个服务提供者伪装成一个提供方,负责负载均衡,容错,路由等集群管理.</li>
+<li><strong>dubbo-registry</strong> 注册中心模块: 包含各自注册中心的服务注册和发现实现.</li>
+<li><strong>dubbo-monitor</strong> 监控模块：统计服务调用次数，调用时间的，调用链跟踪的服务.</li>
+<li><strong>dubbo-config</strong> 配置模块：包含Dubbo 对外的 API, 隐藏内部配置加载实现,允许 Java方式,配置文件方式 以及注解方式配置 Dubbo.</li>
+<li><strong>dubbo-container</strong> 容器模块: 提供一个 Standlone 的容器，允许简单的 Main 加载 Spring 启动,从而加载Dubbo服务,并对外提供.</li>
+</ul>
+<h2 id="结语">结语</h2>
+<p>本文主要介绍了Dubbo 框架的基础内容, 并简单分析比较了开源RPC框架的优劣,然后对Dubbo的优缺点进行分析; 最后描述了其整体架构和模块设计,为后续的学习深入做好基础, RPC 框架作为微服务中重要的组件, 越来越别开发者广泛使用,而Dubbo 作为高性能开源RPC框架,其源码和设计思路都有很多值得学习的地方,  针对Dubbo核心部分的服务发布和调用,将在后续一些文章中继续探究学习.</p>
+<p><strong>参考资料</strong></p>
+<ul>
+<li><a href="http://dubbo.apache.org/zh-cn/docs/dev/design.html">Dubbo 框架设计</a></li>
+<li><a href="https://www.cnblogs.com/devinzhang/p/6728317.html">微服务架构介绍和RPC框架对比</a></li>
+<li><a href="http://blog.didispace.com/microservice-framework/">微服务架构的基础框架选择：Spring Cloud还是Dubbo</a></li>
+<li><a href="http://dubbo.incubator.apache.org/zh-cn/docs/dev/design.html">Dubbo 官方文档框架设计</a></li>
+<li><a href="http://ifeve.com/dubbo-framework/">Dubbo剖析-整体架构分析</a></li>
+</ul>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://wrcj12138aaa.github.io//tag/4lwZWuWrgxf">
+            <span class="flex-auto">Dubbo</span>
+          </a>
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://wrcj12138aaa.github.io//tag/Ja-ep9raqKx">
+            <span class="flex-auto">分布式</span>
+          </a>
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://wrcj12138aaa.github.io//tag/7mcouWtU0CN">
+            <span class="flex-auto">中间件</span>
+          </a>
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://wrcj12138aaa.github.io//tag/ZaE_mHsl3Ne">
+            <span class="flex-auto">微服务</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://wrcj12138aaa.github.io//post/20180818-RPC框架Dubbo分析二">
+                <h3 class="post-title">
+                  <i class="remixicon-arrow-left-line"></i>
+                  RPC框架Dubbo之总览二
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://wrcj12138aaa.github.io//post/20180812-RPC中间件Dubbo系列之使用">
+                <h3 class="post-title">
+                  RPC框架Dubbo之实践
+                  <i class="remixicon-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '2ba76d6fe50ad2b384eb',
+    clientSecret: '90db763ed48942571725d6aef11229900c8bb656',
+    repo: 'wrcj12138aaa.github.io',
+    owner: 'wrcj12138aaa',
+    admin: ['wrcj12138aaa'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+      </div>
+    </div>
+
+    <script src="https://wrcj12138aaa.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>

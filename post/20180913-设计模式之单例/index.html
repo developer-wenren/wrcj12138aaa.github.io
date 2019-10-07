@@ -1,0 +1,465 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>闻人的技术博客</title>
+<meta name="description" content="做一个终生学习者" />
+<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1570432921998">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://wrcj12138aaa.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="闻人的技术博客 - Atom Feed" href="https://wrcj12138aaa.github.io//atom.xml">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://wrcj12138aaa.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://wrcj12138aaa.github.io//images/avatar.png?v=1570432921998" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">闻人的技术博客</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#%E6%AD%A3%E6%96%87">正文</a>
+<ul>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%8D%95%E4%BE%8B">什么是单例</a></li>
+<li><a href="#%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E6%9C%89%E5%93%AA%E4%BA%9B">单例模式有哪些</a>
+<ul>
+<li><a href="#%E5%8D%95%E4%BE%8B-10%E7%89%88%E6%9C%AC">单例 1.0版本</a></li>
+<li><a href="#%E5%8D%95%E4%BE%8B-11%E7%89%88%E6%9C%AC">单例 1.1版本</a></li>
+<li><a href="#%E5%8D%95%E4%BE%8B-20%E7%89%88%E6%9C%AC">单例 2.0版本</a></li>
+<li><a href="#%E5%8D%95%E4%BE%8B-30%E7%89%88%E6%9C%AC">单例 3.0版本</a></li>
+<li><a href="#%E5%8D%95%E4%BE%8B-31%E7%89%88%E6%9C%AC">单例 3.1版本</a></li>
+<li><a href="#%E5%8D%95%E4%BE%8B40%E7%89%88%E6%9C%AC">单例4.0版本</a></li>
+<li><a href="#%E5%8D%95%E4%BE%8B50%E7%89%88%E6%9C%AC">单例5.0版本</a></li>
+</ul>
+</li>
+<li><a href="#%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF">单例模式使用场景</a></li>
+<li><a href="#%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E7%9A%84%E9%97%AE%E9%A2%98">单例模式的问题</a></li>
+<li><a href="#%E5%A6%82%E4%BD%95%E7%A0%B4%E5%9D%8F%E5%8D%95%E4%BE%8B">如何破坏单例</a></li>
+</ul>
+</li>
+<li><a href="#%E7%BB%93%E8%AF%AD">结语</a><br>
+*
+<ul>
+<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="remixicon-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"></div>
+    <a class="rss" href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">一起学模式之单例</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2018-09-13 / 5 min read
+        </div>
+        
+        <div class="post-content yue">
+          <h2 id="前言">前言</h2>
+<p>这是设计模式开篇的第一个模式, 属于构造型模式的成员之一, 是相对简单,但又十分常用的模式,为了能更好的使用这个模式, 接下来就开始慢慢深入认识和学习下单例模式.</p>
+<!-- more-->
+<h2 id="正文">正文</h2>
+<h3 id="什么是单例">什么是单例</h3>
+<p>保证类只有一个实例对象,  也以为着在一个JVM中类的实例只有一个, 并且提供一个能访问这个实例的全局入口.这里再举个生活的例子来加深下理解, 地球就好比一个单例对象, 茫茫宇宙中就只有这么个富有生命的星球.</p>
+<h3 id="单例模式有哪些">单例模式有哪些</h3>
+<p>用 Java 语言来实现单例有许多版本,都是慢慢演进而来,这里来看下具体是怎么的实现.</p>
+<h4 id="单例-10版本">单例 1.0版本</h4>
+<p>对单例对象提前初始化.</p>
+<pre><code class="language-java">class Singleton1 {
+    private static Singleton1 instance = new Singleton1();
+
+    private Singleton1() {
+    }
+
+    public static Singleton1 getInstance() {
+        return instance;
+    }
+}
+</code></pre>
+<h4 id="单例-11版本">单例 1.1版本</h4>
+<p>允许对单例对象初始化过程出现的异常进行捕获处理.</p>
+<pre><code class="language-java">class Singleton1_1 {
+    private static Singleton1_1 instance = null;
+
+    static {
+        try {
+            instance = new Singleton1_1();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private Singleton1_1() {
+    }
+
+    public static Singleton1_1 getInstance() {
+        return instance;
+    }
+}
+</code></pre>
+<h4 id="单例-20版本">单例 2.0版本</h4>
+<p>懒式加载单例对象,但存在线程安全问题.</p>
+<pre><code class="language-java">class Singleton2 {
+    private static Singleton2 instance = null;
+
+    private Singleton2() {    
+    }
+
+    public static Singleton2 getInstance() {
+        if (instance == null) {
+            instance = new Singleton2();
+        }
+        return instance;
+    }
+}
+</code></pre>
+<h4 id="单例-30版本">单例 3.0版本</h4>
+<p>使用关键字 <code>synchronized</code> 同步整个方法保证线程安全,但是高并发场景下性能差.</p>
+<pre><code class="language-java">class Singleton3 {
+    private static Singleton3 instance = null;
+
+    private Singleton3() {
+    }
+
+    public static synchronized Singleton3 getInstance() {
+        if (instance == null) {
+            instance = new Singleton3();
+        }
+        return instance;
+    }
+}
+</code></pre>
+<h4 id="单例-31版本">单例 3.1版本</h4>
+<p>利用双重检查锁方式保证线程安全,并减少 <code>synchronized</code>带来的性能开销;  必须配合上 <code>volatitle</code>保证一致性.</p>
+<pre><code class="language-java">class Singleton3_1 {
+    private volatile static Singleton3_1 instance = null;
+
+    private Singleton3_1() {
+    }
+
+    public static Singleton3_1 getInstance() {
+        if (instance == null) {
+            synchronized (instance) {
+                if (instance == null) {
+                    instance = new Singleton3_1();
+                }
+            }
+        }
+        return instance;
+    }
+}
+</code></pre>
+<h4 id="单例40版本">单例4.0版本</h4>
+<p>延迟初始化,线程安全.当 Singleton 类加载时，SingletonHolder 类不会加载到内存中，只有当有人调用 getInstance 方法时，这个类被加载并创建 Singleton 类实例。</p>
+<pre><code class="language-java">class Singleton4 {
+    private Singleton4() {
+    }
+
+    private static class SingletonHolder {
+        public final static Singleton4 INSTACNE = new Singleton4();
+    }
+
+    public static Singleton4 getInstance() {
+        return SingletonHolder.INSTACNE;
+    }
+}
+</code></pre>
+<h4 id="单例50版本">单例5.0版本</h4>
+<p>枚举方式生成单例,性能高,也无线程安全问题</p>
+<pre><code class="language-java">enum Singleton5 {
+    INSTANCE;
+    public void method1() {
+        System.out.println(&quot;单例方法执行&quot;);
+    }
+}
+</code></pre>
+<h3 id="单例模式使用场景">单例模式使用场景</h3>
+<p>整个程序只要一个负责特定实例对象,例如日志管理器,文件管理器, 数据库连接管理等等, 在JDK中也有不少用到单例模式:</p>
+<ul>
+<li><a href="http://docs.oracle.com/javase/8/docs/api/java/lang/Runtime.html#getRuntime%28%29">java.lang.Runtime#getRuntime()</a></li>
+<li><a href="http://docs.oracle.com/javase/8/docs/api/java/awt/Desktop.html#getDesktop--">java.awt.Desktop#getDesktop()</a></li>
+<li><a href="http://docs.oracle.com/javase/8/docs/api/java/lang/System.html#getSecurityManager--">java.lang.System#getSecurityManager()</a></li>
+</ul>
+<h3 id="单例模式的问题">单例模式的问题</h3>
+<ul>
+<li>自己控制自己的创造和生命周期, 违反单一责任原则</li>
+<li>单例对象使用的对象和资源都无法被释放</li>
+<li>代码耦合,难以测试</li>
+<li>难以子类化对象,进行功能增强.</li>
+</ul>
+<h3 id="如何破坏单例">如何破坏单例</h3>
+<p><strong>反射破坏</strong>:使用JDK的反射能够来用单例对象的构造器来再次创建对象,从而使得不再是只有一个实例; 而要防止被反射破坏时,可以采用私有构造器中抛异常或者使用枚举方式构建单例.</p>
+<pre><code class="language-java">Singleton1 singleton1 = Singleton1.getInstance();        
+Singleton1 singleton11 = null;
+Constructor&lt;?&gt;[] declaredConstructors = Singleton1.class.getDeclaredConstructors();
+for (Constructor constructor : declaredConstructors) {
+    constructor.setAccessible(true);
+    singleton11 = (Singleton1) constructor.newInstance();
+}
+
+System.out.println(singleton1.equals(singleton11)); // false
+</code></pre>
+<p><strong>序列化与反序列</strong>: 让一个单例对象实现 Serializable 接口,序列化到系统后再次用反序列化方式来加载这个对象时,获得的是新的对象实例,而解决这个问题的方式是实现  <code>readResolve()</code> 直接返回实例对象即可.</p>
+<pre><code class="language-java">public class SingletonSerializedTest {
+
+    public static void main(String[] args) throws FileNotFoundException, IOException, ClassNotFoundException {
+        SerializedSingleton instanceOne = SerializedSingleton.getInstance();
+        ObjectOutput out = new ObjectOutputStream(new FileOutputStream(
+                &quot;filename.ser&quot;));
+        out.writeObject(instanceOne); // 序列化到本地文件
+        out.close();
+        
+		// 从文件反序列化还原对象
+        ObjectInput in = new ObjectInputStream(new FileInputStream(
+                &quot;filename.ser&quot;));
+        SerializedSingleton instanceTwo = (SerializedSingleton) in.readObject();
+        in.close();
+        
+        System.out.println(instanceTwo == instanceTwo); // false
+       
+    }
+
+}
+</code></pre>
+<h2 id="结语">结语</h2>
+<p>通过一层层的单例实现演变,可以加深对单例对象的理解,如何保证只有一份实例,如果保证线程安全, 防止被破坏,相信本文的学习,能够有所收获,那就能下一个设计模式再见了, 😜</p>
+<h4 id="参考">参考</h4>
+<ul>
+<li>
+<p>http://java-design-patterns.com/patterns/singleton/</p>
+</li>
+<li>
+<p>https://www.journaldev.com/1377/java-singleton-design-pattern-best-practices-examples</p>
+</li>
+<li>
+<p>https://v.qq.com/x/page/s0630rqg9wg.html</p>
+</li>
+</ul>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://wrcj12138aaa.github.io//tag/RVSTCL07Eh">
+            <span class="flex-auto">设计模式</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://wrcj12138aaa.github.io//post/20180914-设计模式之简单工厂">
+                <h3 class="post-title">
+                  <i class="remixicon-arrow-left-line"></i>
+                  一起学模式之简单工厂
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://wrcj12138aaa.github.io//post/20180908-后端架构搭建系列之MonogDB">
+                <h3 class="post-title">
+                  后端架构搭建系列之MonogDB
+                  <i class="remixicon-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '2ba76d6fe50ad2b384eb',
+    clientSecret: '90db763ed48942571725d6aef11229900c8bb656',
+    repo: 'wrcj12138aaa.github.io',
+    owner: 'wrcj12138aaa',
+    admin: ['wrcj12138aaa'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+      </div>
+    </div>
+
+    <script src="https://wrcj12138aaa.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>

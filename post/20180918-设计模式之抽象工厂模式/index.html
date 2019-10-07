@@ -1,0 +1,462 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>闻人的技术博客</title>
+<meta name="description" content="做一个终生学习者" />
+<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1570432921998">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://wrcj12138aaa.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="闻人的技术博客 - Atom Feed" href="https://wrcj12138aaa.github.io//atom.xml">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://wrcj12138aaa.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://wrcj12138aaa.github.io//images/avatar.png?v=1570432921998" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">闻人的技术博客</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#%E6%AD%A3%E6%96%87">正文</a>
+<ul>
+<li><a href="#%E6%A8%A1%E5%BC%8F%E5%AE%9A%E4%B9%89">模式定义</a></li>
+<li><a href="#%E7%BC%96%E7%A0%81%E5%AE%9E%E8%B7%B5">编码实践</a></li>
+<li><a href="#%E4%BC%98%E5%8A%A3%E5%88%86%E6%9E%90">优劣分析</a>
+<ul>
+<li><a href="#%E4%BC%98%E5%8A%BF"><strong>优势</strong></a></li>
+<li><a href="#%E7%BC%BA%E7%82%B9"><strong>缺点</strong></a></li>
+</ul>
+</li>
+<li><a href="#%E5%9C%BA%E6%99%AF%E5%BA%94%E7%94%A8">场景应用</a></li>
+</ul>
+</li>
+<li><a href="#%E7%BB%93%E8%AF%AD">结语</a>
+<ul>
+<li><a href="#%E5%8F%82%E8%80%83"><strong>参考</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="remixicon-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"></div>
+    <a class="rss" href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">一起学模式之抽象工厂</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2018-09-18 / 6 min read
+        </div>
+        
+        <div class="post-content yue">
+          <h2 id="前言">前言</h2>
+<p>学习过简单工厂，工厂方法模式后，我们再来看下工厂模式中最后一个模式：抽象工厂模式。它是《<a href="https://baike.baidu.com/item/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F">设计模式</a>》之一，并且被广泛应用在程序框架中。本文主要从以下方面进行：</p>
+<ul>
+<li>模式定义</li>
+<li>编码实践</li>
+<li>优劣分析</li>
+<li>场景应用</li>
+</ul>
+<!-- more-->
+<h2 id="正文">正文</h2>
+<h3 id="模式定义">模式定义</h3>
+<p>首先我们来看下抽象工厂的定义:</p>
+<blockquote>
+<p>维基百科</p>
+<p>The abstract factory pattern provides a way to encapsulate a group of individual factories that have a common theme without specifying their concrete classes</p>
+</blockquote>
+<p>意思就是为创建一组有公共目标且独立的工厂提供接口, 而无需指定它们的具体类, 而具体工厂只负责生成对应的产品.</p>
+<p>抽象工厂定义比较抽象,那该如何理解呢,这里我举个例子, 我们常用的计算机分为服务器和PC,具有共同的特性,比如CPU,内存,磁盘容量等等, 他们有着不同应用的场景和需求; 因此他们的制造细节和性能都是有所差别的,于是每个产品都由专门工厂来生成,服务器由服务器工厂来制造,PC由PC工厂来制造.由于制造流程是一致的,我们就把服务器工厂和PC工厂的制造流程统一抽象出来,作为一个规范,具体实现由这些工厂根据自己的产品去实现. 这样创建模式就是抽象工厂模式,不知你明白一点了没有,这里我用类图表示下来帮助理解.</p>
+<figure data-type="image" tabindex="1"><img src="https://ws2.sinaimg.cn/large/006tNbRwly1fveiiz1xjmj30ki0r0dhe.jpg" alt="image-20180919074946827"></figure>
+<p>下图为抽象模式的通用类图, 抽象工厂模式目的就是提供一个创建多个工厂类的工厂抽象类或者接口,而无需指定它们的具体类,去生成一组属于一个产品家族的产品. 这里<strong>产品家族</strong>就表示一类具有相互依赖,或者公共属性的产品线.比如上文例子中服务器工厂及产品,PC工厂及产品就是一个产品家族.</p>
+<figure data-type="image" tabindex="2"><img src="https://ws4.sinaimg.cn/large/006tNbRwly1fvddqpk54yj30wy0nutcy.jpg" alt="image-20180918081839854"></figure>
+<h3 id="编码实践">编码实践</h3>
+<p>现在我们就用代码实现上文的例子</p>
+<pre><code class="language-java">/**
+ * @author One
+ * @description 抽象工厂模式实战
+ * @date 2018/09/19
+ */
+public class AbastractFactoryLab {
+    public static void main(String[] args) {
+        ComputerFactory computerFactory = new ServerComputerFactory(&quot;2.9GHz&quot;, &quot;16GB&quot;);
+        Computer computer = computerFactory.createComputer();
+        System.out.println(computer.getClass().getSimpleName() + &quot; config :&quot; + computer);
+        //ServerComputer config :cpu: 2.9GHz, memory: 16GB
+        computerFactory = new PCComputerFactory(&quot;2.4GHz&quot;, &quot;4GB&quot;);
+        computer = computerFactory.createComputer();
+        System.out.println(computer.getClass().getSimpleName() + &quot; config :&quot; + computer);
+        //PCComputer config :cpu: 2.4GHz, memory: 4GB
+    }
+}
+
+/**
+ * 计算机工厂接口,亦可以是抽象类
+ */
+interface ComputerFactory {
+    Computer createComputer();
+}
+
+/**
+ * 服务器产品工厂类
+ */
+class ServerComputerFactory implements ComputerFactory {
+    private String cpu;
+    private String memory;
+
+    ServerComputerFactory(String cpu, String memory) {
+        this.cpu = cpu;
+        this.memory = memory;
+    }
+
+    @Override
+    public Computer createComputer() {
+        return new ServerComputer(this.cpu, this.memory);
+    }
+}
+
+/**
+ * PC产品工厂类
+ */
+class PCComputerFactory implements ComputerFactory {
+    private String cpu;
+    private String memory;
+
+    PCComputerFactory(String cpu, String memory) {
+        this.cpu = cpu;
+        this.memory = memory;
+    }
+
+    @Override
+    public Computer createComputer() {
+        return new PCComputer(this.cpu, this.memory);
+    }
+}
+
+
+/**
+ * 抽象产品类
+ */
+abstract class Computer {
+    abstract String getCPU();
+
+    abstract String getMemory();
+
+    @Override
+    public String toString() {
+        return &quot;cpu: &quot; + getCPU() + &quot;, memory: &quot; + getMemory();
+    }
+}
+
+/**
+ * 服务器产品
+ */
+class ServerComputer extends Computer {
+    private String cpu;
+    private String memory;
+
+    ServerComputer(String cpu, String memory) {
+        this.cpu = cpu;
+        this.memory = memory;
+    }
+
+    @Override
+    String getCPU() {
+        return this.cpu;
+    }
+
+    @Override
+    String getMemory() {
+        return this.memory;
+    }
+}
+
+/**
+ * PC产品
+ */
+class PCComputer extends Computer {
+    private String cpu;
+    private String memory;
+
+    PCComputer(String cpu, String memory) {
+        this.cpu = cpu;
+        this.memory = memory;
+    }
+
+    @Override
+    String getCPU() {
+        return this.cpu;
+    }
+
+    @Override
+    String getMemory() {
+        return this.memory;
+    }
+}
+</code></pre>
+<h3 id="优劣分析">优劣分析</h3>
+<h4 id="优势"><strong>优势</strong></h4>
+<ul>
+<li>保证了封装性，使用接口和抽象，只要知道工厂类即可创建对应需要产品对象。</li>
+<li>内部实现产品族内的约束,对外部透明。</li>
+<li>面向接口开发，而不是实现，更加动态化。</li>
+</ul>
+<h4 id="缺点"><strong>缺点</strong></h4>
+<p>横向扩展容易，纵向扩展困难；新增一个产品族，只要提供对应工厂就可以，但是产品族扩展困难，要新增一个新产品,就要在抽象类添加对应的生产方法，从而影响所有实现类。</p>
+<h3 id="场景应用">场景应用</h3>
+<p>使用抽象工厂模式我们可以应对以下场景：</p>
+<ul>
+<li>运行时决定调用哪个产品类。</li>
+<li>构造具有很多依赖的复杂对象。</li>
+<li>对象构造逻辑易变且根据配置决定。</li>
+</ul>
+<p>我们也可以参照抽象工厂模式在优秀源码里的使用：</p>
+<ul>
+<li>
+<p>javax.xml.parsers.DocumentBuilderFactory#newInstance()</p>
+</li>
+<li>
+<p>javax.xml.transform.TransformerFactory#newInstance()</p>
+</li>
+<li>
+<p>javax.xml.xpath.XPathFactory#newInstance()</p>
+</li>
+<li>
+<p>org.springframework.beans.factory.FactoryBean#getObject()</p>
+</li>
+</ul>
+<h2 id="结语">结语</h2>
+<p>本文进一步学习了抽象工厂模式，从定义和案例源码出发去理解，掌握模式的优缺点和应用场景。 最后再考虑个问题：工厂方法和抽象工厂的差异是什么呢？在我看来，工厂方法模式解决的是一个工厂生产多个同类产品的问题，而抽象工厂让每个产品有对应工厂来生产，无须关心具体的产品类，就能从对应工厂处获得产品类。</p>
+<h3 id="参考"><strong>参考</strong></h3>
+<ul>
+<li>Factory Patterns - Abstract Factory Pattern：https://www.codeproject.com/Articles/1137307/Factory-Patterns-Abstract-Factory-Pattern</li>
+<li>Abstract Factory Design Pattern in Java：https://www.journaldev.com/1418/abstract-factory-design-pattern-in-java</li>
+<li>Abstract Factory：http://java-design-patterns.com/patterns/abstract-factory/</li>
+</ul>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://wrcj12138aaa.github.io//tag/RVSTCL07Eh">
+            <span class="flex-auto">设计模式</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://wrcj12138aaa.github.io//post/20180920-一起学模式之依赖倒置与注入">
+                <h3 class="post-title">
+                  <i class="remixicon-arrow-left-line"></i>
+                  一起学模式之依赖倒置与注入
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://wrcj12138aaa.github.io//post/20180917-设计模式之工厂方法模式">
+                <h3 class="post-title">
+                  一起学模式之工厂方法模式
+                  <i class="remixicon-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '2ba76d6fe50ad2b384eb',
+    clientSecret: '90db763ed48942571725d6aef11229900c8bb656',
+    repo: 'wrcj12138aaa.github.io',
+    owner: 'wrcj12138aaa',
+    admin: ['wrcj12138aaa'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+      </div>
+    </div>
+
+    <script src="https://wrcj12138aaa.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>

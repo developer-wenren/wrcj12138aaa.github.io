@@ -1,0 +1,312 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>闻人的技术博客</title>
+<meta name="description" content="做一个终生学习者" />
+<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1570432921998">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://wrcj12138aaa.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="闻人的技术博客 - Atom Feed" href="https://wrcj12138aaa.github.io//atom.xml">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://wrcj12138aaa.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://wrcj12138aaa.github.io//images/avatar.png?v=1570432921998" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">闻人的技术博客</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#%E6%AD%A3%E6%96%87">正文</a><br>
+*<br>
+*<br>
+* <a href="#1-%E4%B8%8B%E8%BD%BDrpm%E6%96%87%E4%BB%B6">1. 下载rpm文件</a><br>
+* <a href="#2-%E4%B8%8A%E4%BC%A0rpm%E6%96%87%E4%BB%B6">2. 上传rpm文件</a><br>
+* <a href="#3-%E4%BD%BF%E7%94%A8-rpm-%E5%91%BD%E4%BB%A4%E5%AE%89%E8%A3%85-jdk">3. 使用 rpm 命令安装 JDK</a><br>
+* <a href="#4-%E8%AE%BE%E7%BD%AEjdk%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F">4. 设置JDK环境变量</a><br>
+* <a href="#41-%E7%BC%96%E8%BE%91profile%E6%96%87%E4%BB%B6">4.1 编辑profile文件</a><br>
+* <a href="#42-%E5%9C%A8%E6%89%93%E5%BC%80%E7%9A%84profile%E6%96%87%E4%BB%B6%E6%B7%BB%E5%8A%A0%E5%A6%82%E4%B8%8B%E5%86%85%E5%AE%B9">4.2 在打开的profile文件添加如下内容:</a><br>
+* <a href="#43-%E8%AE%A9%E4%BF%AE%E6%94%B9%E7%94%9F%E6%95%88">4.3 让修改生效</a><br>
+* <a href="#5-%E9%AA%8C%E8%AF%81jdk%E7%89%88%E6%9C%AC%E4%BF%A1%E6%81%AF">5. 验证JDK版本信息</a></li>
+<li><a href="#%E7%BB%93%E8%AF%AD">结语</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="remixicon-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"></div>
+    <a class="rss" href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">Linux环境安装JDK-yum方式</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2018-10-08 / 2 min read
+        </div>
+        
+        <div class="post-content yue">
+          <h2 id="前言">前言</h2>
+<p>为了在公司能搭建一个系统服务系统, 需要在一台新的阿里云服务器上搭建持续集成环境,却发现连基本的Java环境都没有,上网一搜各种五花八门的安装方式眼花缭乱,这次还是通过自己实践记录方式输出到博客,方便以后遇到类似情况需要搭建Java环境时使用.话不多说,马上进入正题.</p>
+<!--more-->
+<h2 id="正文">正文</h2>
+<p><strong>环境基础</strong></p>
+<blockquote>
+<p>操作系统 CentOS 7.4 64位</p>
+</blockquote>
+<h5 id="1-下载rpm文件">1. 下载rpm文件</h5>
+<p>在<a href="(https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)">Oracle官网</a>上下载对应JDK版本的rpm文件</p>
+<figure data-type="image" tabindex="1"><img src="https://ws1.sinaimg.cn/large/006tNbRwly1fw14ig92laj315e0qaqb2.jpg" alt="image-20181008211252232"></figure>
+<h5 id="2-上传rpm文件">2. 上传rpm文件</h5>
+<p>利用 FTP 工具将 rpm文件上传至远程服务器的root目录下</p>
+<figure data-type="image" tabindex="2"><img src="https://ws4.sinaimg.cn/large/006tNbRwly1fw14lpw2bcj319y0moq7u.jpg" alt="image-20181008211603839"></figure>
+<h5 id="3-使用-rpm-命令安装-jdk">3. 使用 rpm 命令安装 JDK</h5>
+<pre><code class="language-bash">rpm -ivh jdk-8u181-linux-x64.rpm
+</code></pre>
+<figure data-type="image" tabindex="3"><img src="https://ws1.sinaimg.cn/large/006tNbRwly1fw14p0vjsrj315a0e4dio.jpg" alt="image-20181008211913903"></figure>
+<h5 id="4-设置jdk环境变量">4. 设置JDK环境变量</h5>
+<h6 id="41-编辑profile文件">4.1 编辑profile文件</h6>
+<pre><code class="language-bash">vi /etc/profile
+</code></pre>
+<h6 id="42-在打开的profile文件添加如下内容">4.2 在打开的profile文件添加如下内容:</h6>
+<pre><code class="language-bash">JAVA_HOME=/usr/java/jdk1.8.0_181-amd6
+JRE_HOME=/usr/java/jdk1.8.0_181-amd6/jre
+PATH=$PATH:$JAVA_HOME:$JRE_HOME
+export PATH 
+</code></pre>
+<h6 id="43-让修改生效">4.3 让修改生效</h6>
+<pre><code class="language-bash">source /etc/profile
+</code></pre>
+<h5 id="5-验证jdk版本信息">5. 验证JDK版本信息</h5>
+<p>使用java命令获取对应jdk的版本信息</p>
+<pre><code>java -version
+</code></pre>
+<p>最终得到结果如下:</p>
+<figure data-type="image" tabindex="4"><img src="https://ws1.sinaimg.cn/large/006tNbRwly1fw14w8mdyuj30vu05odh6.jpg" alt="image-20181008212606907"></figure>
+<p>这样就表示java环境配置完成啦 !!!</p>
+<h2 id="结语">结语</h2>
+<p>虽然文章短小,内容简单,但成归是实践结果的输出,将固定的操作步骤记录下,方便以后更加高效的搭建Java环境,相想必也是大有益处.</p>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://wrcj12138aaa.github.io//tag/llypUO29A">
+            <span class="flex-auto">Java</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://wrcj12138aaa.github.io//post/20181011-实战Java高并发程序设计笔记">
+                <h3 class="post-title">
+                  <i class="remixicon-arrow-left-line"></i>
+                  《实战Java高并发程序设计》读书笔记
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://wrcj12138aaa.github.io//post/20181007-一起学模式之建造者模式">
+                <h3 class="post-title">
+                  一起学模式之建造者模式
+                  <i class="remixicon-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '2ba76d6fe50ad2b384eb',
+    clientSecret: '90db763ed48942571725d6aef11229900c8bb656',
+    repo: 'wrcj12138aaa.github.io',
+    owner: 'wrcj12138aaa',
+    admin: ['wrcj12138aaa'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+      </div>
+    </div>
+
+    <script src="https://wrcj12138aaa.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>

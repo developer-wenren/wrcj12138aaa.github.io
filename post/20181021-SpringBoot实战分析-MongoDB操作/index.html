@@ -1,0 +1,504 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>闻人的技术博客</title>
+<meta name="description" content="做一个终生学习者" />
+<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1570432921998">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://wrcj12138aaa.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="闻人的技术博客 - Atom Feed" href="https://wrcj12138aaa.github.io//atom.xml">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://wrcj12138aaa.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://wrcj12138aaa.github.io//images/avatar.png?v=1570432921998" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">闻人的技术博客</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#%E6%AD%A3%E6%96%87">正文</a>
+<ul>
+<li><a href="#%E4%B8%8B%E8%BD%BD%E7%A4%BA%E4%BE%8B%E5%B7%A5%E7%A8%8B">下载示例工程</a>
+<ul>
+<li><a href="#%E9%85%8D%E7%BD%AE-mongodb%E8%BF%9E%E6%8E%A5">配置 MongoDB连接</a></li>
+</ul>
+</li>
+<li><a href="#%E7%BC%96%E5%86%99%E4%BB%A3%E7%A0%81">编写代码</a></li>
+<li><a href="#%E5%AE%9E%E6%88%98%E5%88%86%E6%9E%90">实战分析</a>
+<ul>
+<li><a href="#postrepository%E7%9A%84%E6%89%A7%E8%A1%8C%E5%BA%95%E5%B1%82">postRepository的执行底层</a></li>
+<li><a href="#findbytitle%E7%9A%84%E6%9F%A5%E6%89%BE%E5%AE%9E%E7%8E%B0">findByTitle的查找实现</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E7%BB%93%E8%AF%AD">结语</a>
+<ul>
+<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="remixicon-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"></div>
+    <a class="rss" href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">SpringBoot实战分析-MongoDB操作</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2018-10-21 / 12 min read
+        </div>
+        
+        <div class="post-content yue">
+          <h2 id="前言">前言</h2>
+<p><code>MongoDB</code>作为一个基于分布式文件存储的数据库,在微服务领域中广泛使用.本篇文章将学习 <code>Spring Boot</code> 程序如何执行 <code>MongoDB</code> 操作以及底层实现方式的源码分析,来更好地帮助我们理解Spring程序操作 <code>MongoDB</code> 数据库的行为.</p>
+<h2 id="正文">正文</h2>
+<blockquote>
+<p>本文使用 MongoDB 服务器版本为4.0.0</p>
+<p>MongoDB 服务器的安装可以参考我的另一篇博客:<a href="https://wrcj12138aaa.github.io/2018/09/08/%E5%90%8E%E7%AB%AF%E6%9E%B6%E6%9E%84%E6%90%AD%E5%BB%BA%E7%B3%BB%E5%88%97%E4%B9%8BMonogDB/">后端架构搭建系列之MonogDB</a></p>
+</blockquote>
+<h3 id="下载示例工程">下载示例工程</h3>
+<p>首先在<a href="https://start.spring.io/">SPRING INITIALIZR</a>网站上下载示例工程,Spring Boot 版本为1.5.17,仅依赖一个 MongoDB.</p>
+<figure data-type="image" tabindex="1"><img src="https://ws2.sinaimg.cn/large/006tNbRwly1fwey8cpdovj31kw0lfaer.jpg" alt="image-20181020201332247"></figure>
+<p>用 IDE 导入工程后打开POM 文件,就可以看到 MongoDB 依赖对应的Maven 坐标和对应第三方库为 <code>spring-boot-starter-data-mongodb</code></p>
+<pre><code class="language-xml">&lt;dependency&gt;
+	&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-data-mongodb&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>那以后我们要在<code>Spring Boot</code>项目使用 <code>MongoDB</code> 时就可以在主 <code>POM</code>文件中引入这个库的坐标就OK 了.</p>
+<p>而 <code>spring-boot-starter-data-mongodb</code> 是 <code>spring-data</code>的子项目,  其作用就是针对 <code>MongoDB</code> 的访问提供丰富的操作和简化.</p>
+<h4 id="配置-mongodb连接">配置 MongoDB连接</h4>
+<p>要操作 <code>MongoDB</code> 数据库, 首先要让程序连接到 <code>MongoDB</code> 服务器,由于 <code>Spring Boot</code> 强大的简化配置特性, 想要连接 <code>MongoDB</code> 服务器, 我们只需在资源文件夹下的 <code>application.properties</code>文件里新增一行配置即可.</p>
+<pre><code class="language-properties">spring.data.mongodb.uri=mongodb://localhost:27017/test
+</code></pre>
+<blockquote>
+<p>如果连接有用户验证的 MongoDB 服务器,则uri 形式为 <code>mongodb://name:password@ip:port/dbName</code></p>
+</blockquote>
+<h3 id="编写代码">编写代码</h3>
+<p>配置后之后,接下来我们先创建一个实体 <code>Post</code>, 包含属性: <code>id</code>,<code>title</code>,<code>content</code>,<code>createTime</code></p>
+<pre><code class="language-java">public class Post {
+    @Id
+    private Long id;
+    private String title;
+    private String content;
+    private Date createTime;
+
+    public Post() {
+    }
+
+    public Post(Long id, String title, String content) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.createTime = new Date();
+    }
+    // 省略 setter,getter 方法
+}
+</code></pre>
+<p>这里用 注解<code>@Id</code>表示该实体属性对应为数据库记录的主键.</p>
+<p>然后再提供对Post的数据访问的存储对象 <code>PostRepository</code>, 继承 官方提供的<code>MongoRepository</code>接口</p>
+<pre><code class="language-java">public interface PostRepository extends MongoRepository&lt;Post,Long&gt; {
+    void findByTitle(String title);
+}
+</code></pre>
+<p>到这里 对 <code>Post</code> 实体的 <code>CRUD</code> 操作代码就完成. What !!!  我们还没写什么代码就结束了么? 我们现在就来写个测试用例来看看吧.</p>
+<pre><code class="language-java">@RunWith(SpringRunner.class)
+@SpringBootTest
+public class SpringbootMongodbApplicationTests {
+	@Autowired
+	private PostRepository postRepository;
+
+	@Test
+	public void testInsert() {
+		Post post = new Post(1L,&quot;sayhi&quot;, &quot;hi,mongodb&quot;);
+		postRepository.insert(post);
+		List&lt;Post&gt; all = postRepository.findAll();
+		System.out.println(all); 
+        // [Post{id=1, title='sayhi', content='hi,mongodb',
+        //createTime=Sat Oct 20 20:55:15 CST 2018}]
+		Assert.assertEquals(all.size(),1); // true
+	}
+}
+</code></pre>
+<p>运行测试用例,运行结果如下, <code>Post</code>数据成功地存储到了 <code>MongoDB</code> 数据库中,并且能够查询出来了.</p>
+<figure data-type="image" tabindex="2"><img src="https://ws4.sinaimg.cn/large/006tNbRwly1fwezjdm5tlj31kw0cu0y0.jpg" alt="image-20181020205843907"></figure>
+<p>我们也可以在<code>MongoDB</code> 服务器里查到这条记录:</p>
+<figure data-type="image" tabindex="3"><img src="https://ws3.sinaimg.cn/large/006tNbRwly1fwezt4iesbj31kw06bmyt.jpg" alt="image-20181020210805972"></figure>
+<p>从记录中看到多了个 <code>_ class</code>字段 的值,其实是由 <code>MongoRepository</code>自动帮我们设置的,用来表示这条记录对应的实体类型,但底层是什么时候操作的呢,期待在我们后续分析的时候揭晓答案.</p>
+<p>新增之后,我们再尝试下更新操作,这里用的也是用继承而来的 <code>save</code> 方法,除此之外我们还使用了自己写的接口方法 <code>findByTitle</code>来根据 <code>title</code>字段查询出 Post 实体.</p>
+<pre><code class="language-java">@Test
+public void testUpdate() {
+    Post post = new Post();
+    post.setId(1L);
+    post.setTitle(&quot;sayHi&quot;);
+    post.setContent(&quot;hi,springboot&quot;);
+    post.setCreateTime(new Date());
+    postRepository.save(post); // 更新 post 对象
+    Post updatedPost = postRepository.findByTitle(&quot;sayHi&quot;); // 根据 title 查询
+    Assert.assertEquals(updatedPost.getId(),post.getId());
+    Assert.assertEquals(updatedPost.getTitle(),post.getTitle());
+    Assert.assertEquals(updatedPost.getContent(),&quot;hi,springboot&quot;);
+}
+</code></pre>
+<p>运行这个测试用例,结果也是通过.但这里也有个疑问: 自己提供的方法,没有写如何实现,程序怎么就能依照我们所想要的:根据<code>title</code>字段的值去查询到匹配到的记录呢 ? 这样也在下面实战分析里看个明白吧.</p>
+<figure data-type="image" tabindex="4"><img src="https://ws4.sinaimg.cn/large/006tNbRwly1fwf0cp9ttzj31iu0cqwhw.jpg" alt="image-20181020212654792"></figure>
+<p>到这里我们对数据的增,改,查都已经试过了,删除其实也很简单,只要调用 <code>postRepository</code>的<code>delete</code> 方法即可,现在最主要还是探究 <code>PostRepository</code>仅通过继承<code>MongoRepository</code>如何实现数据增删改查的呢?</p>
+<h3 id="实战分析">实战分析</h3>
+<h4 id="postrepository的执行底层">postRepository的执行底层</h4>
+<p>实现了基本的数据操作之后,我们现在就来看下这一切是怎么做到的呢? 首先我们对测试用例 <code>testUpdate</code> 中的<code>postRepository#save</code> 进行断点调试,观察程序的执行路径.在单步进入 <code>save</code> 方法内部,代码执行到了<code>JdkDynamicAopProxy</code>类型下, 此时代码调用链如下图所示</p>
+<figure data-type="image" tabindex="5"><img src="https://ws1.sinaimg.cn/large/006tNbRwly1fwf191ei39j31kw0k1thc.jpg" alt="image-20181020215752763"></figure>
+<p>很显然这里是用到 <code>Spring</code> 的 <code>JDK</code> 动态代理,而<code>invoke</code>方法内这个 <code>proxy</code>对象十分引人注意, 方法执行时实际调用的 <code>proxy</code> 的 <code>save</code> 方法,而这个 <code>proxy</code> 则是 <code>org.springframework.data.mongodb.repository.support.SimpleMongoRepository@8deb645</code></p>
+<p>, 是 <code>SimpleMongoRepository</code> 类的实例.那么最后调用就会落到<code>SimpleMongoRepository# save</code> 方法中,我们在这个方法里再次进行断点然后继续运行.</p>
+<figure data-type="image" tabindex="6"><img src="https://ws2.sinaimg.cn/large/006tNbRwly1fwf1iwokc6j31fe0ioadb.jpg" alt="image-20181020220728719"></figure>
+<p>从这里可以看出,save 方法内部有两个操作: 如果是传入的实体是新纪录则执行 <code>insert</code>,否则执行 <code>save</code>更新操作.显然现在要执行的是后者.</p>
+<p>而要完成操作跟两个对象 <code>entityInformation</code>和<code>mongoOperations</code>有着密切关系,他们又是干什么的呢,什么时候初始化的呢.</p>
+<figure data-type="image" tabindex="7"><img src="https://ws4.sinaimg.cn/large/006tNbRwly1fwf1ruubvzj314808wwg4.jpg" alt="image-20181020221604857"></figure>
+<p>首先我们看下 <code>mongoOperations</code>这个对象,利用<code>IDEA</code> 调试工具可以看到 <code>mongoOperations</code> 其实就是 <code>MongoTemplate</code>对象, 类似 <code>JDBCTemplate</code>,针对<code>MongoDB</code> 数据的增删改查, <code>Spring</code> 也采用相似的名称方式和 <code>API</code>.所以真正操作<code>MongoDB</code>数据库底层就是这个<code>MongoTemplate</code>对象.</p>
+<p>至于<code>entityInformation</code>对象所属的类 <code>MappingMongoEntityInformation</code>,存储着<code>Mongo</code>数据实体信息,如集合名称,主键类型,一些所映射的实体元数据等.</p>
+<p>再来看下他们的初始化时机,在<code>SimpleMongoRepository</code>类, 可以找到他们都在的构造方法中初始化</p>
+<pre><code class="language-java">public SimpleMongoRepository(MongoEntityInformation&lt;T, ID&gt; metadata, MongoOperations mongoOperations) {
+	Assert.notNull(metadata, &quot;MongoEntityInformation must not be null!&quot;);
+	Assert.notNull(mongoOperations, &quot;MongoOperations must not be null!&quot;);
+    
+	this.entityInformation = metadata;
+	this.mongoOperations = mongoOperations;
+}
+</code></pre>
+<p>以同样的方式,在<code>SimpleMongoRepository</code>构造器中进行断点,重新允许观察初始化 <code>SimpleMongoRepository</code>对象时的调用链.发现整个链路如下,从运行测试用例到这里很长的执行链路,这里只标识出了我们所需要关注的那些类和方法.</p>
+<figure data-type="image" tabindex="8"><img src="https://ws2.sinaimg.cn/large/006tNbRwly1fwfnjm23e8j30yi0s245n.jpg" alt="image-20181020224041366"></figure>
+<p>从一层层源码可以跟踪到 <code>SimpleMongoRepository</code> 类的创建和初始化是由 工厂类<code>MongoRepositoryFactory</code>完成,</p>
+<pre><code class="language-java">public &lt;T&gt; T getRepository(Class&lt;T&gt; repositoryInterface, Object customImplementation) {
+
+		RepositoryMetadata metadata = getRepositoryMetadata(repositoryInterface);
+		Class&lt;?&gt; customImplementationClass = null == customImplementation ? null : customImplementation.getClass();
+		RepositoryInformation information = getRepositoryInformation(metadata, customImplementationClass);
+
+		validate(information, customImplementation);
+
+		Object target = getTargetRepository(information); // 获取初始化后的SimpleMongoRepository对象.
+
+		// Create proxy
+		ProxyFactory result = new ProxyFactory();
+		result.setTarget(target);
+		result.setInterfaces(new Class[] { repositoryInterface, Repository.class }); 
+    	// 对 repositoryInterface接口类进行 AOP 代理
+
+		result.addAdvice(SurroundingTransactionDetectorMethodInterceptor.INSTANCE);
+		result.addAdvisor(ExposeInvocationInterceptor.ADVISOR);
+    
+
+		return (T) result.getProxy(classLoader);
+}
+</code></pre>
+<p>下图就是<code>MongoRepositoryFactory</code>的类图,而<code>MongoRepositoryFactory</code>又是在<code>MongoRepositoryFactoryBean</code>类里构造的.</p>
+<figure data-type="image" tabindex="9"><img src="https://ws4.sinaimg.cn/large/006tNbRwly1fwf2pa8frjj30p40h6myd.jpg" alt="image-20181020224811986"></figure>
+<p>在调用链的下半截里,我们再看下发生着一切的来源在哪, 找到  <code>org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory#createBean</code>方法,内部创建<code>Bean</code> 实例的 <code>doCreateBean</code>调用参数为<code>postRepository</code>和<code>MongoRepositoryFactoryBean</code>实例,也就是在创建<code>postRepository</code>实例的时候完成的.</p>
+<figure data-type="image" tabindex="10"><img src="https://ws4.sinaimg.cn/large/006tNbRwly1fwf36281mcj31660lk10j.jpg" alt="image-20181020230418830"></figure>
+<p>而创建<code>postRepository</code>对应实体对象实际为 <code>MongoRepositoryFactoryBean</code>这个工厂 <code>Bean</code></p>
+<figure data-type="image" tabindex="11"><img src="https://ws2.sinaimg.cn/large/006tNbRwly1fwf3tdezc8j31kw087jt8.jpg" alt="image-20181020232644057"></figure>
+<p>当需要使用 <code>postRepository</code>对象时,实际就是使用工厂对象的方法<code>MongoRepositoryFactoryBean#getObject</code>返回的 <code>SimpleMongoRepository</code>对象,详见当类<code>AbstractBeanFactory</code>的<code>doGetBean</code>方法,当参数 <code>name</code> 为 <code>postRepository</code>时代码调用链.</p>
+<figure data-type="image" tabindex="12"><img src="https://ws1.sinaimg.cn/large/006tNbRwly1fwf4v8wm8zj31e40piqah.jpg" alt="image-20181021000306776"></figure>
+<p>好了,到这里基本说完 <code>postRepository</code>是如何完成<code>MongoDB</code>数据库操作的,还有个问题就是仅定义了接口方法 <code>findByTitle</code>,如何实现根据 <code>title</code> 字段查找的.</p>
+<h4 id="findbytitle的查找实现">findByTitle的查找实现</h4>
+<p>断点到执行 <code>findByTitle</code> 方法的地方,调试进去跟之前一样在 <code>JdkDynamicAopProxy</code> 类中执行,而在获取调用链时</p>
+<p>,这个代理对象的所拥有的拦截器中一个拦截器类<code>org.springframework.data.repository.core.support.RepositoryFactorySupport.QueryExecutorMethodInterceptor</code>引起了我的注意.从命名上看是专门处理查询方法的拦截器.我尝试在这个拦截的<code>invoke</code>方法进行断点,果然执行<code>findByTitle</code>时,程序执行到了这里.</p>
+<figure data-type="image" tabindex="13"><img src="https://ws4.sinaimg.cn/large/006tNbRwly1fwfk4wcipfj31kw0fitcv.jpg" alt="image-20181021085124017"></figure>
+<p>然后在拦截器方法中判断该方法是否为查询方法,如果是就会携带参数调用 <code>PartTreeMongoQuery</code>对象继承而来的<code>AbstractMongoQuery#execute</code>方法.</p>
+<pre><code class="language-java">// AbstractMongoQuery
+public Object execute(Object[] parameters) {
+    MongoParameterAccessor accessor = new MongoParametersParameterAccessor(method, parameters);
+    // 构建查询对象 Query: { &quot;title&quot; : &quot;sayHi&quot;}, Fields: null, Sort: null
+    Query query = createQuery(new ConvertingParameterAccessor(operations.getConverter(), accessor));
+
+    applyQueryMetaAttributesWhenPresent(query);
+    ResultProcessor processor = method.getResultProcessor().withDynamicProjection(accessor);
+    String collection = method.getEntityInformation().getCollectionName();
+    // 构建查询执行对象
+    MongoQueryExecution execution = getExecution(query, accessor,new ResultProcessingConverter(processor, operations, instantiators));
+    
+    return execution.execute(query, processor.getReturnedType().getDomainType(), collection);
+}
+</code></pre>
+<p>而 <code>MongoQueryExecution#execute</code>方法里经过层层地调用实际执行而以下代码:</p>
+<pre><code class="language-java">// AbstractMongoQuery#execute =&gt;
+	// MongoQueryExecution.ResultProcessingExecution#execute =&gt;
+		// MongoQueryExecution.SingleEntityExecution#execute
+@Override
+public Object execute(Query query, Class&lt;?&gt; type, String collection) {
+	return operations.findOne(query, type, collection);
+}
+</code></pre>
+<p>这里的 <code>operations</code> 就是我们之前提到的 <code>MongoDBTemplate</code> 实例.所以当执行 自定义方法<code>findByTitile</code>查询时底层调用的还是<code>MongoDBTemplate#findOne</code>.</p>
+<p>而这里也有个疑问:构建<code>Query</code> 对象时能获取到参数值为<code>sayHi</code>,如何是获取对应查询字段为<code>title</code>的呢?</p>
+<p>在方法<code>createQuery</code>是一个模板方法,真正执行在``PartTreeMongoQuery`类上.</p>
+<pre><code class="language-java">@Override
+protected Query createQuery(ConvertingParameterAccessor accessor) {
+	MongoQueryCreator creator = new MongoQueryCreator(tree, accessor, context, isGeoNearQuery);
+	Query query = creator.createQuery();
+	//...
+	return query
+}
+</code></pre>
+<p>这里在构建<code>MongoQueryCreator</code>时有个 <code>tree</code> 属性,这个对象就是构建条件查询的关系.</p>
+<figure data-type="image" tabindex="14"><img src="https://ws1.sinaimg.cn/large/006tNbRwly1fwfl69kzpuj31a205qdgn.jpg" alt="image-20181021092719052"></figure>
+<p>而 <code>tree</code> 对象的初始化在<code>PartTreeMongoQuery</code>这个类的构造器中完成的, 根据方法名, <code>PartTree</code>又是如何构造出来的呢.</p>
+<pre><code class="language-java">//PartTree.java
+public PartTree(String source, Class&lt;?&gt; domainClass) {
+
+    Assert.notNull(source, &quot;Source must not be null&quot;);
+    Assert.notNull(domainClass, &quot;Domain class must not be null&quot;);
+
+    Matcher matcher = PREFIX_TEMPLATE.matcher(source);
+    if (!matcher.find()) {
+        this.subject = new Subject(null);
+        this.predicate = new Predicate(source, domainClass);
+    } else {
+        this.subject = new Subject(matcher.group(0));
+        // 构造查询字段的关键
+        this.predicate = new Predicate(source.substring(matcher.group().length()), domainClass);
+    }
+}
+</code></pre>
+<p>从上面代码可以看到 , 用正则方式匹配方法名,其中 <code>PREFIX_TEMPLATE</code>表示着 <code>^(find|read|get|query|stream|count|exists|delete|remove)((\p{Lu}.*?))??By</code>, 如果匹配到了就将 By 后面紧跟的单词提取出来,内部再根据该名称去匹配对应类的属性,找到构建完成后就会放在一个 <code>ArrayList</code> 集合里存放,等待后续查询的时候使用.</p>
+<p>所以也可以看出 我们自定义的方法 <code>findByTitle</code>符合框架默认的正则要求,所以能自动提取到<code>Post</code> 的 <code>title</code> 字段作为查询字段. 除此之外,使用类似<code>queryBy</code>,<code>getBy</code>等等也可以达到同样效果, 这里体现的就是 <code>Spring Framework</code> 约定由于配置的思想, 如果我们随意定义方法名,那框架就无法直接识别出查询字段了.</p>
+<p>好了到这里, 我们再次总结一下源码分析成果:</p>
+<ul>
+<li>定义<code>postRepository</code>实现<code>MongoRepository</code>接口,操作MongoDB 数据的底层使用的 MongoDBTemplate, 而实际使用时通过JDK 动态代理和 <code>AOP</code> 拦截器方式层层调用.</li>
+<li>在<code>postRepository</code>中自定义查询方法是要符合<code>spring-boot-data-mongodb</code>框架的方法命名规则,才能达到完全自动处理的效果.</li>
+</ul>
+<h2 id="结语">结语</h2>
+<p>到这里,我们的 <code>Spring Boot</code> 与 <code>MongoDB</code> 的实战分析就结束了,细看内部源码,虽然结构层次清晰,但由于模块间复杂调用关系,也往往容易迷失于源码中,这时候耐心和明确的目标就至关重要.这算也是本次源码分析的收获吧,希望这篇文章能有更多收获,我们下篇再见吧.😁😁😁</p>
+<h3 id="参考">参考</h3>
+<ul>
+<li>http://blog.didispace.com/springbootmongodb/</li>
+</ul>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://wrcj12138aaa.github.io//tag/rqKiVec5UR">
+            <span class="flex-auto">SpringBoot</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://wrcj12138aaa.github.io//post/20181022-Gradle入门">
+                <h3 class="post-title">
+                  <i class="remixicon-arrow-left-line"></i>
+                  Java 修炼之道:Gradle
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://wrcj12138aaa.github.io//post/20181019-Java 修炼之道-构建工具Maven">
+                <h3 class="post-title">
+                  Java 修炼之道:Maven
+                  <i class="remixicon-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '2ba76d6fe50ad2b384eb',
+    clientSecret: '90db763ed48942571725d6aef11229900c8bb656',
+    repo: 'wrcj12138aaa.github.io',
+    owner: 'wrcj12138aaa',
+    admin: ['wrcj12138aaa'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+      </div>
+    </div>
+
+    <script src="https://wrcj12138aaa.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>

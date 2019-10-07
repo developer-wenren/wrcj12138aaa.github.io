@@ -1,0 +1,459 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>闻人的技术博客</title>
+<meta name="description" content="做一个终生学习者" />
+<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1570432921998">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://wrcj12138aaa.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="闻人的技术博客 - Atom Feed" href="https://wrcj12138aaa.github.io//atom.xml">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://wrcj12138aaa.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://wrcj12138aaa.github.io//images/avatar.png?v=1570432921998" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">闻人的技术博客</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li><a href="#stirng%E7%9A%84%E6%AF%94%E8%BE%83">Stirng的比较</a>
+<ul>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%B1%A0">什么是字符串池</a></li>
+<li><a href="#%E4%B8%80%E4%B8%AA%E6%84%8F%E5%A4%96-new-%E6%93%8D%E4%BD%9C%E7%AC%A6">一个意外: new 操作符</a></li>
+<li><a href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%B1%A0%E4%B8%8E-intern-%E6%96%B9%E6%B3%95">字符串池与 intern() 方法</a></li>
+<li><a href="#string-%E7%B1%BB%E7%9A%84-equals-%E6%96%B9%E6%B3%95">String 类的 Equals 方法</a></li>
+<li><a href="#%E5%B8%B8%E7%94%A8%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%96%B9%E6%B3%95">常用的字符串方法</a></li>
+<li><a href="#%E8%BF%9B%E8%A1%8C-string%E6%AF%94%E8%BE%83%E6%8C%91%E6%88%98">进行 String比较挑战</a></li>
+<li><a href="#%E5%88%9A%E5%88%9A%E5%8F%91%E7%94%9F%E4%BA%86%E4%BB%80%E4%B9%88-%E7%90%86%E8%A7%A3%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%A1%8C%E4%B8%BA">刚刚发生了什么? 理解字符串行为</a></li>
+<li><a href="#string-%E7%9A%84%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF">String 的常见错误</a></li>
+<li><a href="#%E5%85%B3%E4%BA%8E-string-%E9%9C%80%E8%A6%81%E8%AE%B0%E4%BD%8F%E7%9A%84">关于 String 需要记住的</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="remixicon-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"></div>
+    <a class="rss" href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">译|Java挑战者系列-String的比较</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2018-11-07 / 10 min read
+        </div>
+        
+        <div class="post-content yue">
+          <blockquote>
+<p>原文链接: https://www.javaworld.com/article/3276354/java-language/java-challengers-2-string-comparisons.html</p>
+<p>作者: Rafael Chinelato Del Nero</p>
+</blockquote>
+<h1 id="stirng的比较">Stirng的比较</h1>
+<p>在 Java 中, String 类封装了一个 char 数组.简单来说, String 就是一个用来组合单词,句子或者其他你想要的数据的一个字符数组.</p>
+<p>封装是面向对象程序设计中最强大的概念之一.有了封装,你不需要知道 String 类的工作原理;而只需要知道在它接口上提供什么方法可以使用.</p>
+<p>当在 Java 中查看 String 类时,你就可以看到char 数组是如何封装的:</p>
+<pre><code class="language-java">public String(char value[]) {
+    this(value, 0, value.length, null);
+}
+</code></pre>
+<p>为了更好地理解封装,可以想象一个物理对象:汽车.你需要知道汽车在引擎盖下是如何工作吗?当然不需要,但你需要知道汽车所能做的接口是什么: 像加速器,刹车和方向盘.它们每个接口都提供了某些操作:加速,刹车,左转,右转.这在面向对象程序设计中也是一样的.</p>
+<p>String 广泛使用了我在Java 挑战者系列的第一个博客介绍的方法重载这一技术.重载可以让你的类更加灵活,同样 String 也是:</p>
+<pre><code class="language-java">public String(String original) {}
+public String(char value[], int offset, int count) {}
+public String(int[] codePoints, int offset, int count) {}
+public String(byte bytes[], int offset, int length, String charsetName) {}
+// And so on…...
+</code></pre>
+<p>不要尝试理解 String 如何工作的. 这个 Java 挑战者将帮助你理解它做了什么,以及如何在代码中使用String.</p>
+<h2 id="什么是字符串池">什么是字符串池</h2>
+<p>String 可能是 Java 中使用最多的类.如果我们每次使用 String, 在内存堆中都会创建一个新对象,那么我们就会浪费大量的内存.而字符串池就通过为每个 String 值存储一个对象来解决这个问题,如下所示.</p>
+<figure data-type="image" tabindex="1"><img src="https://ws4.sinaimg.cn/large/006tNbRwly1fwy1phbf7tj30jg0dlgmj.jpg" alt="An image showing how Strings are stored in the String pool."></figure>
+<p>虽然我们为字符串 Duke 和 Juggy 创建了一些 String 变量, 但仅只有两个对象在堆内存中创建和储存.</p>
+<pre><code class="language-java">String juggy = &quot;Juggy&quot;;
+String anotherJuggy = &quot;Juggy&quot;;
+System.out.println(juggy == anotherJuggy);
+</code></pre>
+<p>上面的代码会返回结果 true, 因为两个字符串 指向字符串池的同一个对象.它们的值是相同的.</p>
+<h2 id="一个意外-new-操作符">一个意外: new 操作符</h2>
+<p>现在来看下面代码,跟之前例子有点相似,但还是有不同之处</p>
+<pre><code class="language-java">String duke = new String(&quot;duke&quot;);
+String anotherDuke = new String(&quot;duke&quot;);
+
+System.out.println(duke == anotherDuke);
+</code></pre>
+<p>基于上面的例子,你可能认为这里会返回 ture, 但事实上是 false. 添加了 new 操作符强制在堆内存中创建一个新对象.因此,JVM 会创建两个不同的对象.</p>
+<blockquote>
+<p>本地方法 (Native methods)</p>
+<p>在Java 中的本地方法代表着一个用 C 语言编译的方法,通常目标于操作内存和优化性能.</p>
+</blockquote>
+<h2 id="字符串池与-intern-方法">字符串池与 intern() 方法</h2>
+<p>为了在字符串池存储一个字符串,我们使用一种叫 字符串 (String interning)技术.下面是 Java文档对  <code>intern()</code> 方法的说明:</p>
+<pre><code class="language-java">
+    /**
+     * Returns a canonical representation for the string object.
+     *
+     * A pool of strings, initially empty, is maintained privately by the
+     * class {@code String}.
+     *
+     * When the intern method is invoked, if the pool already contains a
+     * string equal to this {@code String} object as determined by
+     * the {@link #equals(Object)} method, then the string from the pool is
+     * returned. Otherwise, this {@code String} object is added to the
+     * pool and a reference to this {@code String} object is returned.
+     *
+     * It follows that for any two strings {@code s} and {@code t},
+     * {@code s.intern() == t.intern()} is {@code true}
+     * if and only if {@code s.equals(t)} is {@code true}.
+     * 
+     * All literal strings and string-valued constant expressions are
+     * interned. String literals are defined in section 3.10.5 of the
+     * The Java&amp;trade; Language Specification.
+     *
+     * @returns  a string that has the same contents as this string, but is
+     *          guaranteed to be from a pool of unique strings.
+     * @jls 3.10.5 String Literals
+     */ public native String intern();
+</code></pre>
+<p>intern() 方法是用来在字符串池中存储字符串的.首先,它验证你创建的字符串是否已经在字符串池总.如果不存在,它会在字符串池中新创建一个.字符串池的设计思想是基于享元模式的.</p>
+<p>现在,注意下当我们使用 new 关键字迫使创建来年两个字符串时会发生什么:</p>
+<pre><code class="language-java">
+String duke = new String(&quot;duke&quot;);
+String duke2 = new String(&quot;duke&quot;);
+System.out.println(duke == duke2); // The result will be false here
+System.out.println(duke.intern() == duke2.intern()); // The result will be true here
+</code></pre>
+<p>与之前的使用 new 关键字的例子不同,这个比较返回的是 true. 这是因为使用 intern() 方法可以使得字符串存储在字符串池中.</p>
+<h2 id="string-类的-equals-方法">String 类的 Equals 方法</h2>
+<p><code>equals()</code>方法是用于验证两个 Java 类的状态是否相同.因为<code>equals()</code>来自Object类,</p>
+<p>所以每个类都继承了这个方法.但是为了让,<code>equals()</code>正常工作,会进行重写.当然,String 重写了 <code>equals()</code>.</p>
+<pre><code class="language-java">public boolean equals(Object anObject) {
+    if (this == anObject) {
+        return true;
+    }
+    
+    if (anObject instanceof String) {
+        String aString = (String)anObject;
+        if (coder() == aString.coder()) {
+          return isLatin1() ? StringLatin1.equals(value, aString.value)
+            : StringUTF16.equals(value, aString.value);
+        }
+    }
+    
+    return false;
+}
+</code></pre>
+<h2 id="常用的字符串方法">常用的字符串方法</h2>
+<p>在进行<code>String</code>比较挑战之前，您还需要了解最后一件事。了解下这个<code>String</code>类的常用方法</p>
+<pre><code class="language-java">// Removes spaces from the borders
+trim() 
+// Gets a substring by indexes
+substring(int beginIndex, int endIndex)
+// Returns the characters length of the String
+length() 
+// Replaces String, regex can be used.
+replaceAll(String regex, String replacement)
+// Verifies if there is a specified CharSequence in the String
+contains(CharSequences) 
+</code></pre>
+<h2 id="进行-string比较挑战">进行 String比较挑战</h2>
+<p>让我们来次快速挑战来检验下你对 String 类的了解.</p>
+<p>对于这个挑战,你将使用我们学到的概念比较一个数字型字符串.请看下面代码,你可以确定每个结果变量的最终值.</p>
+<pre><code class="language-java">public class ComparisonStringChallenge {
+	public static void main(String... doYourBest) {
+		String result = &quot;&quot;;
+		result += &quot; powerfulCode &quot;.trim() == &quot;powerfulCode&quot; 
+				? &quot;0&quot; : &quot;1&quot;;
+
+		result += &quot;flexibleCode&quot; == &quot;flexibleCode&quot; ? &quot;2&quot; : &quot;3&quot;;
+		
+		result += new String(&quot;doYourBest&quot;) 
+				== new String(&quot;doYourBest&quot;) ? &quot;4&quot; : &quot;5&quot;;
+
+		result += new String(&quot;noBugsProject&quot;)
+				.equals(&quot;noBugsProject&quot;) ? &quot;6&quot; : &quot;7&quot;;
+
+        result += new String(&quot;breakYourLimits&quot;).intern()
+                == new String(&quot;breakYourLimits&quot;).intern() ? &quot;8&quot; : &quot;9&quot;;
+
+		System.out.println(result);
+	}
+}
+</code></pre>
+<p>哪个输出结果代表变量的最终值?</p>
+<p>A: 02468</p>
+<p>B: 12469</p>
+<p>C: 12579</p>
+<p>D: 12568</p>
+<p>答案位于文末.</p>
+<h2 id="刚刚发生了什么-理解字符串行为">刚刚发生了什么? 理解字符串行为</h2>
+<p>在代码的第一行,我们看到</p>
+<pre><code class="language-java">
+result += &quot; powerfulCode &quot;.trim() == &quot;powerfulCode&quot; 
+				? &quot;0&quot; : &quot;1&quot;;
+</code></pre>
+<p>尽管在 trim() 方法调用后字符串是一样的.字符串<code>&quot; powerfulcode &quot;</code>在一开始不一样的.这个例子中比较结果是 false. 因为当<code>trim()</code>方法移除周围的空格迫使通过 new 操作符创建了一个新的字符串.</p>
+<p>接下来看:</p>
+<pre><code class="language-java">result += &quot;flexibleCode&quot; == &quot;flexibleCode&quot; ? &quot;2&quot; : &quot;3&quot;;
+
+</code></pre>
+<p>毫无疑问,这里字符串在字符串池中是一样的,这个比较返回  true.</p>
+<p>接下来看:</p>
+<pre><code class="language-java">
+result += new String(&quot;doYourBest&quot;) 
+				== new String(&quot;doYourBest&quot;) ? &quot;4&quot; : &quot;5&quot;;
+</code></pre>
+<p>因为我们使用了 equals() 方法,将比较字符串的值,而不是对象实例.在这个例子中,因为值比较,所有它们对象不同对此没有影响.这个比较结果返回 true.</p>
+<p>最后看下</p>
+<pre><code class="language-java">
+result += new String(&quot;breakYourLimits&quot;).intern()
+                == new String(&quot;breakYourLimits&quot;).intern() ? &quot;8&quot; : &quot;9&quot;;
+</code></pre>
+<p>正如你之前看的, <code>intern()</code>方法会将字符串放入字符串池中.</p>
+<p>两个字符串都指向同一个对象.所以这个例子的比较是返回 true.</p>
+<h2 id="string-的常见错误">String 的常见错误</h2>
+<p>知道两个字符串是否指向同一个对象是不容易的,尤其当字符串包含相同的一个值.使用保留关键字 new总是会导致在内存中创建一个对象有助于记住,即使值的相同的.</p>
+<p>使用 String 方法来比较对象的引用也会是棘手的.关键在于,如果方法对String内部进行改变,对象引用将会变得不同.</p>
+<p>一些能说明的例子:</p>
+<pre><code class="language-java">System.out.println(&quot;duke&quot;.trim() == &quot;duke&quot;.trim());; 
+</code></pre>
+<p>这个比较会返回 true, 因为 trim() 方法没有生成新的字符串.</p>
+<pre><code class="language-java">System.out.println(&quot; duke&quot;.trim() == &quot;duke&quot;.trim()); 
+</code></pre>
+<p>这个例子中第一个 trim() 会生成一个新的字符串.因为方法执行了它的操作,将引用改变了.</p>
+<p>最后,当 trim() 执行它的操作时,它会创建一个新字符串:</p>
+<pre><code class="language-java">
+// Implementation of the trim method in the String class
+new String(Arrays.copyOfRange(val, index, index + len),
+                          LATIN1);
+</code></pre>
+<h2 id="关于-string-需要记住的">关于 String 需要记住的</h2>
+<ul>
+<li>String 是不可变,一个String的状态不能改变.</li>
+<li>为了节省内存, JVM 将 String 保留在字符串池中.当一个String 被创建时, JVM会检查它的值和其指向的存在对象.如果在字符串池中没有这个字符串的值.那么 JVM 就会创建一个新的 String 对象.</li>
+<li>当使用 new 操作时,一个新的String对象就会在字符串池中创建,即使已经有了相同值的String.</li>
+</ul>
+<blockquote>
+<p>答案: D,结果是12568.</p>
+</blockquote>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://wrcj12138aaa.github.io//tag/llypUO29A">
+            <span class="flex-auto">Java</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://wrcj12138aaa.github.io//post/20181127-JSON 序列化与反序列化框架 - Gson">
+                <h3 class="post-title">
+                  <i class="remixicon-arrow-left-line"></i>
+                  Json序列化与反序列化框架-Gson 入门
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://wrcj12138aaa.github.io//post/20181030-一起学模式之代理模式">
+                <h3 class="post-title">
+                  一起学模式之代理模式
+                  <i class="remixicon-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '2ba76d6fe50ad2b384eb',
+    clientSecret: '90db763ed48942571725d6aef11229900c8bb656',
+    repo: 'wrcj12138aaa.github.io',
+    owner: 'wrcj12138aaa',
+    admin: ['wrcj12138aaa'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+      </div>
+    </div>
+
+    <script src="https://wrcj12138aaa.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>

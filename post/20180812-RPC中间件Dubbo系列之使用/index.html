@@ -1,0 +1,793 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>闻人的技术博客</title>
+<meta name="description" content="做一个终生学习者" />
+<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1570432921998">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://wrcj12138aaa.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="闻人的技术博客 - Atom Feed" href="https://wrcj12138aaa.github.io//atom.xml">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://wrcj12138aaa.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://wrcj12138aaa.github.io//images/avatar.png?v=1570432921998" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">闻人的技术博客</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5">最佳实践</a>
+<ul>
+<li><a href="#%E5%88%86%E5%8C%85">分包</a></li>
+<li><a href="#%E7%B2%92%E5%BA%A6">粒度</a></li>
+<li><a href="#%E7%89%88%E6%9C%AC">版本</a></li>
+<li><a href="#%E5%85%BC%E5%AE%B9%E6%80%A7">兼容性</a></li>
+<li><a href="#%E5%BA%8F%E5%88%97%E5%8C%96">序列化</a></li>
+<li><a href="#%E5%BC%82%E5%B8%B8">异常</a></li>
+<li><a href="#%E8%B0%83%E7%94%A8">调用</a></li>
+<li><a href="#%E9%85%8D%E7%BD%AE">配置</a></li>
+</ul>
+</li>
+<li><a href="#%E7%94%A8%E6%B3%95%E7%A4%BA%E4%BE%8B">用法示例</a>
+<ul>
+<li><a href="#%E5%90%AF%E5%8A%A8%E6%97%B6%E6%A3%80%E6%9F%A5">启动时检查</a>
+<ul>
+<li><a href="#%E4%BB%8B%E7%BB%8D">介绍</a></li>
+<li><a href="#%E7%A4%BA%E4%BE%8B">示例</a></li>
+<li><a href="#%E8%AF%B4%E6%98%8E">说明</a></li>
+</ul>
+</li>
+<li><a href="#%E9%9B%86%E7%BE%A4%E5%AE%B9%E9%94%99">集群容错</a>
+<ul>
+<li><a href="#%E4%BB%8B%E7%BB%8D-2">介绍</a></li>
+<li><a href="#%E7%A4%BA%E4%BE%8B-2">示例</a></li>
+<li><a href="#%E8%AF%B4%E6%98%8E-2">说明</a></li>
+</ul>
+</li>
+<li><a href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1">负载均衡</a>
+<ul>
+<li><a href="#%E5%9D%87%E8%A1%A1%E7%AD%96%E7%95%A5"><strong>均衡策略</strong></a></li>
+<li><a href="#%E9%85%8D%E7%BD%AE-2">配置</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BC%98%E9%9B%85%E5%81%9C%E6%9C%BA">优雅停机</a>
+<ul>
+<li><a href="#%E5%8E%9F%E7%90%86">原理</a></li>
+<li><a href="#%E9%85%8D%E7%BD%AE-3">配置</a></li>
+<li><a href="#%E8%AF%B4%E6%98%8E-3">说明</a></li>
+</ul>
+</li>
+<li><a href="#%E7%9B%B4%E8%BF%9E%E6%8F%90%E4%BE%9B%E8%80%85">直连提供者</a>
+<ul>
+<li><a href="#%E8%AF%B4%E6%98%8E-4">说明</a></li>
+<li><a href="#%E9%85%8D%E7%BD%AE-4">配置</a></li>
+</ul>
+</li>
+<li><a href="#%E5%A4%9A%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83">多注册中心</a>
+<ul>
+<li><a href="#%E8%AF%B4%E6%98%8E-5">说明</a></li>
+</ul>
+</li>
+<li><a href="#%E6%97%A5%E5%BF%97%E9%80%82%E9%85%8D">日志适配</a>
+<ul>
+<li><a href="#%E5%90%AF%E7%94%A8%E9%85%8D%E7%BD%AE">启用配置</a></li>
+</ul>
+</li>
+<li><a href="#%E5%A4%9A%E7%89%88%E6%9C%AC">多版本</a>
+<ul>
+<li><a href="#%E8%AF%B4%E6%98%8E-6">说明</a></li>
+<li><a href="#%E9%85%8D%E7%BD%AE-5">配置</a></li>
+</ul>
+</li>
+<li><a href="#%E7%BB%93%E6%9E%9C%E7%BC%93%E5%AD%98">结果缓存</a>
+<ul>
+<li><a href="#%E8%AF%B4%E6%98%8E-7"><strong>说明</strong></a></li>
+<li><a href="#%E7%BC%93%E5%AD%98%E7%B1%BB%E5%9E%8B"><strong>缓存类型</strong></a></li>
+<li><a href="#%E9%85%8D%E7%BD%AE-6">配置</a></li>
+</ul>
+</li>
+<li><a href="#%E5%9B%9E%E5%A3%B0%E6%B5%8B%E8%AF%95">回声测试</a>
+<ul>
+<li><a href="#%E8%AF%B4%E6%98%8E-8">说明</a></li>
+<li><a href="#%E7%A4%BA%E4%BE%8B-3">示例</a></li>
+</ul>
+</li>
+<li><a href="#%E5%BC%82%E6%AD%A5%E8%B0%83%E7%94%A8">异步调用</a>
+<ul>
+<li><a href="#%E8%AF%B4%E6%98%8E-9">说明</a></li>
+<li><a href="#%E7%A4%BA%E4%BE%8B-4">示例</a></li>
+</ul>
+</li>
+<li><a href="#%E8%B7%AF%E7%94%B1%E8%A7%84%E5%88%99">路由规则</a>
+<ul>
+<li><a href="#%E8%AF%B4%E6%98%8E-10">说明</a></li>
+<li><a href="#%E6%9D%A1%E4%BB%B6%E8%B7%AF%E7%94%B1%E8%A7%84%E5%88%99"><strong>条件路由规则</strong></a>
+<ul>
+<li><a href="#%E8%A1%A8%E8%BE%BE%E5%BC%8F">表达式</a></li>
+<li><a href="#%E7%A4%BA%E4%BE%8B-5">示例</a></li>
+</ul>
+</li>
+<li><a href="#%E8%84%9A%E6%9C%AC%E8%B7%AF%E7%94%B1%E8%A7%84%E5%88%99"><strong>脚本路由规则</strong></a>
+<ul>
+<li><a href="#%E7%A4%BA%E4%BE%8B-6"><strong>示例</strong></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="remixicon-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"></div>
+    <a class="rss" href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">RPC框架Dubbo之实践</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2018-08-12 / 19 min read
+        </div>
+        
+        <div class="post-content yue">
+          <h2 id="最佳实践">最佳实践</h2>
+<h3 id="分包">分包</h3>
+<p>将服务接口，服务模型，服务异常等均放在 API 包中。也可以考虑在 API 包中放置一份 spring 的引用配置，这样使用方，只需在 spring 加载过程中引用此配置即可，配置建议放在模块的包目录下，以免冲突，如：<code>com/alibaba/china/xxx/dubbo-reference.xml</code> 。</p>
+<h3 id="粒度">粒度</h3>
+<p>服务力度尽可能大，保证一个服务方法代表一个功能；接口以业务场景为单位划分，如号卡服务，订单服务等等，对相近业务做抽象，防止数量爆炸。</p>
+<!--more -->
+<h3 id="版本">版本</h3>
+<p>每个接口都最好定义版本，为后续不兼容升级提供可能。如： <code>&lt;dubbo:service interface=&quot;com.xxx.XxxService&quot; version=&quot;1.0&quot; /&gt;</code>。</p>
+<p>建议使用两位版本号，因为第三位版本号通常表示兼容升级，只有不兼容时才需要变更服务版本。</p>
+<p>当不兼容时，先升级一半提供者为新版本，再将消费者全部升为新版本，然后将剩下的一半提供者升为新版本。</p>
+<h3 id="兼容性">兼容性</h3>
+<p>服务接口增加方法，或服务模型增加字段，可向后兼容，删除方法或删除字段，将不兼容（会吞掉错误信息），枚举类型新增字段也不兼容，需通过变更版本号升级。</p>
+<h3 id="序列化">序列化</h3>
+<p>服务参数及返回值建议使用 POJO 对象，即通过 <code>setter</code>, <code>getter</code> 方法表示属性的对象。</p>
+<p>服务参数及返回值不建议使用接口，因为数据模型抽象的意义不大，并且序列化需要接口实现类的元信息，并不能起到隐藏实现的意图。</p>
+<p>服务参数及返回值都必需是 byValue 的，而不能是 byReference 的，消费方和提供方的参数或返回值引用并不是同一个，只是值相同，Dubbo 不支持引用远程对象。</p>
+<h3 id="异常">异常</h3>
+<p>建议使用异常汇报错误，而不是返回错误码，异常信息能携带更多信息，以及语义更友好。</p>
+<p>如果担心性能问题，在必要时，可以通过 override 掉异常类的 <code>fillInStackTrace()</code> 方法为空方法，使其不拷贝栈信息。</p>
+<p>查询方法不建议抛出 checked 异常，否则调用方在查询时将过多的 <code>try...catch</code>，并且不能进行有效处理。</p>
+<p>服务提供方不应将 DAO 或 SQL 等异常抛给消费方，应在服务实现中对消费方不关心的异常进行包装，否则可能出现消费方无法反序列化相应异常。</p>
+<h3 id="调用">调用</h3>
+<p>不要只是因为是 Dubbo 调用，而把调用 <code>try...catch</code> 起来。<code>try...catch</code> 应该加上合适的回滚边界上。</p>
+<p>对于输入参数的校验逻辑在 Provider 端要有。如有性能上的考虑，服务实现者可以考虑在 API 包上加上服务 Stub 类来完成检验。</p>
+<h3 id="配置">配置</h3>
+<ul>
+<li>
+<p>在 Provider 上尽量多配置 Consumer 端属性，作为 Consumer 的缺省值；让 Provider 实现者一开始就思考 Provider 服务特点、服务质量的问题。</p>
+</li>
+<li>
+<p>Provider 上配置合理的 Provider 端属性:  如 threads, executes。</p>
+</li>
+<li>
+<p>每个服务度应该写明负责人、组织 ,有问题时方便找到对应的负责人。</p>
+<pre><code class="language-xml">&lt;dubbo:application owner=”ding.lid,william.liangf” organization=”intl” /&gt;
+</code></pre>
+</li>
+<li>
+<p>配置 Dubbo 缓存文件</p>
+<pre><code class="language-xml">&lt;dubbo:registry file=”${user.home}/output/dubbo.cache” /&gt;
+</code></pre>
+<p>这个文件会缓存注册中心的列表和服务提供者列表。有了这项配置后，当应用重启过程中，Dubbo 注册中心不可用时则应用会从这个缓存文件读取服务提供者列表的信息，进一步保证应用可靠性</p>
+</li>
+<li>
+<p>不要使用 dubbo.properties 文件配置，推荐使用对应 XML 配置 。Dubbo 中所有的配置项都可以配置在 Spring 配置文件中，并且可以针对单个服务配置。</p>
+</li>
+</ul>
+<h2 id="用法示例">用法示例</h2>
+<h3 id="启动时检查">启动时检查</h3>
+<h4 id="介绍">介绍</h4>
+<p>Dubbo默认在启动时对所依赖的服务进行检查,如果服务不可以则直接抛出异常,停止启动 即 <code>check=&quot;true&quot;</code></p>
+<p>允许设置 <code>check=&quot;false&quot;</code> 关闭这种检查, 常用在 服务间存在循环依赖, 或者测试环境缺少非关键服务的场景下使用.</p>
+<h4 id="示例">示例</h4>
+<pre><code class="language-xml">&lt;!-- 关闭所有服务的启动时检查--&gt;
+&lt;dubbo:consumer check=&quot;false&quot;/&gt;
+
+&lt;!-- 关闭当前服务的启动时检查 --&gt;
+&lt;dubbo:reference id=&quot;demoService&quot; check=&quot;false&quot; interface=&quot;org.apache.dubbo.demo.DemoService&quot;/&gt;
+
+&lt;!-- 关闭注册中心启动时检查--&gt;
+&lt;dubbo:registry check=&quot;false&quot;/&gt;
+</code></pre>
+<h4 id="说明">说明</h4>
+<p><code>dubbo:reference</code>配置 check属性的优先级高于 <code>dubbo:consumer</code></p>
+<h3 id="集群容错">集群容错</h3>
+<h4 id="介绍-2">介绍</h4>
+<figure data-type="image" tabindex="1"><img src="https://dubbo.apache.org/docs/zh-cn/user/sources/images/cluster.jpg" alt="cluster"></figure>
+<ul>
+<li><strong>Invoker</strong> : 生产者的一个可以调用服务的抽象, 包含 生产者的URL地址和接口信息.</li>
+<li><strong>Directory</strong> : 对多个 <code>Invoker</code>对象集合的抽象, 允许这个集合**动态变化 **, 如注册中心推送变更.</li>
+<li><strong>Router</strong> : 针对多个 <code>Invoker</code> 的路由对象,按照路由规则,选择出要调用的子集, 应用于读写分离, 重试另一个.</li>
+<li><strong>LoadBalance</strong> :  负责从多个 <code>Invoker</code> 选择出具体的本地调用的<code>Invoker</code>, 根据所配置的负载均衡算法, 调用失败会重选.</li>
+</ul>
+<h4 id="示例-2">示例</h4>
+<p><strong>Failover Cluster</strong></p>
+<blockquote>
+<p>默认容错策略, 失败后自动切换,重试其他服务器, 默认重试2次.</p>
+</blockquote>
+<pre><code class="language-xml">// 默认容错机制配置
+&lt;dubbo:reference cluster=&quot;failover&quot; .../&gt;
+
+// 配置重试次数
+&lt;dubbo:service retries=&quot;2&quot; /&gt;
+// 或者
+&lt;dubbo:reference retries=&quot;2&quot; /&gt;
+
+// 指定方法的重试
+&lt;dubbo:reference&gt;
+    &lt;dubbo:method name=&quot;findFoo&quot; retries=&quot;2&quot; /&gt;
+&lt;/dubbo:reference&gt;
+</code></pre>
+<p><strong>Failfast Cluster</strong></p>
+<blockquote>
+<p>快速失败, 只调用一次,失败立即报错.  用于非幂等性的写操作</p>
+</blockquote>
+<pre><code class="language-xml">&lt;dubbo:reference cluster=&quot;failfast&quot; .../&gt;
+</code></pre>
+<p><strong>Failsafe Cluster</strong></p>
+<blockquote>
+<p>失败安全, 出现异常时,直接忽略. 用于日志写入操作</p>
+</blockquote>
+<pre><code class="language-xml">&lt;dubbo:reference cluster=&quot;failsafe&quot; .../&gt;
+</code></pre>
+<p><strong>Failback Cluster</strong></p>
+<blockquote>
+<p>失败自动恢复, 后台记录失败操作,定时重发. 用于消息通知操作</p>
+</blockquote>
+<pre><code class="language-xml">&lt;dubbo:reference cluster=&quot;failback&quot; .../&gt;
+</code></pre>
+<p><strong>Forking Cluster</strong></p>
+<blockquote>
+<p>并行调用多个服务器, 只要有个成功就返回. 用于实时性要求高的读操作, 允许设置并行数,默认为2.</p>
+</blockquote>
+<pre><code class="language-xml">&lt;dubbo:reference cluster=&quot;forking&quot; forks=&quot;2&quot; .../&gt;
+</code></pre>
+<p><strong>Broadcast Cluster</strong></p>
+<blockquote>
+<p>广播调用所有提供者，逐个调用，任意一台报错则报错. 用于通知所有提供者更新缓存或日志等本地资源信息。</p>
+</blockquote>
+<pre><code class="language-xml">&lt;dubbo:service cluster=&quot;broadcast&quot; /&gt;
+</code></pre>
+<h4 id="说明-2">说明</h4>
+<p>也可以配置在消费端上</p>
+<pre><code class="language-xml">&lt;dubbo:reference cluster=&quot;...&quot; /&gt;
+</code></pre>
+<h3 id="负载均衡">负载均衡</h3>
+<p>在集群负载均衡时，Dubbo 提供了多种均衡策略，缺省为 <code>random</code> 随机调用,也可以自己扩展。</p>
+<h4 id="均衡策略"><strong>均衡策略</strong></h4>
+<p><strong>Random LoadBalance</strong></p>
+<ul>
+<li>根据权重进行随机</li>
+<li>能动态调整权重,从而影响调用概率</li>
+</ul>
+<p><strong>RoudRobin LoadBalance</strong></p>
+<ul>
+<li>轮询,结合权重设置比率</li>
+<li>可能出现慢的生产者累积请求的问题</li>
+</ul>
+<p><strong>LeastActive LoadBalance</strong></p>
+<ul>
+<li>最少活跃调用数</li>
+<li>让慢的提供者收到更少的请求</li>
+</ul>
+<p><strong>ConsistentHash LoadBalance</strong></p>
+<ul>
+<li>一致性Hash调用</li>
+<li>缺省只对第一个参数 Hash，如果要修改，需配置 <code>&lt;dubbo:parameter key=&quot;hash.arguments&quot; value=&quot;0,1&quot; /&gt;</code></li>
+</ul>
+<h4 id="配置-2">配置</h4>
+<pre><code class="language-xml">//服务端服务级别
+&lt;dubbo:service interface=&quot;...&quot; loadbalance=&quot;roundrobin&quot; /&gt;
+
+//客户端服务级别
+&lt;dubbo:reference interface=&quot;...&quot; loadbalance=&quot;roundrobin&quot; /&gt;
+
+//服务端方法级别
+&lt;dubbo:service interface=&quot;...&quot;&gt;
+    &lt;dubbo:method name=&quot;...&quot; loadbalance=&quot;roundrobin&quot;/&gt;
+&lt;/dubbo:service&gt;
+
+
+//客户端方法级别
+
+&lt;dubbo:reference interface=&quot;...&quot;&gt;
+    &lt;dubbo:method name=&quot;...&quot; loadbalance=&quot;roundrobin&quot;/&gt;
+&lt;/dubbo:reference&gt;
+</code></pre>
+<h3 id="优雅停机">优雅停机</h3>
+<h4 id="原理">原理</h4>
+<p>Dubbo 利用JDK的 ShutdownHook 实现优雅停机, 通过 <code>kill PID</code> 时，才会执行.</p>
+<ul>
+<li>服务提供者停止时,被会标记不接受新请求,请求过来时直接报错; 等待所有线程执行完成,超时则强制关闭.</li>
+<li>服务消费方停止时,不再发起新的调用请求; 检测有没有响应还没返回, 有则等待,超时则关闭</li>
+</ul>
+<h4 id="配置-3">配置</h4>
+<p>设置优雅停机超时时间，缺省超时时间是 10 秒，如果超时则强制关闭。</p>
+<pre><code class="language-properties"># dubbo.properties
+dubbo.service.shutdown.wait=15000
+</code></pre>
+<h4 id="说明-3">说明</h4>
+<p>如果 ShutdownHook 不能生效，可以自行调用，<strong>使用tomcat等容器部署的場景，建议通过扩展ContextListener等自行调用以下代码实现优雅停机</strong>：</p>
+<pre><code>ProtocolConfig.destroyAll();
+</code></pre>
+<h3 id="直连提供者">直连提供者</h3>
+<h4 id="说明-4">说明</h4>
+<figure data-type="image" tabindex="2"><img src="https://dubbo.apache.org/docs/zh-cn/user/sources/images/dubbo-directly.jpg" alt="/user-guide/images/dubbo-directly.jpg"></figure>
+<p>绕过注册中心,允许服务提供者与消费者点对点直连调用; 以接口为单位,配置好后服务消费</p>
+<p>方会忽略注册中心的提供者列表.</p>
+<h4 id="配置-4">配置</h4>
+<pre><code class="language-xml">&lt;dubbo:reference id=&quot;xxxService&quot; interface=&quot;com.alibaba.xxx.XxxService&quot; url=&quot;dubbo://localhost:20890&quot; /&gt;
+</code></pre>
+<h3 id="多注册中心">多注册中心</h3>
+<h4 id="说明-5">说明</h4>
+<p>让同一服务向多个注册中心注册,或者让服务消费方引用不同注册中心上的同名服务</p>
+<p><strong>多注册中心注册</strong></p>
+<pre><code class="language-xml">&lt;dubbo:application name=&quot;world&quot;  /&gt;
+    &lt;!-- 多注册中心配置 --&gt;
+&lt;dubbo:registry id=&quot;hangzhouRegistry&quot; address=&quot;10.20.141.150:9090&quot; /&gt;
+&lt;dubbo:registry id=&quot;qingdaoRegistry&quot; address=&quot;10.20.141.151:9010&quot; default=&quot;false&quot; /&gt;
+    &lt;!-- 向多个注册中心注册 --&gt;
+&lt;dubbo:service interface=&quot;com.alibaba.hello.api.HelloService&quot; version=&quot;1.0.0&quot; ref=&quot;helloService&quot; registry=&quot;hangzhouRegistry,qingdaoRegistry&quot; /&gt;
+</code></pre>
+<p><strong>不同服务使用不同注册中心</strong></p>
+<blockquote>
+<p>不同的服务允许连接不同数据库</p>
+</blockquote>
+<pre><code class="language-xml">    &lt;!-- 多注册中心配置 --&gt;
+&lt;dubbo:registry id=&quot;chinaRegistry&quot; address=&quot;10.20.141.150:9090&quot; /&gt;
+&lt;dubbo:registry id=&quot;intlRegistry&quot; address=&quot;10.20.154.177:9010&quot; default=&quot;false&quot; /&gt;
+    &lt;!-- 向中文站注册中心注册 --&gt;
+&lt;dubbo:service interface=&quot;com.alibaba.hello.api.HelloService&quot; version=&quot;1.0.0&quot; ref=&quot;helloService&quot; registry=&quot;chinaRegistry&quot; /&gt;
+    &lt;!-- 向国际站注册中心注册 --&gt;
+&lt;dubbo:service interface=&quot;com.alibaba.hello.api.DemoService&quot; version=&quot;1.0.0&quot; ref=&quot;demoService&quot; registry=&quot;intlRegistry&quot; /&gt;
+</code></pre>
+<p><strong>多注册中心引用</strong></p>
+<pre><code class="language-xml">    &lt;!-- 多注册中心配置，竖号分隔表示同时连接多个不同注册中心，同一注册中心的多个集群地址用逗号分隔 --&gt;
+&lt;dubbo:registry address=&quot;10.20.141.150:9090|10.20.154.177:9010&quot; /&gt;
+    &lt;!-- 引用服务 --&gt;
+&lt;dubbo:reference id=&quot;helloService&quot; interface=&quot;com.alibaba.hello.api.HelloService&quot; version=&quot;1.0.0&quot; /&gt;
+</code></pre>
+<h3 id="日志适配">日志适配</h3>
+<h4 id="启用配置">启用配置</h4>
+<p>选择 log4j 框架作为日志输出</p>
+<pre><code class="language-xml">&lt;dubbo:application logger=&quot;log4j&quot; /&gt;
+</code></pre>
+<p>将访问日志输出到当前应用的log4j日志：</p>
+<pre><code class="language-xml">&lt;dubbo:protocol accesslog=&quot;true&quot; /&gt;
+</code></pre>
+<p>将访问日志输出到指定文件：</p>
+<pre><code class="language-xml">&lt;dubbo:protocol accesslog=&quot;http://10.20.160.198/wiki/display/dubbo/foo/bar.log&quot; /&gt;
+</code></pre>
+<h3 id="多版本">多版本</h3>
+<h4 id="说明-6">说明</h4>
+<p>当一个接口实现,出现不兼容升级时,可以利用版本号不同来实现对应服务引用.</p>
+<p><strong>版本迁移步骤</strong></p>
+<ol>
+<li>在低压力时间段，先升级一半提供者为新版本.</li>
+<li>再将所有消费者升级为新版.</li>
+<li>然后将剩下的一半提供者升级为新版本.</li>
+</ol>
+<h4 id="配置-5">配置</h4>
+<p>老版本服务提供者配置：</p>
+<pre><code class="language-xml">&lt;dubbo:service interface=&quot;com.foo.BarService&quot; version=&quot;1.0.0&quot; /&gt;
+</code></pre>
+<p>新版本服务提供者配置：</p>
+<pre><code class="language-xml">&lt;dubbo:service interface=&quot;com.foo.BarService&quot; version=&quot;2.0.0&quot; /&gt;
+</code></pre>
+<p>老版本服务消费者配置：</p>
+<pre><code class="language-xml">&lt;dubbo:reference id=&quot;barService&quot; interface=&quot;com.foo.BarService&quot; version=&quot;1.0.0&quot; /&gt;
+</code></pre>
+<p>新版本服务消费者配置：</p>
+<pre><code class="language-xml">&lt;dubbo:reference id=&quot;barService&quot; interface=&quot;com.foo.BarService&quot; version=&quot;2.0.0&quot; /&gt;
+</code></pre>
+<p>如果不需要区分版本(2.2.0+)，可以按照以下的方式配置 :</p>
+<pre><code class="language-xml">&lt;dubbo:reference id=&quot;barService&quot; interface=&quot;com.foo.BarService&quot; version=&quot;*&quot; /&gt;
+</code></pre>
+<h3 id="结果缓存">结果缓存</h3>
+<h4 id="说明-7"><strong>说明</strong></h4>
+<p>用于缓存热门数据的访问速度.</p>
+<h4 id="缓存类型"><strong>缓存类型</strong></h4>
+<ul>
+<li><code>lru</code> 基于最近最少使用原则删除多余缓存，保持最热的数据被缓存</li>
+<li><code>threadlocal</code> 当前线程缓存，比如一个页面渲染，用到很多 portal，每个 portal 都要去查用户信息，通过线程缓存，可以减少这种多余访问。</li>
+<li>jcache 桥接各种缓存实现。</li>
+</ul>
+<h4 id="配置-6">配置</h4>
+<pre><code class="language-xml">&lt;dubbo:reference interface=&quot;com.foo.BarService&quot; cache=&quot;lru&quot; /&gt;
+// 或者
+&lt;dubbo:reference interface=&quot;com.foo.BarService&quot;&gt;
+    &lt;dubbo:method name=&quot;findBar&quot; cache=&quot;lru&quot; /&gt;
+&lt;/dubbo:reference&gt;
+</code></pre>
+<h3 id="回声测试">回声测试</h3>
+<h4 id="说明-8">说明</h4>
+<p>用于检测服务是否可用，可以用来监控。所有服务自动实现 <code>EchoService</code> 接口，只需将任意服务引用强制转型为 <code>EchoService</code>，即可使用。</p>
+<h4 id="示例-3">示例</h4>
+<pre><code class="language-java">// 远程服务引用
+MemberService memberService = ctx.getBean(&quot;memberService&quot;); 
+ 
+EchoService echoService = (EchoService) memberService; // 强制转型为EchoService
+
+// 回声测试可用性
+String status = echoService.$echo(&quot;OK&quot;);
+
+assert(status.equals(&quot;OK&quot;));
+</code></pre>
+<h3 id="异步调用">异步调用</h3>
+<h4 id="说明-9">说明</h4>
+<figure data-type="image" tabindex="3"><img src="https://dubbo.apache.org/docs/zh-cn/user/sources/images/future.jpg" alt="/user-guide/images/future.jpg"></figure>
+<p>Dubbo 采用 NIO 的非阻塞实现并行调用，不需要消费端启动多线程。</p>
+<h4 id="示例-4">示例</h4>
+<p><strong>XML配置</strong></p>
+<pre><code class="language-xml">&lt;dubbo:reference id=&quot;fooService&quot; interface=&quot;com.alibaba.foo.FooService&quot;&gt;
+      &lt;dubbo:method name=&quot;findFoo&quot; async=&quot;true&quot; /&gt;
+&lt;/dubbo:reference&gt;
+&lt;dubbo:reference id=&quot;barService&quot; interface=&quot;com.alibaba.bar.BarService&quot;&gt;
+      &lt;dubbo:method name=&quot;findBar&quot; async=&quot;true&quot; /&gt;
+&lt;/dubbo:reference&gt;
+</code></pre>
+<p><strong>代码</strong></p>
+<pre><code class="language-java">// 此调用会立即返回null
+fooService.findFoo(fooId);
+// 拿到调用的Future引用，当结果返回后，会被通知和设置到此Future
+Future&lt;Foo&gt; fooFuture = RpcContext.getContext().getFuture(); 
+ 
+// 此调用会立即返回null
+barService.findBar(barId);
+// 拿到调用的Future引用，当结果返回后，会被通知和设置到此Future
+Future&lt;Bar&gt; barFuture = RpcContext.getContext().getFuture(); 
+ 
+// 此时findFoo和findBar的请求同时在执行，客户端不需要启动多线程来支持并行，而是借助NIO的非阻塞完成
+ 
+// 如果foo已返回，直接拿到返回值，否则线程wait住，等待foo返回后，线程会被notify唤醒
+Foo foo = fooFuture.get(); 
+// 同理等待bar返回
+Bar bar = barFuture.get(); 
+</code></pre>
+<p><strong>补充</strong></p>
+<ul>
+<li>
+<p>允许设置异步是否等待消息返回</p>
+<pre><code class="language-xml">&lt;dubbo:method name=&quot;findFoo&quot; async=&quot;true&quot; sent=&quot;true&quot; /&gt;
+</code></pre>
+</li>
+<li>
+<p>允许设置是否忽略返回值</p>
+<pre><code class="language-xml">&lt;dubbo:method name=&quot;findFoo&quot; async=&quot;true&quot; return=&quot;false&quot; /&gt;
+</code></pre>
+</li>
+</ul>
+<h3 id="路由规则">路由规则</h3>
+<h4 id="说明-10">说明</h4>
+<p>决定一次 dubbo 服务调用的目标服务器，分为条件路由规则和脚本路由规则，并且支持可扩展 。</p>
+<p><strong>写入路由规则</strong></p>
+<p>向注册中心写入路由规则的操作通常由监控中心或治理中心的页面完成</p>
+<pre><code class="language-java">RegistryFactory registryFactory = ExtensionLoader.getExtensionLoader(RegistryFactory.class).getAdaptiveExtension();
+Registry registry = registryFactory.getRegistry(URL.valueOf(&quot;zookeeper://10.20.153.10:2181&quot;));
+registry.register(URL.valueOf(&quot;condition://0.0.0.0/com.foo.BarService?category=routers&amp;dynamic=false&amp;rule=&quot; + URL.encode(&quot;host = 10.20.153.10 =&gt; host = 10.20.153.11&quot;) + &quot;));
+</code></pre>
+<p>其中：</p>
+<ul>
+<li><code>condition://</code> 表示路由规则的类型，支持条件路由规则和脚本路由规则，可扩展，<strong>必填</strong>。</li>
+<li><code>0.0.0.0</code> 表示对所有 IP 地址生效，如果只想对某个 IP 的生效，请填入具体 IP，<strong>必填</strong>。</li>
+<li><code>com.foo.BarService</code> 表示只对指定服务生效，<strong>必填</strong>。</li>
+<li><code>group=foo</code> 对指定服务的指定group生效，不填表示对未配置group的指定服务生效</li>
+<li><code>version=1.0</code>对指定服务的指定version生效，不填表示对未配置version的指定服务生效</li>
+<li><code>category=routers</code> 表示该数据为动态配置类型，<strong>必填</strong>。</li>
+<li><code>dynamic=false</code> 表示该数据为持久数据，当注册方退出时，数据依然保存在注册中心，<strong>必填</strong>。</li>
+<li><code>enabled=true</code> 覆盖规则是否生效，可不填，缺省生效。</li>
+<li><code>force=false</code> 当路由结果为空时，是否强制执行，如果不强制执行，路由结果为空的路由规则将自动失效，可不填，缺省为 <code>false</code>。</li>
+<li><code>runtime=false</code> 是否在每次调用时执行路由规则，否则只在提供者地址列表变更时预先执行并缓存结果，调用时直接从缓存中获取路由结果。如果用了参数路由，必须设为 <code>true</code>，需要注意设置会影响调用的性能，可不填，缺省为 <code>false</code>。</li>
+<li><code>priority=1</code> 路由规则的优先级，用于排序，优先级越大越靠前执行，可不填，缺省为 <code>0</code>。</li>
+<li><code>rule=URL.encode(&quot;host = 10.20.153.10 =&gt; host = 10.20.153.11&quot;)</code> 表示路由规则的内容，<strong>必填</strong>。</li>
+</ul>
+<h4 id="条件路由规则"><strong>条件路由规则</strong></h4>
+<p>基于条件表达式的路由规则，如：<code>host = 10.20.153.10 =&gt; host = 10.20.153.11</code></p>
+<p>规则：</p>
+<ul>
+<li><code>=&gt;</code> 之前的为消费者匹配条件，所有参数和消费者的 URL 进行对比，当消费者满足匹配条件时，对该消费者执行后面的过滤规则。</li>
+<li><code>=&gt;</code> 之后为提供者地址列表的过滤条件，所有参数和提供者的 URL 进行对比，消费者最终只拿到过滤后的地址列表。</li>
+<li>如果匹配条件为空，表示对所有消费方应用，如：<code>=&gt; host != 10.20.153.11</code></li>
+<li>如果过滤条件为空，表示禁止访问，如：<code>host = 10.20.153.10 =&gt;</code></li>
+</ul>
+<h5 id="表达式">表达式</h5>
+<p>参数支持：</p>
+<ul>
+<li>服务调用信息，如：method, argument 等，暂不支持参数路由</li>
+<li>URL 本身的字段，如：protocol, host, port 等</li>
+<li>以及 URL 上的所有参数，如：application, organization 等</li>
+</ul>
+<p>条件支持：</p>
+<ul>
+<li>等号 <code>=</code> 表示&quot;匹配&quot;，如：<code>host = 10.20.153.10</code></li>
+<li>不等号 <code>!=</code> 表示&quot;不匹配&quot;，如：<code>host != 10.20.153.10</code></li>
+</ul>
+<p>值支持：</p>
+<ul>
+<li>以逗号 <code>,</code> 分隔多个值，如：<code>host != 10.20.153.10,10.20.153.11</code></li>
+<li>以星号 <code>*</code> 结尾，表示通配，如：<code>host != 10.20.*</code></li>
+<li>以美元符 <code>$</code> 开头，表示引用消费者参数，如：<code>host = $host</code></li>
+</ul>
+<h5 id="示例-5">示例</h5>
+<ol>
+<li>
+<p>排除预发布机：</p>
+<pre><code>=&gt; host != 172.22.3.91
+</code></pre>
+</li>
+<li>
+<p>白名单:</p>
+<pre><code>host != 10.20.153.10,10.20.153.11 =&gt;
+</code></pre>
+</li>
+<li>
+<p>黑名单：</p>
+<pre><code>host = 10.20.153.10,10.20.153.11 =&gt;
+</code></pre>
+</li>
+<li>
+<p>服务寄宿在应用上，只暴露一部分的机器，防止整个集群挂掉：</p>
+<pre><code>=&gt; host = 172.22.3.1*,172.22.3.2*
+</code></pre>
+</li>
+<li>
+<p>为重要应用提供额外的机器：</p>
+<pre><code>application != kylin =&gt; host != 172.22.3.95,172.22.3.96
+</code></pre>
+</li>
+<li>
+<p>读写分离：</p>
+<pre><code>method = find*,list*,get*,is* =&gt; host = 172.22.3.94,172.22.3.95,172.22.3.96
+method != find*,list*,get*,is* =&gt; host = 172.22.3.97,172.22.3.98
+</code></pre>
+</li>
+</ol>
+<h4 id="脚本路由规则"><strong>脚本路由规则</strong></h4>
+<p>脚本路由规则支持 JDK 脚本引擎的所有脚本，比如：javascript, jruby, groovy 等，通过 <code>type=javascript</code>参数设置脚本类型，缺省为 javascript。</p>
+<pre><code>&quot;script://0.0.0.0/com.foo.BarService?category=routers&amp;dynamic=false&amp;rule=&quot; + URL.encode(&quot;（function route(invokers) { ... } (invokers)）&quot;)
+</code></pre>
+<h5 id="示例-6"><strong>示例</strong></h5>
+<p>基于脚本引擎的路由规则，如：</p>
+<pre><code class="language-js">（function route(invokers) {
+    var result = new java.util.ArrayList(invokers.size());
+    for (i = 0; i &lt; invokers.size(); i ++) {
+        if (&quot;10.20.153.10&quot;.equals(invokers.get(i).getUrl().getHost())) {
+            result.add(invokers.get(i));
+        }
+    }
+    return result;
+} (invokers)）; // 表示立即执行方法
+</code></pre>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://wrcj12138aaa.github.io//tag/llypUO29A">
+            <span class="flex-auto">Java</span>
+          </a>
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://wrcj12138aaa.github.io//tag/4lwZWuWrgxf">
+            <span class="flex-auto">Dubbo</span>
+          </a>
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://wrcj12138aaa.github.io//tag/h0i0p6S38HI">
+            <span class="flex-auto">RPC</span>
+          </a>
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://wrcj12138aaa.github.io//tag/Ja-ep9raqKx">
+            <span class="flex-auto">分布式</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://wrcj12138aaa.github.io//post/20180814-RPC中间件Dubbo系列之总览">
+                <h3 class="post-title">
+                  <i class="remixicon-arrow-left-line"></i>
+                  RPC框架Dubbo系列之总览
+                </h3>
+              </a>
+            </div>
+          
+
+          
+        </div>
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '2ba76d6fe50ad2b384eb',
+    clientSecret: '90db763ed48942571725d6aef11229900c8bb656',
+    repo: 'wrcj12138aaa.github.io',
+    owner: 'wrcj12138aaa',
+    admin: ['wrcj12138aaa'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+      </div>
+    </div>
+
+    <script src="https://wrcj12138aaa.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>

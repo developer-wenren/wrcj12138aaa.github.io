@@ -1,0 +1,426 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>闻人的技术博客</title>
+<meta name="description" content="做一个终生学习者" />
+<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1570432921998">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://wrcj12138aaa.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="闻人的技术博客 - Atom Feed" href="https://wrcj12138aaa.github.io//atom.xml">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://wrcj12138aaa.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://wrcj12138aaa.github.io//images/avatar.png?v=1570432921998" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">闻人的技术博客</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#%E6%AD%A3%E6%96%87">正文</a>
+<ul>
+<li><a href="#%E5%BC%95%E7%94%A8%E9%80%83%E9%80%B8">引用逃逸</a>
+<ul>
+<li><a href="#%E8%87%AD%E5%90%8D%E6%98%AD%E8%91%97%E7%9A%84-this-%E5%BC%95%E7%94%A8%E9%80%83%E9%80%B8">臭名昭著的 this 引用逃逸</a></li>
+<li><a href="#%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D-this-%E5%BC%95%E7%94%A8%E9%80%83%E9%80%B8">如何避免 this 引用逃逸</a></li>
+</ul>
+</li>
+<li><a href="#%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90">逃逸分析</a>
+<ul>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90">什么是逃逸分析</a></li>
+<li><a href="#%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90%E5%B9%B2%E4%BB%80%E4%B9%88%E7%94%A8">逃逸分析干什么用</a></li>
+<li><a href="#%E9%80%83%E9%80%B8%E5%88%86%E6%9E%90%E5%AE%9E%E4%BE%8B">逃逸分析实例</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E7%BB%93%E8%AF%AD">结语</a><br>
+*
+<ul>
+<li><a href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99">参考资料</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="remixicon-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"></div>
+    <a class="rss" href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">Java 引用逃逸那些事</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2018-09-15 / 8 min read
+        </div>
+        
+        <div class="post-content yue">
+          <h2 id="前言">前言</h2>
+<p>为了对线上程序的性能进行优化分析, 最近在看广受推荐的《深入理解Java虚拟机》,整本书的内容不少, 目前只是根据自己所需的进行阅读, 在后续读完整本内容配合笔记再写篇博客来记录下.而现在阅读过程中,发现 引用逃逸 和 逃逸分析这个两个概念 并不太了解,还容易混淆,于是就写下这篇博客来帮助下认识 Java 中的 引用逃逸 和 逃逸分析.</p>
+<!--more-->
+<h2 id="正文">正文</h2>
+<h3 id="引用逃逸">引用逃逸</h3>
+<p>Java 分配在堆上的对象都是靠引用来操作的,当对象在某个方法中都定义之后, 把它的引用作为其他方法的参数传递过去, 这样就叫做对象的引用逃逸,而如果原本对象在当前方法结束后就会被垃圾回收器标记和回收,但由于其引用被传递出去,当被一个长期存活的对象所持有时,那原来的对象的生命周期就变成跟这个长期存在于堆内存的对象一样, 对于这样一些临时对象没有做到即时的回收,就会造成JVM的内存占用, 严重情况更会是触发Full GC,从而影响程序性能.</p>
+<h4 id="臭名昭著的-this-引用逃逸">臭名昭著的 this 引用逃逸</h4>
+<p><strong>this 引用逃逸</strong>  在构造函数返回之前, 其他线程就通过this引用访问到了&quot;未完成初始化&quot;的对象, 而调用尚未构造完全的对象就会不可预知的问题, 因此this 引用逃逸引发的问题是线程安全问题.</p>
+<p>主要发生场景是在构造函数启动线程,或者注册监听时发生,如下代码:</p>
+<pre><code class="language-java">public class UnsafeThisEscape {
+    private String id;
+    
+	public ThisEscape(String id) {
+		new Thread(new EscapeRunnable()).start();
+		// ...其他代码
+        this.id = id;
+	}
+	
+	private class EscapeRunnable implements Runnable {
+		@Override
+		public void run() {
+            System.out.println(&quot;id: &quot;+UnsafeThisEscape.this.id);  
+            // 在这里通过UnsafeThisEscape.this就可以引用UnsafeThisEscape对象, 但是此时UnsafeThisEscape对象可能还没有构造完成, 即发生了this引用的逃逸.
+        }
+	}
+}
+</code></pre>
+<h4 id="如何避免-this-引用逃逸">如何避免 this 引用逃逸</h4>
+<p>想要避免 this 引用逃逸,那当然就是不要在构造器中执行其他线程与当前引用对象相关的操作, 构造器仅用来完成初始化操作, 在上面的场景中处理方式就是在构造函数中创建线程，但不启动它。在构造函数外面再启动,可以专门提供一个方法出来,调整后如下所示</p>
+<pre><code class="language-java">public class SafeThisEscape {
+	private Thread t;
+    private String id;
+
+	public ThisEscape(String id) {
+		t = new Thread(new EscapeRunnable());
+        this.id = id;
+		// ...其他代码
+	}
+    
+	public void init() {
+		t.start();
+	}	
+	private class EscapeRunnable implements Runnable {
+		@Override
+		public void run() {
+			System.out.println(&quot;id: &quot;+UnsafeThisEscape.this.id);  
+            // 这里通过SafeThisEscape.this引用的对象,是已经构造完成的,保证了线程安全.
+		}
+	}
+}
+</code></pre>
+<p>还有一种逃逸场景就是针对构造器的监听注册情况,同理让监听事件的注册不在构造器中进行,而是提供一个单独方法完成.</p>
+<p>总之,每当在一个构造器中需要做复杂逻辑处理和初始化,就应该考虑到这个问题, 应该尽量让构造器执行简单,必要的初始化操作,更多复杂处理放在单独一个方法执行.</p>
+<h3 id="逃逸分析">逃逸分析</h3>
+<p>好了, 聊过 ''引用逃逸&quot;问题之后我们再来看下 <strong>逃逸分析</strong>, 主要围绕下面问题来展开</p>
+<ul>
+<li>
+<p>什么是逃逸分析</p>
+</li>
+<li>
+<p>逃逸分析是干什么的</p>
+</li>
+<li>
+<p>为什么了解逃逸分析</p>
+</li>
+</ul>
+<h4 id="什么是逃逸分析">什么是逃逸分析</h4>
+<p>逃逸分析 (Escape Analysis) 是Java虚拟机的分析技术, 通过动态分析代码的作用域,比如当一个对象在方法内定义之后,有没有被外部方法引用或者外部线程访问到.</p>
+<h4 id="逃逸分析干什么用">逃逸分析干什么用</h4>
+<p>上面介绍逃逸分析技术主要是动态分析对象的作用域, 而JVM就使用利用它来为其他优化技术如栈上分配, 标量替换和同步消除等提供是否优化的判断依据, 当能证明一个对象不会逃逸到方法或者线程之外, 那么JVM就会对这个对象做优化.</p>
+<p><strong>标量替换优化</strong></p>
+<p>标量是指一个无法再分解成其他更小数据的数据,比如Java中基本数据类型和Reference类型.对应的就是聚合量,可以继续分解其数据,如Java的对象.而标量替换就是把Java对象访问导的成员变量作为局部变量直接使用,而不再创建对象.</p>
+<p>标量替换可以通过JVM 参数 <code>-XX:+EliminateAllocations</code>开启, 用<code>-XX:+PrintEliminateAllocations</code>查看替换情况.</p>
+<p><strong>栈上分配优化</strong></p>
+<p>栈上分配技术就是让这个没有逃逸出方法的对象在栈上分配内存空间,并且随着栈帧出栈而销毁.当应用存在大量不会逃逸的局部对象时,如果使用栈上分配技术,那么大量对象就可以随着方法结束而销毁,从而减轻了垃圾收集器的工作. 但Hotspot并没有实现真正意义上的栈上分配，实际上是标量替换.</p>
+<p><strong>同步消除优化</strong></p>
+<p>在能确定一个变量不会被其他线程访问,即不存在读写竞争的情况下,JVM就会对这个变量消除掉原有对这个变量的同步操作,可以通过-XX:+EliminateLocks可以开启同步消除.</p>
+<h4 id="逃逸分析实例">逃逸分析实例</h4>
+<p>接下用来实例代码来体会下逃逸分析在程序的作用,具体代码如下:</p>
+<pre><code class="language-java">public class EscapeAnalysisLab {
+    public static void main(String[] args) throws Exception {
+        int sum = 0;
+        int count = 1000000;
+        for (int i = 0; i &lt; count ; i++) {
+            sum += getScore(i);
+        }
+        System.out.println(sum);
+        System.in.read();
+    }
+
+    private static int getScore(int score) {
+        Card card = new Card(score);
+        int i = card.getScore();
+        return i;
+    }
+}
+
+class Card {
+    private int score;
+
+    public Card(int score) {
+        this.score = score;
+    }
+
+    public int getScore() {
+        return score;
+    }
+}
+</code></pre>
+<p>由于在<code>getScore</code>方法中Card对象不会存在逃逸, 就可以使用标量替换的优化手段直接在栈上分配成员变量 score,这样就不会生成大量User对象, 从而减少GC的压力.</p>
+<p>对于上面的类,通过加虚拟机参数 <code>-Xmx3G -Xmn2G -server -XX:-DoEscapeAnalysis</code>来启动Main方法, 其中 <code>-XX:-DoEscapeAnalysis</code>表示关闭逃逸分析, (在JDK1.8之后都是默认启动的)</p>
+<figure data-type="image" tabindex="1"><img src="https://ws4.sinaimg.cn/large/006tNbRwgy1fval7omap6j30zm062gm9.jpg" alt="image-20180915222025176"></figure>
+<p>然后用 jps 指令查看该Java进程的PID, 并通过 jmap -histo pid 查看该程序堆上的对象分布情况,结果如下:</p>
+<figure data-type="image" tabindex="2"><img src="https://ws2.sinaimg.cn/large/006tNbRwgy1fvalbeiep3j31660eswhd.jpg" alt="image-20180915222359266"></figure>
+<p>可以看出在关闭逃逸分析之后,Card对象在堆上分配的个数与遍历次数一致.</p>
+<p>接下来移除JVM参数 <code>-XX:-DoEscapeAnalysis</code>再次运行,同样通过jsp和jmap来获取到对象在堆的分配情况如下:</p>
+<figure data-type="image" tabindex="3"><img src="https://ws4.sinaimg.cn/large/006tNc79gy1fvaljzx9f7j313a0eoad0.jpg" alt="image-20180915223127868"></figure>
+<p>从结果可以发现启动逃逸分析之后,Card对象分配近乎原来的十分之一, 其他的对象都通过标量替换优化了,当然这个生成实例的数量多少还有JVM分层编译的优化有关,但并不是本文章的主题, 也足以证明逃逸分析的必要之处.</p>
+<h2 id="结语">结语</h2>
+<p>本文主要学习Java的引用逃逸和逃逸分析技术,通过了解引用逃逸主要来防止出现特殊情况的线程安全问题,而逃逸分析技术则是JVM层面的优化编译技术,为了提现程序性能.虽然两者没有紧密的联系,但通过一起捆绑式的学习,也可以避免将这个两个概念混淆,深刻认识这个概念各自的特点.</p>
+<h4 id="参考资料">参考资料</h4>
+<ul>
+<li>
+<p><a href="https://blog.csdn.net/u010571316/article/details/77993309">this 引用逃逸</a></p>
+</li>
+<li>
+<p><a href="https://yq.aliyun.com/articles/49472">Java并发编程之this逃逸问题</a></p>
+</li>
+<li>
+<p>《深入理解Java虚拟机》</p>
+</li>
+<li>
+<p><a href="https://www.jianshu.com/p/20bd2e9b1f03">浅谈HotSpot逃逸分析</a></p>
+</li>
+</ul>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://wrcj12138aaa.github.io//tag/llypUO29A">
+            <span class="flex-auto">Java</span>
+          </a>
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://wrcj12138aaa.github.io//tag/57Dac-1wia">
+            <span class="flex-auto">多线程</span>
+          </a>
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://wrcj12138aaa.github.io//tag/j4ZpJpPBWai">
+            <span class="flex-auto">JVM</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://wrcj12138aaa.github.io//post/20180917-设计模式之工厂方法模式">
+                <h3 class="post-title">
+                  <i class="remixicon-arrow-left-line"></i>
+                  一起学模式之工厂方法模式
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://wrcj12138aaa.github.io//post/20180914-设计模式之简单工厂">
+                <h3 class="post-title">
+                  一起学模式之简单工厂
+                  <i class="remixicon-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '2ba76d6fe50ad2b384eb',
+    clientSecret: '90db763ed48942571725d6aef11229900c8bb656',
+    repo: 'wrcj12138aaa.github.io',
+    owner: 'wrcj12138aaa',
+    admin: ['wrcj12138aaa'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+      </div>
+    </div>
+
+    <script src="https://wrcj12138aaa.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>

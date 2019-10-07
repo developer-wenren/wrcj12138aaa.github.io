@@ -1,0 +1,340 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>闻人的技术博客</title>
+<meta name="description" content="做一个终生学习者" />
+<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1570432921998">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://wrcj12138aaa.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="闻人的技术博客 - Atom Feed" href="https://wrcj12138aaa.github.io//atom.xml">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://wrcj12138aaa.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://wrcj12138aaa.github.io//images/avatar.png?v=1570432921998" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">闻人的技术博客</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#%E6%AD%A3%E6%96%87">正文</a>
+<ul>
+<li><a href="#%E4%B8%8B%E8%BD%BD">下载</a></li>
+<li><a href="#%E5%AE%89%E8%A3%85mysql%E7%BB%84%E4%BB%B6">安装mysql组件</a></li>
+<li><a href="#%E5%90%AF%E5%8A%A8-mysql">启动 MySQL</a></li>
+</ul>
+</li>
+<li><a href="#%E7%BB%93%E8%AF%AD">结语</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="remixicon-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"></div>
+    <a class="rss" href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">后端架构搭建系列之 MySQL</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2018-10-29 / 3 min read
+        </div>
+        
+        <div class="post-content yue">
+          <h2 id="前言">前言</h2>
+<p>MySQL 作为关系型数据库中热门的开源数据库,在中小企业中广泛应用到各自数据场景,本文主要介绍了 Linux环境下用RPM方式安装MySQL5.7的操作流程,方便后期再有搭建MySQL 数据库的情况.</p>
+<blockquote>
+<p>目前MySQL5.7的最新版本是5.7.24</p>
+<p>Linux CentOS 7</p>
+</blockquote>
+<!--more-->
+<h2 id="正文">正文</h2>
+<h3 id="下载">下载</h3>
+<p>首先在 <a href="https://dev.mysql.com/downloads/mysql/5.7.html#downloads" title="dev.mysql.com">MySQL官网</a>下载以下安装包</p>
+<ul>
+<li>mysql-community-server-5.7.24-1.el7.x86_64.rpm</li>
+<li>mysql-community-client-5.7.24-1.el6.i686.rpm</li>
+<li>mysql-community-libs-5.7.24-1.el7.x86_64.rpm</li>
+<li>mysql-community-common-5.7.24-1.el7.x86_64.rpm</li>
+</ul>
+<figure data-type="image" tabindex="1"><img src="https://ws3.sinaimg.cn/large/006tNbRwly1fwocj60dzjj30w80fewg4.jpg" alt="image-20181028231824379"></figure>
+<h3 id="安装mysql组件">安装mysql组件</h3>
+<p>mysql组件具有依赖关系,我们必须按照各个组件的依赖顺序进行安装,以下这些组件的依赖顺序:</p>
+<blockquote>
+<p>mysql-community-server</p>
+<p>-&gt;mysql-community-client</p>
+<p>-&gt;mysql-community-libs</p>
+<p>​       -&gt;mysql-community-common</p>
+</blockquote>
+<p>首先安装 mysql-community-common</p>
+<pre><code class="language-bash">rpm -ivh mysql-community-common-5.7.24-1.el7.x86_64.rpm
+</code></pre>
+<figure data-type="image" tabindex="2"><img src="https://ws1.sinaimg.cn/large/006tNbRwly1fwod7nlabhj31do04o763.jpg" alt="image-20181028234156499"></figure>
+<p>接着安装 mysql-community-libs</p>
+<pre><code class="language-bash">rpm -ivh mysql-community-libs-5.7.24-1.el7.x86_64.rpm
+</code></pre>
+<figure data-type="image" tabindex="3"><img src="https://ws2.sinaimg.cn/large/006tNbRwly1fwod6up2uij31b604m0uh.jpg" alt="image-20181028234109740"></figure>
+<p>然后再安装 mysql-community-client</p>
+<pre><code class="language-bash">rpm -ivh mysql-community-client-5.7.24-1.el7.x86_64.rpm
+</code></pre>
+<figure data-type="image" tabindex="4"><img src="https://ws1.sinaimg.cn/large/006tNbRwly1fwod6a6395j31ci04wq4s.jpg" alt="image-20181028234036833"></figure>
+<p>最后 rpm 安装 mysql-community-server</p>
+<pre><code class="language-bash">rpm -ivh mysql-community-server-5.7.24-1.el7.x86_64.rpm
+</code></pre>
+<p>但出现错误提示如下</p>
+<figure data-type="image" tabindex="5"><img src="https://ws3.sinaimg.cn/large/006tNbRwly1fwod2asz02j31dm04wtau.jpg" alt="image-20181028233644961"></figure>
+<p>从中可以看到是缺少依赖 libaio, 所以先安装依赖.</p>
+<pre><code class="language-bash">yum -y install libaio
+</code></pre>
+<p>然后再试下安装,就成功了.</p>
+<figure data-type="image" tabindex="6"><img src="https://ws1.sinaimg.cn/large/006tNbRwly1fwod5wf480j31e405040b.jpg" alt="image-20181028234014980"></figure>
+<h3 id="启动-mysql">启动 MySQL</h3>
+<p>安装完成后就可以启动 MySQL 服务了</p>
+<pre><code class="language-bash">service mysqld start
+
+# 查看mysql是否启动
+service mysqld status
+
+# 停止mysql
+service mysqld stop
+
+# 重启mysql
+service mysqld restart
+</code></pre>
+<p>安装完成后启动mysql时, mysql为我们设置了一个临时的密码，我们可以查看mysql的日志知道这个临时密码。</p>
+<pre><code>grep password /var/log/mysqld.log
+</code></pre>
+<figure data-type="image" tabindex="7"><img src="https://ws3.sinaimg.cn/large/006tNbRwly1fwodfschjij31am03475u.jpg" alt="image-20181028234944893"></figure>
+<p>我们只需要用这个临时密码去登录MySQL 后修改成自己的密码就可以了.</p>
+<p>修改密码sql:</p>
+<pre><code class="language-sql">set password = password(&quot;Mysql_123456&quot;);
+</code></pre>
+<p>修改成功后 quit ，这样我们就能用新的密码登录了。</p>
+<p>若要在 Linux环境完全删除 MySQL 可以参考<a href="http://blog.itblood.com/completely-uninstall-the-mysql-under-linux-graphic-tutorials.html" title="linux下彻底卸载mysql">此文章</a>,到这里文章就结束了.</p>
+<h2 id="结语">结语</h2>
+<p>本文记录总结了 MySQL 以 RPM 方式安装的过程,操作过程中容易出现缺少依赖包或者冲突的情况,这时候就要善于去搜索解决问题.</p>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://wrcj12138aaa.github.io//tag/bt50ok2BUl">
+            <span class="flex-auto">MySQL</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://wrcj12138aaa.github.io//post/20181029-Scala入门之如何用IDEA实现Scala版的HelloWord">
+                <h3 class="post-title">
+                  <i class="remixicon-arrow-left-line"></i>
+                  Scala入门之项目创建
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://wrcj12138aaa.github.io//post/20181028-文摘-深度，归纳和坚持实践">
+                <h3 class="post-title">
+                  文摘-深度，归纳和坚持实践
+                  <i class="remixicon-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '2ba76d6fe50ad2b384eb',
+    clientSecret: '90db763ed48942571725d6aef11229900c8bb656',
+    repo: 'wrcj12138aaa.github.io',
+    owner: 'wrcj12138aaa',
+    admin: ['wrcj12138aaa'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+      </div>
+    </div>
+
+    <script src="https://wrcj12138aaa.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>

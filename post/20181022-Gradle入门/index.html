@@ -1,0 +1,515 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>闻人的技术博客</title>
+<meta name="description" content="做一个终生学习者" />
+<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1570432921998">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://wrcj12138aaa.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="闻人的技术博客 - Atom Feed" href="https://wrcj12138aaa.github.io//atom.xml">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://wrcj12138aaa.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://wrcj12138aaa.github.io//images/avatar.png?v=1570432921998" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">闻人的技术博客</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+</ul>
+</li>
+<li><a href="#%E6%AD%A3%E6%96%87">正文</a>
+<ul>
+<li><a href="#%E6%9E%84%E5%BB%BA-java-%E9%A1%B9%E7%9B%AE">构建 Java 项目</a></li>
+<li><a href="#%E5%A4%9A%E6%A8%A1%E5%9D%97%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA">多模块项目构建</a></li>
+<li><a href="#source-sets">Source sets</a></li>
+<li><a href="#%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86">依赖管理</a></li>
+<li><a href="#gradle-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4">Gradle 常用命令</a></li>
+</ul>
+</li>
+<li><a href="#%E7%BB%93%E8%AF%AD">结语</a>
+<ul>
+<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="remixicon-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"></div>
+    <a class="rss" href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">Java 修炼之道:Gradle</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2018-10-22 / 7 min read
+        </div>
+        
+        <div class="post-content yue">
+          <h3 id="前言">前言</h3>
+<p>一款目前流行的项目构建工具,使用基于 Groovy  的特定领域语言 DSL定义配置, 不再使用 XML 文件管理构建脚本,这样一来极大简化了配置. Gradle 还有优势如下</p>
+<ul>
+<li>
+<p>支持动态的版本依赖</p>
+</li>
+<li>
+<p>支持 Maven 的资源库</p>
+</li>
+<li>
+<p>构建 Task 简单灵活</p>
+</li>
+</ul>
+<p>由于比 Maven,Ant 这类构建工具能更加简单容易地构建项目,而逐步推广使用,几乎所有的 Andirod 应用都是用 Gradle 构建的,也有越来越多的 Java 框架选择使用 Gradle, 比如 Spring Framwork.</p>
+<blockquote>
+<p>Groovy 是基于 JVM 的一种面向对象的动态语言,在 Gradle中用来编写构建脚本.</p>
+</blockquote>
+<!--more-->
+<h2 id="正文">正文</h2>
+<h3 id="构建-java-项目">构建 Java 项目</h3>
+<p>借鉴 Maven 构建工具的思想,同样基于约定优于配置来构建项目.我们来尝试下用 Gradle 构建一个普通的Java项目.</p>
+<p>利用IDEA 创建一个Gradle 构建的 Java 项目,操作步骤如下</p>
+<figure data-type="image" tabindex="1"><img src="https://ws1.sinaimg.cn/large/006tNbRwly1fwgnaa65yag30bn07gu19.gif" alt="QQ20181022-072343"></figure>
+<p>项目生成后我们看下工程的文件目录结构,如下图所示:</p>
+<figure data-type="image" tabindex="2"><img src="https://ws1.sinaimg.cn/large/006tNbRwly1fwgnerssygj308l0bfdgx.jpg" alt="image-20181022073009367"></figure>
+<p>Java项目的源码放置<code>src/main/java</code>下,而工程资源文件则在<code>src/main/resources</code>下,测试相关的文件类似都在<code>src/test</code>目录下.再来看下两个 gradle文件:settings.gradle和build.gradle.</p>
+<p>settings.gradle 是与工程相关,由于项目简单,里面只有关于工程名的配置.</p>
+<pre><code class="language-java">rootProject.name = 'gradle-java'
+    
+</code></pre>
+<p>而 build.gradle 作为项目的构建文件,就略复杂点了,下面就结合文件进行简单的说明.</p>
+<pre><code class="language-groovy">plugins {
+    id 'java'  // 1
+}
+
+group 'com.one'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8  // 2 
+
+// 3
+repositories {
+    mavenCentral()
+}
+
+// 4
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12' 
+}
+</code></pre>
+<ol>
+<li>
+<p>项目所用到内置 Java 插件,用来编译生成 jar</p>
+</li>
+<li>
+<p>定义源文件 Java 的版本为1.8, 还有一个类似属性 <code>targetCompatibility</code>,用来编译器生成字节码的版本</p>
+</li>
+<li>
+<p>定义查找所需依赖项模块的位置,这里使用Maven 的中央仓库</p>
+</li>
+<li>
+<p>定义项目所需要依赖的其他第三方模块,类似于 Mavan的dependencies节点. 添加依赖时需要设置依赖作用域.</p>
+</li>
+</ol>
+<p>这就是一个简单 Java 项目的所有 Gradle 配置信息了,也很简单不是吗, 区区20行不到的代码.</p>
+<p>现在来运行 Gradle 进行第一次构建,可以利用 IDEA 的Gradle插件操作 Tasks 下的 build 任务,也或者直接在控制台使用命令 <code>gradle build</code>.</p>
+<figure data-type="image" tabindex="3"><img src="https://ws3.sinaimg.cn/large/006tNbRwly1fwgofhs53uj30e40he76l.jpg" alt="image-20181022080532552"></figure>
+<p>可以上图看到, Gradle 提供了很多Task 供我们使用,比如 clean 来清理生成的文件, jar 来打包成 JAR 文件等等.构建完成后在项目里就会有 build 文件夹,放置构建生成的文件, 默认生成的 JAR 文件放置于 libs 文件夹下.</p>
+<figure data-type="image" tabindex="4"><img src="https://ws1.sinaimg.cn/large/006tNbRwly1fwgol2mgdej308307jwf0.jpg" alt="image-20181022081054431"></figure>
+<p>如果想要生成  WAR 文件,只需 plugins 中添加 id 为 war 的插件即可,就会多一个 war 任务,运行后会在 libs 生成对应的 WAR 文件. 这里都是依靠 Gradle 内置的插件的完成的,是不是操作起来都很简单.</p>
+<h3 id="多模块项目构建">多模块项目构建</h3>
+<p>想要构建多模块的项目,利用Gradle又该如何来实现呢.这里我们假设创建一个有三个模块分别为 api, service, core 的Java项目,首先在根项目的 settings.gradle 配置一行代码</p>
+<pre><code class="language-groovy">include &quot;core&quot;, &quot;api&quot;,&quot;services&quot;
+</code></pre>
+<p>然后在根项目的 build.gradle 文件添加下列代码</p>
+<pre><code class="language-groovy">subprojects {
+    apply plugin: 'java'
+
+    repositories {
+       mavenCentral()
+    }
+
+    dependencies {
+        testCompile 'junit:junit:4.12'
+    }
+
+    version = '1.0'
+    
+    jar {
+        manifest.attributes provider: 'gradle'
+    }
+}
+</code></pre>
+<p><code>subprojects</code> 将会把包含的所有信息共同应用的子项目中,这里共用应用了 jar 插件,配置生效后 Gardle 管理界面就出现了各自项目的构建任务.</p>
+<figure data-type="image" tabindex="5"><img src="https://ws4.sinaimg.cn/large/006tNbRwly1fwhe614mkoj30ae09ljsg.jpg" alt="image-20181022225559104"></figure>
+<p>然后运行根目录的 build.gradle,子模块就自动生成好了.</p>
+<figure data-type="image" tabindex="6"><img src="https://ws1.sinaimg.cn/large/006tNbRwly1fwhe89xq0qj30fw0aot99.jpg" alt="image-20181022225809305"></figure>
+<p>创建好了各模块项目结构,然后在 core 项目新增一个工具类 StringUtil.</p>
+<pre><code class="language-java">package com.one.util;
+
+public class StringUtil {
+    public static boolean isNotBank(String string) {
+        return string != null &amp;&amp; !string.equals(&quot;&quot;);
+    }
+}
+</code></pre>
+<p>在api 项目的 build.gradle 里添加对 core 项目的依赖,这样就可以使用 core 项目的类.</p>
+<pre><code class="language-groovy">dependencies { implementation project(':core') }
+</code></pre>
+<p>然后在 api 项目里新建一个实体类 User,里面使用到core 的类 StringUtil.</p>
+<pre><code class="language-java">package com.one.api;
+import com.one.util.StringUtil;
+
+public class User {
+    private String name;
+    private int age;
+	// ... setter, getter
+    public boolean hasName() {
+        return StringUtil.isNotBank(name);
+    }
+}
+</code></pre>
+<p>同样,要在 service 项目里使用 api 和 core的类,在它的build.gradle 添加依赖配置.</p>
+<pre><code class="language-groovy">dependencies {
+    implementation project(':api')
+    implementation project(':core')
+}
+</code></pre>
+<p>构建之后 service 项目写个测试类就可以使用 api 和 core的类了</p>
+<pre><code class="language-groovy">public class App {
+    public static void main(String[] args) {
+        User user  = new User();
+        boolean notBank = StringUtil.isNotBank(user.getName());
+        System.out.println(notBank); // false
+        user.setName(&quot;one&quot;);
+        System.out.println(user.hasName()); // true
+    }
+}
+</code></pre>
+<p>这样多模块的项目,用 Gradle 方式就搭建完成了.</p>
+<h3 id="source-sets">Source sets</h3>
+<p>Source sets 是一个Gradle 引入新构建项目的方式,按照类型来进行逻辑分组分别构建源代码,单元测试或者集成测试等.而每个组都可以自定义文件夹.</p>
+<pre><code class="language-groovy">sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java']
+        }
+    }
+
+    test {
+        java {
+            srcDirs = ['src/test/java']
+        }
+    }
+}
+</code></pre>
+<p>Source sets 能定义编译时源文件位置,字节吗路径,以及所依赖的库的位置.下图为 Source sets 与 Java 编译之间的关系.</p>
+<figure data-type="image" tabindex="7"><img src="https://docs.gradle.org/current/userguide/img/java-sourcesets-compilation.png" alt="java sourcesets compilation"></figure>
+<h3 id="依赖管理">依赖管理</h3>
+<p>在 Gradle 配置 Java 项目的依赖库需要三点:</p>
+<ol>
+<li>依赖库名称,版本</li>
+<li>依赖库运行阶段,如编译,测试</li>
+<li>依赖库查找位置,如中央仓库</li>
+</ol>
+<p>标准配置示例如下:</p>
+<pre><code class="language-groovy">repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.hibernate:hibernate-core:3.6.7.Final'
+}
+</code></pre>
+<p>关于依赖库运行阶段主要有以下几种:</p>
+<ul>
+<li>compileOnly - 只在编译时使用该依赖库,不会在 classpath 下生成.</li>
+<li>implementation/compile - 依赖库将用于编译和运行时</li>
+<li>runtimeOnly/runtime - 仅在运行时使用,不用于编译</li>
+<li>testCompileOnly - 与 compileOnly 一样,但只针对测试目录</li>
+<li>testImplementation/testCompile - 与 implementation 一样,但只针对测试目录</li>
+<li>testRuntimeOnly/testRuntime - 与 runtimeOnly 一样,但只针对测试目录</li>
+</ul>
+<h3 id="gradle-常用命令">Gradle 常用命令</h3>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>操作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gradle [taskName]</td>
+<td>执行某个任务</td>
+</tr>
+<tr>
+<td>gradle build</td>
+<td>构建当前项目</td>
+</tr>
+<tr>
+<td>gradle build -x test</td>
+<td>跳过测试构建项目</td>
+</tr>
+<tr>
+<td>gradle tasks --all</td>
+<td>显示所有任务</td>
+</tr>
+<tr>
+<td>gradle -q dependencies --configuration testComplie</td>
+<td>查看 testComplie 的依赖情况</td>
+</tr>
+<tr>
+<td>gradle build --continue</td>
+<td>忽略失败继续执行</td>
+</tr>
+<tr>
+<td>gradle -b [filePath]  task</td>
+<td>使用指定文件调用任务</td>
+</tr>
+<tr>
+<td>gradle -q -p [dir] helloWorld</td>
+<td>使用指定目录调用任务</td>
+</tr>
+<tr>
+<td>gradle build --profile</td>
+<td>产生 构建时间的报告</td>
+</tr>
+</tbody>
+</table>
+<h2 id="结语">结语</h2>
+<p>到这里, Gradle 的基本学习就结束了,当然 Gradle 是很强大的构建工具,它能做的事情还有很多,就待下次真正用到的时候进一步学习了.</p>
+<h3 id="参考">参考</h3>
+<ul>
+<li>https://docs.gradle.org/current/userguide/building_java_projects.html#sec:java_dependency_management_overview</li>
+<li>https://docs.gradle.org/current/userguide/tutorial_java_projects.html#sec:examples</li>
+</ul>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://wrcj12138aaa.github.io//tag/BSi-UaPL6k">
+            <span class="flex-auto">构建工具</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://wrcj12138aaa.github.io//post/20181028-如何学习和阅读代码">
+                <h3 class="post-title">
+                  <i class="remixicon-arrow-left-line"></i>
+                  文摘-如何学习和阅读代码
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://wrcj12138aaa.github.io//post/20181021-SpringBoot实战分析-MongoDB操作">
+                <h3 class="post-title">
+                  SpringBoot实战分析-MongoDB操作
+                  <i class="remixicon-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '2ba76d6fe50ad2b384eb',
+    clientSecret: '90db763ed48942571725d6aef11229900c8bb656',
+    repo: 'wrcj12138aaa.github.io',
+    owner: 'wrcj12138aaa',
+    admin: ['wrcj12138aaa'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+      </div>
+    </div>
+
+    <script src="https://wrcj12138aaa.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>

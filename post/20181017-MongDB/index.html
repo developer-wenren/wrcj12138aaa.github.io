@@ -1,0 +1,471 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>闻人的技术博客</title>
+<meta name="description" content="做一个终生学习者" />
+<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1570432921998">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://wrcj12138aaa.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="闻人的技术博客 - Atom Feed" href="https://wrcj12138aaa.github.io//atom.xml">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://wrcj12138aaa.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://wrcj12138aaa.github.io//images/avatar.png?v=1570432921998" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">闻人的技术博客</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#%E6%AD%A3%E6%96%87">正文</a>
+<ul>
+<li><a href="#mongoclient-%E5%AE%9E%E7%8E%B0-curd">MongoClient  实现 CURD</a>
+<ul>
+<li><a href="#%E5%BB%BA%E7%AB%8B-mongodb-%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9E%E6%8E%A5">建立 MongoDB 服务器连接</a></li>
+<li><a href="#%E8%8E%B7%E5%8F%96-mongodb-%E6%95%B0%E6%8D%AE%E5%BA%93">获取 MongoDB 数据库</a></li>
+<li><a href="#%E8%8E%B7%E5%8F%96-mongodb-%E7%9A%84-%E9%9B%86%E5%90%88">获取 MongoDB 的 集合</a></li>
+</ul>
+</li>
+<li><a href="#%E6%B3%A8%E6%84%8F%E7%82%B9">注意点</a></li>
+</ul>
+</li>
+<li><a href="#%E7%BB%93%E8%AF%AD">结语</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="remixicon-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"></div>
+    <a class="rss" href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">Java CRUD 之 MongoDB</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2018-10-17 / 7 min read
+        </div>
+        
+        <div class="post-content yue">
+          <h2 id="前言">前言</h2>
+<p>MongoDB 作为非关系性数据库中佼佼者,越来越受到后台开发的欢迎,应用范围也越来越大,本文就简单介绍下如何用 Java 对 MongoDB 数据进行基本的 CRUD.一起来看下吧.</p>
+<!--more-->
+<h2 id="正文">正文</h2>
+<h3 id="mongoclient-实现-curd">MongoClient  实现 CURD</h3>
+<p>首先新建一个 Maven 项目,在 pom.xml 文件引入 MongoDB 的 Java 版本驱动类.</p>
+<pre><code class="language-xml">&lt;dependency&gt;
+	&lt;groupId&gt;org.mongodb&lt;/groupId&gt;
+	&lt;artifactId&gt;mongo-java-driver&lt;/artifactId&gt;
+	&lt;version&gt;3.8.2&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+<h4 id="建立-mongodb-服务器连接">建立 MongoDB 服务器连接</h4>
+<p><code>MongoClient</code> 是 Java 程序连接和操作 MongoDB 数据库的实现类. 使用 <code>MongoClient</code> 就能MongoDB 的连接和数据的增删改查.</p>
+<p>值得注意的一点时, MongoDB 的 Java 驱动时线程安全的,这也意味我们能够在多个线程中复用一个 <code>MongoClient</code> 实例. 即使多个线程同时访问它，一个连接从维护的内部连接池返回。</p>
+<p>首先我们看下连接 MongoDB 服务器的代码</p>
+<pre><code class="language-java">// 默认 IP 127.0.0.1 ,默认端口 27017
+MongoClient mongoClient = new MongoClient(); 
+// 默认端口 27017 连接
+MongoClient mongoClient = new MongoClient( &quot;localhost&quot; );
+MongoClient mongoClient = new MongoClient( &quot;localhost&quot; , 27017 ); 
+// 集群方式连接
+MongoClient mongoClient = new MongoClient(Arrays.asList(new ServerAddress(&quot;localhost&quot;, 27017),new ServerAddress(&quot;localhost&quot;, 27018),new ServerAddress(&quot;localhost&quot;, 27019)));
+</code></pre>
+<h4 id="获取-mongodb-数据库">获取 MongoDB 数据库</h4>
+<p>完成 MongoDB 服务器连接后,接下来就是连接数据库了,而如果所要连接的数据库不存在, MongoDB会为我们自动创建.</p>
+<pre><code class="language-xml">MongoClient mongoClient = new MongoClient(&quot;localhost&quot;, 27017);
+MongoDatabase oneDB = mongoClient.getDatabase(&quot;one&quot;);
+</code></pre>
+<h4 id="获取-mongodb-的-集合">获取 MongoDB 的 集合</h4>
+<p>集合作为 MongoDB 的重要角色, 就类似于关系型数据库中的表, 而这里的集合没有 固定的数据格式,一切都是由存入时的数据的决定.</p>
+<pre><code class="language-java">MongoClient mongoClient = new MongoClient(&quot;localhost&quot;, 27017);
+MongoDatabase one = mongoClient.getDatabase(&quot;one&quot;);
+MongoCollection&lt;Document&gt; users = twoDB.getCollection(&quot;Users&quot;);
+</code></pre>
+<p>这里我们用一个简单 POJO 类 User 作为要存储的实体</p>
+<pre><code class="language-java">package com.one.entity;
+
+public class User {
+	private int id;
+	private String name;
+	private String role;
+	private boolean isEmployee;
+	// setter,getter
+}
+</code></pre>
+<p>接下来就是基本 CURD 操作 MongoDB 数据库的示例代码</p>
+<pre><code class="language-java">package com.one;
+import com.mongodb.MongoClient;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.result.DeleteResult;
+import com.mongodb.client.result.UpdateResult;
+import com.one.entity.User;
+import org.bson.Document;
+import org.bson.conversions.Bson;
+
+/**
+ * Hello world!
+ * @author One
+ */
+public class MongoDbLab {
+    public static void main2(String[] args) {
+        Document doc = new Document();
+        User u = new User();
+        u.setId(2);
+        u.setName(&quot;Wenren&quot;);
+        u.setEmployee(true);
+        doc.append(&quot;_id&quot;, u.getId());
+        doc.append(&quot;name&quot;, u.getName());
+        doc.append(&quot;isEmployee&quot;, u.isEmployee());
+        MongoClient mongoClient = new MongoClient(&quot;47.96.24.46&quot;, 27017);
+        MongoDatabase twoDB = mongoClient.getDatabase(&quot;two&quot;);
+        MongoCollection&lt;Document&gt; one = twoDB.getCollection(&quot;one&quot;);
+        one.insertOne(doc);
+    }
+
+    public static void main(String[] args) {
+        // 连接 远程 MonogDB 数据库
+        User u = new User();
+        u.setId(2);
+        u.setName(&quot;Wenren&quot;);
+        u.setEmployee(true);
+
+        // 新增记录
+        createUser(u);
+        // 修改记录
+        updateUser(u);
+        // 查看记录
+        findUser(u);
+        // 删除记录
+        deleteUser(u);
+    }
+
+    private static Document createDocumentUser(User user) {
+        Document doc = new Document();
+        doc.append(&quot;_id&quot;, user.getId());
+        doc.append(&quot;name&quot;, user.getName());
+        doc.append(&quot;isEmployee&quot;, user.isEmployee());
+        return doc;
+    }
+
+    /**
+     * 新增单个用户
+     * @param user
+     */
+    private static void createUser(User user) {
+        // 连接 远程 MonogDB 数据库
+        MongoClient mongoClient = new MongoClient(&quot;47.96.24.46&quot;, 27017);
+        MongoDatabase oneDB = mongoClient.getDatabase(&quot;one&quot;);
+        MongoCollection&lt;Document&gt; users = oneDB.getCollection(&quot;users&quot;);
+        Document doc = createDocumentUser(user);
+        users.insertOne(doc);
+        System.out.println(doc);
+        // Document{{_id=2, name=Wenren, isEmployee=true}}
+    }
+
+    /**
+     * 删除单个用户
+     * @param user
+     */
+    private static void deleteUser(User user) {
+        MongoClient mongoClient = new MongoClient(&quot;47.96.24.46&quot;, 27017);
+        MongoDatabase oneDB = mongoClient.getDatabase(&quot;one&quot;);
+        MongoCollection&lt;Document&gt; users = oneDB.getCollection(&quot;users&quot;);
+        // 删除记录
+        Bson delfilter = Filters.eq(&quot;_id&quot;, user.getId());
+        DeleteResult deleteResult = users.deleteOne(delfilter);
+        System.out.println(deleteResult);
+        // AcknowledgedDeleteResult{deletedCount=1}
+    }
+
+    /**
+     * 更新单个用户
+     * @param user
+     */
+    private static void updateUser(User user) {
+        // 连接 远程 MonogDB 数据库
+        MongoClient mongoClient = new MongoClient(&quot;47.96.24.46&quot;, 27017);
+        MongoDatabase oneDB = mongoClient.getDatabase(&quot;one&quot;);
+        MongoCollection&lt;Document&gt; users = oneDB.getCollection(&quot;users&quot;);
+        // 修改记录
+        Bson upfilter = Filters.eq(&quot;_id&quot;, 2);
+        Document newUser = createDocumentUser(user);
+        UpdateResult updateResult = users.replaceOne(upfilter, newUser);
+        System.out.println(updateResult); 
+        //AcknowledgedUpdateResult{matchedCount=1, modifiedCount=1, upsertedId=null}
+    }
+
+    /**
+     * 查询单个用户
+     * @param user
+     */
+    private static void findUser(User user) {
+        // 连接 远程 MonogDB 数据库
+        MongoClient mongoClient = new MongoClient(&quot;47.96.24.46&quot;, 27017);
+        MongoDatabase oneDB = mongoClient.getDatabase(&quot;one&quot;);
+        MongoCollection&lt;Document&gt; users = oneDB.getCollection(&quot;users&quot;);
+        FindIterable&lt;Document&gt; documents = users.find();
+        for (Document document : documents) {
+            System.out.println(document);
+        }
+//        Document{{_id=5bc526b545ad181b7ac548f6, user=null}}
+//        Document{{_id=2, name=Wenren, isEmployee=true}}
+    }
+
+}
+</code></pre>
+<h3 id="注意点">注意点</h3>
+<ul>
+<li>新增记录时,一个集合中每一记录都会有一个 id ,并且不允许重复,否则就会出现以下异常</li>
+</ul>
+<figure data-type="image" tabindex="1"><img src="https://ws3.sinaimg.cn/large/006tNbRwly1fwau7cbvq8j31kw05wq5l.jpg" alt="image-20181017065152272"></figure>
+<p>而当保存的实体中没有 id 时, MongoDB 会自动给这条记录生成一个随机的 id.</p>
+<ul>
+<li>更新记录时使用 updateOne 会出现如下异常:</li>
+</ul>
+<figure data-type="image" tabindex="2"><img src="https://ws3.sinaimg.cn/large/006tNbRwly1fwauntkxhvj31fu078di7.jpg" alt="image-20181017070744112"></figure>
+<p>而使用 replaceOne则不会. 根据<a href="https://blog.csdn.net/u013350783/article/details/72459547">上网查资料</a>得知, 因为 MongoDB API 在3.0以前，是使用直接updateOne可以，而3.0以后使用replaceOne,具体报错逻辑,我也跟了源代码,主要就是在 AbstractBsonWriter 类的 writeName 方法中有对属性名称的校验代码如下:</p>
+<pre><code class="language-java">@Override
+    public void writeName(final String name) {
+        notNull(&quot;name&quot;, name);
+        if (state != State.NAME) {
+            throwInvalidState(&quot;WriteName&quot;, State.NAME);
+        }
+        if (!fieldNameValidatorStack.peek().validate(name)) {
+            throw new IllegalArgumentException(format(&quot;Invalid BSON field name %s&quot;, name));
+        }
+        doWriteName(name);
+        context.name = name;
+        state = State.VALUE;
+    }
+</code></pre>
+<p>而具体的更新时validate操作为 <code>fieldName.startsWith(&quot;$&quot;)</code>,那么当传入的 字段名 不以 $ 开头就会抛出 <code>IllegalArgumentException</code> 异常.</p>
+<h2 id="结语">结语</h2>
+<p>到这里,简单的 MongoDB 数据库的CURD操作也介绍完了,后续将结合 Spring 再去介绍更多关于 MongoDB 的知识点.敬请期待.😁😁😁</p>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://wrcj12138aaa.github.io//tag/e7U9BePdxz">
+            <span class="flex-auto">MonogDB</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://wrcj12138aaa.github.io//post/20181018-Maven 常用命令">
+                <h3 class="post-title">
+                  <i class="remixicon-arrow-left-line"></i>
+                  Java 修炼之道:Maven 常用命令清单
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://wrcj12138aaa.github.io//post/20181014-SpringBoot以Tomcat方式部署">
+                <h3 class="post-title">
+                  SpringBoot实战-Tomcat方式部署
+                  <i class="remixicon-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '2ba76d6fe50ad2b384eb',
+    clientSecret: '90db763ed48942571725d6aef11229900c8bb656',
+    repo: 'wrcj12138aaa.github.io',
+    owner: 'wrcj12138aaa',
+    admin: ['wrcj12138aaa'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+      </div>
+    </div>
+
+    <script src="https://wrcj12138aaa.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>

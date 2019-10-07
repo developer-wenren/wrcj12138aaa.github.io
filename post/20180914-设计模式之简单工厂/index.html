@@ -1,0 +1,359 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>闻人的技术博客</title>
+<meta name="description" content="做一个终生学习者" />
+<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1570432921998">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://wrcj12138aaa.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="闻人的技术博客 - Atom Feed" href="https://wrcj12138aaa.github.io//atom.xml">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://wrcj12138aaa.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://wrcj12138aaa.github.io//images/avatar.png?v=1570432921998" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">闻人的技术博客</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#%E6%AD%A3%E6%96%87">正文</a>
+<ul>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F">什么是简单工厂模式</a></li>
+<li><a href="#%E5%A6%82%E4%BD%95%E8%A1%A8%E7%8E%B0">如何表现</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF">使用场景</a></li>
+<li><a href="#%E7%BC%BA%E9%99%B7">缺陷</a></li>
+</ul>
+</li>
+<li><a href="#%E7%BB%93%E8%AF%AD">结语</a><br>
+*
+<ul>
+<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="remixicon-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"></div>
+    <a class="rss" href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">一起学模式之简单工厂</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2018-09-14 / 3 min read
+        </div>
+        
+        <div class="post-content yue">
+          <h2 id="前言">前言</h2>
+<p>本文来学习设计模式的简单工厂模式, 也是在Java中最常用的设计模式之一. 简单工厂模式提供一种创造对象的方式,属于创建型模式.虽然简单工厂模式并不是 《<a href="https://baike.baidu.com/item/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F">设计模式</a>》一书中提到的模式,与书中提到的工厂模式有着紧密的关系, 而且实用性很高,可以容易开发项目中使用到, 因此很有学习的必要.</p>
+<!-- more-->
+<h2 id="正文">正文</h2>
+<h3 id="什么是简单工厂模式">什么是简单工厂模式</h3>
+<p>根据 Wikipedia 定义,工厂模式就是一种使用一个对象统一创建多个其他对象的模式,而这个对象也就是工厂.</p>
+<p>在工厂模式中,我们不再在客户端里使用 new 方式创建具体的对象,隐藏创建的逻辑,通过一个共同的接口来创建对象,从而减少与客户端的耦合.</p>
+<h3 id="如何表现">如何表现</h3>
+<p>这里,再举个例子来理解下简单工厂模式: 手机,平板, 手表都是产品,对于用户来说不需要知道其从0到1创造出来的过程, 用户只需要完整的对应产品就可以,于是有出现一个工厂专门用来创建这些产品, 根据用户所需要的产品类型,实现内部创建,完成后返回给用户就行了.接下来就用代码实现简单工厂模式的使用方式:</p>
+<pre><code class="language-java">public static void main(String[] args) {
+    // 普通方式创建对象
+    Pad pad1 = new Pad();
+    Phone phone1 = new Phone();
+    Watch watch1 = new Watch();
+
+    // 使用简单模式创建对象
+    Device pad = appleDeviceFactory.createDevice(DeviceType.PAD);
+    Device phone = appleDeviceFactory.createDevice(DeviceType.PHONE);
+    Device watch = appleDeviceFactory.createDevice(DeviceType.WATCH);
+}
+
+interface Device {
+}
+
+class Pad implements Device {
+}
+
+class Phone implements Device {
+}
+
+class Watch implements Device {
+}
+
+enum DeviceType {
+    PAD, PHONE, WATCH
+}
+
+interface IDeviceFactory {
+    Device createDevice(DeviceType type);
+}
+
+class AppleDeviceFactory implements IDeviceFactory {
+
+    @Override
+    public Device createDevice(DeviceType type) {
+        Device device = null;
+        switch (type) {
+            case PAD:
+                device = new Pad();
+                break;
+            case PHONE:
+                device = new Phone();
+                break;
+            case WATCH:
+                device = new Watch();
+                break;
+            default:
+                device = new Phone();
+        }
+        return device;
+    }
+}
+</code></pre>
+<p><strong>产品关系UML图</strong></p>
+<figure data-type="image" tabindex="1"><img src="https://ws3.sinaimg.cn/large/0069RVTdgy1fv9gic9qojj30mm09cdg6.jpg" alt="image-20180914225204859"></figure>
+<p><strong>产品工厂UML图</strong></p>
+<figure data-type="image" tabindex="2"><img src="https://ws4.sinaimg.cn/large/0069RVTdgy1fv9gkil5k5j30o409wdgf.jpg" alt="image-20180914225413949"></figure>
+<p><strong>整体关系图</strong></p>
+<figure data-type="image" tabindex="3"><img src="https://ws3.sinaimg.cn/large/0069RVTdgy1fv9gskzstcj312y0ect9x.jpg" alt="image-20180914230200291"></figure>
+<h3 id="使用场景">使用场景</h3>
+<ul>
+<li>日志记录器：记录可能记录到本地硬盘、系统事件、远程服务器等，用户可以选择记录日志到什么地方。</li>
+<li>数据库访问，当用户不知道最后系统采用哪一类数据库，以及数据库可能有变化时。</li>
+</ul>
+<h3 id="缺陷">缺陷</h3>
+<p>虽然简单工厂模式能创建对象的过程统一封装在了工厂类内部中,但如果需要新增一个产品时,就需要对工厂类的创建逻辑中进行修改,破坏了S.O.L.I.D 原则中的开闭原则 (对外开放,对内封闭).</p>
+<h2 id="结语">结语</h2>
+<p>本文学习了简单工厂模式的实现,并且对它的概念和优劣之处进行分析, 要解决简单工厂模式带来破坏开闭原则的问题,需要使用到工厂方法模式了,下篇文章就详细分析工厂方法模式,它是如何实现的,优劣又在哪呢.</p>
+<h4 id="参考">参考</h4>
+<ul>
+<li><a href="https://www.codeproject.com/Articles/1131770/Factory-Patterns-Simple-Factory-Pattern">Factory Patterns - Simple Factory Pattern</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Factory_(object-oriented_programming)">Wikipedia Factory (object-oriented programming)</a></li>
+<li><a href="http://www.runoob.com/design-pattern/factory-pattern.html">工厂模式|菜鸟教程</a></li>
+<li><a href="https://www.jdon.com/38090">SOLID原则</a></li>
+</ul>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://wrcj12138aaa.github.io//tag/RVSTCL07Eh">
+            <span class="flex-auto">设计模式</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://wrcj12138aaa.github.io//post/20180915-Java 引用逃逸那些事">
+                <h3 class="post-title">
+                  <i class="remixicon-arrow-left-line"></i>
+                  Java 引用逃逸那些事
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://wrcj12138aaa.github.io//post/20180913-设计模式之单例">
+                <h3 class="post-title">
+                  一起学模式之单例
+                  <i class="remixicon-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '2ba76d6fe50ad2b384eb',
+    clientSecret: '90db763ed48942571725d6aef11229900c8bb656',
+    repo: 'wrcj12138aaa.github.io',
+    owner: 'wrcj12138aaa',
+    admin: ['wrcj12138aaa'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+      </div>
+    </div>
+
+    <script src="https://wrcj12138aaa.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>

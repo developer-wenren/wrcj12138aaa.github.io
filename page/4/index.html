@@ -1,0 +1,404 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>闻人的技术博客</title>
+<meta name="description" content="做一个终生学习者" />
+<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1570432921998">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://wrcj12138aaa.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="闻人的技术博客 - Atom Feed" href="https://wrcj12138aaa.github.io//atom.xml">
+
+
+
+  </head>
+  <body>
+    <div class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://wrcj12138aaa.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://wrcj12138aaa.github.io//images/avatar.png?v=1570432921998" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">闻人的技术博客</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            做一个终生学习者
+          </p>
+          <div class="animated fadeInLeft social-container hidden lg:block" style="animation-delay: 0.6s">
+            
+              
+                <a href="https://github.com/wrcj12138aaa" target="_blank" class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
+                  <i class="remixicon-github-line"></i>
+                </a>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="remixicon-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"></div>
+    <a class="rss" href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4">
+        <h2 class="latest-article text-lg text-gray-700 mb-8">
+          <i class="remixicon-article-line"></i>
+          最新文章
+        </h2>
+        
+  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${0 * 0.2}s` }">
+    
+    <div class="content">
+      <a href="https://wrcj12138aaa.github.io//post/20181022-Gradle入门">
+        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">Java 修炼之道:Gradle</h2>
+      </a>
+      <div class="post-abstract text-gray-700 font-light my-4">
+        <h3 id="前言">前言</h3>
+<p>一款目前流行的项目构建工具,使用基于 Groovy  的特定领域语言 DSL定义配置, 不再使用 XML 文件管理构建脚本,这样一来极大简化了配置. Gradle 还有优势如下</p>
+<ul>
+<li>
+<p>支持动态的版本依赖</p>
+</li>
+<li>
+<p>支持 Maven 的资源库</p>
+</li>
+<li>
+<p>构建 Task 简单灵活</p>
+</li>
+</ul>
+<p>由于比 Maven,Ant 这类构建工具能更加简单容易地构建项目,而逐步推广使用,几乎所有的 Andirod 应用都是用 Gradle 构建的,也有越来越多的 Java 框架选择使用 Gradle, 比如 Spring Framwork.</p>
+<blockquote>
+<p>Groovy 是基于 JVM 的一种面向对象的动态语言,在 Gradle中用来编写构建脚本.</p>
+</blockquote>
+
+      </div>
+      <div class="text-gray-400 text-sm font-light">2018-10-22 / 7 min read</div>
+    </div>
+  </section>
+
+  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${1 * 0.2}s` }">
+    
+    <div class="content">
+      <a href="https://wrcj12138aaa.github.io//post/20181021-SpringBoot实战分析-MongoDB操作">
+        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">SpringBoot实战分析-MongoDB操作</h2>
+      </a>
+      <div class="post-abstract text-gray-700 font-light my-4">
+        
+      </div>
+      <div class="text-gray-400 text-sm font-light">2018-10-21 / 12 min read</div>
+    </div>
+  </section>
+
+  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${2 * 0.2}s` }">
+    
+    <div class="content">
+      <a href="https://wrcj12138aaa.github.io//post/20181019-Java 修炼之道-构建工具Maven">
+        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">Java 修炼之道:Maven</h2>
+      </a>
+      <div class="post-abstract text-gray-700 font-light my-4">
+        
+      </div>
+      <div class="text-gray-400 text-sm font-light">2018-10-19 / 6 min read</div>
+    </div>
+  </section>
+
+  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${3 * 0.2}s` }">
+    
+    <div class="content">
+      <a href="https://wrcj12138aaa.github.io//post/20181018-Maven 常用命令">
+        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">Java 修炼之道:Maven 常用命令清单</h2>
+      </a>
+      <div class="post-abstract text-gray-700 font-light my-4">
+        <h2 id="前言">前言</h2>
+<p>Maven 代替 Ant 作为 Java 项目的构建工具已经很久,除了会在 IDE 的图形化界面上操作 Maven, 学会命令行方式操作也十分重要. 这里先记录下基本的Maven命令,后续新增再来更新.</p>
+
+      </div>
+      <div class="text-gray-400 text-sm font-light">2018-10-18 / 2 min read</div>
+    </div>
+  </section>
+
+  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${4 * 0.2}s` }">
+    
+    <div class="content">
+      <a href="https://wrcj12138aaa.github.io//post/20181017-MongDB">
+        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">Java CRUD 之 MongoDB</h2>
+      </a>
+      <div class="post-abstract text-gray-700 font-light my-4">
+        <h2 id="前言">前言</h2>
+<p>MongoDB 作为非关系性数据库中佼佼者,越来越受到后台开发的欢迎,应用范围也越来越大,本文就简单介绍下如何用 Java 对 MongoDB 数据进行基本的 CRUD.一起来看下吧.</p>
+
+      </div>
+      <div class="text-gray-400 text-sm font-light">2018-10-17 / 7 min read</div>
+    </div>
+  </section>
+
+  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${5 * 0.2}s` }">
+    
+    <div class="content">
+      <a href="https://wrcj12138aaa.github.io//post/20181014-SpringBoot以Tomcat方式部署">
+        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">SpringBoot实战-Tomcat方式部署</h2>
+      </a>
+      <div class="post-abstract text-gray-700 font-light my-4">
+        <h2 id="前言">前言</h2>
+<p>在[Spring Boot 初体验][1]一文中我们学习了以 JAR 形式快速启动一个<code>Spring Boot</code>程序,而 <code>Spring Boot</code> 也支持传统的部署方式: 将项目打包成 <code>WAR</code>,然后由 <code>Web</code> 服务器进行加载启动,这次以 <code>Tomcat</code> 为例,我们就快速学习下如何以 <code>WAR</code> 方式部署一个 <code>Spring Boot</code> 项目,代码托管于 [Github][4], 并做一些简单的源码分析.</p>
+
+      </div>
+      <div class="text-gray-400 text-sm font-light">2018-10-14 / 7 min read</div>
+    </div>
+  </section>
+
+  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${6 * 0.2}s` }">
+    
+    <div class="content">
+      <a href="https://wrcj12138aaa.github.io//post/20181013-定位Java程序CPU满负载元凶">
+        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">快速定位Java程序CPU满负载元凶</h2>
+      </a>
+      <div class="post-abstract text-gray-700 font-light my-4">
+        <h2 id="前言">前言</h2>
+<p>最近线上后台服务器老是出现<code>CPU</code>满负载情况,影响后台业务处理,很是头疼. 但遇到这个问题却始终找不到原因,主要还是没有具体定位原因的思路.从一开始只知道重启了事, 到获取程序线程日志进行分析,现在又学习到了一种更具体的分析方式,这次通过博客方式记录下来,方便后面遇到类似问题时能快速处理应对.</p>
+
+      </div>
+      <div class="text-gray-400 text-sm font-light">2018-10-13 / 2 min read</div>
+    </div>
+  </section>
+
+  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${7 * 0.2}s` }">
+    
+    <div class="content">
+      <a href="https://wrcj12138aaa.github.io//post/20181012-Spring Boot 初体验">
+        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">SpringBoot实战-初体验</h2>
+      </a>
+      <div class="post-abstract text-gray-700 font-light my-4">
+        <h2 id="前言">前言</h2>
+<p>在分布式时代潮流中, 随着微服务的流行, <code>Spring Boot</code> 作为用来快速交付微服务的<code>Java</code>开源框架名声大噪,<code>Spring Boot</code>依托于请强大的<code>Spring Framework</code>,其优势在于</p>
+<ul>
+<li>
+<p>快捷开发具备生产能力的<code>Spring</code>程序</p>
+</li>
+<li>
+<p>提高生产力,减少开发效率</p>
+</li>
+<li>
+<p>自动化配置,没有繁琐的<code>XML</code>配置</p>
+</li>
+</ul>
+<p>这篇文章将以实战方式创建一个基于<code>Spring Boot</code>搭建的简单Rest服务程序,来学习下如何开发<code>Spring Boot</code>程序.</p>
+
+      </div>
+      <div class="text-gray-400 text-sm font-light">2018-10-12 / 7 min read</div>
+    </div>
+  </section>
+
+  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${8 * 0.2}s` }">
+    
+    <div class="content">
+      <a href="https://wrcj12138aaa.github.io//post/20181011-实战Java高并发程序设计笔记">
+        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">《实战Java高并发程序设计》读书笔记</h2>
+      </a>
+      <div class="post-abstract text-gray-700 font-light my-4">
+        
+      </div>
+      <div class="text-gray-400 text-sm font-light">2018-10-11 / 5 min read</div>
+    </div>
+  </section>
+
+  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${9 * 0.2}s` }">
+    
+    <div class="content">
+      <a href="https://wrcj12138aaa.github.io//post/20181008-Linux环境yum安装JDK   ">
+        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">Linux环境安装JDK-yum方式</h2>
+      </a>
+      <div class="post-abstract text-gray-700 font-light my-4">
+        <h2 id="前言">前言</h2>
+<p>为了在公司能搭建一个系统服务系统, 需要在一台新的阿里云服务器上搭建持续集成环境,却发现连基本的Java环境都没有,上网一搜各种五花八门的安装方式眼花缭乱,这次还是通过自己实践记录方式输出到博客,方便以后遇到类似情况需要搭建Java环境时使用.话不多说,马上进入正题.</p>
+
+      </div>
+      <div class="text-gray-400 text-sm font-light">2018-10-08 / 2 min read</div>
+    </div>
+  </section>
+
+        <div class="read-more">
+          
+            <a href="https://wrcj12138aaa.github.io//page/5/" class="animated fadeIn font-extrabold text-gray-700 hover:text-gray-900 more-btn">
+              阅读更多
+              <i class="remixicon-arrow-right-line"></i>
+            </a>
+          
+        </div>
+        <div class="index-page">
+          <div class="pagination-container animated fadeIn">
+  
+    <a href="https://wrcj12138aaa.github.io//page/3/" class="page-btn"><i class="remixicon-arrow-left-line"></i> 上一页</a>
+  
+  
+    <a href="https://wrcj12138aaa.github.io//page/5/" class="page-btn">下一页 <i class="remixicon-arrow-right-line"></i></a>
+  
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://wrcj12138aaa.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>

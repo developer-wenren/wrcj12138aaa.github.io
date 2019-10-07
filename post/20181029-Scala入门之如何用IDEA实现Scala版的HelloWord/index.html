@@ -1,0 +1,391 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>闻人的技术博客</title>
+<meta name="description" content="做一个终生学习者" />
+<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1570432921998">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://wrcj12138aaa.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="闻人的技术博客 - Atom Feed" href="https://wrcj12138aaa.github.io//atom.xml">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://wrcj12138aaa.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://wrcj12138aaa.github.io//images/avatar.png?v=1570432921998" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">闻人的技术博客</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#%E6%AD%A3%E6%96%87">正文</a>
+<ul>
+<li><a href="#scala%E6%98%AF%E4%BB%80%E4%B9%88">Scala是什么</a></li>
+<li><a href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8scala">为什么要使用Scala</a></li>
+<li><a href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87">环境准备</a></li>
+<li><a href="#scala%E7%89%88%E7%9A%84helloword%E4%B9%8B%E6%97%85">Scala版的HelloWord之旅</a></li>
+<li><a href="#%E8%A6%81%E7%82%B9%E8%A7%A3%E6%9E%90">要点解析</a></li>
+</ul>
+</li>
+<li><a href="#%E7%BB%93%E8%AF%AD">结语</a>
+<ul>
+<li><a href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5">参考链接</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="remixicon-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"></div>
+    <a class="rss" href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">Scala入门之项目创建</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2018-10-29 / 6 min read
+        </div>
+        
+        <div class="post-content yue">
+          <h2 id="前言">前言</h2>
+<p>本文快速通过 IDEA 创建一个基于 Scala 语言的 HelloWord 程序,以及对 Scala 语言进行基础的介绍.</p>
+<!--more-->
+<h2 id="正文">正文</h2>
+<h3 id="scala是什么">Scala是什么</h3>
+<blockquote>
+<p>[/ˈskɑːlɑː/]</p>
+</blockquote>
+<p>Scala 的设计始于2001年, 由马丁•奥德斯基(Martin Odersky)在瑞士洛桑的洛桑联邦理工学院(EPFL)开始设计的编程语言, 并在2004年的Java社区公布了Scala , 而2016年Scala发布了2.0版本,到目前为止版本已经迭代到了 2.12.5.</p>
+<p>而Scala语言又究竟是什么的语言呢 ???</p>
+<blockquote>
+<p>Scala combines object-oriented and functional programming in one concise, high-level language. Scala's static types help avoid bugs in complex applications, and its JVM and JavaScript runtimes let you build high-performance systems with easy access to huge ecosystems of libraries.</p>
+</blockquote>
+<p>上面一段来自于Scala官网的描述,从中就可以对Scala的语言特性得知一二:</p>
+<ul>
+<li>**支持面向对象和函数式.**面向对象方面,Scala中的每一个值都是一个对象;并且通过子类和组合的方式来实现多重继承;而Scala也是一种函数式语言,每个函数都是一个值,提供轻便的匿名函数语法,支持高阶函数,函数嵌套,模式匹配等函数式语言特性.</li>
+<li><strong>静态类型语言.</strong> 更安全的静态编译检查;天然支持类型推断,减少显示的类型声明.</li>
+<li><strong>能在JVM虚拟机和JavaScript运行环境.</strong> 由Scala编写的代码可以被编译生成Java字节码,从而直接允许在Java虚拟机之上,并且与此同时提供了与Java代码交互操作的能力(调用Java库方法/使用Java对象);针对JavaScript运行环境,Scala编译器提供Scala.js框架使得Scala代码编译成JavaScript代码,从而运行在浏览器环境中.</li>
+</ul>
+<p>当然,Scala语言本身还有更大的功能特性,比如可扩展性,互操作性,丰富的数据类型, 并发性等等.</p>
+<h3 id="为什么要使用scala">为什么要使用Scala</h3>
+<ul>
+<li>相比Java, Scala的语法灵活,简洁</li>
+<li>经过Scala编译器优化增强,性能更高</li>
+<li>丰富的语言特性,可扩展性高</li>
+</ul>
+<p>能做作为数据挖掘的工程语言,效率非常高; 并且Scala 的 Java 兼容性使它非常适合 Android 的开发, 适合功能性方法;除了能写后台代码,还能编写可执行的前台代码,运行于浏览器中.</p>
+<h3 id="环境准备">环境准备</h3>
+<ul>
+<li>IntelliJ IDEA</li>
+<li>JDK 1.8</li>
+<li>Scala SDK 2.12.5</li>
+</ul>
+<h3 id="scala版的helloword之旅">Scala版的HelloWord之旅</h3>
+<p>1.在IDEA的远程插件库搜索 IntelliJ插件-Scala,选择后安装重启IDEA</p>
+<figure data-type="image" tabindex="1"><img src="https://ws1.sinaimg.cn/large/006tKfTcly1fq42m68d3vj318i11m0u4.jpg" alt="Scala插件"></figure>
+<p>2.打开IDEA,新建工程,选择 <code>Scala =&gt; IDEA</code></p>
+<figure data-type="image" tabindex="2"><img src="https://ws4.sinaimg.cn/large/006tKfTcly1fq42qklbakj31j80vst9c.jpg" alt=""></figure>
+<p>3.选择好JDK和Scala SDK,命名Scala项目为helloWord,确认创建.</p>
+<figure data-type="image" tabindex="3"><img src="https://ws2.sinaimg.cn/large/006tKfTcly1fq42syedkpj31io0vkdgr.jpg" alt=""></figure>
+<blockquote>
+<p>Tip: 如果没有对应的Scala SDK,可以通过Scala SDK 栏右边的 <code>Create... =&gt; Download</code>让IDEA去下载最新的Scala SDK,也可以通过手动下载,然后通过<code>Browse...</code>选择本地下载好的Scala SDK 进行关联</p>
+<figure data-type="image" tabindex="4"><img src="https://ws4.sinaimg.cn/large/006tKfTcly1fq42yg3c2cj30wk0y2dg8.jpg" alt=""></figure>
+</blockquote>
+<p>3.新建工程后,在src目录下新建Package,包名为demo,在该包名下创建一个Scala文件,为HelloWord.</p>
+<figure data-type="image" tabindex="5"><img src="https://ws2.sinaimg.cn/large/006tKfTcly1fq43kiqh49j31cy0noab9.jpg" alt=""></figure>
+<p>4.将对应HelloWord.scala文件的代码修改为如下</p>
+<pre><code class="language-scala">object HelloWord extends App {
+  println(&quot;Hello, World!&quot;)
+}
+</code></pre>
+<p>5.右键HelloWord.scala文件的左边按钮  <code>Run HelloWord</code> ,对这个类文件进行编译运行,得到输出内容: <code>Hello, World!</code></p>
+<figure data-type="image" tabindex="6"><img src="https://ws3.sinaimg.cn/large/006tKfTcly1fq43prs0z1j31iq0t0q59.jpg" alt=""></figure>
+<p>这样Scala版Hello Word就完成,就是这么简单哈.</p>
+<h3 id="要点解析">要点解析</h3>
+<p><strong>object</strong> 关键字</p>
+<p>用来定义单个实例对象的关键字,获取的对象都是单例对象</p>
+<pre><code class="language-scala">object IdFactory {
+  private var counter = 0
+  def create(): Int = {
+    counter += 1
+    counter
+  }
+}
+
+object Main extends App {
+  var newId: Int = IdFactory.create()
+  println(newId) // 1
+  var newerId = IdFactory.create()
+  println(newerId) // 2
+}
+</code></pre>
+<p><strong>extends</strong> 关键字</p>
+<p>Scala中用来继承其他类的方法和字段的关键字,跟Java的extends一样</p>
+<p><strong>Scala系统类 App</strong></p>
+<pre><code class="language-scala">trait App extends scala.AnyRef with scala.DelayedInit {
+  @scala.deprecatedOverriding(&quot;executionStart should not be overridden&quot;, &quot;2.11.0&quot;)
+  val executionStart : scala.Long = { /* compiled code */ }
+  @scala.deprecatedOverriding(&quot;args should not be overridden&quot;, &quot;2.11.0&quot;)
+  protected def args : scala.Array[_root_.scala.Predef.String] = { /* compiled code */ }
+  @scala.deprecated(&quot;the delayedInit mechanism will disappear&quot;, &quot;2.11.0&quot;)
+  override def delayedInit(body : =&gt; scala.Unit) : scala.Unit = { /* compiled code */ }
+  @scala.deprecatedOverriding(&quot;main should not be overridden&quot;, &quot;2.11.0&quot;)
+  def main(args : scala.Array[_root_.scala.Predef.String]) : scala.Unit = { /* compiled code */ }
+}
+</code></pre>
+<p><strong>Traits</strong> 关键字</p>
+<p>用来声明Scala特有的一种类型, 该类型能包含一些方法和字段,并且允许进行多个进行结合,并且允许被其他Trait类型或者类继承其方法和字段.</p>
+<pre><code class="language-scala">trait Greeter {
+  def greet(name: String): Unit = println(&quot;Hello, &quot; + name + &quot; !&quot;)
+}
+
+class CustomizableGreeter(prefix: String, postfix: String) extends Greeter {
+  override def greet(name: String): Unit = {
+    println(prefix + name + postfix)
+  }
+}
+
+object HelloWord extends App {
+  var greeter = new CustomizableGreeter(&quot;[&quot;,&quot;]&quot;);
+  greeter.greet(&quot;1,2,3,4,5,6,7,9&quot;);
+  // [1,2,3,4,5,6,7,9]
+}
+</code></pre>
+<p><strong>def</strong>关键字</p>
+<p>用于声明函数的关键字</p>
+<pre><code class="language-scala">def greet(name: String): Unit = println(&quot;Hello, &quot; + name + &quot; !&quot;)
+</code></pre>
+<blockquote>
+<p>Unit 用于表示函数的返回类型为无意义的值,类似Java中的void,但不同的是Unit也表示着一个值</p>
+</blockquote>
+<p><strong>override</strong>关键字</p>
+<p>方法重写的关键字,用法与Java的相同</p>
+<h2 id="结语">结语</h2>
+<h3 id="参考链接">参考链接</h3>
+<p><a href="https://docs.scala-lang.org/getting-started-intellij-track/getting-started-with-scala-in-intellij.html">GETTING STARTED WITH SCALA IN INTELLIJ</a></p>
+<p><a href="http://docs.scala-lang.org/tour/basics.html">TOUR OF SCALA BASICS</a></p>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://wrcj12138aaa.github.io//tag/AlDJOy_Ppp">
+            <span class="flex-auto">Scale</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://wrcj12138aaa.github.io//post/20181030-一起学模式之代理模式">
+                <h3 class="post-title">
+                  <i class="remixicon-arrow-left-line"></i>
+                  一起学模式之代理模式
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://wrcj12138aaa.github.io//post/20181029-MySQL安装">
+                <h3 class="post-title">
+                  后端架构搭建系列之 MySQL
+                  <i class="remixicon-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '2ba76d6fe50ad2b384eb',
+    clientSecret: '90db763ed48942571725d6aef11229900c8bb656',
+    repo: 'wrcj12138aaa.github.io',
+    owner: 'wrcj12138aaa',
+    admin: ['wrcj12138aaa'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+      </div>
+    </div>
+
+    <script src="https://wrcj12138aaa.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>

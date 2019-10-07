@@ -1,0 +1,367 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>闻人的技术博客</title>
+<meta name="description" content="做一个终生学习者" />
+<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1570432921998">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://wrcj12138aaa.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="闻人的技术博客 - Atom Feed" href="https://wrcj12138aaa.github.io//atom.xml">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://wrcj12138aaa.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://wrcj12138aaa.github.io//images/avatar.png?v=1570432921998" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">闻人的技术博客</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#%E5%85%B3%E4%BA%8E-haproxy">关于 HaProxy</a></li>
+<li><a href="#%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE-haproxy">安装配置 HaProxy</a></li>
+<li><a href="#%E9%AA%8C%E8%AF%81-mysql-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1">验证 MySQL 负载均衡</a></li>
+<li><a href="#%E8%B5%84%E6%96%99%E5%8F%82%E8%80%83">资料参考</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="remixicon-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"></div>
+    <a class="rss" href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">HaProxy 实现 MySQL 负载均衡</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2019-01-21 / 6 min read
+        </div>
+        
+        <div class="post-content yue">
+          <h3 id="关于-haproxy">关于 HaProxy</h3>
+<p>首先来简单认识一下 <a href="https://www.haproxy.org/">HaProxy</a> :一款提供高可用性、负载均衡以及基于TCP（第四层）和HTTP（第七层）应用的代理软件，支持虚拟主机，是免费、快速并且可靠的一种解决方案。HAProxy 的实现基于事件驱动、单一进程模型,类似 Node.js 的进程模型,能够支撑非常大的并发连接数.<br>
+<img src="https://ws3.sinaimg.cn/large/006tNc79ly1fzdh9dzviyj30a3082q35.jpg" alt=""></p>
+<h3 id="安装配置-haproxy">安装配置 HaProxy</h3>
+<blockquote>
+<p>以下实验环境均为 CentOS7 平台。<br>
+还需要两个 MySQL 实例,端口分别为3311,3312.</p>
+</blockquote>
+<p>1.首先从官网上下载稳定版本 haproxy-1.9.2.tar,通过 FTP 工具传至服务器.</p>
+<figure data-type="image" tabindex="1"><img src="https://ws4.sinaimg.cn/large/006tNc79ly1fzdh4cnrz3j319q0fl414.jpg" alt=""></figure>
+<p>2.解压 haproxy-1.9.2.tar,并进入解压后的文件夹</p>
+<pre><code class="language-shell">tar -xvf haproxy-1.9.2.tar &amp;&amp; cd haproxy-1.9.2
+</code></pre>
+<p>3.由于压缩出来的是 haproxy 的源文件,所以还需要通过本地编译安装</p>
+<pre><code class="language-shell">make TARGET=generic   # 指定编译的目标平台为通用
+make install
+</code></pre>
+<p>安装完成之后目录下文件就多了一些关于 haProxy 的文件<img src="https://ws2.sinaimg.cn/large/006tNc79ly1fzdhje1rkcj30g00baaaq.jpg" alt=""></p>
+<p>直接使用指令 <code>haproxy</code> 就是检查 Haproxy 是否安装成功.</p>
+<pre><code class="language-shell">[root@izm5e2w1juq9po7368cfj1z haproxy-1.9.2]# haproxy
+HA-Proxy version 1.9.2 2019/01/16 - https://haproxy.org/
+Usage : haproxy [-f &lt;cfgfile|cfgdir&gt;]* [ -vdVD ] [ -n &lt;maxconn&gt; ] [ -N &lt;maxpconn&gt; ]
+        [ -p &lt;pidfile&gt; ] [ -m &lt;max megs&gt; ] [ -C &lt;dir&gt; ] [-- &lt;cfgfile&gt;*]
+        -v displays version ; -vv shows known build options.
+        -d enters debug mode ; -db only disables background mode.
+        -dM[&lt;byte&gt;] poisons memory with &lt;byte&gt; (defaults to 0x50)
+        -V enters verbose mode (disables quiet mode)
+        -D goes daemon ; -C changes to &lt;dir&gt; before loading files.
+        -W master-worker mode.
+        -q quiet mode : don't display messages
+        -c check mode : only check config files and exit
+        -n sets the maximum total # of connections (2000)
+        -m limits the usable amount of memory (in MB)
+        -N sets the default, per-proxy maximum # of connections (2000)
+        -L set local peer name (default to hostname)
+        -p writes pids of all children to this file
+        -dp disables poll() usage even when available
+        -dR disables SO_REUSEPORT usage
+        -dr ignores server address resolution failures
+        -dV disables SSL verify on servers side
+        -sf/-st [pid ]* finishes/terminates old pids.
+        -x &lt;unix_socket&gt; get listening sockets from a unix socket
+        -S &lt;unix_socket&gt;[,&lt;bind options&gt;...] new stats socket for the master
+</code></pre>
+<p>4.为 HaProxy 添加配置文件,命名为 haproxy.conf</p>
+<pre><code class="language-shell">global
+        daemon   # 后台方式运行
+        nbproc 1
+        pidfile haproxy.pid
+defaults
+        mode tcp               #默认的模式mode { tcp|http|health }，tcp是4层，http是7层，health只会返回OK
+        retries 2               #两次连接失败就认为是服务器不可用，也可以通过后面设置
+        option redispatch       #当serverId对应的服务器挂掉后，强制定向到其他健康的服务器
+        option abortonclose     #当服务器负载很高的时候，自动结束掉当前队列处理比较久的链接
+        maxconn 4096            #默认的最大连接数
+        timeout connect 5000ms  #连接超时
+        timeout client 30000ms  #客户端超时
+        timeout server 30000ms  #服务器超时
+        #timeout check 2000      #=心跳检测超时
+        log 127.0.0.1 local0 err #[err warning info debug]
+        balance roundrobin      # 采用轮询算法
+
+
+################# 配置#################
+listen delegate                         #这里是配置负载均衡，test1是名字，可以任意
+        bind 0.0.0.0:3306            #这里是监听的IP地址和端口，端口号可以在0-65535之间，要避免端口冲突
+        mode tcp                     #连接的协议，这里是tcp协议
+        #maxconn 4086
+        #log 127.0.0.1 local0 debug
+        server s1 localhost:3312 #负载的MySQL实例1
+        server s2 localhost:3311 #负载的MySQL实例2 可以有多个，往下排列即
+</code></pre>
+<p>具体配置参数说明可参考 HaProxy 官网的<a href="https://cbonte.github.io/haproxy-dconv/1.9/configuration.html#2.5">配置案例</a></p>
+<p><strong>HaProxy 负载算法</strong><br>
+HaProxy 支持多种负载算法,可以通过在配置文件中 <code>balance</code> 指定.</p>
+<ul>
+<li>roundrobin，表示简单的轮询，这个不多说，这个是负载均衡基本都具备的；</li>
+<li>static-rr，表示根据权重；</li>
+<li>leastconn，表示最少连接者先处理；</li>
+<li>source，表示根据请求源IP；</li>
+<li>uri，表示根据请求的URI；</li>
+<li>url_param，表示根据请求的URl参数'balance url_param' requires an URL parameter name</li>
+<li>hdr(name)，表示根据HTTP请求头来锁定每一次HTTP请求；</li>
+<li>rdp-cookie(name)，表示根据据cookie(name)来锁定并哈希每一次TCP请求。</li>
+</ul>
+<p>5.加载配置文件方式启动 HaProxy</p>
+<pre><code class="language-shell">haproxy -f conf/haproxy.conf
+</code></pre>
+<p><img src="https://ws4.sinaimg.cn/large/006tNc79ly1fzdhtd4632j30io0213yg.jpg" alt=""><br>
+查看 HaProxy 进程,如果存在就说明已经 HaProxy 启动成功了,接下来就是去验证了.</p>
+<h3 id="验证-mysql-负载均衡">验证 MySQL 负载均衡</h3>
+<p>为了检验 MySQL 的负载均衡是否生效,我们可以简单地使用 MySQL 客户端工具来连接试下,首先在两个 MySQL 实例中各自新建一个不同名字的库,端口为3311创建 salve, 端口为3312的创建 salve11.<br>
+<img src="https://ws4.sinaimg.cn/large/006tNc79ly1fzduzxaih5j309k05at8o.jpg" alt=""><br>
+尝试多次连接3306端口的时就是发现它会自动匹配到 端口为3311的 MySQL 实例或者是3312的,采用轮询方式进行访问.到这里<br>
+MySQL 的负载均衡也算是实现了.</p>
+<h3 id="资料参考">资料参考</h3>
+<ul>
+<li>https://cbonte.github.io/haproxy-dconv/1.9/intro.html</li>
+<li>http://www.ttlsa.com/linux/haproxy-study-tutorial/</li>
+</ul>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://wrcj12138aaa.github.io//tag/bt50ok2BUl">
+            <span class="flex-auto">MySQL</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://wrcj12138aaa.github.io//post/20190128-快速实现 Tomcat 集群 Session 共享">
+                <h3 class="post-title">
+                  <i class="remixicon-arrow-left-line"></i>
+                  快速实现 Tomcat 集群 Session 共享
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://wrcj12138aaa.github.io//post/20190120-Docker 方式 MySQL 主从搭建">
+                <h3 class="post-title">
+                  Docker 方式 MySQL 主从搭建
+                  <i class="remixicon-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '2ba76d6fe50ad2b384eb',
+    clientSecret: '90db763ed48942571725d6aef11229900c8bb656',
+    repo: 'wrcj12138aaa.github.io',
+    owner: 'wrcj12138aaa',
+    admin: ['wrcj12138aaa'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+      </div>
+    </div>
+
+    <script src="https://wrcj12138aaa.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>

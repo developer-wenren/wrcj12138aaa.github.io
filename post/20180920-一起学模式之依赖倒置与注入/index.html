@@ -1,0 +1,407 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>闻人的技术博客</title>
+<meta name="description" content="做一个终生学习者" />
+<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1570432921998">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://wrcj12138aaa.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="闻人的技术博客 - Atom Feed" href="https://wrcj12138aaa.github.io//atom.xml">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://wrcj12138aaa.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://wrcj12138aaa.github.io//images/avatar.png?v=1570432921998" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">闻人的技术博客</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#%E6%AD%A3%E6%96%87">正文</a>
+<ul>
+<li><a href="#%E4%BE%9D%E8%B5%96%E5%80%92%E7%BD%AE%E5%8E%9F%E5%88%99">依赖倒置原则</a></li>
+<li><a href="#%E7%BC%96%E7%A0%81%E5%AE%9E%E8%B7%B5">编码实践</a></li>
+<li><a href="#%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5%E6%A8%A1%E5%BC%8F">依赖注入模式</a></li>
+<li><a href="#%E4%BC%98%E5%8A%BF">优势</a></li>
+<li><a href="#%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5">最佳实践</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF">使用场景</a></li>
+</ul>
+</li>
+<li><a href="#%E7%BB%93%E8%AF%AD">结语</a>
+<ul>
+<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="remixicon-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"></div>
+    <a class="rss" href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">一起学模式之依赖倒置与注入</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2018-09-20 / 6 min read
+        </div>
+        
+        <div class="post-content yue">
+          <h2 id="前言">前言</h2>
+<p>这次,我们来学习下设计模式六大原则之一的依赖倒置原则,以及基于此的依赖注入模式, 提到依赖注入,我们就不由想到强大Spring框架,那依赖倒置原则和依赖注入究竟是什么呢,让我们来一步步揭开它神秘的面纱.</p>
+<!--more-->
+<h2 id="正文">正文</h2>
+<p>学习依赖注入时,就不得不提到设计模式的六大原则之一的依赖倒置原则, 因为依赖注入模式就是基于依赖倒置原则出发,解决日常开发中模块耦合严重,应变困难的问题.首先我们先来看下什么是依赖倒置原则.</p>
+<h3 id="依赖倒置原则">依赖倒置原则</h3>
+<blockquote>
+<p>Dependency inversion principle</p>
+</blockquote>
+<ul>
+<li>高层模块不应该依赖低层模块，两者都应该依赖其抽象；</li>
+<li>抽象不应该依赖细节, 而细节应该依赖抽象。</li>
+</ul>
+<p>一看原则上面的定义太过抽象不易理解, 我们先来分析里面涉及的几个词.</p>
+<p><strong>高层模块与低层模块</strong>: 程序可以划分为大大小小各种模块,每个模块都代表对应功能逻辑,低层模块表示处理的无法再细分的功能逻辑部分,高层模块则是略微复杂,能被细分的功能逻辑,也都是低层模块组合而成.</p>
+<p><strong>抽象与实现</strong>: 在Java语言中, 抽象就是接口或者抽象类;而细节就代表着实现类,那些实现接口或者继承抽象类而能实例化具体对象的类.</p>
+<p>基于此,我们可以把 依赖倒置原则 简单理解为</p>
+<ul>
+<li>模块功能间通过抽象类或接口依赖,而不是具体实现类.</li>
+<li>接口/抽象类不依赖实现类,实现类依赖接口或抽象类,符合其约束.</li>
+</ul>
+<p>现在我们再来理解下什么是&quot;<strong>倒置</strong>&quot;呢? 要明白什么是&quot;倒置&quot;,首先谈谈依赖正置, 依赖正置就表示着程序中最普遍的实现类之间依赖,每个类都有所依赖具体实现类,一旦某个具体实现类发生替换,就要修改对其有所依赖的类的源代码,十足麻烦难以扩展; &quot;倒置&quot;就表示不再依赖实现类,而是基于抽象类和接口,从实现类之间的依赖变成抽象间的依赖,哪一方变化,只需要扩展或者新增其实现类即可.</p>
+<p>其实简而言之,依赖倒置原则讲的就是面向接口编程.</p>
+<h3 id="编码实践">编码实践</h3>
+<p>好了已经讲了这么多理论,接下来就简单例子用代码来实践下吧.我们假设雇了一个司机(Driver类)来帮我们开车,而它开的车是奔驰(Benz类),有一个开车的方法传的参数就是所要开的车,如果这时候我们要换个品牌的车如奥迪(Audio类),宝马(BMW类)等,按照原来的方式只能对开车方法进行调整,只能是某个品牌车.在这里我们根据 依赖倒置原则 将司机所要开的车抽象成接口 (ICar接口类),这样只要所有车都实现这个类,那么司机就能调用开车方法进行调用,具体关系类图如下</p>
+<figure data-type="image" tabindex="1"><img src="https://ws4.sinaimg.cn/large/006tNbRwly1fvgedz1n5qj310i0d4myh.jpg" alt="image-20180920225745525"></figure>
+<p>我们再根据关系类图用代码实现司机的开车功能,这里Driver类功能方法依赖的就是ICar接口,而不是具体实现类,使得更加灵活.</p>
+<pre><code class="language-java">public class DependencynIectionLab {
+
+    public static void main(String[] args) {
+        Driver driver = new Driver();
+        ICar car = new Benz();
+        driver.drive(car);
+        //Benz runing
+        car = new BMW();
+        driver.drive(car);
+        //BMW runing
+        car = new Audio();
+        driver.drive(car);
+        //Audio runing
+    }
+}
+
+/**
+ * 抽象接口-车
+ */
+interface ICar {
+    void run();
+}
+
+class Benz implements ICar {
+    @Override
+    public void run() {
+        System.out.println(&quot;Benz runing&quot;);
+    }
+}
+
+class Audio implements ICar {
+    @Override
+    public void run() {
+        System.out.println(&quot;Audio runing&quot;);
+    }
+}
+
+class BMW implements ICar {
+    @Override
+    public void run() {
+        System.out.println(&quot;BMW runing&quot;);
+    }
+}
+
+/**
+ * 功能方法依赖抽象,而不是实现类
+ */
+class Driver {
+    void drive(ICar car) {
+        car.run();
+    }
+}
+</code></pre>
+<h3 id="依赖注入模式">依赖注入模式</h3>
+<blockquote>
+<p>Dependence Inversion</p>
+</blockquote>
+<p>好了,看过 依赖倒置原则 之后,现在我们再来看依赖注入模式,就好理解多了.依赖注入就是将具体实现注入到使用抽象类或接口的类中。它的主要目的就是减少类之间的耦合，并将抽象与具体实现的绑定从移出。</p>
+<p>常见注入依赖形式有三种:</p>
+<ul>
+<li>构造函数注入</li>
+<li>Setter属性注入</li>
+<li>方法注入</li>
+</ul>
+<p>上面我们举的司机开车例子就属于方法注入.而构造函数注入和Setter属性注入这两种方式我们基于Spring框架搭建的程序里经常使用到.</p>
+<h3 id="优势">优势</h3>
+<ul>
+<li>模块间依赖解耦</li>
+<li>易测试</li>
+<li>易变更扩展</li>
+</ul>
+<h3 id="最佳实践">最佳实践</h3>
+<p>依赖倒置原则的本质就是通过抽象（接口或抽象类）使各个类或模块的实现彼此独立， 不互相影响，实现模块间的松耦合,我们可以遵循以下规则去利用依赖倒置原则:</p>
+<ul>
+<li>
+<p>每个类尽量都有接口或抽象类，或者抽象类和接口两者都具备</p>
+</li>
+<li>
+<p>变量的编译类型尽量是接口或者是抽象类</p>
+</li>
+<li>
+<p>任何类都不应该只从具体类继承</p>
+</li>
+<li>
+<p>尽量不要覆写父类的方法</p>
+</li>
+</ul>
+<h3 id="使用场景">使用场景</h3>
+<ul>
+<li>当你需要从对象中移除具体实现的信息时.</li>
+<li>当需要使用模拟对象在隔离环境对类进行单元测试时.</li>
+</ul>
+<h2 id="结语">结语</h2>
+<p>本文主要介绍了什么是依赖倒置原则,如何去理解这个原则, 以及基于依赖倒置原则的一种模式:依赖注入模式.掌握设计原则,能让我们更好地把握模块设计,并且也更能理解各自设计模式的设计出发点.</p>
+<h3 id="参考">参考</h3>
+<ul>
+<li>http://java-design-patterns.com/patterns/dependency-injection/</li>
+<li>https://www.codeproject.com/Articles/615139/An-Absolute-Beginners-Tutorial-on-Dependency-Inver</li>
+<li>https://www.codeproject.com/Articles/465173/Dependency-Inversion-Principle-IoC-Container-and-D</li>
+<li>http://java-design-patterns.com/patterns/dependency-injection/</li>
+</ul>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://wrcj12138aaa.github.io//tag/llypUO29A">
+            <span class="flex-auto">Java</span>
+          </a>
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://wrcj12138aaa.github.io//tag/RVSTCL07Eh">
+            <span class="flex-auto">设计模式</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://wrcj12138aaa.github.io//post/20181007-一起学模式之建造者模式">
+                <h3 class="post-title">
+                  <i class="remixicon-arrow-left-line"></i>
+                  一起学模式之建造者模式
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://wrcj12138aaa.github.io//post/20180918-设计模式之抽象工厂模式">
+                <h3 class="post-title">
+                  一起学模式之抽象工厂
+                  <i class="remixicon-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '2ba76d6fe50ad2b384eb',
+    clientSecret: '90db763ed48942571725d6aef11229900c8bb656',
+    repo: 'wrcj12138aaa.github.io',
+    owner: 'wrcj12138aaa',
+    admin: ['wrcj12138aaa'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+      </div>
+    </div>
+
+    <script src="https://wrcj12138aaa.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>
