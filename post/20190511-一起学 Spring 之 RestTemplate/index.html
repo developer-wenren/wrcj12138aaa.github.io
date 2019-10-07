@@ -1,0 +1,720 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>闻人的技术博客</title>
+<meta name="description" content="做一个终生学习者" />
+<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1570432015649">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://wrcj12138aaa.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="闻人的技术博客 - Atom Feed" href="https://wrcj12138aaa.github.io//atom.xml">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://wrcj12138aaa.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://wrcj12138aaa.github.io//images/avatar.png?v=1570432015649" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">闻人的技术博客</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#%E8%AE%A4%E8%AF%86-resttemplate">认识 <code>RestTemplate</code></a></li>
+<li><a href="#%E5%AE%9E%E6%88%98-resttemplate">实战 <code>RestTemplate</code></a>
+<ul>
+<li><a href="#1-%E7%94%9F%E6%88%90-demo-%E9%A1%B9%E7%9B%AE%E5%AF%BC%E5%85%A5-ide">1. 生成 Demo 项目，导入 IDE</a></li>
+<li><a href="#2-%E7%BC%96%E5%86%99%E8%AF%B7%E6%B1%82%E6%8E%A7%E5%88%B6%E5%99%A8%E7%B1%BB-productcontroller">2. 编写请求控制器类 ProductController</a></li>
+<li><a href="#3-%E7%BC%96%E5%86%99%E6%B5%8B%E8%AF%95%E7%B1%BB%E7%94%A8-resttemplate-%E5%8F%91%E9%80%81-http-%E8%AF%B7%E6%B1%82">3. 编写测试类用 RestTemplate 发送 HTTP 请求</a>
+<ul>
+<li><a href="#get-%E8%AF%B7%E6%B1%82">GET 请求</a></li>
+<li><a href="#post-%E8%AF%B7%E6%B1%82">POST 请求</a></li>
+<li><a href="#delete-%E8%AF%B7%E6%B1%82-%E5%92%8C-put-%E8%AF%B7%E6%B1%82">DELETE 请求 和 PUT 请求</a></li>
+</ul>
+</li>
+<li><a href="#%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6">上传文件</a></li>
+</ul>
+</li>
+<li><a href="#%E8%BF%9B%E9%98%B6-resttemplate">进阶 RestTemplate</a>
+<ul>
+<li><a href="#%E5%BA%95%E5%B1%82-http-%E8%AF%B7%E6%B1%82%E5%BA%93%E5%88%87%E6%8D%A2">底层 HTTP 请求库切换</a></li>
+<li><a href="#%E8%AF%B7%E6%B1%82%E8%B6%85%E6%97%B6%E8%AE%BE%E7%BD%AE">请求超时设置</a></li>
+</ul>
+</li>
+<li><a href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99">参考资料</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="remixicon-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"></div>
+    <a class="rss" href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">一起学 Spring 之 RestTemplate</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2019-05-11 / 21 min read
+        </div>
+        
+        <div class="post-content yue">
+          <h2 id="前言">前言</h2>
+<p>在 Java 服务端开发领域里，Spring 是绕不开的话题，尤其是现在微服务概念盛行，Spring Boot 的出现更是给 Spring 注入了新的活力，除此之外还有 Spring Cloud，这些框架让 Spring 技术体系更加丰富。Spring 从 2014 年的 1.0.0 版本迭代到 现在的 5.2.0 M1 版本，紧随着 Java 语言发展，不断引入新的特性和功能。本文关注的是 Spring 框架中 <code>RestTemplate</code> 内容，可以减少我们平时开发常使用的 <code>HttpClient</code> API 依赖。文章所涉及的示例 Demo 详见Github 地址：<a href="https://github.com/wrcj12138aaa/resttemplate/tree/master" title="Resttemplate demo">Resttemplate demo</a> 。感谢小七同学的认真校对，如果有任何技术问题或者文章纰漏，欢迎留言联系，一起交流探讨 😁。</p>
+<!-- more -->
+<h2 id="认识-resttemplate">认识 <code>RestTemplate</code></h2>
+<p>首先在我们学习使用 <code>RestTemplate</code> 之前，先认识下这个类，来看 Spring 官方怎么描述的。<br>
+从官方 API 文档 <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/client/RestTemplate.html" title="resttemplate javadoc">RestTemplate javadoc</a> 可以找该类的描述如下：</p>
+<blockquote>
+<p>Synchronous client to perform HTTP requests, exposing a simple, template method API over underlying HTTP client libraries such as the JDK HttpURLConnection, Apache HttpComponents, and others.<br>
+The RestTemplate offers templates for common scenarios by HTTP method, in addition to the generalized exchange and execute methods that support of less frequent cases.</p>
+</blockquote>
+<p>从这里可以清楚地了解到 <code>RestTemplate</code> 采用同步方式执行 HTTP 请求的类，底层使用 JDK 原生 <code>HttpURLConnection</code> API ，或者 <code>HttpComponents</code>等其他 HTTP 客户端请求类库。还有一处强调的就是 <code>RestTemplate</code> 提供模板化的方法让开发者能更简单地发送 HTTP 请求。</p>
+<p>值得注意的是，<code>RestTemplate</code> 类是在 Spring Framework 3.0 开始引入的，这里我们使用的 Spring 版本为当前最新的 GA 版本 5.1.6。而在 5.0 以上，官方标注了更推荐使用非阻塞的响应式 HTTP 请求处理类 <code>org.springframework.web.reactive.client.WebClient</code> 来替代 <code>RestTemplate</code>，尤其是对应异步请求处理的场景上 。</p>
+<p>这里我们先简单总结下什么是 <code>RestTemplate</code> ： <code>RestTemplate</code> 就是 Spring 封装的处理同步 HTTP 请求的类。具体如何使用这个类进行 HTTP 请求操作，可见文章的实战部分。</p>
+<p>接下来我们看下 <code>RestTemplate</code> 类提供的 API 有哪些,<code>RestTemplate</code> 提供了将近 30 个请求方法，其中多数是单个方法重载实现，这里我主要参考官方文档 <a href="https://docs.spring.io/spring/docs/5.1.6.RELEASE/spring-framework-reference/integration.html#rest-client-access" title="rest-client-access">rest-client-access</a> 进行如下分类：</p>
+<table>
+<thead>
+<tr>
+<th>方法名</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>getForObject</code></td>
+<td>通过 GET 请求获得响应结果</td>
+</tr>
+<tr>
+<td><code>getForEntity</code></td>
+<td>通过 GET 请求获取 <code>ResponseEntity</code> 对象，包容有状态码，响应头和响应数据</td>
+</tr>
+<tr>
+<td><code>headForHeaders</code></td>
+<td>以 HEAD 请求资源返回所有响应头信息</td>
+</tr>
+<tr>
+<td><code>postForLocation</code></td>
+<td>用 POST 请求创建资源，并返回响应数据中响应头的字段 <code>Location</code> 的数据</td>
+</tr>
+<tr>
+<td><code>postForObject</code></td>
+<td>通过 PATCH 请求创建资源，获得响应结果</td>
+</tr>
+<tr>
+<td><code>put</code></td>
+<td>通过 PUT 方式请求来创建或者更新资源</td>
+</tr>
+<tr>
+<td><code>patchForObject</code></td>
+<td>通过 PATH 方式请求来更新资源，并获得响应结果。(JDK <code>HttpURLConnection</code> 不支持 PATH 方式请求，其他 HTTP 客户端库支持)</td>
+</tr>
+<tr>
+<td><code>delete</code></td>
+<td>通过 DELETE 方式删除资源</td>
+</tr>
+<tr>
+<td><code>optionsForAllow</code></td>
+<td>通过 ALLOW 方式请求来获得资源所允许访问的所有 HTTP 方法，可用看某个请求支持哪些请求方式</td>
+</tr>
+<tr>
+<td><code>exchange</code></td>
+<td>更通用版本的请求处理方法，接受一个 <code>RequestEntity</code> 对象，可以设置路径，请求头，请求信息等，最后返回一个 <code>ResponseEntity</code> 实体</td>
+</tr>
+<tr>
+<td><code>execute</code></td>
+<td>最通用的执行 HTTP 请求的方法，上面所有方法都是基于 <code>execute</code> 的封装，全面控制请求信息，并通过回调接口获得响应数据</td>
+</tr>
+</tbody>
+</table>
+<p>看到那么多方法也记不全，为了更好理解，可以简单看下 <code>RestTemplate</code> 的类层级体系，通过官方源代码就能看到:</p>
+<pre><code class="language-java">/**
+ * Interface specifying a basic set of RESTful operations.
+ * Implemented by {@link RestTemplate}. Not often used directly, but a useful
+ * option to enhance testability, as it can easily be mocked or stubbed.
+ *
+ * @author Arjen Poutsma
+ * @author Juergen Hoeller
+ * @since 3.0
+ * @see RestTemplate
+ */
+public interface RestOperations {
+    ...
+}
+</code></pre>
+<p>其实 <code>RestTemplate</code> 类的请求方法都是来自 <code>RestOperations</code> 接口的，根据这个名字就可以大概知道这个接口主要就是提供了 RESTful 请求操作的接口，如 GET，POST，PUT，DELETE 等，具体信息可以参见 <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/client/RestOperations.html" title="restoperation javadoc">RestOperation javadoc</a>。</p>
+<figure data-type="image" tabindex="1"><img src="https://ws3.sinaimg.cn/large/006tNc79ly1g2xg8k30ekj30gn06jq2x.jpg" alt="RestTemplate 类层次图"></figure>
+<blockquote>
+<p>关于 RESTful：</p>
+<p>来自Wikipedia 定义：<strong>表现层状态转换</strong>，一种设计提供万维网络服务的<a href="https://zh.wikipedia.org/wiki/%E8%BB%9F%E4%BB%B6%E6%9E%B6%E6%A7%8B">软件构建风格</a>，又简称为 REST。</p>
+<p><strong>用 URL 定位资源，用 HTTP 动词描述操作，如 GET,POST,DELETE,PUT</strong>，简单来说通过 URL 就知道访问什么资源，通过 HTTP Method 就知道执行什么操作，通过 HTTP Status Code 就知道执行结果。</p>
+</blockquote>
+<h2 id="实战-resttemplate">实战 <code>RestTemplate</code></h2>
+<p>好了，简单认识了 <code>RestTemplate</code> 类之后，我们先牛刀小试，看看如何上手使用。</p>
+<h3 id="1-生成-demo-项目导入-ide">1. 生成 Demo 项目，导入 IDE</h3>
+<p>为了能快速搭建一个 Demo，我们这边用 Spring Boot 框架搭建，首先用官方提供的 <a href="https://start.spring.io" title="Spring Initializr">Spring Initializr</a> 来生成快速构建项目骨架，选择 Spring Boot 版本 2.1.4,其底层依赖的 Spring Framework 版本为最新发布版本 5.1.6，对于 POM 依赖只选择一个 Web 模块即可，这样便于快速搭建 Web 应用。<br>
+<img src="https://ws3.sinaimg.cn/large/006tNc79ly1g2xg8z26mmj30vf0ncgn8.jpg" alt="spring initializr"></p>
+<p>点击生成工程按钮，就可以下载到项目的压缩包，解压后用自己常用的 IDE 导入项目，项目结构整理如下：</p>
+<figure data-type="image" tabindex="2"><img src="https://ws1.sinaimg.cn/large/006tNc79ly1g2xg6m6idpj30ck0d5q3e.jpg" alt="项目骨架"></figure>
+<p>项目中 <code>ResttemplateApplication.java</code> 为整个程序的引导类，用于启动项目。</p>
+<h3 id="2-编写请求控制器类-productcontroller">2. 编写请求控制器类 ProductController</h3>
+<p>首先为了能够使用 <code>RestTemplate</code> 发送多种方式 HTTP 请求，先本地构建接受 HTTP 请求的产品控制器，新建包 <code>com.one.learn.resttemplate.controller</code>,新建产品 Controller <code>ProductController</code> , 代码如下：</p>
+<pre><code class="language-java">@RequestMapping(&quot;/product&quot;)
+@RestController
+public class ProductController {
+
+    @GetMapping(&quot;/get_product1&quot;)
+    public Product get_product1() {
+        return new Product(1, &quot;ProductA&quot;, BigDecimal.valueOf(6666.0));
+    }
+
+    @GetMapping(&quot;/get_product2&quot;)
+    public Product get_product2(Integer id) {
+        return new Product(id, &quot;ProductC&quot;, BigDecimal.valueOf(6666.0));
+    }
+
+    @GetMapping(&quot;/get_product3&quot;)
+    public String get_product3(Product product) {
+        return product.toString();
+    }
+
+
+    @PostMapping(&quot;/post_product1&quot;)
+    public String post_product1(Product product) {
+        return product.toString();
+    }
+
+    @PostMapping(&quot;/post_product2&quot;)
+    public String post_product2(@RequestBody Product product) {
+        return product.toString();
+    }
+
+    @DeleteMapping(&quot;/delete/{id}&quot;)
+    public String delete(@PathVariable Integer id) {
+        String result = String.format(&quot;编号为%s的产品删除成功&quot;, id);
+        System.out.println(result);
+        return result;
+    }
+
+    @PutMapping(&quot;/update&quot;)
+    public String updateByPut(Product product) {
+        String result = product.toString() + &quot; 更新成功&quot;;
+        System.out.println(result);
+        return result;
+    }
+
+    @PostMapping(&quot;/upload&quot;)
+    public String upload(MultipartRequest request) {
+ 	       // Spring MVC 使用 MultipartRequest 接受带文件的 HTTP 请求
+        MultipartFile file = request.getFile(&quot;file&quot;); 
+        String originalFilename = file.getOriginalFilename();
+        return &quot;upload success filename: &quot; + originalFilename;
+    }
+}
+</code></pre>
+<p>在<code>Product</code> 控制器中涉及的实体类 <code>Product</code> 创建在 <code>com.one.learn.resttemplate.bean</code> 包下，代码如下：</p>
+<pre><code class="language-java">public class Product {
+    private Integer id;
+    private String name;
+    private BigDecimal price;
+    
+    public Product() {
+    }
+    
+    public Product(Integer id, String name, BigDecimal price) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+    }
+
+			    // 省去 setter getter 方法
+	
+    @Override
+    public String toString() {
+        return &quot;Product{&quot; +
+                &quot;id='&quot; + id + '\'' +
+                &quot;, name='&quot; + name + '\'' +
+                &quot;, price='&quot; + price + '\'' +
+                '}';
+    }
+}
+</code></pre>
+<p>有了这些类，就可以利用程序引导类 <code>ResttemplateApplication</code> 启动 Spring Boot 项目，一个简单的 Web 应用就诞生了,监听 8080 端口，结果如下图所示：<br>
+<img src="https://ws1.sinaimg.cn/large/006tNc79ly1g2xg9hbqctj31830ei0x3.jpg" alt="项目启动"></p>
+<p>我们可以简单测试一下，打开浏览器，访问 <code>http://localhost:8080/product/get_product1</code>，会看到如图所示的结果：</p>
+<figure data-type="image" tabindex="3"><img src="https://ws4.sinaimg.cn/large/006tNc79ly1g2xg9l5hpuj30cr06kwek.jpg" alt="项目访问"></figure>
+<h3 id="3-编写测试类用-resttemplate-发送-http-请求">3. 编写测试类用 RestTemplate 发送 HTTP 请求</h3>
+<p>有了 Web 服务，接下来该使用 <code>RestTemplate</code> 来发送请求并处理响应了。我们在 <code>test</code> 文件下新建一个测试类 <code>com.one.learn.resttemplate.RestTemplateTests</code>,代码如下：</p>
+<pre><code class="language-java">public class RestTemplateTests {
+    RestTemplate restTemplate = null;
+
+    @Before
+    public void setup() {
+        restTemplate = new RestTemplate();
+    }
+    
+}
+</code></pre>
+<p>这里我们通过编写测试方法来用 <code>RestTemplate</code> API 实现对 <code>Product</code> 控制器各个接口的请求。</p>
+<h4 id="get-请求">GET 请求</h4>
+<p>我们先最简单的下手，尝试用 <code>RestTemplate</code> 访问请求路径为 <code>product/get_product1</code>, 一个不带任何参数 的 GET 请求，代码如下：</p>
+<pre><code class="language-java">@Test
+public void testGet_product1() {
+   String url = &quot;http://localhost:8080/product/get_product1&quot;;
+   //方式一：GET 方式获取 JSON 串数据
+   String result = restTemplate.getForObject(url, String.class);
+   System.out.println(&quot;get_product1返回结果：&quot; + result);
+   Assert.hasText(result, &quot;get_product1返回结果为空&quot;);
+	
+	   //方式二：GET 方式获取 JSON 数据映射后的 Product 实体对象
+   Product product = restTemplate.getForObject(url, Product.class);
+   System.out.println(&quot;get_product1返回结果：&quot; + product);
+   Assert.notNull(product, &quot;get_product1返回结果为空&quot;);
+	
+	   //方式三：GET 方式获取包含 Product 实体对象 的响应实体 ResponseEntity 对象,用 getBody() 获取
+   ResponseEntity&lt;Product&gt; responseEntity = restTemplate.getForEntity(url, Product.class);
+   System.out.println(&quot;get_product1返回结果：&quot; + responseEntity);
+   Assert.isTrue(responseEntity.getStatusCode().equals(HttpStatus.OK), &quot;get_product1响应不成功&quot;);
+   
+}
+</code></pre>
+<p>首先看下运行测试方法 <code>testGet_product1</code> 后控制台的输出日志：</p>
+<pre><code>...
+get_product1返回结果：{&quot;id&quot;:1,&quot;name&quot;:&quot;ProductA&quot;,&quot;price&quot;:6666.0}
+...
+get_product1返回结果：Product{id='1', name='ProductA', price='6666.0'}
+...
+get_product1返回结果：&lt;200,Product{id='1', name='ProductA', price='6666.0'},[Content-Type:&quot;application/json;charset=UTF-8&quot;, Transfer-Encoding:&quot;chunked&quot;, Date:&quot;Thu, 09 May 2019 15:37:25 GMT&quot;]&gt;
+...
+</code></pre>
+<p>可以看到 <code>testGet_product1</code> 请求都是成功响应并获取到了数据，从上面代码上看是不是很简单。现在来点略复杂的请求方式，使用  <code>RestTemplate</code> API 中 <code>exchange</code> 和 <code>execute</code> 方法发送 GET 请求，可以更加细粒度控制请求的行为，如 <code>Header</code> 信息，数据处理方式等,同样在 <code>testGet_product1</code> 方法里添加代码如下：</p>
+<pre><code class="language-java">@Test
+public void testGet_product1() {
+    String url = &quot;http://localhost:8080/product/get_product1&quot;;
+    //....
+    
+    //方式一： 构建请求实体 HttpEntity 对象，用于配置 Header 信息和请求参数
+    MultiValueMap header = new LinkedMultiValueMap();
+    header.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+    HttpEntity&lt;Object&gt; requestEntity = new HttpEntity&lt;&gt;(header);
+    //方式二： 执行请求获取包含 Product 实体对象 的响应实体 ResponseEntity 对象,用 getBody() 获取
+    ResponseEntity&lt;Product&gt; exchangeResult = restTemplate.exchange(url, HttpMethod.GET, requestEntity, Product.class);
+    System.out.println(&quot;get_product1返回结果：&quot; + exchangeResult);
+    Assert.isTrue(exchangeResult.getStatusCode().equals(HttpStatus.OK), &quot;get_product1响应不成功&quot;);
+
+    	//方式三： 根据 RequestCallback 接口实现类设置Header信息,用 ResponseExtractor 接口实现类读取响应数据
+    String executeResult = restTemplate.execute(url, HttpMethod.GET, request -&gt; {
+        request.getHeaders().add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
+    }, (clientHttpResponse) -&gt; {
+        InputStream body = clientHttpResponse.getBody();
+        byte[] bytes = new byte[body.available()];
+        body.read(bytes);
+        return new String(bytes);
+    }); // 备注：这里使用了 Java8 特性：Lambda 表达式语法，若未接触 Lambda 表达式后可以使用匿名内部类代替实现
+    System.out.println(&quot;get_product1返回结果：&quot; + executeResult);
+    Assert.hasText(executeResult, &quot;get_product1返回结果为空&quot;);
+}
+</code></pre>
+<p>同样再运行测试方法 <code>testGet_product1</code> 后控制台的输出日志：</p>
+<pre><code>...
+get_product1返回结果：&lt;200,Product{id='1', name='ProductA', price='6666.0'},[Content-Type:&quot;application/json;charset=UTF-8&quot;, Transfer-Encoding:&quot;chunked&quot;, Date:&quot;Thu, 09 May 2019 16:00:22 GMT&quot;]&gt;
+...
+get_product1返回结果：{&quot;id&quot;:1,&quot;name&quot;:&quot;ProductA&quot;,&quot;price&quot;:6666.0}
+...
+</code></pre>
+<p>结果也都是正常返回，说明执行的请求都是正确的。</p>
+<p>现在来尝试执行带有参数的 GET 请求，同样的方式编写一个新的测试方法，实现代码如下：</p>
+<pre><code class="language-java">@Test
+public void testGet_product2() {
+    String url = &quot;http://localhost:8080/product/get_product2/id={id}&quot;;
+	
+	    //方式一：将参数的值存在可变长度参数里，按照顺序进行参数匹配
+    ResponseEntity&lt;Product&gt; responseEntity = restTemplate.getForEntity(url, Product.class, 101);
+    System.out.println(responseEntity);
+    Assert.isTrue(responseEntity.getStatusCode().equals(HttpStatus.OK), &quot;get_product2 请求不成功&quot;);
+    Assert.notNull(responseEntity.getBody().getId(), &quot;get_product2  传递参数不成功&quot;);
+
+	    //方式二：将请求参数以键值对形式存储到 Map 集合中，用于请求时URL上的拼接
+    Map&lt;String, Object&gt; uriVariables = new HashMap&lt;&gt;();
+    uriVariables.put(&quot;id&quot;, 101);
+    Product result = restTemplate.getForObject(url, Product.class, uriVariables);
+    System.out.println(result);
+    Assert.notNull(result.getId(), &quot;get_product2  传递参数不成功&quot;);
+}
+</code></pre>
+<p>正常运行结果如下：</p>
+<pre><code>...
+&lt;200,Product{id='101', name='ProductC', price='6666.0'},[Content-Type:&quot;application/json;charset=UTF-8&quot;, Transfer-Encoding:&quot;chunked&quot;, Date:&quot;Fri, 10 May 2019 14:53:41 GMT&quot;]&gt;
+...
+Product{id='101', name='ProductC', price='6666.0'}
+...
+</code></pre>
+<h4 id="post-请求">POST 请求</h4>
+<p>了解完如何用 <code>RestTemplate</code> API 发送 GET 请求后，再看下平时也很常见的 POST 请求如何使用。由于 POST 请求数据的内容类型 <code>Content-Type</code> 不同，发送 POST 请求情况相对就多了，我们这里以常用的 <code>application/x-www-form-urlencoded</code> 和 <code>application/json</code> 这两种内容类型为例子。</p>
+<ul>
+<li>
+<p>发送 <code>Content-Type</code> 为 <code>application/x-www-form-urlencoded</code> 的 POST 请求：</p>
+<pre><code class="language-java">@Test
+</code></pre>
+</li>
+</ul>
+<p>public void testPost_product1() {<br>
+String url = &quot;http://localhost:8080/product/post_product1&quot;;<br>
+Product product = new Product(201, &quot;Macbook&quot;, BigDecimal.valueOf(10000));<br>
+// 设置请求的 Content-Type 为 application/x-www-form-urlencoded<br>
+MultiValueMap&lt;String, String&gt; header = new LinkedMultiValueMap();<br>
+header.add(HttpHeaders.CONTENT_TYPE, (MediaType.APPLICATION_FORM_URLENCODED_VALUE));</p>
+<pre><code>	 //方式二： 将请求参数值以 K=V 方式用 &amp; 拼接，发送请求使用
+    String productStr = &quot;id=&quot; + product.getId() + &quot;&amp;name=&quot; + product.getName() + &quot;&amp;price=&quot; + product.getPrice();
+    HttpEntity&lt;String&gt; request = new HttpEntity&lt;&gt;(productStr, header);
+    ResponseEntity&lt;String&gt; exchangeResult = restTemplate.exchange(url, HttpMethod.POST, request, String.class);
+    System.out.println(&quot;post_product1: &quot; + exchangeResult);
+    Assert.isTrue(exchangeResult.getStatusCode().equals(HttpStatus.OK), &quot;post_product1 请求不成功&quot;);
+
+	    //方式一： 将请求参数以键值对形式存储在 MultiValueMap 集合，发送请求时使用
+    MultiValueMap&lt;String, Object&gt; map = new LinkedMultiValueMap();
+    map.add(&quot;id&quot;, (product.getId()));
+    map.add(&quot;name&quot;, (product.getName()));
+    map.add(&quot;price&quot;, (product.getPrice()));
+    HttpEntity&lt;MultiValueMap&gt; request2 = new HttpEntity&lt;&gt;(map, header);
+    ResponseEntity&lt;String&gt; exchangeResult2 = restTemplate.exchange(url, HttpMethod.POST, request2, String.class);
+    System.out.println(&quot;post_product1： &quot; + exchangeResult2);
+    Assert.isTrue(exchangeResult.getStatusCode().equals(HttpStatus.OK), &quot;post_product1 请求不成功&quot;);
+</code></pre>
+<p>}<br>
+```<br>
+对应的输出日志如下：</p>
+<pre><code>```
+</code></pre>
+<p>...<br>
+post_product1: &lt;200,Product{id='201', name='Macbook', price='10000'},[Content-Type:&quot;text/plain;charset=UTF-8&quot;, Content-Length:&quot;48&quot;, Date:&quot;Fri, 10 May 2019 16:07:43 GMT&quot;]&gt;<br>
+...<br>
+post_product1： &lt;200,Product{id='201', name='Macbook', price='10000'},[Content-Type:&quot;text/plain;charset=UTF-8&quot;, Content-Length:&quot;48&quot;, Date:&quot;Fri, 10 May 2019 16:07:43 GMT&quot;]&gt;<br>
+```</p>
+<ul>
+<li>
+<p>发送 <code>Content-Type</code> 为 <code>application/json</code> 的 POST 请求：</p>
+<pre><code class="language-java">@Test
+</code></pre>
+</li>
+</ul>
+<p>public void testPost_product2() {<br>
+String url = &quot;http://localhost:8080/product/post_product2&quot;;</p>
+<pre><code>// 设置请求的 Content-Type 为 application/json
+MultiValueMap&lt;String, String&gt; header = new LinkedMultiValueMap();
+header.put(HttpHeaders.CONTENT_TYPE, Arrays.asList(MediaType.APPLICATION_JSON_VALUE));
+// 设置 Accept 向服务器表明客户端可处理的内容类型
+header.put(HttpHeaders.ACCEPT, Arrays.asList(MediaType.APPLICATION_JSON_VALUE));
+// 直接将实体 Product 作为请求参数传入，底层利用 Jackson 框架序列化成 JSON 串发送请求
+HttpEntity&lt;Product&gt; request = new HttpEntity&lt;&gt;(new Product(2, &quot;Macbook&quot;, BigDecimal.valueOf(10000)), header);
+ResponseEntity&lt;String&gt; exchangeResult = restTemplate.exchange(url, HttpMethod.POST, request, String.class);
+System.out.println(&quot;post_product2: &quot; + exchangeResult);
+Assert.isTrue(exchangeResult.getStatusCode().equals(HttpStatus.OK), &quot;post_product2 请求不成功&quot;);
+</code></pre>
+<p>}<br>
+```</p>
+<pre><code>验证的输出日志如下：
+
+```
+···
+post_product2: &lt;200,Product{id='2', name='Macbook', price='10000'},[Content-Type:&quot;application/json;charset=UTF-8&quot;, Content-Length:&quot;46&quot;, Date:&quot;Fri, 10 May 2019 16:09:11 GMT&quot;]&gt;
+···
+```
+</code></pre>
+<h4 id="delete-请求-和-put-请求">DELETE 请求 和 PUT 请求</h4>
+<p>DELETE 请求和 PUT 请求属于 RESTful 请求方式的两种，但通常不会被使用到，这里也只是简单演示下，具体代码如下：</p>
+<pre><code class="language-java">// DELETE 方法请求
+@Test
+public void testDelete() {
+   String url = &quot;http://localhost:8080/product/delete/{id}&quot;;
+   restTemplate.delete(url, 101);
+}
+
+// PUT 方法请求
+@Test
+public void testPut() {
+    String url = &quot;http://localhost:8080/product/update&quot;;
+    Map&lt;String, ?&gt; variables = new HashMap&lt;&gt;();
+    MultiValueMap&lt;String, String&gt; header = new LinkedMultiValueMap();
+    header.put(HttpHeaders.CONTENT_TYPE, Arrays.asList(MediaType.APPLICATION_FORM_URLENCODED_VALUE));
+    Product product = new Product(101, &quot;iWatch&quot;, BigDecimal.valueOf(2333));
+    String productStr = &quot;id=&quot; + product.getId() + &quot;&amp;name=&quot; + product.getName() + &quot;&amp;price=&quot; + product.getPrice();
+    HttpEntity&lt;String&gt; request = new HttpEntity&lt;&gt;(productStr, header);
+    restTemplate.put(url, request);
+}
+</code></pre>
+<h3 id="上传文件">上传文件</h3>
+<p>现在我们再试下如何使用 <code>RestTemplate</code> API 进行文件上传,也比较简单，首先看下实现代码:</p>
+<pre><code class="language-java">@Test
+public void testUploadFile() {
+    String url = &quot;http://localhost:8080/product/upload&quot;;
+    MultiValueMap&lt;String, Object&gt; body = new LinkedMultiValueMap&lt;&gt;();
+    FileSystemResource file = new FileSystemResource(new File(&quot;/Users/One/Desktop/b.txt&quot;));
+    body.add(&quot;file&quot;, file);
+
+    MultiValueMap&lt;String, String&gt; header = new LinkedMultiValueMap();
+    header.put(HttpHeaders.CONTENT_TYPE, Arrays.asList(MediaType.MULTIPART_FORM_DATA_VALUE));
+    HttpEntity&lt;MultiValueMap&lt;String, Object&gt;&gt; requestEntity = new HttpEntity&lt;&gt;(body, header);
+    ResponseEntity&lt;String&gt; responseEntity = restTemplate.postForEntity(url, requestEntity, String.class);
+    System.out.println(&quot;upload: &quot; + responseEntity);
+    Assert.isTrue(responseEntity.getStatusCode().equals(HttpStatus.OK), &quot;upload 请求不成功&quot;);
+}
+</code></pre>
+<p>如果需要上传文件类型数据，就只能使用 POST 请求，并且内容类型为 <code>multipart/form-data</code>,需要手动给 <code>Header</code> 指定这个 <code>Content-Type</code>。而需要上传的文件可以用 <code>FileSystemResource</code> 对象封装，表示了一个文件资源，同时服务端需要用 <code>MultipartRequest</code> 对象来获取文件数据。结合已运行的 Web 服务，运行上述测试方法即可得到下面日志输出:</p>
+<pre><code>...
+upload: &lt;200,upload success filename: b.txt,[Content-Type:&quot;text/plain;charset=UTF-8&quot;, Content-Length:&quot;30&quot;, Date:&quot;Fri, 10 May 2019 17:00:45 GMT&quot;]&gt;
+...
+</code></pre>
+<h2 id="进阶-resttemplate">进阶 RestTemplate</h2>
+<p>到这里我们就学习了 <code>RestTemplate</code> API 请求数据的几种常见方式，现在来进一步地深入使用 <code>RestTemplate</code>。</p>
+<h3 id="底层-http-请求库切换">底层 HTTP 请求库切换</h3>
+<p>我们首先看下官方文档的描述：</p>
+<blockquote>
+<p>The default constructor uses java.net.HttpURLConnection to perform requests. You can switch to a different HTTP library with an implementation of ClientHttpRequestFactory. There is built-in support for the following:</p>
+<ul>
+<li>Apache HttpComponents</li>
+<li>Netty</li>
+<li>OkHttp</li>
+</ul>
+</blockquote>
+<p>从上面可以看出 <code>RestTemplate</code> 默认使用 JDK 原生的 <code>java.net.HttpURLConnection</code> 执行请求。而除此之外，Spring 还封装了 Apache HttpComponents， Netty， OkHttp 三种请求库，第一个就是我们平常用的 <code>HttpClient</code> API 相关的库，而 <a href="https://netty.io/" title="Netty">Netty</a> 则是一个性能高的NIO 请求处理网络库，<a href="https://square.github.io/okhttp" title="OkHttp">OkHttp</a> 为功能丰富且高效的网络框架，多用于 Android 程序。</p>
+<p>而我们上文采用默认的构造器方法创建的 <code>RestTemplate</code> 实例，即采用了 JDK 原生的网络 API。想要切换，只需要在构造方法中传入特定 <code>ClientHttpRequestFactory</code> 实现类即可,如下代码：</p>
+<pre><code class="language-java">RestTemplate template = new RestTemplate(new HttpComponentsClientHttpRequestFactory());
+</code></pre>
+<p>我们查看 <code>RestTemplate</code> 源码找不到默认采用JDK <code>HttpURLConnection</code> API 的代码，那就根据前文给出 <code>RestTemplate</code> 类层次图向上查找，可以在父类 <code>HttpAccessor</code> 上能找到如下代码：</p>
+<pre><code class="language-java">public abstract class HttpAccessor {
+	// ...
+	private ClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
+	// ...
+}
+</code></pre>
+<p>而 Spring 对工厂类 <code>SimpleClientHttpRequestFactory</code> 描述为: <code>implementation that uses standard JDK facilities</code>， 也正说明了默认构造 <code>RestTemplate</code> 实例的行为都会直接使用 JDK 网络 API。</p>
+<h3 id="请求超时设置">请求超时设置</h3>
+<p>通常我们会对 HTTP 请求类进行执行行为的定制，例如调用超时时间设置，连接时长的限制等，而采用默认的 <code>HttpURLConnection</code> 默认的配置时， 从 <code>SimpleClientHttpRequestFactory</code> 源码类可以看到是没有超时限制，也就意味着无限等待请求响应：</p>
+<pre><code class="language-java">// RestTemplate 默认超时设置
+...
+private int connectTimeout = -1;
+private int readTimeout = -1;
+...
+</code></pre>
+<p>那么我们该如何调整超时时间,可以参考如下代码：</p>
+<pre><code>RestTemplate customRestTemplate = new RestTemplate(getClientHttpRequestFactory());
+
+private SimpleClientHttpRequestFactory getClientHttpRequestFactory() {
+    SimpleClientHttpRequestFactory clientHttpRequestFactory
+            = new SimpleClientHttpRequestFactory();
+    // 连接超时设置 10s
+    clientHttpRequestFactory.setConnectTimeout(10_000);
+
+    // 读取超时设置 10s
+    clientHttpRequestFactory.setReadTimeout(10_000);
+    return clientHttpRequestFactory;
+}
+</code></pre>
+<p>如果要调整  <code>HttpComponentsClient</code> 的超时设置，可以参考文章<a href="https://howtodoinjava.com/spring-boot2/resttemplate-timeout-example/" title="resttemplate-timeout-example">resttemplate-timeout-example</a> 。当然除了设置超时时间之外，还有更多参数进行定制，这里就不一一列举，可以参考文章 <a href="https://howtodoinjava.com/spring-restful/resttemplate-httpclient-java-config/" title="resttemplate-httpclient-java-config">resttemplate-httpclient-java-config</a> 进一步学习。</p>
+<p>到这里我们对 <code>RestTemplate</code> 的学习告一段落，如果有兴趣可以进一步研究下相关源码，有机会尝试使起来吧。😁</p>
+<figure data-type="image" tabindex="4"><img src="https://ws2.sinaimg.cn/large/006tNc79ly1g2xgsoqkphj30760763yr.jpg" alt="二维码"></figure>
+<h2 id="参考资料">参考资料</h2>
+<p>https://www.baeldung.com/rest-template</p>
+<p>http://blog.didispace.com/spring-boot-learning-21-1-1</p>
+<p>https://www.baeldung.com/spring-rest-template-multipart-upload</p>
+<p>https://www.zhihu.com/question/28557115</p>
+<p>https://howtodoinjava.com/spring-boot2/resttemplate-timeout-example</p>
+<p>https://docs.spring.io/spring/docs/5.1.6.RELEASE/spring-framework-reference/integration.html#rest-client-access</p>
+<p>https://zh.wikipedia.org/wiki/%E8%A1%A8%E7%8E%B0%E5%B1%82%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2</p>
+<p>https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/client/RestOperations.html</p>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://wrcj12138aaa.github.io//tag/VSWLYuWEZR">
+            <span class="flex-auto">Spring</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://wrcj12138aaa.github.io//post/20190518-一起学 Spring 之异常处理">
+                <h3 class="post-title">
+                  <i class="remixicon-arrow-left-line"></i>
+                  一起学 Spring 之 异常处理
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://wrcj12138aaa.github.io//post/20190504-译 - Spring 核心技术之 Spring 容器扩展点">
+                <h3 class="post-title">
+                  译- Spring 核心技术之 Spring 容器扩展点
+                  <i class="remixicon-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+
+      </div>
+    </div>
+
+    <script src="https://wrcj12138aaa.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>

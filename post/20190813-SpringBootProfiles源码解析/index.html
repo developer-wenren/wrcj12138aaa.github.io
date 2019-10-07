@@ -1,0 +1,495 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>闻人的技术博客</title>
+<meta name="description" content="做一个终生学习者" />
+<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1570432015649">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://wrcj12138aaa.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="闻人的技术博客 - Atom Feed" href="https://wrcj12138aaa.github.io//atom.xml">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://wrcj12138aaa.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://wrcj12138aaa.github.io//images/avatar.png?v=1570432015649" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">闻人的技术博客</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#%E6%AD%A3%E6%96%87">正文</a></li>
+</ul>
+</li>
+<li><a href="#%E5%B0%8F%E7%BB%93">小结</a>
+<ul>
+<li><a href="#%E6%8E%A8%E8%8D%90%E9%98%85%E8%AF%BB">推荐阅读</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="remixicon-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"></div>
+    <a class="rss" href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">Spring Boot Profiles 源码解析</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2019-08-13 / 13 min read
+        </div>
+        
+        <div class="post-content yue">
+          <h2 id="前言">前言</h2>
+<p>上文<a href="https://mp.weixin.qq.com/s/TfA8rSwYNpW3YV_N8oLJnw">《一文掌握 Spring Boot Profiles》</a> 是对 Spring Boot Profiles 的介绍和使用，因此本文将从源码角度探究 Spring Boot Profiles，让我们看下 Spring Boot 底层是如何应用 Profiles 进行环境配置的隔离与生效的。</p>
+<h2 id="正文">正文</h2>
+<p>首先，我们先来看下一个简单的 Spring Boot 示例程序，</p>
+<pre><code class="language-java">@SpringBootApplication
+@Slf4j
+public class SimapleSpringApplication {
+
+    public static void main(String[] args) {
+        ConfigurableApplicationContext context = SpringApplication.run(SimapleSpringApplication.class, args);
+        User user = context.getBean(User.class);
+        log.warn(&quot;User Bean: {}&quot;, user);
+    }
+}
+</code></pre>
+<p>在主程序方法中，打印容器中获取到 User 对象，它只有一个 <code>name</code> 属性。</p>
+<pre><code class="language-java">@Data
+@Component
+public class User {
+    @Value(&quot;${user.username}&quot;)
+    private String name;
+}
+</code></pre>
+<p>这里 <code>name</code> 属性引用了外部配置  <code>user.username</code> 的值，它是从配置文件中读取，这里我定义两个配置文件设置该属性，<code>application.properties</code> 和 <code>application-prod.properties</code>。</p>
+<pre><code class="language-properties"># application.properties 
+user.username=one
+
+# application-prod.properties
+user.username=one-prod
+</code></pre>
+<p>有了配置文件之后，启动 <code>SimapleSpringApplication</code> 程序，我们首先可以看到日志输入：<code>User Bean: User(name=one)</code>，由此可以看出程序读取了 <code>application.properties</code>  的 <code>user.username</code> 配置。现在我们在 <code>application.properties</code> 中加入一行：</p>
+<pre><code class="language-properties">spring.profiles.active=prod
+</code></pre>
+<p>再次重启启动程序，可以看到控制台如下日志：</p>
+<pre><code class="language-bash">2019-08-11 18:16:22.787  INFO 4849 --- [           main] c.o.l.s.demo.SimapleSpringApplication    : Starting SimapleSpringApplication on 192.168.0.119 with PID 4849 (started by one in /Users/One/Nutstore Files/One/OpenSource/springboot-profiles-sources)
+2019-08-11 18:16:22.789  INFO 4849 --- [           main] c.o.l.s.demo.SimapleSpringApplication    : The following profiles are active: prod
+2019-08-11 18:16:23.143  INFO 4849 --- [           main] c.o.l.s.demo.SimapleSpringApplication    : Started SimapleSpringApplication in 0.575 seconds (JVM running for 0.957)
+2019-08-11 18:16:23.145  WARN 4849 --- [           main] c.o.l.s.demo.SimapleSpringApplication    : User Bean: User(name=one-prod)
+</code></pre>
+<p>此时 User 对象的name属性变成了 <code>application-prod.properties</code> 中定义的值，并且日志提示  <code>The following profiles are active: prod</code> 表明了名称为 <code>prod</code>  的Profile 在程序中激活。接下来我们就从这个日志入手，探究下这一切是如何发生的。</p>
+<p>首先，根据 IDE 的全局查找功能，直接搜索 <code>The following profiles are active:</code>  这些词出现的位置，进行定位，可以找到这个日志出现于 <code>SpringApplication#logStartupProfileInfo</code> 方法之中。</p>
+<figure data-type="image" tabindex="1"><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g5vwt5ae3qj31pm0u014n.jpg" alt=""></figure>
+<pre><code class="language-java">	protected void logStartupProfileInfo(ConfigurableApplicationContext context) {
+		Log log = getApplicationLog();
+		if (log.isInfoEnabled()) {
+			String[] activeProfiles = context.getEnvironment().getActiveProfiles();
+			if (ObjectUtils.isEmpty(activeProfiles)) {
+				String[] defaultProfiles = context.getEnvironment().getDefaultProfiles();
+				log.info(&quot;No active profile set, falling back to default profiles: &quot;
+						+ StringUtils.arrayToCommaDelimitedString(defaultProfiles));
+			}
+			else {
+				log.info(&quot;The following profiles are active: &quot;
+						+ StringUtils.arrayToCommaDelimitedString(activeProfiles));
+			}
+		}
+	}
+</code></pre>
+<p>从日志方法可以看出打印的 <code>activeProfiles</code> 来自上下文关联的 <code>environment</code> 对象，再进一步查看 <code>logStartupProfileInfo</code> 的调用位置，可以在 <code>SpringApplication#prepareContext</code> 方法之中找到，这个方法从命名上就可以看出是主要负责 Spring Boot 运行前容器上下文的预备工作，</p>
+<pre><code class="language-java">	private void prepareContext(ConfigurableApplicationContext context, ConfigurableEnvironment environment,
+			SpringApplicationRunListeners listeners, ApplicationArguments applicationArguments, Banner printedBanner) {
+		context.setEnvironment(environment);
+		postProcessApplicationContext(context);
+		applyInitializers(context);
+		listeners.contextPrepared(context);
+		if (this.logStartupInfo) {
+			logStartupInfo(context.getParent() == null);
+			logStartupProfileInfo(context);
+		}
+		// Add boot specific singleton beans
+    // ...
+		// Load the sources
+    // ...
+		listeners.contextLoaded(context);
+	}
+</code></pre>
+<p>我们重新运行程序，通过断点方式拦截 <code>SpringApplication#prepareContext</code> 方法的指向， 获取 <code>environment</code>对象真实的类型为 StandardEnvironment，是 Environment 接口非Web环境的标准实现，存储着一些应用配置和 Profiles 信息，如果在Web环境下，context 关联的就是 StandardServletEnvironment 类型的对象。</p>
+<figure data-type="image" tabindex="2"><img src="http://ww3.sinaimg.cn/large/006tNc79ly1g5w37sz5y7j31d80u0k2q.jpg" alt="image-20190811220336681"></figure>
+<p>知道了日志打印来自 StandardEnvironment 对象的 activeProfiles 属性之后，就需要来看它是在什么时间被赋值的了。继续从调用链的上一级查找，就到了 <code>SpringApplication#run(java.lang.String...)</code>，这也是整个程序启动的主要方法。</p>
+<figure data-type="image" tabindex="3"><img src="http://ww3.sinaimg.cn/large/006tNc79gy1g5w3cbdypdj320u0ryk1y.jpg" alt="image-20190811220752235"></figure>
+<p>从图中可以看出第一次获取到的 environment 对象来自 <code>SpringApplication#prepareEnvironment</code> 内部生成， <code>prepareEnvironment</code> 方法内部首先通过 <code>getOrCreateEnvironment</code> 获取一个基础的 <code>ConfigurableEnvironment</code> 实例，然后对该实例对象初始化配置返回。</p>
+<pre><code class="language-java">	private ConfigurableEnvironment prepareEnvironment(SpringApplicationRunListeners listeners,
+			ApplicationArguments applicationArguments) {
+		// Create and configure the environment
+		ConfigurableEnvironment environment = getOrCreateEnvironment();
+		configureEnvironment(environment, applicationArguments.getSourceArgs());
+		listeners.environmentPrepared(environment);
+		bindToSpringApplication(environment);
+		if (!this.isCustomEnvironment) {
+			environment = new EnvironmentConverter(getClassLoader()).convertEnvironmentIfNecessary(environment,
+					deduceEnvironmentClass());
+		}
+		ConfigurationPropertySources.attach(environment);
+		return environment;
+	}
+</code></pre>
+<p>正在创建 <code>environment</code> 对象来自 <code>SpringApplication#getOrCreateEnvironment</code>，看它的实现就可以验证我们之前提到  <code>environment</code> 对象类型为 StandardEnvironment。</p>
+<pre><code class="language-java">	private ConfigurableEnvironment getOrCreateEnvironment() {
+		if (this.environment != null) {
+			return this.environment;
+		}
+		switch (this.webApplicationType) {
+		case SERVLET:
+			return new StandardServletEnvironment();
+		case REACTIVE:
+			return new StandardReactiveWebEnvironment();
+		default:
+			return new StandardEnvironment();
+		}
+	}
+</code></pre>
+<p>了解完  <code>environment</code> 的创建，接下来就关注 <code>environment</code> 的初始化了，这里我们需要关注 <code>listeners.environmentPrepared(environment)</code> 这行代码，这里的 listeners 为 SpringApplicationRunListeners 实例，是监听器 SpringApplicationRunListener 的集合对象， <code>SpringApplicationRunListener#environmentPrepared</code> 方法中就是对每个 SpringApplicationRunListener 对象遍历指向类似的 <code>environmentPrepared</code> 方法，当前集合中只有一个 EventPublishingRunListener 实例，查看其 <code>environmentPrepared</code> 方法就可以看到它主要就是用于发布包含 <code>environment</code> 实例的 <code>ApplicationEnvironmentPreparedEvent</code> 事件，让其他所有监听该事件的监听器进行  <code>environment</code> 实例的配置。</p>
+<figure data-type="image" tabindex="4"><img src="http://ww1.sinaimg.cn/large/006tNc79gy1g5w3ri69quj31ra08gmz9.jpg" alt="image-20190811222233932"></figure>
+<p>事件对象 ApplicationEnvironmentPreparedEvent  还有一个 getEnvironment 方法获取所传递的 environment实例，我们可以通过看这个方法被使用的地方，获取有哪些类在配置 environment 对象。</p>
+<figure data-type="image" tabindex="5"><img src="http://ww1.sinaimg.cn/large/006tNc79gy1g5w3wvkb58j31sq0e6q8o.jpg" alt="image-20190811222743323"></figure>
+<p>经过多次的查看，从上图可以定位到 ConfigFileApplicationListener 类内的方法对 environment 对象进行扩展，从命名可以看出这个监听器跟配置文件相关，比如它的一些常量属性：<code>CONFIG_NAME_PROPERTY</code>，<code>CONFIG_LOCATION_PROPERTY</code>等。从类的注释可以看出，Spring Boot 程序启动所加载的 <code>application.properties</code> 或 <code>application.yml</code> 默认从四个路径下加载，我们最常用的就是最后一种，它也可以告诉我们还可以把配置文件放在哪，如何自定义加载配置文件的路径。</p>
+<ul>
+<li>file:./config/:</li>
+<li>file:./</li>
+<li>classpath:config/</li>
+<li>classpath:</li>
+</ul>
+<pre><code class="language-java">/**
+ * {@link EnvironmentPostProcessor} that configures the context environment by loading
+ * properties from well known file locations. By default properties will be loaded from
+ * 'application.properties' and/or 'application.yml' files in the following locations:
+ * &lt;ul&gt;
+ * &lt;li&gt;file:./config/:&lt;/li&gt;
+ * &lt;li&gt;file:./&lt;/li&gt;
+ * &lt;li&gt;classpath:config/&lt;/li&gt;
+ * &lt;li&gt;classpath:&lt;/li&gt;
+ * &lt;/ul&gt;
+ * The list is ordered by precedence (properties defined in locations higher in the list
+ * override those defined in lower locations).
+ * &lt;p&gt;
+ * Alternative search locations and names can be specified using
+ * {@link #setSearchLocations(String)} and {@link #setSearchNames(String)}.
+ * &lt;p&gt;
+ * Additional files will also be loaded based on active profiles. For example if a 'web'
+ * profile is active 'application-web.properties' and 'application-web.yml' will be
+ * considered.
+ * &lt;p&gt;
+ * The 'spring.config.name' property can be used to specify an alternative name to load
+ * and the 'spring.config.location' property can be used to specify alternative search
+ * locations or specific files.
+ * &lt;p&gt;
+ */
+public class ConfigFileApplicationListener implements EnvironmentPostProcessor, SmartApplicationListener, Ordered {
+  //...
+}
+</code></pre>
+<p>将程序断点设置于 <code>ConfigFileApplicationListener#onApplicationEvent</code> 方法之内，重新运行程序就看到程序此时运行到了 <code>ConfigFileApplicationListener</code> 类之中，内部经过多个方法调用从  <code>onApplicationEvent</code> 来到了 <code>addPropertySources</code> 方法,这个方法就是配置文件的属性源加载到 environment 环境去的。</p>
+<figure data-type="image" tabindex="6"><img src="http://ww1.sinaimg.cn/large/006tNc79gy1g5w4iv19wqj31kw0no0yr.jpg" alt="image-20190811224851204"></figure>
+<p>这里的 <code>Loader</code> 是 <code>ConfigFileApplicationListener</code>类内部私有类，用于协调属性源和配置 Profiles，我们再进一步跟踪到它的 load 方法。</p>
+<pre><code class="language-java">		public void load() {
+			this.profiles = new LinkedList&lt;&gt;();
+			this.processedProfiles = new LinkedList&lt;&gt;();
+			this.activatedProfiles = false;
+			this.loaded = new LinkedHashMap&lt;&gt;();
+			initializeProfiles();
+			while (!this.profiles.isEmpty()) {
+				Profile profile = this.profiles.poll();
+				if (profile != null &amp;&amp; !profile.isDefaultProfile()) {
+					addProfileToEnvironment(profile.getName());
+				}
+				load(profile, this::getPositiveProfileFilter, addToLoaded(MutablePropertySources::addLast, false));
+				this.processedProfiles.add(profile);
+			}
+			resetEnvironmentProfiles(this.processedProfiles);
+			load(null, this::getNegativeProfileFilter, addToLoaded(MutablePropertySources::addFirst, true));
+			addLoadedPropertySources();
+		}
+</code></pre>
+<p>我们主要看这个方法中的是三个方法：</p>
+<ul>
+<li>Loader#initializeProfiles</li>
+<li>Loader#addProfileToEnvironment</li>
+<li>Loader#load(Profile, DocumentFilterFactory, DocumentConsumer)</li>
+</ul>
+<p>第一个方法 initializeProfiles 初始化 Profiles，给 profiles 属性添加两个元素，null 和 默认的Profile。</p>
+<p>第二个方法 addProfileToEnvironment 就是将 Profile 添加到 environment对象的 activeProfiles 里，也就是最开始日志打印的 activeProfiles。</p>
+<p>第三个方法就是加载配置文件的数据源和Profies 相关的属性。</p>
+<p>进入 load 方法，这个方法内部通过不同配置路径去尝试执行另一个 <code>load</code> 方法加载配置文件，这里name就是配所要搜索的配置文件名称，默认为 <code>application</code>。</p>
+<pre><code class="language-java">		private void load(Profile profile, DocumentFilterFactory filterFactory, DocumentConsumer consumer) {
+			getSearchLocations().forEach((location) -&gt; {
+				boolean isFolder = location.endsWith(&quot;/&quot;);
+				Set&lt;String&gt; names = isFolder ? getSearchNames() : NO_SEARCH_NAMES;
+				names.forEach((name) -&gt; load(location, name, profile, filterFactory, consumer));
+			});
+		}
+</code></pre>
+<p>由于我们的配置文件在classPath下，所以只要留意当 location为 <code>classpath:/</code> 的程序执行情况即可。</p>
+<pre><code class="language-java">private void load(String location, String name, Profile profile, DocumentFilterFactory filterFactory, DocumentConsumer consumer) {
+			if (!StringUtils.hasText(name)) {
+				for (PropertySourceLoader loader : this.propertySourceLoaders) {
+					if (canLoadFileExtension(loader, location)) {
+						load(loader, location, profile, filterFactory.getDocumentFilter(profile), consumer);
+						return;
+					}
+				}
+			}
+			Set&lt;String&gt; processed = new HashSet&lt;&gt;();
+			for (PropertySourceLoader loader : this.propertySourceLoaders) {
+				for (String fileExtension : loader.getFileExtensions()) {
+					if (processed.add(fileExtension)) {
+						loadForFileExtension(loader, location + name, &quot;.&quot; + fileExtension, profile, filterFactory,
+								consumer);
+					}
+				}
+			}
+		}
+</code></pre>
+<p>由于SpringBoot 配置文件支持xml，properties， yml 格式，就需要不同 PropertySourceLoader 支持其文件内容的加载：PropertiesPropertySourceLoader 支持 <code>xml</code>，<code>properties</code> 文件，YamlPropertySourceLoader 支持 yml 文件，加载以 <code>.yml</code> 或 <code>.yaml</code> 后缀的文件，<code>Loader#loadForFileExtension</code> 方法就完成了对这些配置文件的加载。</p>
+<p>我们示例程序只有 properties 文件，所以只需要关注当 loader 为 PropertiesPropertySourceLoader时的 <code>Loader#loadForFileExtension</code> 方法的执行情况。</p>
+<pre><code class="language-java">		private void loadForFileExtension(PropertySourceLoader loader, String prefix, String fileExtension, Profile profile, DocumentFilterFactory filterFactory, DocumentConsumer consumer) {
+			DocumentFilter defaultFilter = filterFactory.getDocumentFilter(null);
+			DocumentFilter profileFilter = filterFactory.getDocumentFilter(profile);
+			if (profile != null) {
+				// Try profile-specific file &amp; profile section in profile file (gh-340)
+				String profileSpecificFile = prefix + &quot;-&quot; + profile + fileExtension;
+				load(loader, profileSpecificFile, profile, defaultFilter, consumer);
+				load(loader, profileSpecificFile, profile, profileFilter, consumer);
+				// Try profile specific sections in files we've already processed
+				for (Profile processedProfile : this.processedProfiles) {
+					if (processedProfile != null) {
+						String previouslyLoaded = prefix + &quot;-&quot; + processedProfile + fileExtension;
+						load(loader, previouslyLoaded, profile, profileFilter, consumer);
+					}
+				}
+			}
+			// Also try the profile-specific section (if any) of the normal file
+			load(loader, prefix + fileExtension, profile, profileFilter, consumer);
+		}
+</code></pre>
+<p><code>loadForFileExtension</code> 内部调用另外一个加载配置文件的 load 方法，当读取到 classPath下的application.properties 时，会执行到  <code>Loader#loadDocuments</code> 方法，这个方法就是把配置文件作为文档进行加载，所有键值对配置都会以存在 PropertySource 之中,存储到 Document 对象中。</p>
+<figure data-type="image" tabindex="7"><img src="http://ww3.sinaimg.cn/large/006tNc79ly1g5x80ivld4j31rk0qg130.jpg" alt="image-20190812213458407"></figure>
+<p>并且 documents 对象经过 Loader#asDocuments 方法关联上 <code>spring.profiles.active</code> 属性，profiles 属性添加一个定义为 <code>prod</code> 的 Profile，为后面的 Environment 对象添加 Profile 做准备，到这里默认的配置文件 <code>application.properties</code> 加载完毕了，方法又回到了 <code>Loader#load()</code> 上。</p>
+<figure data-type="image" tabindex="8"><img src="http://ww2.sinaimg.cn/large/006tNc79gy1g5x8f0v0ynj31so0nmgrf.jpg" alt="image-20190812214903690"></figure>
+<p>有了新添加的 Profile，继续进入循环，就会通过 <code>Loader#addProfileToEnvironment</code> 方法，为 environment 对象保存激活的 Profile，并且按照之前的逻辑，读取名为 <code>application-prod.properties</code> 的配置文件，命名方式可以从之前的 <code>Loader#loadForFileExtension</code> 的第462行就可以看出：</p>
+<pre><code class="language-java">String profileSpecificFile = prefix + &quot;-&quot; + profile + fileExtension;
+</code></pre>
+<p>在 <code>Loader#load()</code>  方法读取了所有配置文件后，执行 <code>Loader#addLoadedPropertySources</code>，将对应属性源 PropertySource 存储到 environment 对象中，并且 <code>application-prod.properties</code> 顺序先于默认配置文件，就是为了后面程序应用相同名称配置的时候，优先采用元素位置在前的配置。</p>
+<figure data-type="image" tabindex="9"><img src="http://ww1.sinaimg.cn/large/006tNc79gy1g5x8qqyxu6j32110u0nb2.jpg" alt="image-20190812220023086"></figure>
+<p>至此，所有配置文件上的数据加载完存储到了与当前上下文关联的  environment 对象中，将 prod 作为 Active Profile 激活特定环境配置的工作就完成了。</p>
+<h1 id="小结">小结</h1>
+<p>虽然只是探究 Spring Boot 程序如何加载和应用 Profile，但通过这次源码分析，我们可以发现 SpringBoot 虽简单易用，但是内部实现逻辑设计是比较复杂的，无论是资源的加载，数据的解析都有专门的组件类去处理，大量使用事件通知和设计模式，在分析源码时少不了一次又一次的运行断点，不过这需要我们充分利用DE工具调试功能，在错综复杂的代码中能更准确地定位目标。</p>
+<figure data-type="image" tabindex="10"><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g5ycjg3nbqj30p00dwjym.jpg" alt=""></figure>
+<h2 id="推荐阅读">推荐阅读</h2>
+<ul>
+<li><a href="https://mp.weixin.qq.com/s/TfA8rSwYNpW3YV_N8oLJnw">一文掌握 Spring Boot Profiles</a></li>
+<li><a href="https://mp.weixin.qq.com/s/-t2hrrVMBpPmVEzDcC8J5w">如何优雅关闭 Spring Boot 应用</a></li>
+<li><a href="https://mp.weixin.qq.com/s/uWRnRhH4et-XSD101Xh6LQ">需要接口管理的你了解一下？</a></li>
+<li><a href="https://mp.weixin.qq.com/s/2qkNz4VPgnixXjaVYUkvvQ">Java 之 Lombok 必知必会</a></li>
+<li><a href="https://mp.weixin.qq.com/s/vS36glyNoD26GL6cbNs5Qw">Java 微服务新生代之 Nacos</a></li>
+</ul>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://wrcj12138aaa.github.io//tag/rqKiVec5UR">
+            <span class="flex-auto">SpringBoot</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://wrcj12138aaa.github.io//post/20190817-聊一聊 Java 字符串的不可变">
+                <h3 class="post-title">
+                  <i class="remixicon-arrow-left-line"></i>
+                  聊一聊 Java 字符串的不可变
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://wrcj12138aaa.github.io//post/20190728-一文掌握 Spring Boot Profiles">
+                <h3 class="post-title">
+                  一文掌握 Spring Boot Profiles
+                  <i class="remixicon-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+
+      </div>
+    </div>
+
+    <script src="https://wrcj12138aaa.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>

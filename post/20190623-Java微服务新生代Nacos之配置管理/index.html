@@ -1,0 +1,524 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>闻人的技术博客</title>
+<meta name="description" content="做一个终生学习者" />
+<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1570432015649">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://wrcj12138aaa.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="闻人的技术博客 - Atom Feed" href="https://wrcj12138aaa.github.io//atom.xml">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://wrcj12138aaa.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://wrcj12138aaa.github.io//images/avatar.png?v=1570432015649" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">闻人的技术博客</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#%E4%BB%8B%E7%BB%8Dnacos%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86">介绍Nacos配置管理</a></li>
+<li><a href="#%E5%90%AF%E5%8A%A8nacos%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86">启动Nacos配置管理</a>
+<ul>
+<li><a href="#nacos-spring">Nacos Spring</a></li>
+<li><a href="#nacos-spring-boot">Nacos Spring Boot</a></li>
+<li><a href="#nacos-spring-cloud">Nacos Spring Cloud</a></li>
+</ul>
+</li>
+<li><a href="#nacos-%E5%A4%9A%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86">Nacos 多环境配置管理</a>
+<ul>
+<li><a href="#%E9%85%8D%E7%BD%AE%E7%9B%91%E5%90%AC">配置监听</a></li>
+</ul>
+</li>
+<li><a href="#namespace-%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5">Namespace 最佳实践</a>
+<ul>
+<li><a href="#%E5%88%9B%E5%BB%BA%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4">创建命名空间</a></li>
+<li><a href="#%E5%85%B3%E8%81%94%E5%91%BD%E4%BB%A4%E7%A9%BA%E9%97%B4">关联命令空间</a></li>
+</ul>
+</li>
+<li><a href="#%E7%BB%93%E8%AF%AD">结语</a></li>
+<li><a href="#%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B">代码示例</a></li>
+<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="remixicon-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"></div>
+    <a class="rss" href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">Java微服务新生代Nacos之配置管理</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2019-06-23 / 13 min read
+        </div>
+        
+        <div class="post-content yue">
+          <h2 id="前言">前言</h2>
+<p>在上文  <a href="https://mp.weixin.qq.com/s/vS36glyNoD26GL6cbNs5Qw">Java微服务新生代之Nacos</a> 已经介绍了微服务框架 Nacos 以及它在服务注册与发现的功能，本文将主要介绍它的另一强大功能：配置管理，学习利用 Nacos 如何实现通过统一的管理界面，集中化实现分布式服务的配置维护和实时更新。</p>
+<p>本文主要内容涉及如下：</p>
+<ul>
+<li>Nacos配置管理概念介绍</li>
+<li>如何 Nacos 管理配置</li>
+<li>Nacos 多环境配置管理</li>
+</ul>
+<h2 id="介绍nacos配置管理">介绍Nacos配置管理</h2>
+<p>Nacos 提供了动态配置服务，能让我们可以实时进行服务应用的配置变更，让配置管理变得更加高效和快捷。它基于 key/value 方式存储应用配置和其他元数据信息，为分布式系统中的外部化配置提供服务器端和客户端支持。</p>
+<p>首先了解下 Nacos 在配置管理模块上的几个重要概念，能帮助我们更好的理解和正确的使用 Nacos 进行配置管理。</p>
+<ul>
+<li>
+<p><strong>命名空间（Namespace）</strong></p>
+<p>用于进行租户粒度的配置隔离，可用于对不同环境配置的区分隔离，例如开发测试环境和生产环境的资源（如配置、服务）隔离等。</p>
+</li>
+<li>
+<p><strong>配置项 (Configuration Item)</strong></p>
+<p>一个具体的可配置的参数与其值，通常以 param-key=param-value 的形式存在。例如我们常配置系统的日志输出级别（logLevel=INFO|WARN|ERROR） 就是一个配置项。</p>
+</li>
+</ul>
+<ul>
+<li>
+<p><strong>配置集 (Configuration Set)</strong></p>
+<p>一组相关或者不相关的配置项的集合。一个配置文件通常就是一个配置集，它可能包含了数据源、线程池、日志级别等配置项。</p>
+</li>
+<li>
+<p><strong>配置集 ID（Data ID）</strong></p>
+<p>某个配置集的标识 ID，用于组织划分系统的配置集。一个系统或者应用可以包含多个配置集。官方推荐采用类 Java 包（如 com.taobao.tc.refund.log.level）的命名规则定义 Data ID 来保证全局唯一性。</p>
+</li>
+<li>
+<p><strong>配置分组（Group）</strong></p>
+<p>对配置集进行分组，用于区分 Data ID 相同的配置集。默认采用 DEFAULT_GROUP 。配置分组的常见场景：不同的应用或组件使用了相同的配置类型，如 database_url 配置和 消息队列 Topic 配置等。</p>
+</li>
+</ul>
+<h2 id="启动nacos配置管理">启动Nacos配置管理</h2>
+<p>要使用 Nacos 进行配置管理，首先需要启动 Nacos 服务端，然后客户端接入，关于 Nacos 的服务端启动具体操作可以参见 <a href="https://wrcj12138aaa.github.io/2019/06/16/Java%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%96%B0%E7%94%9F%E4%BB%A3%E4%B9%8BNacos/">Java微服务新生代之Nacos</a> 。</p>
+<p>启动了 Nacos 服务端，首先我们在 Nacos 控制台上的配置管理里新建一个最简单的配置，如图：</p>
+<figure data-type="image" tabindex="1"><img src="http://ww3.sinaimg.cn/large/006tNc79ly1g4b2e8pm1cj317i0qitbp.jpg" alt="image-20190623141751675"></figure>
+<p>保存成功后能列表里看下创建的配置记录如下：</p>
+<figure data-type="image" tabindex="2"><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g4b2g91tnoj32dq0fs78a.jpg" alt="image-20190623141953948"></figure>
+<p>每个配置集的操作栏都提供了配置的查看修改和清除功能，还有额外的示例代码查看，来引导我们如何在客户端使用 Nacos 读取该配置集，目前只支持 Java，Spring Boot，Spring Cloud，其他语言的版本还在完善语言。</p>
+<p><img src="http://ww3.sinaimg.cn/large/006tNc79ly1g4b2h79y7sj31040qoq6o.jpg" alt="image-20190623142049041">接下里看下Nacos 基于 Spring 技术栈的集成方式</p>
+<h3 id="nacos-spring">Nacos Spring</h3>
+<ol>
+<li>
+<p>首先给 Spring 程序添加依赖</p>
+<pre><code class="language-xml">&lt;dependency&gt;
+    &lt;groupId&gt;com.alibaba.nacos&lt;/groupId&gt;
+    &lt;artifactId&gt;nacos-spring-context&lt;/artifactId&gt;
+    &lt;version&gt;0.2.3-RC1&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+<blockquote>
+<p>最新版本可以在 maven 仓库 <a href="https://mvnrepository.com/artifact/com.alibaba.nacos/nacos-spring-context">mvnrepository.com</a> 中获取。</p>
+</blockquote>
+</li>
+<li>
+<p>添加 <code>@EnableNacosConfig</code> 注解启用 Nacos Spring 的配置管理服务。如下示例，我们使用了 <code>@NacosPropertySource</code> 注解加载了我们先前创建的配置集，并且指定为自动刷新配置。<br>
+<img src="http://ww1.sinaimg.cn/large/006tNc79ly1g4bf7vf21lj30n1053aap.jpg" alt=""></p>
+</li>
+<li>
+<p>通过 Nacos 的 <code>@NacosValue</code> 注解将配置项与属性进行绑定。</p>
+</li>
+</ol>
+<figure data-type="image" tabindex="3"><img src="http://ww4.sinaimg.cn/large/006tNc79ly1g4bfa8ykwhj311s0l6gni.jpg" alt=""></figure>
+<ol start="4">
+<li>
+<p>启动程序后，打开 <code>http://localhost:8080/config/hello</code> 获取返回结果<code>hello,test</code>，内容如下就表示读取配置成功。</p>
+<figure data-type="image" tabindex="4"><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g4bfacjs3sj311s042aa0.jpg" alt=""></figure>
+</li>
+<li>
+<p>读取成功后我们再尝试修改这个配置项验证下 Nacos 的配置信息的动态刷新特性。修改有两种方式，一种在 Nacos 控制台上手动修改，另一种在命令行使用提供的 API 直接进行修改：</p>
+<pre><code class="language-shell">curl -X POST &quot;http://127.0.0.1:8848/nacos/v1.0.1/cs/configs?dataId=com.one.learn.nacos.config&amp;group=DEFAULT_GROUP&amp;content=message=nacos-spring&quot;
+</code></pre>
+</li>
+<li>
+<p>再次访问 <code>http://localhost:8080/config/hello</code>，此时返回内容为<code>hello,nacos-spring</code>，返回信息变化说明程序中的<code>message</code>值已经被动态更新了。</p>
+<figure data-type="image" tabindex="5"><img src="http://ww1.sinaimg.cn/large/006tNc79ly1g4bfc3jl7cj311s04274b.jpg" alt=""></figure>
+</li>
+</ol>
+<h3 id="nacos-spring-boot">Nacos Spring Boot</h3>
+<ol>
+<li>
+<p>添加配置动态变更的依赖：</p>
+<pre><code class="language-xml">&lt;dependency&gt;
+    &lt;groupId&gt;com.alibaba.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;nacos-config-spring-boot-starter&lt;/artifactId&gt;
+    &lt;version&gt;0.2.1&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+<blockquote>
+<p><strong>注意</strong>： 这里的版本 <a href="https://mvnrepository.com/artifact/com.alibaba.boot/nacos-config-spring-boot-starter">0.2.x.RELEASE</a> 对应的是 Spring Boot 2.x 版本，版本 <a href="https://mvnrepository.com/artifact/com.alibaba.boot/nacos-config-spring-boot-starter">0.1.x.RELEASE</a> 对应的是 Spring Boot 1.x 版本。</p>
+</blockquote>
+</li>
+<li>
+<p>在 <code>application.properties</code> 中配置 Nacos Server 的地址：</p>
+</li>
+</ol>
+<pre><code class="language-properties">nacos.config.server-addr=127.0.0.1:8848
+</code></pre>
+<ol start="3">
+<li>
+<p>使用 <code>@NacosPropertySource</code> 加载 <code>dataId</code> 为 <code>com.one.learn.nacos.config</code> 的配置源，并开启自动更新：</p>
+<figure data-type="image" tabindex="6"><img src="http://ww3.sinaimg.cn/large/006tNc79ly1g4bfcesqw3j31800de0ui.jpg" alt=""></figure>
+</li>
+<li>
+<p>通过 Nacos 的 <code>@NacosValue</code> 注解设置属性值,与集成 Spring 的步骤内容一样。</p>
+</li>
+<li>
+<p>启动引导类，打开 <code>http://localhost:8080/config/hello</code> 获取返回结果<code>hello,nacos</code>, 说明程序中的配置已经读取成功。</p>
+</li>
+</ol>
+<h3 id="nacos-spring-cloud">Nacos Spring Cloud</h3>
+<p>如果使用 Spring Cloud 程序，Nacos 提供了依赖库  <code>spring-cloud-starter-alibaba-nacos-config</code> 实现配置的动态变更。</p>
+<ol>
+<li>
+<p>添加依赖：</p>
+<pre><code class="language-xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-cloud-starter-alibaba-nacos-config&lt;/artifactId&gt;
+    &lt;version&gt;0.9.0.RELEASE&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+<blockquote>
+<p><strong>注意</strong>：版本 <a href="https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-alibaba-nacos-config">0.2.x.RELEASE</a> 对应的是 Spring Boot 2.x 版本，版本 <a href="https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-alibaba-nacos-config">0.1.x.RELEASE</a> 对应的是 Spring Boot 1.x 版本。</p>
+</blockquote>
+</li>
+<li>
+<p>在 <code>bootstrap.properties</code> 中配置 Nacos server 的地址和应用名如下，在 Nacos Spring Cloud 中，<code>dataId</code> 默认为 <code>spring.application.name</code> 加上 <code>properties</code> 文件后缀，所以，为了能正确读取配置，我们需要将 Nacos 上配置集 ID 为 <code>com.one.learn.nacos.config</code> 调整为 <code>com.one.learn.nacos.config.properties</code></p>
+<pre><code class="language-properties">spring.cloud.nacos.config.server-addr=127.0.0.1:8848
+spring.application.name=com.one.learn.nacos.config
+</code></pre>
+<p>这里使用 bootstrap.properties 作为配置 Nacos 地方，是因为 Spring Boot 配置文件的加载顺序，依次为 bootstrap.properties -&gt; bootstrap.yml -&gt; application.properties -&gt; application.yml ，在 <code>application</code> 层级上配置 Nacos 时无法生效。</p>
+<blockquote>
+<p>注意：当使用域名的方式来访问 Nacos 时，<code>spring.cloud.nacos.config.server-addr</code> 配置的方式必须为 <code>域名:port</code>。 即使使用域名，端口不能省略。例如 Nacos 的域名为 abc.com.nacos，监听的端口为 80，则 <code>spring.cloud.nacos.config.server-addr=abc.com.nacos:80</code>。</p>
+</blockquote>
+</li>
+<li>
+<p>通过 Spring Cloud 原生注解 <code>@RefreshScope</code> 实现配置自动更新：<img src="http://ww3.sinaimg.cn/large/006tNc79ly1g4bfe64ebpj311s0mqtbk.jpg" alt=""></p>
+</li>
+<li>
+<p>运行程序，访问  <code>http://localhost:8080/config/hello</code>  ，返回内容为  <code>hello,nacos</code> ，则表示配置读取成功。</p>
+</li>
+<li>
+<p>在 Nacos 控制台修改配置项 <code>message=Nacos Spring Cloud</code>，再次访问   <code>http://localhost:8080/config/hello</code>  , 返回内容为 <code>hello,Nacos Spring Cloud</code>,说明程序中的<code>message</code>值已经被动态更新了。</p>
+</li>
+</ol>
+<h2 id="nacos-多环境配置管理">Nacos 多环境配置管理</h2>
+<p>上面实现了Nacos基本的配置读取和更新后，接下来我们看下 Nacos 如何进行多环境配置的管理，需要注意的是此特性仅针对于 Spring Cloud 应用。</p>
+<p>假设我们程序有两个环境：测试，生产环境需要管理配置，在 Spring Boot 程序中，默认的配置文件为 application.properties，传统的方式是，利用 Spring Profile 特性，在项目里存放多个环境对应的配置文件，文件格式为 <code>application-${env}-properties</code>，并且需要用 <code>spring.profile.active</code> 指定启动时应用哪个环境的配置。</p>
+<p>Nacos Config 主要通过 dataId 和 group 来唯一确定一条配置，在 Nacos Spring Cloud 中，<code>dataId</code> 的完整格式如下：</p>
+<pre><code class="language-properties">${prefix}-${spring.profile.active}.${file-extension}
+</code></pre>
+<ul>
+<li>
+<p><code>prefix</code> 默认为 <code>spring.application.name</code> 的值，也可以通过配置项 <code>spring.cloud.nacos.config.prefix</code>来配置。</p>
+</li>
+<li>
+<p><code>spring.profile.active</code> 即为当前环境对应的 profile，详情可以参考 <a href="https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-profiles.html#boot-features-profiles">Spring Boot文档</a>。</p>
+<blockquote>
+<p><strong>注意：当 spring.profile.active 为空时，对应的连接符 - 也将不存在，dataId 的拼接格式变成 {prefix}.{file-extension}</strong></p>
+</blockquote>
+</li>
+<li>
+<p><code>file-exetension</code> 为配置内容的数据格式，可以通过配置项 <code>spring.cloud.nacos.config.file-extension</code> 来配置。目前只支持 <code>properties</code> 和 <code>yaml</code> 类型。</p>
+</li>
+</ul>
+<p>group 默认为 <code>DEFAULT_GROUP</code>，可以通过 <code>spring.cloud.nacos.config.group</code> 自定义指定名称。</p>
+<ol>
+<li>基于上面的配置规则描述，我们可以先在 Nacos 控制台上新建两个不同环境的配置集，如下</li>
+</ol>
+<figure data-type="image" tabindex="7"><img src="http://ww3.sinaimg.cn/large/006tNc79gy1g4b7g51e5bj317g0gwwgp.jpg" alt="image-20190623171248544"></figure>
+<p>都存放两个配置项,以 <code>property</code> 文件格式存储。</p>
+<pre><code class="language-properties">#nacos-config-prod.properties
+server.port=8091
+message=nacos-config-prod
+
+#nacos-config-test.properties
+server.port=8081
+message=nacos-config-test
+</code></pre>
+<ol start="2">
+<li>然后在程序的主配置文件 <code>application.properties</code> 中配置如下：</li>
+</ol>
+<pre><code class="language-properties">spring.cloud.nacos.config.server-addr=127.0.0.1:8848
+spring.application.name=nacos-config
+spring.cloud.nacos.config.file-extension=properties
+spring.profile.active=test
+</code></pre>
+<ol start="3">
+<li>
+<p>编写测试控制器类 ConfigController，将配置项与属性值进行绑定。<img src="http://ww2.sinaimg.cn/large/006tNc79ly1g4bfg1585mj311s0mqju8.jpg" alt=""></p>
+</li>
+<li>
+<p>启动程序，可以看到如下数据结果，说明测试环境下端口配置已经生效。<img src="http://ww4.sinaimg.cn/large/006tNc79ly1g4bfgnjte1j31kw0i27a8.jpg" alt=""></p>
+<p>再通过浏览器访问 <code>http://localhost:8081/config/hello</code>，返回 <code>hello，nacos-config-test</code> 。</p>
+</li>
+<li>
+<p>修改配置文件  <code>application.properties</code>  的 <code>spring.profile.active</code> ，重新启动程序并访问  <code>http://localhost:8091/config/hello</code></p>
+<pre><code class="language-properties">spring.cloud.nacos.config.server-addr=127.0.0.1:8848
+spring.application.name=nacos-config
+spring.cloud.nacos.config.file-extension=properties
+spring.profile.active=prod
+</code></pre>
+<p>能获取到返回结果 <code>hello，nacos-config-prod</code> , 也说明程序另一个环境的配置切换成功。</p>
+</li>
+</ol>
+<h3 id="配置监听">配置监听</h3>
+<p>除了主动检验配置生效之外，我们可以通过添加监听器的方式来监听配置的变化，实现很简单，使用 <code>@NacosConfigListener</code> 即可，一旦指定的配置集 ID 对应配置发生了变化，监听器就会受到回调，将所有的配置信息以字符串形式返回。<br>
+<img src="http://ww1.sinaimg.cn/large/006tNc79ly1g4bfhl0ffzj311s08q3zr.jpg" alt=""></p>
+<blockquote>
+<p>当存在多个配置项时，回调接收到的配置字符串中带有换行格式，需要自己处理。</p>
+</blockquote>
+<p>当然 <code>@NacosConfigListener</code> 也支持类型转换，比如转换为 Properties 对象<br>
+<img src="http://ww2.sinaimg.cn/large/006tNc79ly1g4bfi4bxx4j311s08q0u0.jpg" alt=""></p>
+<h2 id="namespace-最佳实践">Namespace 最佳实践</h2>
+<p>Nacos 里 Namespace 作为租户颗粒度细分而存在，主要为了解决多环境以及多租户数据(<strong>配置和服务</strong>)隔离的问题。</p>
+<ul>
+<li>
+<p>如果只是一个租户(用户)，不同的 namespce 可以对应不同的环境，以此实现环境配置的隔离，效果就跟上节内容：Nacos 多环境配置管理 相似。</p>
+<figure data-type="image" tabindex="8"><img src="http://ww2.sinaimg.cn/large/006tNc79ly1g4b8gmnsd6j314k0jkwhb.jpg" alt="img"></figure>
+</li>
+<li>
+<p>如果存在多个租户，为每个租户分配不同的 namespace，这样每个租户(用户)的配置数据以及注册的服务数据都会归属到自己的 namespace 下，就可以实现多租户配置数据隔离作用。</p>
+<figure data-type="image" tabindex="9"><img src="http://ww4.sinaimg.cn/large/006tNc79gy1g4b8jts5gxj314a0je778.jpg" alt="img"></figure>
+<blockquote>
+<p>注意：Nacos 目前还没实现账号权限的分配和隔离，无法让各租户自己管理自己的配置，这一块功能仍在规划中。</p>
+</blockquote>
+</li>
+</ul>
+<p>简单介绍之后，再来看下 namespace 相关的最佳实践：</p>
+<ul>
+<li>如何来获取 namespace 的值。</li>
+<li>namespace 参数初始化方式。</li>
+</ul>
+<h3 id="创建命名空间">创建命名空间</h3>
+<p>在 nacos 的控制台左边功能侧看到有一个 <strong>命名空间</strong> 的功能，点击就可以看到 <strong>新建命名空间</strong> 的按钮，那么这个时候就可以创建自己的命名空间了。创建成功之后，会生成一个<strong>命名空间ID</strong>，主要是用来避免<strong>命名空间名称</strong>有可能会出现重名的情况。因此当您在应用中需要配置指定的 namespace 时，<strong>填入的是命名空间ID</strong>。</p>
+<figure data-type="image" tabindex="10"><img src="http://ww3.sinaimg.cn/large/006tNc79gy1g4b8w32xgxj319e0r8mz1.jpg" alt="image-20190623180238812"></figure>
+<h3 id="关联命令空间">关联命令空间</h3>
+<p>在没有明确指定 <code>${spring.cloud.nacos.config.namespace}</code> 配置的情况下， 默认使用的是 Nacos 上 Public 这个namespae。如果需要使用自定义的命名空间，可以通过以下配置来实现：</p>
+<pre><code class="language-properties">spring.cloud.nacos.config.namespace=b3404bc0-d7dc-4855-b519-570ed34b62d7
+</code></pre>
+<blockquote>
+<p>该配置必须放在 bootstrap.properties 文件中。此外 <code>spring.cloud.nacos.config.namespace</code> 的值是 namespace 对应的 id。</p>
+</blockquote>
+<h2 id="结语">结语</h2>
+<p>到这里，到这里关于 Nacos 管理配置的学习就告一段落，当然在配置管理上还有更多的用法，Nacos 官方文档描述的也很详细，大家也可以多在官网上查阅。后续我将继续深入研究其他 Spring Cloud Alibaba 微服务生态的组件，欢迎感兴趣的小伙伴可以关注我的微信公众号，每周一更。</p>
+<figure data-type="image" tabindex="11"><img src="http://ww4.sinaimg.cn/large/006tNc79ly1g4belazf68j30p00dw766.jpg" alt="公众号"></figure>
+<h2 id="代码示例">代码示例</h2>
+<blockquote>
+<p>示例项目：<strong>nacos-actions</strong>：https://github.com/wrcj12138aaa/nacos-actions</p>
+<p>环境支持：</p>
+<ul>
+<li>JDK 8</li>
+<li>Maven 3.6.0</li>
+<li>SpringBoot 2.1.0.RELEASE</li>
+<li>SpringCloud  Greenwich.RELEASE</li>
+<li>SpringCloudAlibaba 0.9.0.RELEASE</li>
+</ul>
+</blockquote>
+<h2 id="参考">参考</h2>
+<ul>
+<li>Java微服务新生代之Nacos：https://mp.weixin.qq.com/s/vS36glyNoD26GL6cbNs5Qw</li>
+<li>Nacos 概念: https://nacos.io/zh-cn/docs/concepts.html</li>
+<li>Spring Cloud Alibaba基础教程：Nacos配置的多环境管理：http://blog.didispace.com/spring-cloud-alibaba-nacos-config-2/</li>
+<li>Nacos 官方文档：https://nacos.io/zh-cn/docs/what-is-nacos.html</li>
+</ul>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://wrcj12138aaa.github.io//tag/llypUO29A">
+            <span class="flex-auto">Java</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://wrcj12138aaa.github.io//post/20190630-掌握设计模式之适配器模式">
+                <h3 class="post-title">
+                  <i class="remixicon-arrow-left-line"></i>
+                  掌握设计模式之适配器模式
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://wrcj12138aaa.github.io//post/20190616-Java微服务新生代之Nacos">
+                <h3 class="post-title">
+                  Java微服务新生代之Nacos
+                  <i class="remixicon-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+
+      </div>
+    </div>
+
+    <script src="https://wrcj12138aaa.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>
