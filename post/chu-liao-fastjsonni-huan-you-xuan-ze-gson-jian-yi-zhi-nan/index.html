@@ -1,0 +1,681 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>闻人的技术博客</title>
+<meta name="description" content="做一个终生学习者" />
+<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1570541494728">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://wrcj12138aaa.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="闻人的技术博客 - Atom Feed" href="https://wrcj12138aaa.github.io//atom.xml">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://wrcj12138aaa.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://wrcj12138aaa.github.io//images/avatar.png?v=1570541494728" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">闻人的技术博客</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#gson-%E7%AE%80%E4%BB%8B">Gson 简介</a></li>
+<li><a href="#gson-%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8">Gson 基本使用</a>
+<ul>
+<li><a href="#java-%E5%BA%8F%E5%88%97%E5%8C%96">Java 序列化</a>
+<ul>
+<li><a href="#%E7%AE%80%E5%8D%95%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96">简单对象的序列化</a></li>
+<li><a href="#josnobject-%E7%94%9F%E6%88%90-json">JosnObject 生成 JSON</a></li>
+</ul>
+</li>
+<li><a href="#json-%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96">JSON 反序列化</a>
+<ul>
+<li><a href="#%E7%AE%80%E5%8D%95%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96">简单对象的反序列化</a></li>
+<li><a href="#%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96-map">反序列化 Map</a></li>
+</ul>
+</li>
+<li><a href="#json-%E4%B8%8E-arraylist-%E8%BD%AC%E6%8D%A2">JSON 与 Array，List 转换</a>
+<ul>
+<li><a href="#json-%E8%BD%AC%E6%8D%A2-array">JSON 转换 Array</a></li>
+<li><a href="#json-%E8%BD%AC%E6%8D%A2-list">JSON 转换 List</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#gson-%E8%BF%9B%E9%98%B6%E7%94%A8%E6%B3%95">Gson 进阶用法</a>
+<ul>
+<li><a href="#%E6%B3%9B%E5%9E%8B%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96">泛型对象的反序列化</a></li>
+<li><a href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BA%8F%E5%88%97%E5%8C%96">自定义序列化</a></li>
+<li><a href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96">自定义反序列化</a></li>
+</ul>
+</li>
+<li><a href="#gson-%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3">Gson 常用注解</a>
+<ul>
+<li><a href="#expose">@Expose</a></li>
+<li><a href="#since">@Since</a></li>
+<li><a href="#serializedname">@SerializedName</a></li>
+<li><a href="#jsonadapter">@JsonAdapter</a></li>
+</ul>
+</li>
+<li><a href="#%E7%BB%93%E8%AF%AD">结语</a></li>
+<li><a href="#%E6%8E%A8%E8%8D%90%E9%98%85%E8%AF%BB">推荐阅读</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99">参考资料</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="remixicon-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"></div>
+    <a class="rss" href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">除了FastJson,你还有选择：Gson简易指南</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2019-09-08 / 19 min read
+        </div>
+        
+        <div class="post-content yue">
+          <h2 id="前言">前言</h2>
+<p>这个周末被几个技术博主的同一篇公众号文章  <a href="https://mp.weixin.qq.com/s/yVzZTTR5R6QbspTg5WI5hg">fastjson又被发现漏洞，这次危害可导致服务瘫痪！</a> 刷屏，离之前漏洞事件没多久，fastjson 又出现严重 Bug。目前项目中不少使用了 fastjson 做对象与JSON数据的转换，又需要更新版本重新部署，可以说是费时费力。与此同时，也带给我新的思考，面对大量功能强大的开源库，我们不能盲目地引入到项目之中，众多开源框架中某个不稳定因素就足以让一个项目遭受灭顶之灾。趁着周末，在家学习下同样具备JSON与对象转换功能的优秀开源框架 Gson，并且打算将今后项目使用 fastjson 的地方逐渐换成使用 Gson，记录下学习总结的内容，希望对小伙伴也有所帮助。</p>
+<!-- more -->
+<blockquote>
+<p>本文所涉及所有代码片段均在下面仓库中，感兴趣的小伙伴欢迎参考学习：</p>
+<p>https://github.com/wrcj12138aaa/gson-actions</p>
+<p>版本支持：</p>
+<ul>
+<li>JDK 8</li>
+<li>Gson 2.8.5</li>
+<li>JUnit 5.5.1</li>
+<li>Lomok 1.18.8</li>
+</ul>
+</blockquote>
+<h2 id="gson-简介">Gson 简介</h2>
+<p>在正式介绍 Gson 之前，我们可以先从<a href="https://github.com/google/gson/blob/master/UserGuide.md#TOC-Overview">官方的wiki</a>看下 Gson 的描述，了解它是什么？</p>
+<blockquote>
+<p>Gson is a Java library that can be used to convert Java Objects into their JSON representation. It can also be used to convert a JSON string to an equivalent Java object。</p>
+</blockquote>
+<p>从描述可以看出，Gson 是用于将 Java 对象与 JSON格式字符串数据相互转换的 Java 库。它起初在Google 内部广泛使用在 Android 平台 和 Java 服务端上。2008 年开源之后，成为了谷歌又一个被广泛使用的开源框架，截止目前*(2019.09.08)* 在GitHub 上已有1W6 多星，相同作用的类库还有 Spring Framework 中集成的 Jackson，以及阿里开源的 fastjson等。</p>
+<p>在特性方面，Gson 提供简易的API <code>fromJson/toJson</code> 来实现 Java 与 JSON 之间的转换，并且能生成紧凑，可读的 JSON 字符串输出，还支持复杂对象转换和丰富的自定义表示，足以满足在日常开发中我们绝大部分的 JSON 数据处理需求。</p>
+<blockquote>
+<p>我们通常将对象与JSON字符串间的转换称之为序列化和反序列化(Serialization/Deserialization)。将 对象转化成 JSON字符串的过程称为序列化，将JSON 字符串转化成对象的过程称为反序列化。<img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g6s3u2bfxxj30oa0ewwfn.jpg" alt=""></p>
+</blockquote>
+<h2 id="gson-基本使用">Gson 基本使用</h2>
+<p>使用 Gson 框架进行序列化与反序列操作，都离不开 <code>com.google.gson.Gson</code> 对象，它也是 Gson 框架的关键对象，提供的公共 API 具备了多种序列化和反序列方式。</p>
+<figure data-type="image" tabindex="1"><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g6s4ign9myj30w20swgs2.jpg" alt=""></figure>
+<p>Gson 对象的创建主要有两种方式：</p>
+<ul>
+<li>使用 <strong>new</strong> 关键字直接创建：<code>Gson gson = new Gson()</code></li>
+<li>由 GsonBuilder 对象构建：<code>Gson gson = new GsonBuilder().create()</code></li>
+</ul>
+<p>通常情况下，上面两种方式创建的 Gson 对象在进行序列化与反序列操作时行为都是一样的，但是第二种方式构建 Gson 对象时，允许进行额外的行为定制，比如格式化 JSON 字符串的输出内容，是否序列化 <strong>null</strong> 值等等。</p>
+<h3 id="java-序列化">Java 序列化</h3>
+<h4 id="简单对象的序列化">简单对象的序列化</h4>
+<p>我们可以通过下面的例子来看下通过上述两种方式序列化 Java 对象的不同效果：</p>
+<pre><code class="language-java">public class ResultTest {
+    @Test
+    void test_serialization() {
+        Gson gson = new Gson();
+        Result result = new Result(200, &quot;成功&quot;, null);
+        String json = gson.toJson(result);
+        System.out.println(&quot;json is &quot; + json);
+      
+        Gson buildedGson = new GsonBuilder().setPrettyPrinting().serializeNulls().create();
+        String buildedJson = buildedGson.toJson(result);
+        System.out.println(&quot;buildedJson is &quot; + buildedJson);
+    }
+
+    class Result {
+        private int code;
+        private String message;
+        private Object data;
+
+        public Result(int code, String message, Object data) {
+            this.code = code;
+            this.message = message;
+            this.data = data;
+        }
+    }
+}
+</code></pre>
+<p>运行该测试用例，在控制台可以看到如下日志输出：</p>
+<figure data-type="image" tabindex="2"><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g6s51fgqp5j30o2090q3h.jpg" alt=""></figure>
+<p>从结果可以看出，默认的 Gson 对象行为序列化对象时会将 <code>null</code> 值的字段忽略，而 <code>com.google.gson.GsonBuilder#serializeNulls</code> 方法将允许 Gson 对象序列化 <code>null</code> 字段；并且正常序列化后的 JSON 字符串是紧凑格式，节省字符串内存，使用 <code>com.google.gson.GsonBuilder#setPrettyPrinting</code> 方法之后最终输出的 JSON 字符串是更易读的格式。当然除了这两个方法，GsonBuilder 还提供了许多定制序列化和反序列化行为的API，我们将后面的内容进一步讲解。</p>
+<h4 id="josnobject-生成-json">JosnObject 生成 JSON</h4>
+<p>除了上述将自定义类的对象转换成  JSON 的方式之外，还可以使用 Gson 框架提供的 JsonObject 构建普通对象，然后使用 <code>toJson</code> 方法生成 JSON 字符串，在原测试类中补充下方测试类，并运行查看效果如下</p>
+<pre><code class="language-java">@Test
+void test_jsonObject_serialization() {
+  Gson gson = new Gson();
+  JsonObject jsonObject = new JsonObject();
+  jsonObject.addProperty(&quot;code&quot;, 400);
+  jsonObject.addProperty(&quot;message&quot;, &quot;参数错误&quot;);
+  String toJson = gson.toJson(jsonObject);
+  String exceptedJson = &quot;{\&quot;code\&quot;:400,\&quot;message\&quot;:\&quot;参数错误\&quot;}&quot;;
+  Assertions.assertEquals(exceptedJson, toJson); //true
+}
+</code></pre>
+<p>JsonObject 使用 <code>addProperty(property,value)</code> 方法只能用来添加 String，Number，Boolean，Character这四类数据， 因为内部是调用 <code>com.google.gson.JsonObject#add</code>, 将 value 封装成了 JsonPrimitive 对象，然后保存到了内部自定义的 <code>LinkedTreeMap</code> 集合变量 members 中；如果需要在 JsonObject 对象上添加其他对象时，就需要直接使用 <code>add(String property, JsonElement value)</code> 方法添加一个 JsonElement 对象。这里的 JsonElement 是一个抽象类，JsonObject 和 JsonPrimitive 都继承了JsonElement，所以我们最终通过另外的 JsonObject 对象来作为原 JsonObject 上的属性对象：</p>
+<pre><code class="language-java">Gson gson = new Gson();
+JsonObject jsonObject = new JsonObject();
+//...
+JsonObject nestJsonObject = new JsonObject();
+nestJsonObject.addProperty(&quot;username&quot;, &quot;one&quot;);
+nestJsonObject.addProperty(&quot;score&quot;, 99);
+jsonObject.add(&quot;data&quot;, nestJsonObject);
+String toJson2 = gson.toJson(jsonObject);
+System.out.println(toJson2);
+// {&quot;code&quot;:400,&quot;message&quot;:&quot;参数错误&quot;,&quot;data&quot;:{&quot;username&quot;:&quot;one&quot;,&quot;score&quot;:99}}
+</code></pre>
+<h3 id="json-反序列化">JSON 反序列化</h3>
+<h4 id="简单对象的反序列化">简单对象的反序列化</h4>
+<p>现在我们再来看下 JSON 反序列化成 Java 对象用法，这里主要使用方法是 <code>com.google.gson.Gson#fromJson</code>，它最基础的用法就是 <code>fromJson(String json, Class&lt;T&gt; classOfT)</code>，尝试将 JSON 字符串转为指定 Class 的对象，如果转换失败，就会抛出 <code>JsonSyntaxException</code> 异常。我们可以在原来代码上新增一个测试用例，运行看下效果：</p>
+<pre><code class="language-java">@Test
+void test_deserialization() {
+    String json = &quot;{\&quot;code\&quot;:400,\&quot;message\&quot;:\&quot;参数错误\&quot;}&quot;;
+    Result result = new Gson().fromJson(json, Result.class);
+    Assertions.assertEquals(400, result.code); // true
+    Assertions.assertEquals(&quot;参数错误&quot;, result.message); // true
+}
+</code></pre>
+<h4 id="反序列化-map">反序列化 Map</h4>
+<p>除了将JSON 字符串序列化为自定义的Java 对象之外，我们还可以转为 Map 集合，Gson 提供了对 Map 集合的转换，使用起来也十分简单：</p>
+<pre><code class="language-java">@Test
+void test_map() {
+    String jsonString = &quot;{'employee.name':'one','employee.salary':10}&quot;;
+    Gson gson = new Gson();
+    Map map = gson.fromJson(jsonString, Map.class);
+    assertEquals(2, map.size());
+		assertEquals(&quot;one&quot;, map.get(&quot;employee.name&quot;));
+    assertEquals(Double.class, map.get(&quot;employee.name&quot;).getClass());
+}
+</code></pre>
+<p>需要注意的是转换后的 Map 对象真实类型并不是我们经常用的 HashMap，而是 Gson 自定义集合<code>LinkedTreeMap</code> ，它实现Map 接口来存储键值对，在新增和删除上实现上进行了优化，并且将存储键值对的顺序作为遍历顺序，也就是先存入的先被遍历到。除此之外，JSON 字符串里的数值型数据都会转转换为 Double 类型，而 <code>true/false</code> 数据被会被转换成 Boolean 类型，具体判断依据可以参考 <code>com.google.gson.internal.bind.ObjectTypeAdapter#read</code> 方法的实现。</p>
+<h3 id="json-与-arraylist-转换">JSON 与 Array，List 转换</h3>
+<h4 id="json-转换-array">JSON 转换 Array</h4>
+<p>当我们正对 JSON 数据进行数组转换时，类似普通对象转换的方式即可， <code>toJson</code> 方法直接使用转为 JSON 数据，<code>fromJson</code> 指定数组类型转换为对应类型的数组。</p>
+<pre><code class="language-java">@Test
+void test_array() {
+  Gson gson = new Gson();
+  int[] ints = {1, 2, 3, 4, 5};
+  String[] strings = {&quot;abc&quot;, &quot;def&quot;, &quot;ghi&quot;};
+  String s = gson.toJson(ints);// [1,2,3,4,5]
+  assertEquals(&quot;[1,2,3,4,5]&quot;, s); // true
+
+  String s1 = gson.toJson(strings);// [&quot;abc&quot;, &quot;def&quot;, &quot;ghi&quot;]
+  assertEquals(&quot;[\&quot;abc\&quot;,\&quot;def\&quot;,\&quot;ghi\&quot;]&quot;, s1);
+  String[] strings1 = gson.fromJson(s1, String[].class);
+  assertEquals(strings.length, strings1.length); // true
+  assertEquals(strings[0], strings1[0]); // true
+
+  int[] ints2 = gson.fromJson(&quot;[1,2,3,4,5]&quot;, int[].class);
+  assertEquals(1, ints2[0]); // true
+  assertEquals(5, ints2[4]); // true
+}
+</code></pre>
+<h4 id="json-转换-list">JSON 转换 List</h4>
+<p>要将 List 数据转换为 JSON数据，使用 Gson 的方式与处理 Array 数据一样；这里主要讲的是将JSON 数据转为 List 对象的操作略有不同，要将一个 JSON 数组数据转换为一个自定义类的List 时，我们按照原来的写法如下：</p>
+<pre><code class="language-java">@Test
+public void givenJsonString_whenIncorrectDeserializing() {
+    Gson gson = new Gson();
+    String inputString = &quot;[{\&quot;id\&quot;:1,\&quot;name\&quot;:\&quot;one\&quot;},{\&quot;id\&quot;:2,\&quot;name\&quot;:\&quot;two\&quot;}]&quot;;
+    List&lt;Person&gt; outputList = gson.fromJson(inputString, List.class);
+		outputList.get(0).getId();
+}
+</code></pre>
+<p>但是不幸的是，运行这段代码后会抛出 <code>ClassCastException</code> 异常，具体描述如下：</p>
+<pre><code class="language-bash">java.lang.ClassCastException: com.google.gson.internal.LinkedTreeMap cannot be cast to com.one.learn.Person
+...
+</code></pre>
+<p>从上述描述中我们可以知道执行 <code>fromJson</code> 之后，反序列化后得到的 List 元素类型为 LinkedTreeMap，而不是 Person，所以以 Person 对象方式访问 id 属性时就会抛出 <code>ClassCastException</code> 异常。那又该如何处理呢,   我们需要调用 Gson 的 另外一个 <code>fromJson</code> 方法：<code>fromJson(String json, Type typeOfT)</code> ，先看下使用方式</p>
+<pre><code class="language-java">@Test
+public void givenJsonString_whenCorrectDeserializing_() {
+  Gson gson = new Gson();
+  String inputString = &quot;[{\&quot;id\&quot;:1,\&quot;name\&quot;:\&quot;one\&quot;},{\&quot;id\&quot;:2,\&quot;name\&quot;:\&quot;two\&quot;}]&quot;;
+  Type type = new TypeToken&lt;List&lt;Person&gt;&gt;(){}.getType();
+  List&lt;Person&gt; outputList = gson.fromJson(inputString, type);
+  int id = outputList.get(0).getId();
+  assertEquals(1, id); // true
+  assertEquals(&quot;one&quot;, outputList.get(0).getName()); // true
+}
+</code></pre>
+<p>这个方法中的 Type 对象通过 TypeToken 对象的 <code>getType</code> 方法获取到，就是 TypeToken 对象所关联的泛型类型。而这里 TypeToken 是 Gson 为了支持泛型而引入的类，来解决 Java 无法提供泛型类型表示的问题，由于 TypeToken 的构造方法是<code>protected</code>修饰的，无法直接构造，使用就需要写成<code>new TypeToken&lt;List&lt;String&gt;&gt;() {}.getType()</code>  形式。</p>
+<h2 id="gson-进阶用法">Gson 进阶用法</h2>
+<p>接触了 Gson 基本的使用之后，我们接着进一步学习 Gson 的其他用法。</p>
+<h3 id="泛型对象的反序列化">泛型对象的反序列化</h3>
+<p>上节内容简单接触了 Gson 对泛型的支持，接下来用代码来展示下它的强大之处，首先我们将上文的 Result 类调整下接受泛型参数：</p>
+<pre><code class="language-java">class Result&lt;T&gt; {
+  private int code;
+  private String message;
+  private T data;
+
+  public Result(int code, String message, T data) {
+    this.code = code;
+    this.message = message;
+    this.data = data;
+  }
+}
+</code></pre>
+<p>然后对一个有内嵌对象的 JSON字符串进行解析成 Result&lt;User&gt; 对象，示例代码如下：</p>
+<pre><code class="language-java">@Test
+void test_genric_object() {
+  String json = &quot;{\&quot;code\&quot;:200,\&quot;message\&quot;:\&quot;操作成功\&quot;,\&quot;data\&quot;:{\&quot;username\&quot;: \&quot;one\&quot;,\&quot;avater\&quot;: \&quot;image.jpg\&quot;&quot; +
+    &quot;}}&quot;;
+  Type type = new TypeToken&lt;Result&lt;User&gt;&gt;(){}.getType();
+  Result&lt;User&gt; result = new Gson().fromJson(json, type);
+  Assertions.assertEquals(200, result.code);
+  Assertions.assertEquals(&quot;one&quot;, result.data.getUsername());
+  Assertions.assertEquals(&quot;image.jpg&quot;, result.data.getAvater());
+}
+
+class User {
+  private String username;
+  private String avater;
+
+  public String getUsername() {
+    return username;
+  }
+
+  public String getAvater() {
+    return avater;
+  }
+}
+</code></pre>
+<p>利用 TypeToken 对象获取具体泛型类型 Result&lt;User&gt; , 然后在 <code>fromJson</code> 方法中传入就会根据对应类型的执行反序列化操作。</p>
+<h3 id="自定义序列化">自定义序列化</h3>
+<p>如果我们要对Java 对象的某些字段进行特殊处理，比如隐藏某些字段的序列化，对字段的数据格式化处理等，我们可以通过实现 JsonSerializer 接口，对序列化逻辑进行自定义。例如，我们需要对 Date 类型属性进行特定格式的处理，可以声明 DateSerializer 类实现如下：</p>
+<pre><code class="language-java">class DateSerializer implements JsonSerializer&lt;Date&gt; {
+    SimpleDateFormat dateTime = new SimpleDateFormat(&quot;yyyy-MM-dd&quot;);
+
+    @Override
+    public JsonElement serialize(Date src, Type typeOfSrc, JsonSerializationContext context) {
+        return new JsonPrimitive(dateTime.format(src));
+    }
+}
+</code></pre>
+<p>然后在构建 Gson 对象前，利用 GsonBuilder 将 DateSerializer 实例进行注册，使用方式如下：</p>
+<pre><code class="language-java">Gson gson = new GsonBuilder().registerTypeAdapter(Date.class, new DateSerializer()).create();
+</code></pre>
+<p>这样一来，一旦遇到要序列化 Date 类型的字段时，都会通过自定义的 <code>serialize</code> 方法将日期以 <code>yyyy-MM-dd</code> 格式进行输出，如下方的示例代码：</p>
+<pre><code class="language-java">@Test
+void test_dateSerializer() {
+  MyObject myObject = new MyObject(new Date(), &quot;one&quot;);
+  Gson gson = new GsonBuilder().registerTypeAdapter(Date.class, new DateSerializer()).create();
+  String json = gson.toJson(myObject);
+  String exceptedJson = &quot;{\&quot;date\&quot;:\&quot;2019-09-08\&quot;,\&quot;name\&quot;:\&quot;one\&quot;}&quot;;
+  Assertions.assertEquals(exceptedJson, json); // true
+}
+
+class MyObject {
+    private Date date;
+    private String name;
+
+    public MyObject(Date date, String name) {
+        this.date = date;
+        this.name = name;
+    }
+
+    public MyObject() {
+    }
+}
+</code></pre>
+<h3 id="自定义反序列化">自定义反序列化</h3>
+<p>与自定义序列化实现方式类似，想要自定义反序列化逻辑，就需要同样要实现一个叫 JsonDeserializer 的接口，进行自定义反序列化逻辑的实现。比如现在有个 JSON 字符串内容为 <code>{&quot;CODE&quot;: 400, &quot;MESSAGE&quot;: &quot;参数错误&quot;}</code>，需要被反序列化为前文提到的 Result 对象，由于字段名不一样，为了实现对应的转换，就需要自定义 ResultDeserializer 类，具体实现如下：</p>
+<pre><code class="language-java">class ResultDeserializer implements JsonDeserializer&lt;Result&gt; {
+    @Override
+    public Result deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+        JsonObject object = json.getAsJsonObject();
+        Result&lt;Object&gt; result = new Result&lt;&gt;(object.getAsJsonPrimitive(&quot;CODE&quot;).getAsInt(),object.getAsJsonPrimitive(&quot;MESSAGE&quot;).getAsString(), null);
+        return result;
+    }
+}
+</code></pre>
+<p>接下来就是利用 GsonBuilder 注册 ResultDeserializer 实例，生成对应的 Gson 对象，并进行反序列化操作：</p>
+<pre><code class="language-java">@Test
+void test_resultDeserializer() {
+    //language=JSON
+		String json = &quot;{\&quot;CODE\&quot;: 400,\&quot;MESSAGE\&quot;: \&quot;参数错误\&quot;}&quot;;
+    Gson gson = new GsonBuilder().registerTypeAdapter(Result.class, new ResultDeserializer())
+            .create();
+    Result result = gson.fromJson(json, Result.class);
+    Assertions.assertEquals(400, result.code); // true
+    Assertions.assertEquals(&quot;参数错误&quot;, result.message); // true
+}
+</code></pre>
+<h2 id="gson-常用注解">Gson 常用注解</h2>
+<p>Gson 除了提供一些 API 供开发者使用之外，还有一些具有特性的注解可以使用，接下来就介绍在 Gson 中最常用的注解。</p>
+<h3 id="expose">@Expose</h3>
+<p>这个注解只能用在字段上，作用就是注明对应的字段是否将在序列化或者反序列化时暴露出来，有两个属性 <code>serialize</code> 和 <code>deserialize</code> ，默认都为 true。当给一个字段加上 注解<code>@Expose(serialize = true, deserialize = false)</code>，则表示了该字段尽在序列化时可见，在反序列化时会忽略赋值。需要额外注意的一点是，@Expose 注解只有在用 GsonBuilder 方式构建 Gson 时有限，并且构建前必须调用 <code>excludeFieldsWithoutExposeAnnotation</code> 方法，下面是具体的使用示例：</p>
+<pre><code class="language-java">
+@Test
+void test_expose() {
+    MySubClass subclass = new MySubClass(42L, &quot;the answer&quot;, &quot;Verbose field not to serialize&quot;);
+    MyClass source = new MyClass(1L, &quot;foo&quot;, &quot;bar&quot;, subclass);
+    Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+    String s = gson.toJson(source);
+    System.out.println(s);
+		// {&quot;id&quot;:1,&quot;name&quot;:&quot;foo&quot;,&quot;subclass&quot;:{&quot;id&quot;:42,&quot;description&quot;:&quot;the answer&quot;,&quot;otherVerboseInfo&quot;:&quot;Verbose field not to serialize&quot;}}
+}
+
+@Data
+@AllArgsConstructor
+class MyClass {
+    private long id;
+    @Expose(serialize = false, deserialize = true)
+    private String name;
+    private transient String other;
+    @Expose
+    private MySubClass subclass;
+}
+
+@Data
+@AllArgsConstructor
+class MySubClass {
+    @Expose
+    private long id;
+    @Expose
+    private String description;
+    @Expose
+    private String otherVerboseInfo;
+}
+</code></pre>
+<blockquote>
+<p>在 Gson 中 <code>transient</code> 关键字修饰的字段默认不会被序列化和反序列化，这个行为是与 Java 原生的序列化和反序列化操作一致的。</p>
+</blockquote>
+<h3 id="since">@Since</h3>
+<p>该注解用于标记对应字段或者类型的版本，让 Gson 可以指定版本号进行序列化和反序列化操作。当Web服务上的 JSON 数据对应的类存在多个版本的字段时，这个注解就十分有用。</p>
+<p>同样地，该注解只针对使用 <code>GsonBuilder</code> 方式构建的 Gson 对象，并且使用 <code>setVersion</code> 方法指明版本号时有效，只解析对象中对应版本的字段，下面为具体示例：</p>
+<pre><code class="language-java">public class VersioningSupportTest {
+    @Test
+    void test() {
+        VersionedClass versionedObject = new VersionedClass();
+        Gson gson = new GsonBuilder().setVersion(1.0).create();
+        String jsonOutput = gson.toJson(versionedObject);
+        System.out.println(jsonOutput); // {&quot;newField&quot;:&quot;new&quot;,&quot;field&quot;:&quot;old&quot;}
+    }
+}
+
+class VersionedClass {
+    @Since(1.1)
+    private final String newerField;
+    @Since(1.0)
+    private final String newField;
+    private final String field;
+
+    public VersionedClass() {
+        this.newerField = &quot;newer&quot;;
+        this.newField = &quot;new&quot;;
+        this.field = &quot;old&quot;;
+    }
+}
+</code></pre>
+<h3 id="serializedname">@SerializedName</h3>
+<p>这个注解使用起来比较简单，也很有用。@SerializedName  指定了成员字段被序列化和反序列化时所采用的名称下面是具体使用方式：</p>
+<pre><code class="language-java">public class JSONFieldNamingSupportTest {
+    private class SomeObject {
+        @SerializedName(&quot;custom_naming&quot;)
+        private final String someField;
+        private final String someOtherField;
+
+        public SomeObject(String a, String b) {
+            this.someField = a;
+            this.someOtherField = b;
+        }
+    }
+
+    @Test
+    void test() {
+        SomeObject someObject = new SomeObject(&quot;first&quot;, &quot;second&quot;);
+        String jsonRepresentation = gson.toJson(someObject);
+        System.out.println(jsonRepresentation);
+      	// {&quot;custom_naming&quot;:&quot;first&quot;,&quot;someOtherField&quot;:&quot;second&quot;}
+        SomeObject someObject1 = gson.fromJson(jsonRepresentation, SomeObject.class);
+        System.out.println(someObject1);
+      	// SomeObject{someField='first', someOtherField='second'}
+    }
+}
+</code></pre>
+<h3 id="jsonadapter">@JsonAdapter</h3>
+<p>不同于上面的注解，<code>@JsonAdapter</code> 只作用于类上，主要作用就是代替  <code>GsonBuilder.registerTypeAdapter</code> 方法的执行，直接通过 <code>@JsonAdapter(aClass.class)</code> 方式指定 JsonDeserializer 对象或者 JsonSerializer 对象，可以起到相同的想过，并且优先级比<code>GsonBuilder.registerTypeAdapter</code>的优先级更高，由于只是将 <code>registerTypeAdapter</code>方法执行简化成了注解方法，这里就不再演示，直接在前文<strong>自定义反序列化</strong>一节的 Result 类上使用就可以看到效果。</p>
+<h2 id="结语">结语</h2>
+<p>本文主要学习总结了 Gson 框架的序列化和反序列操作使用方式，以及介绍了 Gson 多种特性用法，希望对处理 JSON 数据感到头疼的小伙伴有所帮助。</p>
+<figure data-type="image" tabindex="3"><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g6skkvbjgnj30p00dwjt5.jpg" alt=""></figure>
+<h2 id="推荐阅读">推荐阅读</h2>
+<ul>
+<li><a href="https://mp.weixin.qq.com/s/TfA8rSwYNpW3YV_N8oLJnw">一文掌握 Spring Boot Profiles</a></li>
+<li><a href="https://mp.weixin.qq.com/s/-t2hrrVMBpPmVEzDcC8J5w">如何优雅关闭 Spring Boot 应用</a></li>
+<li><a href="https://mp.weixin.qq.com/s/uWRnRhH4et-XSD101Xh6LQ">需要接口管理的你了解一下？</a></li>
+<li><a href="https://mp.weixin.qq.com/s/2qkNz4VPgnixXjaVYUkvvQ">Java 之 Lombok 必知必会</a></li>
+<li><a href="https://mp.weixin.qq.com/s/vS36glyNoD26GL6cbNs5Qw">Java 微服务新生代之 Nacos</a></li>
+</ul>
+<h2 id="参考资料">参考资料</h2>
+<ul>
+<li>https://github.com/google/gson/blob/master/UserGuide.md</li>
+<li>https://www.jianshu.com/p/e740196225a4</li>
+<li>https://juejin.im/post/5aad29f8518825558453c6c9</li>
+<li>https://www.baeldung.com/gson-deserialization-guide</li>
+<li>https://www.baeldung.com/gson-string-to-jsonobject</li>
+</ul>
+<!-- more -->
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://wrcj12138aaa.github.io//tag/llypUO29A">
+            <span class="flex-auto">Java</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+            <div class="prev-post">
+              <a href="https://wrcj12138aaa.github.io//post/java-dan-yuan-ce-shi-zhi-junit5-kuai-su-shang-shou">
+                <h3 class="post-title">
+                  <i class="remixicon-arrow-left-line"></i>
+                  Java 单元测试之 Junit5 快速上手
+                </h3>
+              </a>
+            </div>
+          
+
+          
+            <div class="next-post">
+              <a href="https://wrcj12138aaa.github.io//post/arraylist-de-quan-mian-tu-ji">
+                <h3 class="post-title">
+                  ArrayList的全面突击
+                  <i class="remixicon-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '2ba76d6fe50ad2b384eb',
+    clientSecret: '90db763ed48942571725d6aef11229900c8bb656',
+    repo: 'wrcj12138aaa.github.io',
+    owner: 'wrcj12138aaa',
+    admin: ['wrcj12138aaa'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+      </div>
+    </div>
+
+    <script src="https://wrcj12138aaa.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>

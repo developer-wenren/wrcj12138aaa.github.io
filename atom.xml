@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://wrcj12138aaa.github.io/</id>
     <title>闻人的技术博客</title>
-    <updated>2019-10-07T07:22:08.183Z</updated>
+    <updated>2019-10-08T13:31:40.337Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://wrcj12138aaa.github.io/"/>
     <link rel="self" href="https://wrcj12138aaa.github.io//atom.xml"/>
@@ -10,6 +10,32 @@
     <logo>https://wrcj12138aaa.github.io//images/avatar.png</logo>
     <icon>https://wrcj12138aaa.github.io//favicon.ico</icon>
     <rights>All rights reserved 2019, 闻人的技术博客</rights>
+    <entry>
+        <title type="html"><![CDATA[Java 单元测试之 Junit5 快速上手]]></title>
+        <id>https://wrcj12138aaa.github.io//post/java-dan-yuan-ce-shi-zhi-junit5-kuai-su-shang-shou</id>
+        <link href="https://wrcj12138aaa.github.io//post/java-dan-yuan-ce-shi-zhi-junit5-kuai-su-shang-shou">
+        </link>
+        <updated>2019-09-15T13:30:35.000Z</updated>
+        <summary type="html"><![CDATA[<h2 id="前言">前言</h2>
+<p>单元测试是软件开发中必不可少的一环，但是在平常开发中往往因为项目周期紧，工作量大而被选择忽略，这样往往导致软件问题层出不穷。线上出现的不少问题其实在有单元测试的情况下就可以及时发现和处理，因此培养自己在日常开发中写单元测试的能力是很有必要的。无论是对自己的编码能力的提高，还是项目质量的提升，都是大有好处，本文将介绍 Java 单元测试框架 JUnit 5 的基础认识和使用来编写单元测试，希望同样对你有所帮助。</p>
+]]></summary>
+        <content type="html"><![CDATA[<h2 id="前言">前言</h2>
+<p>单元测试是软件开发中必不可少的一环，但是在平常开发中往往因为项目周期紧，工作量大而被选择忽略，这样往往导致软件问题层出不穷。线上出现的不少问题其实在有单元测试的情况下就可以及时发现和处理，因此培养自己在日常开发中写单元测试的能力是很有必要的。无论是对自己的编码能力的提高，还是项目质量的提升，都是大有好处，本文将介绍 Java 单元测试框架 JUnit 5 的基础认识和使用来编写单元测试，希望同样对你有所帮助。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[除了FastJson,你还有选择：Gson简易指南]]></title>
+        <id>https://wrcj12138aaa.github.io//post/chu-liao-fastjsonni-huan-you-xuan-ze-gson-jian-yi-zhi-nan</id>
+        <link href="https://wrcj12138aaa.github.io//post/chu-liao-fastjsonni-huan-you-xuan-ze-gson-jian-yi-zhi-nan">
+        </link>
+        <updated>2019-09-08T02:48:09.000Z</updated>
+        <summary type="html"><![CDATA[<h2 id="前言">前言</h2>
+<p>这个周末被几个技术博主的同一篇公众号文章  <a href="https://mp.weixin.qq.com/s/yVzZTTR5R6QbspTg5WI5hg">fastjson又被发现漏洞，这次危害可导致服务瘫痪！</a> 刷屏，离之前漏洞事件没多久，fastjson 又出现严重 Bug。目前项目中不少使用了 fastjson 做对象与JSON数据的转换，又需要更新版本重新部署，可以说是费时费力。与此同时，也带给我新的思考，面对大量功能强大的开源库，我们不能盲目地引入到项目之中，众多开源框架中某个不稳定因素就足以让一个项目遭受灭顶之灾。趁着周末，在家学习下同样具备JSON与对象转换功能的优秀开源框架 Gson，并且打算将今后项目使用 fastjson 的地方逐渐换成使用 Gson，记录下学习总结的内容，希望对小伙伴也有所帮助。</p>
+]]></summary>
+        <content type="html"><![CDATA[<h2 id="前言">前言</h2>
+<p>这个周末被几个技术博主的同一篇公众号文章  <a href="https://mp.weixin.qq.com/s/yVzZTTR5R6QbspTg5WI5hg">fastjson又被发现漏洞，这次危害可导致服务瘫痪！</a> 刷屏，离之前漏洞事件没多久，fastjson 又出现严重 Bug。目前项目中不少使用了 fastjson 做对象与JSON数据的转换，又需要更新版本重新部署，可以说是费时费力。与此同时，也带给我新的思考，面对大量功能强大的开源库，我们不能盲目地引入到项目之中，众多开源框架中某个不稳定因素就足以让一个项目遭受灭顶之灾。趁着周末，在家学习下同样具备JSON与对象转换功能的优秀开源框架 Gson，并且打算将今后项目使用 fastjson 的地方逐渐换成使用 Gson，记录下学习总结的内容，希望对小伙伴也有所帮助。</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[ArrayList的全面突击]]></title>
         <id>https://wrcj12138aaa.github.io//post/arraylist-de-quan-mian-tu-ji</id>
@@ -65,19 +91,5 @@
         <link href="https://wrcj12138aaa.github.io//post/20190707-YApi使用指南">
         </link>
         <updated>2019-07-07T07:00:20.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[掌握设计模式之适配器模式]]></title>
-        <id>https://wrcj12138aaa.github.io//post/20190630-掌握设计模式之适配器模式</id>
-        <link href="https://wrcj12138aaa.github.io//post/20190630-掌握设计模式之适配器模式">
-        </link>
-        <updated>2019-06-30T14:05:20.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Java微服务新生代Nacos之配置管理]]></title>
-        <id>https://wrcj12138aaa.github.io//post/20190623-Java微服务新生代Nacos之配置管理</id>
-        <link href="https://wrcj12138aaa.github.io//post/20190623-Java微服务新生代Nacos之配置管理">
-        </link>
-        <updated>2019-06-23T02:06:02.000Z</updated>
     </entry>
 </feed>
