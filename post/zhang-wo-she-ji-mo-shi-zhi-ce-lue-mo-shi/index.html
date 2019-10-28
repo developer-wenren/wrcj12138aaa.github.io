@@ -1,0 +1,535 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>闻人的技术博客</title>
+<meta name="description" content="做一个终生学习的技术人" />
+<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1572273322196">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://wrcj12138aaa.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="闻人的技术博客 - Atom Feed" href="https://wrcj12138aaa.github.io//atom.xml">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://wrcj12138aaa.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://wrcj12138aaa.github.io//images/avatar.png?v=1572273322196" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">闻人的技术博客</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F">为什么需要策略模式</a></li>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F">什么是策略模式</a></li>
+<li><a href="#%E8%AF%86%E5%88%AB%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F">识别策略模式</a>
+<ul>
+<li><a href="#jdk-%E4%B8%8E%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F">JDK 与策略模式</a></li>
+<li><a href="#spring-framework-%E4%B8%8E%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F">Spring Framework 与策略模式</a></li>
+</ul>
+</li>
+<li><a href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F">如何使用策略模式</a>
+<ul>
+<li><a href="#%E5%AE%9E%E4%BE%8B%E5%BA%94%E7%94%A8">实例应用</a></li>
+<li><a href="#%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF">适用场景</a></li>
+</ul>
+</li>
+<li><a href="#lambda-%E4%B8%8E-%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F">Lambda 与 策略模式</a></li>
+<li><a href="#%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%B3%A8%E6%84%8F%E7%82%B9">策略模式的注意点</a></li>
+<li><a href="#%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9">策略模式的优缺点</a>
+<ul>
+<li><a href="#%E4%BC%98%E7%82%B9">优点</a></li>
+<li><a href="#%E7%BC%BA%E7%82%B9">缺点</a></li>
+</ul>
+</li>
+<li><a href="#%E7%BB%93%E8%AF%AD">结语</a></li>
+<li><a href="#%E6%8E%A8%E8%8D%90%E9%98%85%E8%AF%BB">推荐阅读</a></li>
+<li><a href="#%E5%8F%82%E8%80%83">参考</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="remixicon-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"></div>
+    <a class="rss" href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">掌握设计模式之策略模式</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2019-10-27 / 13 min read
+        </div>
+        
+        <div class="post-content yue">
+          <h2 id="前言">前言</h2>
+<p>最近段时间，接到一个需求：开发一个聚合支付服务，对其他内部项目提供统一的接口来实现不同支付平台的支付能力发起，比如支付宝，微信，银联等。为了处理相似的支付操作而各平台具体实现不同的情况，要让各个平台接口能力能相互独立，并要方便扩展后续新增的支付平台，我引入了设计模式的策略模式来应对需求场景，借此深入学习总结下策略模式，于是也就有了本文，希望对学习策略模式的同学有所帮助。</p>
+<!-- more -->
+<h2 id="为什么需要策略模式">为什么需要策略模式</h2>
+<p>日常工作开发中我们总会遇到如下熟悉的代码片段：</p>
+<pre><code class="language-java">if(condition1){
+ // do something1
+} else if (condition2){
+ // do something2
+} else if (condition3){
+ // do something3
+}
+</code></pre>
+<p>在每个 if 条件下都有数十行甚至百行的业务处理，各自处理又是相互独立的并且目的一致，都汇聚在一个方法里。这样的写法不但让类变得臃肿冗长，并且不同逻辑都在一个类中修改，维护和扩展起来都很费劲。那么又有什么办法可以优化这大段的代码呢，在实现功能的同时，让代码更加灵活和易维护。</p>
+<p>要解决这个问题，本文的主角—<strong>策略模式</strong> 就登场了，作为设计模式中比较简单的行为型模式，其实很多框架中都见到它的身影，稍后我们也会从各框架源码中识别策略模式的应用。使用策略模式可以帮助我们将每个处理逻辑封装成独立的类，客户端类需要进行哪种处理逻辑就使用对应的类，调用其封装了业务处理细节的方法即可。这样一来，客户端类减少了业务处理逻辑的大量代码，让自身更加精简。当业务逻辑有所改动时，只要在对应的类中修改，而不影响其他的类；并且如果出现了新的业务逻辑只要新增相似的类进行实现，供客户端类调用即可。</p>
+<h2 id="什么是策略模式">什么是策略模式</h2>
+<p>接下来我们就介绍下策略模式的定义和组成，以及它的基本形式。</p>
+<p>首先看下维基百科上策略模式的定义：</p>
+<blockquote>
+<p>In <a href="https://en.wikipedia.org/wiki/Computer_programming">computer programming</a>, the <strong>strategy pattern</strong> (also known as the <strong>policy pattern</strong>) is a <a href="https://en.wikipedia.org/wiki/Behavioral_design_pattern">behavioral</a> <a href="https://en.wikipedia.org/wiki/Design_pattern_(computer_science)">software design pattern</a> that enables selecting an <a href="https://en.wikipedia.org/wiki/Algorithm">algorithm</a> at runtime. Instead of implementing a single algorithm directly, code receives run-time instructions as to which in a family of algorithms to use.</p>
+</blockquote>
+<p>策略模式也叫政策模式，允许程序在运行时选择一个算法执行，通常存在一类算法实现提供外部选择执行，这里的算法，也可以叫做策略，相当于上节内容提到的具体处理逻辑。</p>
+<p>再来看下 《<strong>设计模式：可复用面向对象软件的基础</strong>》一书中对策略模式的定义：</p>
+<blockquote>
+<p>Define a family of algorithms, encapsulate each one, and make them interchangeable. Strategy lets the algorithm vary independently from the clients that use it.</p>
+</blockquote>
+<p>再次对其定义解读：定义一类算法，各自独立封装实现，并且相互之间是可替换的。除此之外，由客户端类决定具体使用哪个算法。</p>
+<p>上述两个定义都提到了<strong>算法</strong>一词，它表示了完整的，不可再拆分的业务逻辑处理。通常用接口或者抽象类来表示一类算法的抽象，提供多种对该类算法的操作实现，以此组成一类独立且可替换的算法，也叫策略组。</p>
+<p>了解完定义后，我们再来看下策略模式通用类图：</p>
+<figure data-type="image" tabindex="1"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g8c11ol3btj31eo0giwgs.jpg" alt=""></figure>
+<p>类图中涉及三类角色：Context，Strategy 和 ConcreteStrategy</p>
+<ul>
+<li>Strategy：抽象策略角色，代表某个算法的接口或者抽象类，定义了每个算法或者策略需要具有的方法和属性。</li>
+<li>Context：上下文角色，引用策略接口对象，屏蔽了外部模块对策略或方法的直接访问，只能通过Context 提供的方法访问。</li>
+<li>ConcreteStrategy：抽象策略的具体实现，该类含有具体的算法，并且通常不只一种实现，有多个类。</li>
+</ul>
+<p>这三个角色的功能职责都十分明确，对应的源码实现也十分简单，现在我们就来快速看下每个角色对应的通用源码。</p>
+<pre><code class="language-java">// 抽象的策略角色
+public interface Strategy {
+    void doSomething();
+}
+
+// 具体策略角色
+public class ConcreteStrategy implements Strategy {
+    @Override
+    public void doSomething() {
+        System.out.println(&quot;ConcreteStrategy doSomething !&quot;);
+    }
+}
+
+// 上下文角色
+public class Context {
+    private final Strategy strategy;
+
+    public Context(Strategy strategy) {
+        this.strategy = strategy;
+    }
+
+    public void doAnything() {
+        this.strategy.doSomething();
+    }
+}
+</code></pre>
+<p>有了策略模式的基本代码结构，在客户端类中使用十分简单，想要哪个策略，就产生出它的具体策略对象放入上下文对象内，然后由上下文对象执行具体策略操作即可，具体代码如下：</p>
+<pre><code class="language-java">public class Client {
+    public static void main(String[] args) {
+        Strategy strategy = new ConcreteStrategy();
+        Context context = new Context(strategy);
+        context.doAnything(); // ConcreteStrategy doSomething !
+    }
+}
+</code></pre>
+<h2 id="识别策略模式">识别策略模式</h2>
+<p>看清楚了策略模式的定义，角色组成以及通用的代码结构之后，我们就来看下策略模式在通用框架里的应用，来加深对策略模式的认识。</p>
+<h3 id="jdk-与策略模式">JDK 与策略模式</h3>
+<p>在常用的Java 集合框架中，比较器 <strong>java.util.Comparator</strong> 的设计就采用了策略模式。Comparator 就是一个抽象的策略接口，只要一个类实现这个接口，自定 compare 方法，该类成为具体策略类，你可以在很多地址找到这个抽象策略接口的实现，官方在工具类 <strong>java.util.Comparators</strong> 里也提供 NaturalOrderComparator，NullComparator 两种具体策略类。而使用 Comparator 到的 <strong>java.util.Collections</strong> 类就是 Context 角色，将集合的比较功能封装成静态方法对外提供。</p>
+<h3 id="spring-framework-与策略模式">Spring Framework 与策略模式</h3>
+<p>Spring 框架最早以 IoC 和 DI 两大特性著称，不需要开发者自己创建对象，而是通过 Spring IoC 容器识别然后实例化所需对象。在 Spring 中将执行创建对象实例的这个操作封装为一种算法，用接口类 <strong>org.springframework.beans.factory.support.InstantiationStrategy</strong> 进行声明，而具体策略类则有 <strong>org.springframework.beans.factory.support.SimpleInstantiationStrategy</strong> 和 <strong>org.springframework.beans.factory.support.CglibSubclassingInstantiationStrategy</strong> 两个，并且 CglibSubclassingInstantiationStrategy 是对 SimpleInstantiationStrategy 的继承扩展，也是 Spring 容器中真正使用到的策略类,具体应用的源码可参考 <strong>org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory</strong> 类：</p>
+<pre><code class="language-java">/**
+    * Instantiate the given bean using its default constructor.
+    * @param beanName the name of the bean
+    * @param mbd the bean definition for the bean
+    * @return a BeanWrapper for the new instance
+    */
+protected BeanWrapper instantiateBean(final String beanName, final RootBeanDefinition mbd) {
+    //...
+    beanInstance = getInstantiationStrategy().instantiate(mbd, beanName, parent);
+    //...
+}
+</code></pre>
+<h2 id="如何使用策略模式">如何使用策略模式</h2>
+<h3 id="实例应用">实例应用</h3>
+<p>俗话说学以致用，接触了策略模式后我们应该想想怎么用在自己日常开发项目中呢，这里就简单通过一个实例来说明下策略模式的使用方式。假设现在有个需求：需要对一个目录或者文件实现两种不同格式的解压缩方式：zip压缩和gzip压缩，也后续可能新增其他的解压缩方式。</p>
+<p>我们首先将解压缩的算法抽象成抽象策略接口 CompressStrategy， 提供压缩方法 compress 和解压缩方法 uncompress，分别接受源文件路径和目的文件路径。</p>
+<blockquote>
+<p>策略类在命名通常上以 Strategy 为后缀，来指明自身采用策略模式进行设计，以此简化与其他人沟通成本。</p>
+</blockquote>
+<pre><code class="language-java">public interface CompressStrategy {
+    public boolean compress(String source, String to);
+    public boolean uncompress(String source, String to);
+}
+</code></pre>
+<p>再对抽象策略接口进行实现，分别提供zip 压缩算法和 gzip 压缩算法，代码如下：</p>
+<pre><code class="language-java">public class ZipStrategy implements CompressStrategy {
+
+    @Override
+    public boolean compress(String source, String to) {
+        System.out.println(source + &quot; --&gt; &quot; + to + &quot; ZIP压缩成功!&quot;);
+        return true;
+    }
+
+    @Override
+    public boolean uncompress(String source, String to) {
+        System.out.println(source + &quot; --&gt; &quot; + to + &quot; ZIP解压缩成功!&quot;);
+        return true;
+    }
+}
+
+public class GzipStrategy implements CompressStrategy {
+
+    @Override
+    public boolean compress(String source, String to) {
+        System.out.println(source + &quot; --&gt; &quot; + to + &quot; GZIP压缩成功!&quot;);
+        return true;
+    }
+
+    @Override
+    public boolean uncompress(String source, String to) {
+        System.out.println(source + &quot; --&gt; &quot; + to + &quot; GZIP解压缩成功!&quot;);
+        return true;
+    }
+}
+</code></pre>
+<p>代码示例里的实现为了简化只是简单打印操作，具体实现可以参考 JDK API 进行操作。</p>
+<p>接下来看下 Context 角色的代码实现：</p>
+<pre><code class="language-java">public class CompressContext {
+
+    private CompressStrategy compressStrategy;
+
+    public CompressContext(CompressStrategy compressStrategy) {
+        this.compressStrategy = compressStrategy;
+    }
+
+    public boolean compress(String source, String to) {
+        return compressStrategy.compress(source, to);
+    }
+
+    public boolean uncompress(String source, String to) {
+        return compressStrategy.uncompress(source, to);
+    }
+}
+</code></pre>
+<p>十分简单，只是传入一个具体算法，然后执行，到这里标准的策略模式就编写完毕了。客户端类只是根据需要指定的具体压缩策略对象传给 CompressContext 对象即可。如果要新增一个压缩算法，也只需对 CompressStrategy 接口提供新的实现即可传给 CompressContext 对象使用。</p>
+<pre><code class="language-java">public class Client {
+    public static void main(String[] args) {
+        CompressContext context;
+        System.out.println(&quot;========执行算法========&quot;);
+        context = new CompressContext(new ZipStrategy());
+        context.compress(&quot;c:\\file&quot;, &quot;d:\\file.zip&quot;);
+        context.uncompress(&quot;c:\\file.zip&quot;, &quot;d:\\file&quot;);
+        System.out.println(&quot;========切换算法========&quot;);
+        context = new CompressContext(new GzipStrategy());
+        context.compress(&quot;c:\\file&quot;, &quot;d:\\file.gzip&quot;);
+        context.uncompress(&quot;c:\\file.gzip&quot;, &quot;d:\\file&quot;);
+    }
+}
+</code></pre>
+<p>上面的策略模式的应用示例是不是很简单，类似应用也有很多，比如要对接第三方支付，不同的支付平台有不同的支付API，这个API操作都可以抽象成策略接口，客户端发起特定平台的支付接口时，我们只需调用具体的支付策略类执行，并且每个支付策略类相互独立，可替换。</p>
+<h3 id="适用场景">适用场景</h3>
+<p>本节最后简单总结下策略模式的适用场景：</p>
+<ul>
+<li>
+<p>如果一个对象有很多的行为，它们的实现目的相同，而这些行为使用了多重的条件选择语句来实现。</p>
+</li>
+<li>
+<p>当一个系统需要动态地切换算法，会选择一种算法去执行。</p>
+</li>
+<li>
+<p>客户端类不需要知道具体算法的实现细节，只要调用并完成所需要求。</p>
+</li>
+</ul>
+<h2 id="lambda-与-策略模式">Lambda 与 策略模式</h2>
+<p>JDK 8 之后，利用Lambda可以提供策略模式更加精简的实现，如果策略接口是一个函数接口，那么不需要声明新的类来实现不同策略，直接通过传递Lambda就可实现，并且更加简洁，具体使用方式参见下方代码：</p>
+<pre><code class="language-java">/**
+ * Context 对象
+ */
+public class Validator {
+    private final ValidationStrategy strategy;
+
+    public Validator(ValidationStrategy v) {
+        this.strategy = v;
+    }
+
+    public boolean validate(String s) {
+        return strategy.execute(s);
+    }
+
+}
+
+/**
+ * 策略接口
+ */
+@FunctionalInterface
+public interface ValidationStrategy {
+    boolean execute(String s);
+}
+
+numericValidator = new Validator((String s) -&gt; s.matches(&quot;[a-z]+&quot;));
+b1 = numericValidator.validate(&quot;aaaa&quot;); // true
+lowerCaseValidator = new Validator((String s) -&gt; s.matches(&quot;\\d+&quot;));
+b2 = lowerCaseValidator.validate(&quot;bbbb&quot;); // false
+</code></pre>
+<p>结合 Lambda 的策略模式更适合用于处理简单算法操作的场景，如果算法实现复杂过于冗长复杂，还是建议拆分成单个类进行实现。</p>
+<h2 id="策略模式的注意点">策略模式的注意点</h2>
+<p>策略模式使用起来虽然简单，但它的灵活性在许多项目都能见到其身影，在使用时也有需要注意的地方，下面我们就来看下：</p>
+<ul>
+<li>
+<p>策略模式中每个算法都是完整，不可拆分的原子业务，并且多个算法必须是可以相互替换,，而用哪个算法由外部调用者决定。</p>
+</li>
+<li>
+<p>当如果具体策略类超过4个，需要使用混合模式减少类膨胀和对外暴露的问题，通过其他模式修正：工厂方法模式，代理模式，享元模式</p>
+</li>
+</ul>
+<h2 id="策略模式的优缺点">策略模式的优缺点</h2>
+<p>一个设计模式的引入必存在它合理的地方和不足，最后我们再说说下策略模式的优缺点。</p>
+<h3 id="优点">优点</h3>
+<ul>
+<li>使用策略模式，可以在不修改原有系统的基础上更换算法或行为，可以灵活地增加新的算法或行为，提供了系统的扩展性</li>
+<li>策略模式提供了对一类算法进行管理维护。</li>
+<li>使用策略模式可以避免使用多重条件判断，由外部模块决定所要执行的策略类。</li>
+</ul>
+<h3 id="缺点">缺点</h3>
+<ul>
+<li>客户端必须知道所有的策略类，并自行决定使用哪一个策略类。</li>
+<li>会产生很多策略类，使得类的项目增多。</li>
+</ul>
+<h2 id="结语">结语</h2>
+<p>到这里，本文对策略模式的学习就此结束，当然关于策略模式的内容远不止这些，配合其他模式还有用法，感兴趣了的同学可以参考文末提供的资料链接进一步深入学习。也欢迎扫码关注微信公众号：「闻人的技术博客」，定期分享Java技术干货，共同进步。</p>
+<figure data-type="image" tabindex="2"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g8cqwrpchfj30p00dwth2.jpg" alt=""></figure>
+<h2 id="推荐阅读">推荐阅读</h2>
+<ul>
+<li><a href="https://mp.weixin.qq.com/s/TfA8rSwYNpW3YV_N8oLJnw">一文掌握 Spring Boot Profiles</a></li>
+<li><a href="https://mp.weixin.qq.com/s/-t2hrrVMBpPmVEzDcC8J5w">如何优雅关闭 Spring Boot 应用</a></li>
+<li><a href="https://mp.weixin.qq.com/s/uWRnRhH4et-XSD101Xh6LQ">需要接口管理的你了解一下？</a></li>
+<li><a href="https://mp.weixin.qq.com/s/2qkNz4VPgnixXjaVYUkvvQ">Java 之 Lombok 必知必会</a></li>
+<li><a href="https://mp.weixin.qq.com/s/vS36glyNoD26GL6cbNs5Qw">Java 微服务新生代之 Nacos</a></li>
+</ul>
+<h2 id="参考">参考</h2>
+<ul>
+<li>https://en.wikipedia.org/wiki/Strategy_pattern</li>
+<li>https://design-patterns.readthedocs.io/zh_CN/latest/behavioral_patterns/strategy.html#id3</li>
+<li>设计模式之禅#第18章 策略模式</li>
+<li>Java 8 实战#8.2 使用 Lambda 重构面向对象的设计模式</li>
+<li>Java Design Patterns #15. Strategy (Policy) Pattern</li>
+</ul>
+
+        </div>
+
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://wrcj12138aaa.github.io//tag/llypUO29A">
+            <span class="flex-auto">Java</span>
+          </a>
+        
+          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://wrcj12138aaa.github.io//tag/RVSTCL07Eh">
+            <span class="flex-auto">设计模式</span>
+          </a>
+        
+
+
+        <div class="flex justify-between py-8">
+          
+
+          
+            <div class="next-post">
+              <a href="https://wrcj12138aaa.github.io//post/java-dan-yuan-ce-shi-zhi-junit5-kuai-su-shang-shou">
+                <h3 class="post-title">
+                  Java 单元测试之 Junit5 快速上手
+                  <i class="remixicon-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '2ba76d6fe50ad2b384eb',
+    clientSecret: '90db763ed48942571725d6aef11229900c8bb656',
+    repo: 'wrcj12138aaa.github.io',
+    owner: 'wrcj12138aaa',
+    admin: ['wrcj12138aaa'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+      </div>
+    </div>
+
+    <script src="https://wrcj12138aaa.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>
