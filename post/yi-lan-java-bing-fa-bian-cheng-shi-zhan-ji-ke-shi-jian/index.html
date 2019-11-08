@@ -1,0 +1,1267 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>闻人的技术博客</title>
+<meta name="description" content="做一个终生学习的技术人" />
+<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1573220899964">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://wrcj12138aaa.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="闻人的技术博客 - Atom Feed" href="https://wrcj12138aaa.github.io//atom.xml">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://wrcj12138aaa.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://wrcj12138aaa.github.io//images/avatar.png?v=1573220899964" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">闻人的技术博客</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E7%9A%84%E5%8F%AF%E8%A7%81%E6%80%A7-%E5%8E%9F%E5%AD%90%E6%80%A7%E5%92%8C%E6%9C%89%E5%BA%8F%E6%80%A7%E9%97%AE%E9%A2%98">并发编程的可见性、原子性和有序性问题</a>
+<ul>
+<li><a href="#cpu-%E7%BC%93%E5%AD%98%E5%AF%BC%E8%87%B4%E7%9A%84%E5%8F%AF%E8%A7%81%E6%80%A7%E9%97%AE%E9%A2%98">CPU 缓存导致的可见性问题</a></li>
+<li><a href="#%E7%BA%BF%E7%A8%8B%E5%88%87%E6%8D%A2%E5%B8%A6%E6%9D%A5%E7%9A%84%E5%8E%9F%E5%AD%90%E6%80%A7%E9%97%AE%E9%A2%98">线程切换带来的原子性问题</a></li>
+<li><a href="#%E7%BC%96%E8%AF%91%E4%BC%98%E5%8C%96%E5%B8%A6%E6%9D%A5%E7%9A%84%E6%9C%89%E5%BA%8F%E6%80%A7%E9%97%AE%E9%A2%98">编译优化带来的有序性问题</a></li>
+</ul>
+</li>
+<li><a href="#java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E8%A7%A3%E5%86%B3%E5%8F%AF%E8%A7%81%E6%80%A7%E5%92%8C%E6%9C%89%E5%BA%8F%E6%80%A7%E9%97%AE%E9%A2%98">Java内存模型：解决可见性和有序性问题</a>
+<ul>
+<li><a href="#java-%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B">Java 内存模型</a></li>
+<li><a href="#happens-before-%E8%A7%84%E5%88%99">Happens-Before 规则</a></li>
+<li><a href="#final-%E5%85%B3%E9%94%AE%E5%AD%97">final 关键字</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BA%92%E6%96%A5%E9%94%81">互斥锁</a>
+<ul>
+<li><a href="#synchronized">synchronized</a></li>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%B9%B6%E5%8F%91%E4%B8%AD%E7%9A%84%E9%94%81">什么是并发中的锁</a></li>
+</ul>
+</li>
+<li><a href="#%E5%A4%84%E7%90%86%E6%AD%BB%E9%94%81">处理死锁</a>
+<ul>
+<li><a href="#%E9%A2%84%E9%98%B2%E6%AD%BB%E9%94%81">预防死锁</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AD%89%E5%BE%85-%E9%80%9A%E7%9F%A5%E6%9C%BA%E5%88%B6%E4%BC%98%E5%8C%96%E5%BE%AA%E7%8E%AF%E7%AD%89%E5%BE%85">“等待-通知”机制优化循环等待</a>
+<ul>
+<li><a href="#synchronized-%E5%AE%9E%E7%8E%B0%E7%AD%89%E5%BE%85-%E9%80%9A%E7%9F%A5%E6%9C%BA%E5%88%B6">synchronized 实现等待-通知机制</a></li>
+</ul>
+</li>
+<li><a href="#%E5%AE%89%E5%85%A8%E6%80%A7-%E6%B4%BB%E8%B7%83%E6%80%A7%E4%BB%A5%E5%8F%8A%E6%80%A7%E8%83%BD%E9%97%AE%E9%A2%98">安全性、活跃性以及性能问题</a>
+<ul>
+<li><a href="#%E6%95%B0%E6%8D%AE%E7%AB%9E%E4%BA%89">数据竞争</a></li>
+<li><a href="#%E7%AB%9E%E6%80%81%E6%9D%A1%E4%BB%B6">竞态条件</a></li>
+<li><a href="#%E6%B4%BB%E9%94%81">活锁</a></li>
+<li><a href="#%E9%94%81%E9%A5%A5%E9%A5%BF">锁饥饿</a></li>
+<li><a href="#%E9%94%81%E6%80%A7%E8%83%BD">锁性能</a></li>
+</ul>
+</li>
+<li><a href="#%E7%AE%A1%E7%A8%8B%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E7%9A%84%E4%B8%87%E8%83%BD%E9%92%A5%E5%8C%99">管程：并发编程的万能钥匙</a>
+<ul>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%AE%A1%E7%A8%8B">什么是管程</a></li>
+</ul>
+</li>
+<li><a href="#java-%E7%BA%BF%E7%A8%8B">Java 线程</a>
+<ul>
+<li><a href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F">生命周期</a></li>
+<li><a href="#%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2">线程状态转换</a></li>
+<li><a href="#%E5%90%88%E9%80%82%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%95%B0">合适的线程数</a></li>
+<li><a href="#%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F">线程安全的局部变量</a></li>
+</ul>
+</li>
+<li><a href="#lockcondition">Lock&amp;Condition</a>
+<ul>
+<li><a href="#%E5%8F%AF%E9%87%8D%E5%85%A5%E9%94%81">可重入锁</a></li>
+<li><a href="#%E5%85%AC%E5%B9%B3%E9%94%81%E4%B8%8E%E9%9D%9E%E5%85%AC%E5%B9%B3%E9%94%81">公平锁与非公平锁</a></li>
+<li><a href="#%E7%94%A8%E9%94%81%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5">用锁的最佳实践</a></li>
+</ul>
+</li>
+<li><a href="#semaphore-%E4%BF%A1%E5%8F%B7%E9%87%8F">Semaphore 信号量</a>
+<ul>
+<li><a href="#%E4%BF%A1%E5%8F%B7%E9%87%8F%E6%A8%A1%E5%9E%8B">信号量模型</a></li>
+</ul>
+</li>
+<li><a href="#readwritelock-%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%E9%94%81">ReadWriteLock 读写分离锁</a></li>
+<li><a href="#stampedlock-%E9%82%AE%E7%A5%A8%E9%94%81">StampedLock 邮票锁</a>
+<ul>
+<li><a href="#stampedlock-%E6%B3%A8%E6%84%8F%E7%82%B9">StampedLock 注意点</a></li>
+</ul>
+</li>
+<li><a href="#countdownlatch-%E4%B8%8E-cyclicbarrier">CountDownLatch 与 CyclicBarrier</a>
+<ul>
+<li><a href="#countdownlatch-%E8%AE%A1%E6%95%B0%E5%99%A8">CountDownLatch 计数器</a></li>
+<li><a href="#cyclicbarrier-%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5">CyclicBarrier 线程同步</a></li>
+</ul>
+</li>
+<li><a href="#%E5%B9%B6%E5%8F%91%E5%AE%B9%E5%99%A8%E9%83%BD%E6%9C%89%E5%93%AA%E4%BA%9B%E5%9D%91%E9%9C%80%E8%A6%81%E6%88%91%E4%BB%AC%E5%A1%AB">并发容器：都有哪些“坑”需要我们填？</a>
+<ul>
+<li><a href="#%E5%90%8C%E6%AD%A5%E5%AE%B9%E5%99%A8">同步容器</a></li>
+<li><a href="#%E5%B9%B6%E5%8F%91%E5%AE%B9%E5%99%A8">并发容器</a></li>
+</ul>
+</li>
+<li><a href="#executor%E4%B8%8E%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA%E6%AD%A3%E7%A1%AE%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%B1%A0">Executor与线程池：如何创建正确的线程池？</a>
+<ul>
+<li><a href="#%E4%BD%BF%E7%94%A8%E7%BA%BF%E7%A8%8B%E6%B1%A0%E8%A6%81%E6%B3%A8%E6%84%8F%E4%BA%9B%E4%BB%80%E4%B9%88">使用线程池要注意些什么</a></li>
+</ul>
+</li>
+<li><a href="#future%E5%9C%A8%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96%E5%BC%82%E6%AD%A5%E4%BB%BB%E5%8A%A1%E7%9A%84%E6%89%A7%E8%A1%8C%E7%BB%93%E6%9E%9C">Future：在多线程如何获取异步任务的执行结果</a>
+<ul>
+<li><a href="#future-%E5%AF%B9%E8%B1%A1">Future 对象</a></li>
+<li><a href="#future-%E5%AF%B9%E8%B1%A1%E7%9B%B8%E5%85%B3%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E6%96%B9%E6%B3%95">Future 对象相关线程池的方法</a></li>
+<li><a href="#futuretask-%E5%B7%A5%E5%85%B7%E7%B1%BB">FutureTask 工具类</a></li>
+</ul>
+</li>
+<li><a href="#completablefuture%E7%AE%80%E5%8C%96%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B">CompletableFuture：简化异步编程</a>
+<ul>
+<li><a href="#completablefuture-%E5%AF%B9%E8%B1%A1">CompletableFuture 对象</a></li>
+<li><a href="#completionstage-%E6%8E%A5%E5%8F%A3">CompletionStage 接口</a>
+<ul>
+<li><a href="#%E6%8F%8F%E8%BF%B0%E4%B8%B2%E8%A1%8C%E5%85%B3%E7%B3%BB">描述串行关系</a></li>
+<li><a href="#%E6%8F%8F%E8%BF%B0%E6%B1%87%E8%81%9A%E5%85%B3%E7%B3%BB">描述汇聚关系</a></li>
+</ul>
+</li>
+<li><a href="#completablefuture-%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86">CompletableFuture 异常处理</a></li>
+</ul>
+</li>
+<li><a href="#completionservice%E5%A6%82%E4%BD%95%E6%89%B9%E9%87%8F%E6%89%A7%E8%A1%8C%E5%BC%82%E6%AD%A5%E4%BB%BB%E5%8A%A1">CompletionService：如何批量执行异步任务</a></li>
+<li><a href="#forkjoin%E5%88%86%E8%80%8C%E6%B2%BB%E4%B9%8B%E7%9A%84%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97">Fork/Join：分而治之的并行计算</a>
+<ul>
+<li><a href="#%E5%88%86%E6%B2%BB%E4%BB%BB%E5%8A%A1%E6%A8%A1%E5%9E%8B">分治任务模型</a></li>
+<li><a href="#forkjoinpool-%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86">ForkJoinPool 工作原理</a></li>
+</ul>
+</li>
+<li><a href="#immutability-%E6%A8%A1%E5%BC%8F%E4%B8%8D%E5%8F%98%E6%80%A7%E8%A7%A3%E5%86%B3%E5%B9%B6%E5%8F%91%E9%97%AE%E9%A2%98">Immutability 模式：不变性解决并发问题</a>
+<ul>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%8D%E5%8F%98%E6%80%A7%E6%A8%A1%E5%BC%8F">什么是不变性模式？</a></li>
+<li><a href="#%E5%BF%AB%E9%80%9F%E5%AE%9E%E7%8E%B0%E5%85%B7%E5%A4%87%E4%B8%8D%E5%8F%AF%E5%8F%98%E6%80%A7%E7%9A%84%E7%B1%BB">快速实现具备不可变性的类</a></li>
+<li><a href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9">注意事项</a></li>
+<li><a href="#%E8%BF%98%E6%9C%89%E6%97%A0%E7%8A%B6%E6%80%81">还有无状态</a></li>
+</ul>
+</li>
+<li><a href="#copy-on-write-%E6%A8%A1%E5%BC%8F">Copy-on-Write 模式</a>
+<ul>
+<li><a href="#cow-%E6%98%AF%E4%BB%80%E4%B9%88">COW 是什么</a></li>
+<li><a href="#%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3">设计思想</a></li>
+<li><a href="#%E7%BC%BA%E9%99%B7">缺陷</a></li>
+</ul>
+</li>
+<li><a href="#threadlocal-%E7%BA%BF%E7%A8%8B%E6%9C%AC%E5%9C%B0%E5%AD%98%E5%82%A8%E6%A8%A1%E5%BC%8F">ThreadLocal 线程本地存储模式</a>
+<ul>
+<li><a href="#%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2%E9%97%AE%E9%A2%98">内存泄露问题</a>
+<ul>
+<li><a href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E5%8F%91%E7%94%9F%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2">为什么会发生内存泄露？</a></li>
+<li><a href="#%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3">如何解决</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#guarded-suspension-%E6%A8%A1%E5%BC%8F%E7%AD%89%E5%BE%85%E5%94%A4%E9%86%92%E6%9C%BA%E5%88%B6%E7%9A%84%E8%A7%84%E8%8C%83%E5%AE%9E%E7%8E%B0">Guarded Suspension 模式：等待唤醒机制的规范实现</a>
+<ul>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF-guarded-suspension-%E6%A8%A1%E5%BC%8F">什么是 Guarded Suspension 模式？</a></li>
+</ul>
+</li>
+<li><a href="#%E5%85%B6%E4%BB%96">其他</a></li>
+<li><a href="#balking%E6%A8%A1%E5%BC%8F%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F">Balking模式：线程安全的单例模式</a>
+<ul>
+<li><a href="#%E6%A8%A1%E5%BC%8F%E5%AE%9A%E4%B9%89">模式定义</a></li>
+<li><a href="#%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0">如何实现</a></li>
+<li><a href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF%E5%8F%8C%E9%87%8D%E6%A3%80%E6%9F%A5">应用场景：双重检查</a></li>
+<li><a href="#%E6%B3%A8%E6%84%8F%E7%82%B9">注意点</a></li>
+</ul>
+</li>
+<li><a href="#thread-per-message-%E6%A8%A1%E5%BC%8F-%E6%9C%80%E7%AE%80%E5%8C%96%E5%88%86%E5%B7%A5%E6%93%8D%E4%BD%9C">Thread-Per-Message 模式: 最简化分工操作</a></li>
+<li><a href="#workerthread-%E6%A8%A1%E5%BC%8F-%E9%81%BF%E5%85%8D%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%87%8D%E5%A4%8D%E5%88%9B%E5%BB%BA">WorkerThread 模式: 避免线程的重复创建</a>
+<ul>
+<li><a href="#%E7%BA%BF%E7%A8%8B%E6%B1%A0%E4%B8%AD%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%AD%BB%E9%94%81">线程池中的线程死锁</a></li>
+</ul>
+</li>
+<li><a href="#%E4%B8%A4%E9%98%B6%E6%AE%B5%E7%BB%88%E6%AD%A2%E6%A8%A1%E5%BC%8F%E7%BB%88%E6%AD%A2%E7%BA%BF%E7%A8%8B">两阶段终止模式：终止线程</a>
+<ul>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%A4%E9%98%B6%E6%AE%B5%E7%BB%88%E6%AD%A2%E6%A8%A1%E5%BC%8F">什么是两阶段终止模式？</a></li>
+<li><a href="#%E5%A6%82%E4%BD%95%E4%BC%98%E9%9B%85%E5%9C%B0%E7%BB%88%E6%AD%A2%E7%BA%BF%E7%A8%8B%E6%B1%A0">如何优雅地终止线程池</a></li>
+</ul>
+</li>
+<li><a href="#%E7%94%9F%E4%BA%A7%E8%80%85-%E6%B6%88%E8%B4%B9%E8%80%85%E6%A8%A1%E5%BC%8F">生产者-消费者模式</a>
+<ul>
+<li><a href="#%E4%BC%98%E7%82%B9">优点</a></li>
+<li><a href="#%E5%85%B6%E4%BB%96%E5%BA%94%E7%94%A8">其他应用</a></li>
+</ul>
+</li>
+<li><a href="#%E9%AB%98%E6%80%A7%E8%83%BD%E9%99%90%E6%B5%81%E5%99%A8-guavaratelimiter">高性能限流器 GuavaRateLimiter</a></li>
+<li><a href="#%E9%AB%98%E6%80%A7%E8%83%BD%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8%E6%A1%86%E6%9E%B6netty">高性能网络应用框架Netty</a>
+<ul>
+<li><a href="#reactor-%E6%A8%A1%E5%BC%8F">Reactor 模式</a></li>
+<li><a href="#netty%E4%B8%AD%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B">Netty中的线程模型</a></li>
+</ul>
+</li>
+<li><a href="#%E9%AB%98%E6%80%A7%E8%83%BD%E9%98%9F%E5%88%97disruptor">高性能队列Disruptor</a>
+<ul>
+<li><a href="#%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%B1%80%E9%83%A8%E6%80%A7%E5%8E%9F%E7%90%86">程序的局部性原理</a></li>
+<li><a href="#%E5%A4%84%E7%90%86%E4%BC%AA%E5%85%B1%E4%BA%AB">处理“伪共享”</a></li>
+<li><a href="#disruptor%E4%B8%AD%E7%9A%84%E6%97%A0%E9%94%81%E7%AE%97%E6%B3%95">Disruptor中的无锁算法</a></li>
+</ul>
+</li>
+<li><a href="#%E9%AB%98%E6%80%A7%E8%83%BD%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E6%B1%A0-hikaricp">高性能数据库连接池 HiKariCP</a>
+<ul>
+<li><a href="#fastlist-%E8%A7%A3%E5%86%B3%E4%BA%86%E5%93%AA%E4%BA%9B%E6%80%A7%E8%83%BD%E9%97%AE%E9%A2%98">FastList 解决了哪些性能问题</a></li>
+<li><a href="#concurrentbag-%E8%A7%A3%E5%86%B3%E4%BA%86%E5%93%AA%E4%BA%9B%E6%80%A7%E8%83%BD%E9%97%AE%E9%A2%98">ConcurrentBag 解决了哪些性能问题</a></li>
+</ul>
+</li>
+<li><a href="#actor%E6%A8%A1%E5%9E%8B%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%8E%9F%E7%94%9F%E7%9A%84%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%9E%8B">Actor模型：面向对象原生的并发模型</a>
+<ul>
+<li><a href="#%E6%B6%88%E6%81%AF%E5%92%8C%E5%AF%B9%E8%B1%A1%E6%96%B9%E6%B3%95%E7%9A%84%E5%8C%BA%E5%88%AB">消息和对象方法的区别</a></li>
+<li><a href="#actor%E7%9A%84%E8%A7%84%E8%8C%83%E5%8C%96%E5%AE%9A%E4%B9%89">Actor的规范化定义</a></li>
+</ul>
+</li>
+<li><a href="#%E8%BD%AF%E4%BB%B6%E4%BA%8B%E5%8A%A1%E5%86%85%E5%AD%98">软件事务内存</a></li>
+<li><a href="#%E5%8D%8F%E7%A8%8B%E6%9B%B4%E8%BD%BB%E9%87%8F%E7%BA%A7%E7%9A%84%E7%BA%BF%E7%A8%8B">协程：更轻量级的线程</a></li>
+<li><a href="#csp-%E6%A8%A1%E5%9E%8B">CSP 模型</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="remixicon-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"></div>
+    <a class="rss" href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">一览 Java并发编程实战（极客时间）</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2019-11-08 / 29 min read
+        </div>
+        
+        <div class="post-content yue">
+          <p>Java 开发中并发编程算是复杂而又重要的一块了，掌握基础的并发知识和解决并发场景中所可能遇到的问题，很有必要，本文是对极客时间专栏《Java并发编程实战》的学习总结。</p>
+<!-- more -->
+<h2 id="并发编程的可见性-原子性和有序性问题">并发编程的可见性、原子性和有序性问题</h2>
+<p>并发问题的核心矛盾在于：CPU，内存，I/O 处理速度的差异巨大。程序整体的性能取决于最慢的操作——读写 I/O 设备。</p>
+<p>在计算机系统层面的优化:</p>
+<ol>
+<li>CPU 增加缓存</li>
+<li>操作系统增加了进程、线程，以分时复用 CPU</li>
+<li>编译程序优化指令执行次序</li>
+</ol>
+<h3 id="cpu-缓存导致的可见性问题">CPU 缓存导致的可见性问题</h3>
+<p><strong>可见性</strong>：一个线程对共享变量的修改，另一个线程能马上看到。</p>
+<figure data-type="image" tabindex="1"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g8kuq9ud26j30xj0u01bj.jpg" alt=""></figure>
+<h3 id="线程切换带来的原子性问题">线程切换带来的原子性问题</h3>
+<p><strong>原子性</strong>：一个就者多个操作在 CPU 执行的过程中不被中断。</p>
+<figure data-type="image" tabindex="2"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g8kuxsbip5j319u0ow3zu.jpg" alt=""></figure>
+<h3 id="编译优化带来的有序性问题">编译优化带来的有序性问题</h3>
+<p>编译期为了优化性能，有时候会改变程序中语句的先后顺序，导致意想不到的 Bug。</p>
+<h2 id="java内存模型解决可见性和有序性问题">Java内存模型：解决可见性和有序性问题</h2>
+<h3 id="java-内存模型">Java 内存模型</h3>
+<p>Java 内存模型规范了 JVM 如何提供按需禁用缓存和编译优化方法，解决缓存，编译优化导致的并发问题。</p>
+<ul>
+<li>volatile 告诉编译期禁用 CPU 缓存，直接从内存中读写。</li>
+<li>synchronized</li>
+<li>final</li>
+</ul>
+<h3 id="happens-before-规则">Happens-Before 规则</h3>
+<blockquote>
+<p>前一个操作的结果对后续操作可见。</p>
+</blockquote>
+<p>用于约束编译器优化的行为。</p>
+<ol>
+<li>顺序性规则
+<ul>
+<li>在一个线程中，按照程序顺序，前面的操作对于后续操作是可见的</li>
+</ul>
+</li>
+<li>volatile 规则
+<ul>
+<li>对一个 volatile 变量的写操作，对于后续该变量的读操作是可见的</li>
+</ul>
+</li>
+<li>传递性规则
+<ul>
+<li>如果 A Happens-Before B，且 B Happens-Before C，那么 A Happens- Before C</li>
+</ul>
+</li>
+<li>管程中锁的规则
+<ul>
+<li>对一个锁的解锁 Happens-Before 于后续对这个锁的加锁</li>
+</ul>
+</li>
+<li>线程 start() 规则
+<ul>
+<li>主线程 A 启动子线程 B 后，子线程 B 能够看到主线程在 启动子线程 B 前的操作</li>
+</ul>
+</li>
+<li>线程 join() 规则
+<ul>
+<li>主线程 A 等待子线程 B 完成，当子线程 B 完成后，主线程能 够看到子线程对共享变量的操作</li>
+</ul>
+</li>
+<li>线程中断规则
+<ul>
+<li>对线程interrupt()方法的调用先行发生于被中断线程的代码检测到中断事件的发生，可以通过Thread.interrupted()方法检测到是否有中断发生</li>
+</ul>
+</li>
+<li>对象终结规则
+<ul>
+<li>一个对象的初始化完成(构造函数执行结束)先行发生于它的 finalize() 方法的开始</li>
+</ul>
+</li>
+</ol>
+<h3 id="final-关键字">final 关键字</h3>
+<p>final 修饰变量告知编译器进行优化，但是对变量重排序进行约束，防止变量<strong>逸出</strong>。</p>
+<h2 id="互斥锁">互斥锁</h2>
+<p>同一个线程只有一个线程执行的方式叫做互斥，解决原子性问题就需要保证对共享变量的修改是互斥的。</p>
+<figure data-type="image" tabindex="3"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g8lpe3aa5aj30zy0sijyv.jpg" alt=""></figure>
+<p><strong>临界区</strong>：需要互斥执行的代码片段。</p>
+<p>锁和锁要保护的资源是有对应关系的，一把锁必须要有保护的资源，这样有锁了之后，在临界区里访问对应的资源才是原子安全性的。</p>
+<h3 id="synchronized">synchronized</h3>
+<p>Java 语言提供 synchronized 关键字实现锁，编译期会自动对其修饰的方法进行加锁和解锁操作。</p>
+<blockquote>
+<p>加锁与解锁必须成对出现，否则忘记解锁，其他线程会一直等下去。</p>
+</blockquote>
+<p>资源与锁之间的关联关系是 N:1 的关系，我们只能用一把锁保护多个资源，但多个锁不能保护同一个资源。</p>
+<figure data-type="image" tabindex="4"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g8lpqv96gyj310c0u0wsu.jpg" alt=""></figure>
+<p>即使两个锁保护一个资源，但是两个临界区仍然没有互斥关系，存在可行性并发问题。</p>
+<h3 id="什么是并发中的锁">什么是并发中的锁</h3>
+<p>锁一定有一个要锁定的对象，并对锁定的对象关联要保护的资源，然后在临界区进行加锁和解锁操作受保护资源。</p>
+<h2 id="处理死锁">处理死锁</h2>
+<p>使用细颗粒度锁可以提高并发性能，但是存在导致死锁的风险。</p>
+<p><strong>死锁</strong>：一组互相竞争资源的线程相互等待而导致阻塞的情况。</p>
+<h3 id="预防死锁">预防死锁</h3>
+<ul>
+<li>对于占用且等待额线程，一次性申请所有资源</li>
+<li>对于不可抢占的资源，主动释放占有的资源</li>
+<li>对于循环等待的情况，按照序号申请，先申请小的，再申请大的</li>
+</ul>
+<h2 id="等待-通知机制优化循环等待">“等待-通知”机制优化循环等待</h2>
+<p>线程获得互斥锁，当线程要求的条件不满足时，释放互斥锁并进去等待状态，只有当要求的条件满足时，通知等待的线程，可以尝试重新获取互斥锁。</p>
+<h3 id="synchronized-实现等待-通知机制">synchronized 实现等待-通知机制</h3>
+<p>synchronized 配合 wait(), notify(), notifyAll() 三个方法能实现等待通知机制。</p>
+<figure data-type="image" tabindex="5"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g8mbklewglj30y00u0136.jpg" alt=""></figure>
+<blockquote>
+<p>尽量使用 notifyAll 实现通知，因为 notify()  只是随机地通知等待队列中的一个线程。</p>
+</blockquote>
+<h2 id="安全性-活跃性以及性能问题">安全性、活跃性以及性能问题</h2>
+<p>存在共享数据，并且有多个线程会同时读写这个数据时就可能出现并发问题。</p>
+<h3 id="数据竞争">数据竞争</h3>
+<p>多个线程同时访问一个数据，并且至少有一个线程会写数据。</p>
+<h3 id="竞态条件">竞态条件</h3>
+<p>程序执行结果依赖线程执行的顺序。</p>
+<h3 id="活锁">活锁</h3>
+<p>线程没有发生阻塞，但仍然存在执行不下去的情况。</p>
+<p>解决方式就是提供随机地等待时间。</p>
+<h3 id="锁饥饿">锁饥饿</h3>
+<p>线程因为无法访问所需资源而无法执行的情况。</p>
+<p>解决方式是保证资源充足和公平分配，避免持有锁的线程长时间执行。</p>
+<h3 id="锁性能">锁性能</h3>
+<p>使用锁会带来性能问题，最好的方案是使用无锁的算法和数据结构；减少锁持有的时间。</p>
+<h2 id="管程并发编程的万能钥匙">管程：并发编程的万能钥匙</h2>
+<h3 id="什么是管程">什么是管程</h3>
+<p>管理共享变量包括对变量的操作过程，使得支持并发。</p>
+<p>在  Java 语言中就是管理类的成员变量和方法，使得类线程安全。</p>
+<figure data-type="image" tabindex="6"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g8nguhms0cj30u00udwit.jpg" alt=""></figure>
+<p>Java 内置的管程方案就是使用 synchronized 关键字，synchronized 修饰的代码块在编译期会自动生成加锁和解锁的代码，并且只支持一个条件变量。</p>
+<h2 id="java-线程">Java 线程</h2>
+<h3 id="生命周期">生命周期</h3>
+<p>Java 线程共有六种状态：</p>
+<ul>
+<li>NEW</li>
+<li>RUNNABLE</li>
+<li>BLOCKED</li>
+<li>WAITING</li>
+<li>TIMED_WAITING</li>
+<li>TERMINATED</li>
+</ul>
+<p>Java 线程只要处于 BLOCKED，WAITING，TIMED_WAITING 之中，意味着线程休眠，没有使用 CPU 的权利。</p>
+<figure data-type="image" tabindex="7"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g8nh50hmu3j30u00y3tdp.jpg" alt=""></figure>
+<h3 id="线程状态转换">线程状态转换</h3>
+<ul>
+<li>RUNNABLE 与 BLOCKED 的状态转换
+<ul>
+<li>使用 synchronized</li>
+</ul>
+</li>
+<li>RUNNABLE 与 WAITING 的状态转换
+<ul>
+<li>执行 Object.wait() 方法</li>
+<li>执行 Thread.join() 方法</li>
+<li>执行 LockSupport.park() 方法</li>
+</ul>
+</li>
+<li>RUNNABLE 与 TIMED_WAITING 的状态转换
+<ul>
+<li>Thread.sleep</li>
+<li>Object.wait(timeout)</li>
+<li>Thread.join(millis)</li>
+<li>LockSupport.parkNanos(blocker,deadline)</li>
+<li>LockSupport.parkUntil(deadline)</li>
+</ul>
+</li>
+<li>从 NEW 到 RUNNABLE 状态
+<ul>
+<li>调用线程对象的 start 方法</li>
+</ul>
+</li>
+<li>从 RUNNABLE 到 TERMINATED 状态
+<ul>
+<li>线程对象 run 方法执行完毕</li>
+<li>Thread.interrupt()</li>
+</ul>
+</li>
+</ul>
+<h3 id="合适的线程数">合适的线程数</h3>
+<p>对于 CPU 密集型的计算场景，线程的数量一般设置为 “CPU 核数 + 1”  ；</p>
+<p>对于 I/O 密集型计算场景，线程数计算公式为 <code>最佳线程数 =CPU 核数 * [ 1 +（I/O 耗时 / CPU 耗时）]</code></p>
+<blockquote>
+<p>I/O 耗时和 CPU 耗时比值的估算，需要使用压测来完成。</p>
+</blockquote>
+<p>线程数并不是越多越好，<strong>将硬件的性能发挥到极致</strong>才是最终目的。</p>
+<h3 id="线程安全的局部变量">线程安全的局部变量</h3>
+<p>局部变量存在于调用栈中，方法调用结束后就会销毁，而每个线程都有自己独立的调用栈。</p>
+<figure data-type="image" tabindex="8"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g8nhi230ijj30r20p6dji.jpg" alt=""></figure>
+<p>方法里的局部变量，不会跟其他线程进行共享，所以不会存在并发问题，这种叫做<strong>线程封闭</strong>。</p>
+<h2 id="lockcondition">Lock&amp;Condition</h2>
+<p>面对并发编程的互斥问题和同步问题，Java SDK 并发包提供 Lock 和 Condition 接口实现管程来解决。</p>
+<h3 id="可重入锁">可重入锁</h3>
+<p>线程可以重复获取同一把锁。</p>
+<h3 id="公平锁与非公平锁">公平锁与非公平锁</h3>
+<p>锁是否公平表现在从等待队列中唤醒一个等待的线程，是谁等时间长唤醒谁，还是随机唤醒。</p>
+<h3 id="用锁的最佳实践">用锁的最佳实践</h3>
+<ul>
+<li>只在更新对象的成员变量时加锁</li>
+<li>只在访问可变的成员变量时加锁</li>
+<li>不要在调用其他对象的方法时加锁</li>
+<li>减少锁的持有时间</li>
+<li>减小锁的粒度</li>
+</ul>
+<h2 id="semaphore-信号量">Semaphore 信号量</h2>
+<h3 id="信号量模型">信号量模型</h3>
+<p>一个计数器，一个等待队列，三个方法：</p>
+<ul>
+<li>init()：设置初始值</li>
+<li>down()：计数器值减一，小于0时阻塞线程</li>
+<li>up()：计数器加一，大于等于0时唤醒等待队列的线程，并从队列中移除。</li>
+</ul>
+<figure data-type="image" tabindex="9"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g8qxu2leblj30py0q60wh.jpg" alt=""></figure>
+<p>Semaphore 可以允许多个线程访问一个临界区。</p>
+<h2 id="readwritelock-读写分离锁">ReadWriteLock 读写分离锁</h2>
+<blockquote>
+<p>Java SDK 并发包为什么还有很多工具类？ 分场景优化性能，提供易用性。</p>
+</blockquote>
+<p>针对读多写少的场景，Java SDK 提供了读写锁 ReadWriteLock，性能更好。</p>
+<p>读写锁特性：</p>
+<ul>
+<li>允许多个线程读取共享变量</li>
+<li>只允许一个线程写共享变量</li>
+<li>写操作时，禁止其他线程读取共享变量</li>
+</ul>
+<h2 id="stampedlock-邮票锁">StampedLock 邮票锁</h2>
+<p>在读多写少的场景中，性能比读写锁更好地锁，支持三种模式：：写锁、悲观读锁和乐观读，其中乐观读操作是无锁的。</p>
+<h3 id="stampedlock-注意点">StampedLock 注意点</h3>
+<ul>
+<li>不支持重入</li>
+<li>不能直接调用中断操作，使用 readLockInterruptibly() 和 writeLockInterruptibly() 代替</li>
+</ul>
+<h2 id="countdownlatch-与-cyclicbarrier">CountDownLatch 与 CyclicBarrier</h2>
+<h3 id="countdownlatch-计数器">CountDownLatch 计数器</h3>
+<p>countDown() 用来减一，await() 来实现等待计数器等于0。</p>
+<p>可以用来解决一个线程等待多个线程的场景。</p>
+<h3 id="cyclicbarrier-线程同步">CyclicBarrier 线程同步</h3>
+<p>await() 将计数器减一，同时等待计数器等于0，并且当减到0时，会自动重置到初始值。</p>
+<p>可以用来解决一组线程之间的相互等待。</p>
+<h2 id="并发容器都有哪些坑需要我们填">并发容器：都有哪些“坑”需要我们填？</h2>
+<h3 id="同步容器">同步容器</h3>
+<ul>
+<li>
+<p>基于 Synchronized 同步关键字使岸线的线程安全容器，如 Vector，Stack，Hashtable。</p>
+</li>
+<li>
+<p>Java 在 1.5 版本之前所谓的线程安全的容器，性能差。</p>
+</li>
+<li>
+<p>组合操作需要注意竞态条件问题，对同步容器存在组合操作时无法保证它的原子性，例如用迭代器遍历容器，对每个元素调用方法，就存在原子性并发问题。</p>
+</li>
+</ul>
+<pre><code class="language-java">// 存在并发问题操作
+List list = Collections.synchronizedlist(new Arraylist ());
+Iterator i= list.iterator() 
+while  (i.hasNext()) {
+	foo (i.next())
+}
+
+// 线程安全操作
+List list = Collections.synchronizedlist(new Arraylist ());
+synchronized  (list) {
+  Iterator i= list.iterator() 
+	while  (i.hasNext()) {
+    foo (i.next())
+  }
+}
+</code></pre>
+<h3 id="并发容器">并发容器</h3>
+<ul>
+<li>Java 1.5 后推出的既保证线程安全，并且性能更高的容器。</li>
+<li>总共四大类：List，Map，Set，Queue。</li>
+</ul>
+<figure data-type="image" tabindex="10"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g7stuiyw31j31oc0p8qjv.jpg" alt="并发容器关系图"></figure>
+<h2 id="executor与线程池如何创建正确的线程池">Executor与线程池：如何创建正确的线程池？</h2>
+<p>线程池模式：<strong>生产者-消费者模式</strong>，线程池是消费者，使用方为生产者。</p>
+<p>线程池核心类：<strong>ThreadPoolExecutorThreadPoolExecutor</strong></p>
+<pre><code class="language-java">ThreadPoolExecutor( int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue&lt;Runnable&gt; workQueue, ThreadFactory threadFactory, RejectedExecutionHandler handler)
+</code></pre>
+<ul>
+<li>corePoolSize：表示线程池保有的最小线程数</li>
+<li>maximumPoolSize：表示线程池创建的最大线程数</li>
+<li>keepAliveTime &amp; unit：定义空闲连接的存活时间</li>
+<li>workQueue：工作队列</li>
+<li>threadFactory：通过这个参数你可以自定义如何创建线程</li>
+<li>handler：通过这个参数你可以自定义任务的拒绝策略</li>
+</ul>
+<h3 id="使用线程池要注意些什么">使用线程池要注意些什么</h3>
+<p>使用有界队列，在高负载情况下无界队列容易导致 OOM；</p>
+<p>慎重使用默认拒绝策略，只是抛出运行时异常；</p>
+<p>针对异常处理进行需要捕获所有异常并按需处理；</p>
+<h2 id="future在多线程如何获取异步任务的执行结果">Future：在多线程如何获取异步任务的执行结果</h2>
+<p>利用Java并发包提供的 Future 可以很容易获得异步任务的执行结果，无论异步任务是通过线程池     ThreadPoolExecutor 执行的，还是通过手工创建子线程来执行的。</p>
+<h3 id="future-对象">Future 对象</h3>
+<p>封装了任务的状态和结果的对象。</p>
+<figure data-type="image" tabindex="11"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g87dbgucv8j30iu098dgx.jpg" alt=""></figure>
+<h3 id="future-对象相关线程池的方法">Future 对象相关线程池的方法</h3>
+<ul>
+<li>
+<p>Future&lt;?&gt; submit(Runnable task)</p>
+</li>
+<li>
+<p>Future 没有返回值，仅用来判断任务是否结束。</p>
+</li>
+<li>
+<p>Future<T> submit(Callable<T> task)</p>
+<ul>
+<li>Future 有返回值，可以通过 <code>get()</code> 方法获取执行结果</li>
+</ul>
+</li>
+<li>
+<p>Future<T> submit(Runnable task, T result)</p>
+<ul>
+<li>
+<p>Future 获得的返回值为传入的 result；可以用来线程之间数据共享</p>
+<blockquote>
+<p><strong>使用示例</strong>：</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<pre><code class="language-java">    ExecutorService executor = Executors.newFixedThreadPool(1); // 创建Result对象r 
+    Result r = new Result(); 
+    r.setAAA(a); // 提交任务 
+    Future&lt;Result&gt; future = executor.submit(new Task(r), r); 
+    Result fr = future.get(); 
+    // 下⾯等式成⽴ 
+    // fr === r; 
+    // fr.getAAA() === a; 
+    // fr.getXXX() === x
+    
+    class Task implements Runnable{ 
+        Result r; //通过构造函数传⼊ result
+    	Task(Result r){
+            this.r = r; 
+        } 
+        void run() { //可以操作result 
+            a = r.getAAA(); 
+            r.setXXX(x); 
+        }
+    }
+</code></pre>
+</blockquote>
+<h3 id="futuretask-工具类">FutureTask 工具类</h3>
+<p>FutureTask 实现了 Runnable 和 Feture 接口，即可作为任务提交到线程池，也能用来获取任务的执行结果。</p>
+<blockquote>
+<p><strong>使用示例</strong></p>
+<pre><code class="language-java">// 创建FutureTask 
+FutureTask&lt;Integer&gt; futureTask = new FutureTask&lt;&gt;(()-&gt; 1+2); 
+// 创建线程池 
+ExecutorService es = Executors.newCachedThreadPool(); 
+// 提交FutureTask 
+es.submit(futureTask); 
+// 获取计算结果 
+Integer result = futureTask.get();
+
+
+// 创建FutureTask 
+FutureTask&lt;Integer&gt; futureTask = new FutureTask&lt;&gt;(()-&gt; 1+2); 
+// 创建并启动线程 
+Thread T1 = new Thread(futureTask); 
+T1.start(); 
+// 获取计算结果 
+Integer result = futureTask.get();
+</code></pre>
+</blockquote>
+<h2 id="completablefuture简化异步编程">CompletableFuture：简化异步编程</h2>
+<h3 id="completablefuture-对象">CompletableFuture 对象</h3>
+<p>CompletableFuture 实现了Future接口，可以明确获取异步操作结束时间和异步操作结果。</p>
+<p>创建方式：</p>
+<ul>
+<li>CompletableFuture<Void> runAsync(Runnable runnable)
+<ul>
+<li>无返回值，使用公用的线程池：ForkJoinPool</li>
+</ul>
+</li>
+<li>CompletableFuture<Void> runAsync(Runnable runnable,Executor executor)
+<ul>
+<li>无返回值，可以指定线程池。</li>
+</ul>
+</li>
+<li>CompletableFuture<U> supplyAsync(Supplier<U> supplier)
+<ul>
+<li>有返回值，使用公用的线程池：ForkJoinPool</li>
+</ul>
+</li>
+<li>CompletableFuture<U> supplyAsync(Supplier<U> supplier,Executor executor)
+<ul>
+<li>有返回值，可以指定线程池。</li>
+</ul>
+</li>
+</ul>
+<h3 id="completionstage-接口">CompletionStage 接口</h3>
+<p>CompletableFuture 实现了 CompletionStage 接口，用对任务间的时序关系（串行，并行，汇聚等）进行描述和绑定。</p>
+<figure data-type="image" tabindex="12"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g87sf0mz7aj30we0u0dvd.jpg" alt=""></figure>
+<h4 id="描述串行关系">描述串行关系</h4>
+<ul>
+<li>thenApply
+<ul>
+<li>接受参数也支持返回结果</li>
+</ul>
+</li>
+<li>thenAccept
+<ul>
+<li>接受参数但没有返回值</li>
+</ul>
+</li>
+<li>thenRun
+<ul>
+<li>不接受参数，也没有返回</li>
+</ul>
+</li>
+<li>thenCompose
+<ul>
+<li>创建一个子线程，处理方式与 thenApply 一样</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>示例</p>
+<pre><code class="language-java">CompletableFuture&lt;String&gt; f1 = CompletableFuture.supplyAsync(() -&gt; &quot;Hello World &quot;)
+        .thenApply(s -&gt; s + &quot;QQ&quot;)
+        .thenApply(String::toUpperCase);
+System.out.println(f1.join()); // HELLO WORLD QQ
+</code></pre>
+</blockquote>
+<h4 id="描述汇聚关系">描述汇聚关系</h4>
+<p><strong>AND 汇聚</strong></p>
+<ul>
+<li>thenCombine
+<ul>
+<li>执行当前任务时，接受另一个任务执行，最终执行指定任务，并且接受参数，有返回值。</li>
+</ul>
+</li>
+<li>thenAcceptBoth
+<ul>
+<li>执行当前任务时，接受另一个任务执行，最终执行指定任务，接受参数，但没返回值。</li>
+</ul>
+</li>
+<li>runAfterBoth
+<ul>
+<li>执行当前任务时，接受另一个任务执行，最终执行指定任务，不接受参数，也没返回值。</li>
+</ul>
+</li>
+</ul>
+<p><strong>OR 汇聚</strong></p>
+<ul>
+<li>applyToEither
+<ul>
+<li>执行当前任务与另一个任务的一个，最终执行指定任务，并且接受参数，有返回值。</li>
+</ul>
+</li>
+<li>acceptEither
+<ul>
+<li>执行当前任务与另一个任务的一个，最终执行指定任务，接受参数，无返回值。</li>
+</ul>
+</li>
+<li>runAfterEither
+<ul>
+<li>执行当前任务与另一个任务的一个，最终执行指定任务，不接受参数，也没返回值。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>示例</p>
+<pre><code class="language-java">CompletableFuture&lt;String&gt; f1 = CompletableFuture.supplyAsync(() -&gt; {
+    int t = getRandom(5, 10);
+    sleep(t, TimeUnit.SECONDS);
+    System.out.println(&quot;f1:&quot; + t);
+    return String.valueOf(t);
+});
+
+CompletableFuture&lt;String&gt; f2 = CompletableFuture.supplyAsync(() -&gt; {
+    int t = getRandom(5, 10);
+    sleep(t, TimeUnit.SECONDS);
+    System.out.println(&quot;f2:&quot; + t);
+    return String.valueOf(t);
+});
+CompletableFuture&lt;String&gt; f3 = f1.applyToEither(f2, s -&gt; s);
+System.out.println(f3.join());
+</code></pre>
+</blockquote>
+<h3 id="completablefuture-异常处理">CompletableFuture 异常处理</h3>
+<p>CompletableFuture 的方法不会抛出可检查异常，但是却无法限制它们抛出运行时异常。</p>
+<p>在异步编程中进行异常处理时使用下面方法：</p>
+<ul>
+<li>CompletionStage exceptionally(fn);
+<ul>
+<li>处理异常</li>
+</ul>
+</li>
+<li>CompletionStage<R> whenComplete(consumer);
+<ul>
+<li>不支持返回结果</li>
+</ul>
+</li>
+<li>CompletionStage<R> whenCompleteAsync(consumer);
+<ul>
+<li>不支持返回结果</li>
+</ul>
+</li>
+<li>CompletionStage<R> handle(fn);
+<ul>
+<li>支持返回结果</li>
+</ul>
+</li>
+<li>CompletionStage<R> handleAsync(fn);
+<ul>
+<li>支持返回结果</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>示例</p>
+<pre><code class="language-java">CompletableFuture&lt;Integer&gt; f0 = CompletableFuture.supplyAsync(() -&gt; 7 / 0)
+        .thenApply(r -&gt; r * 10)
+        .exceptionally(e -&gt; 0);
+System.out.println(f0.join()); // 0
+</code></pre>
+</blockquote>
+<p>CompletableFuture 的异常处理支持链式编程方式。</p>
+<h2 id="completionservice如何批量执行异步任务">CompletionService：如何批量执行异步任务</h2>
+<p>CompletionService 是内部维护了一个阻塞队列，当任务执行结束就把任务执行结果的 Future 对象加入到 阻塞队列中。</p>
+<p>CompletionService 对象的创建</p>
+<ul>
+<li>ExecutorCompletionService(Executor executor)
+<ul>
+<li>默认使用无界的 LinkedBlockingQueue</li>
+</ul>
+</li>
+<li>ExecutorCompletionService(Executor executor, BlockingQueue&lt;Future<V>&gt; completionQueue)</li>
+</ul>
+<blockquote>
+<p>示例：</p>
+<pre><code class="language-java">// 创建线程池
+ExecutorService executor = Executors.newFixedThreadPool(3);
+CompletionService&lt;Integer&gt; cs = new ExecutorCompletionService&lt;&gt;(executor);
+cs.submit(() -&gt; getPriceByS1());
+cs.submit(() -&gt; getPriceByS2());
+cs.submit(() -&gt; getPriceByS3());
+for (int i = 0; i &lt; 3; i++) {
+    Future&lt;Integer&gt; poll = cs.poll();
+    if (poll != null) {
+        Integer r = poll.get();
+        executor.execute(() -&gt; save(r));
+    }
+}
+</code></pre>
+</blockquote>
+<p>CompletionService能够让异步任务的执行结果有序化，先执行完的先进入阻塞队列，保证任务处理的有序性。</p>
+<h2 id="forkjoin分而治之的并行计算">Fork/Join：分而治之的并行计算</h2>
+<h3 id="分治任务模型">分治任务模型</h3>
+<ol>
+<li>任务分解 - Fork 部分
+<ul>
+<li>关键方法：fork() 异步执行子任务</li>
+</ul>
+</li>
+<li>结果合并 - Join 部分
+<ul>
+<li>关键方法：join() 阻塞当前线程等待子任务的结果</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>示例：</p>
+<pre><code class="language-java">public static void main(String[] args) {
+    ForkJoinPool fjp = new ForkJoinPool(4);
+    Fibonacci fib = new Fibonacci(30);
+    Integer result = fjp.invoke(fib);
+    System.out.println(result);
+}
+
+static class Fibonacci extends RecursiveTask&lt;Integer&gt; {
+    final int n;
+
+    Fibonacci(int n) {
+        this.n = n;
+    }
+
+    protected Integer compute() {
+        if (n &lt;= 1)
+            return n;
+        Fibonacci f1 = new Fibonacci(n - 1);
+        //创建⼦任务
+        f1.fork();
+        Fibonacci f2 = new Fibonacci(n - 2);
+        //等待⼦任务结果，并合并结果
+        return f2.compute() + f1.join();
+    }
+}
+</code></pre>
+</blockquote>
+<figure data-type="image" tabindex="13"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g88z3pix57j30pg0tck4g.jpg" alt=""></figure>
+<h3 id="forkjoinpool-工作原理">ForkJoinPool 工作原理</h3>
+<p>一个生产者-消费者的实现,但是内部有多个任务队列（双端队列），当执行 invoke / submit 提交任务时分配队列。</p>
+<p>ForkJoinPool支持一种叫做“任务窃取”机制，当线程对应的任务队列空了，从其他任务队列的另一端获取任务进行执行，加快处理效率。</p>
+<figure data-type="image" tabindex="14"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g88znqba4zj30r80uogrh.jpg" alt="Forkjoin Pool 工作原理图"></figure>
+<h2 id="immutability-模式不变性解决并发问题">Immutability 模式：不变性解决并发问题</h2>
+<h3 id="什么是不变性模式">什么是不变性模式？</h3>
+<p>对象一旦创建，状态就不再变化，此后只有读操作，没有写操作。</p>
+<h3 id="快速实现具备不可变性的类">快速实现具备不可变性的类</h3>
+<p>将一个类所有的属性都设置成 final 的，并且只允许存在只读方法，类也要用 final 修饰。</p>
+<h3 id="注意事项">注意事项</h3>
+<ul>
+<li>对象的所有属性都是final的，并不能保证不可变性</li>
+<li>不可变对象也需要正确发布, 使用 AtomicReference 原子类进行包装</li>
+</ul>
+<h3 id="还有无状态">还有无状态</h3>
+<p>无状态对象是更简单的不可变对象，只有方法。除了无状态的对象。</p>
+<h2 id="copy-on-write-模式">Copy-on-Write 模式</h2>
+<h3 id="cow-是什么">COW 是什么</h3>
+<p>Copy-on-Write，经常被缩写为COW，顾名思义就是写时复制，是最简单的并发解决方案。</p>
+<p>CopyOnWriteArrayList ，CopyOnWriteArraySet 就是 COW 容器，实现的读操作是无锁的。</p>
+<h3 id="设计思想">设计思想</h3>
+<p>除了 Java 领域，Copy-on-Write 还出现在操作系统领域，Docker 镜像设计，Git，函数式编程等领域。</p>
+<p>其中函数式编程领域的不可变性就是靠 Copy-on-Write 来处理修改操作的。</p>
+<h3 id="缺陷">缺陷</h3>
+<p>复制数据，需要消耗内存，会影响性能；随着自动垃圾回收（GC）算法的成熟以及硬件的 发展，这种内存消耗已经渐渐可以被接受。</p>
+<h2 id="threadlocal-线程本地存储模式">ThreadLocal 线程本地存储模式</h2>
+<p>Thread 内部持有一个 Map 类型为 ThreadLocalMap，用内部属性 threadLocals 引用，key 为 ThreadLocal。ThreadLocalMap 里对 ThreadLocal 的弱引用可以让 ThreadLocalMap 随着 Thread 对象被回收而回收掉，不容易产生内存泄漏。</p>
+<img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g8bc7gwrs0j30oq0lmdm2.jpg" alt="image-20191026091849639" style="zoom:50%;" />
+<h3 id="内存泄露问题">内存泄露问题</h3>
+<h4 id="为什么会发生内存泄露">为什么会发生内存泄露？</h4>
+<p>在线程池中线程只要存活着，持有的 ThreadLocalMap 就一直不会被回收，虽然 ThreadLocalMap中的 Entry 对 ThreadLocal  持有弱引用，但对 Value 持有强引用，在GC 之后，对 ThreadLocal 引用会释放，而对 Value 引用不会释放，使得出现 ThreadLocalMap 里面存在key为null但是value不为null的entry项，此时对应的 Value 对象内存泄露。</p>
+<h4 id="如何解决">如何解决</h4>
+<p>使用 try {} finally {} 执行 ThreadLocal 的 remove() 方法手动清理 ThreadLocal，内部对 key 为 null 的 Entry 对象将 去除 value 的引用进行移除。</p>
+<blockquote>
+<p><a href="http://ifeve.com/%E4%BD%BF%E7%94%A8threadlocal%E4%B8%8D%E5%BD%93%E5%8F%AF%E8%83%BD%E4%BC%9A%E5%AF%BC%E8%87%B4%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2">线程池中使用ThreadLocal导致的内存泄露示例</a></p>
+<pre><code class="language-java">public class ThreadPoolTest {
+
+    static class LocalVariable {
+        private Long[] a = new Long[1024*1024];
+    }
+
+    final static ThreadPoolExecutor poolExecutor = new ThreadPoolExecutor(5, 5, 1, TimeUnit.MINUTES,new LinkedBlockingQueue&lt;&gt;());
+    final static ThreadLocal&lt;LocalVariable&gt; localVariable = new ThreadLocal&lt;LocalVariable&gt;();
+    
+    public static void main(String[] args) throws InterruptedException {
+        for (int i = 0; i &lt; 50; ++i) {
+            poolExecutor.execute(new Runnable() {
+                public void run() {
+                    localVariable.set(new LocalVariable());
+                    System.out.println(&quot;use local varaible&quot;);
+                    //localVariable.remove();
+                }
+            });
+            Thread.sleep(1000);
+        }
+        System.out.println(&quot;pool execute over&quot;);
+    }
+}
+</code></pre>
+</blockquote>
+<h2 id="guarded-suspension-模式等待唤醒机制的规范实现">Guarded Suspension 模式：等待唤醒机制的规范实现</h2>
+<h3 id="什么是-guarded-suspension-模式">什么是 Guarded Suspension 模式？</h3>
+<p>“保护性地暂停”，处理异步转同步的模式。</p>
+<figure data-type="image" tabindex="15"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g8bwtjom5cj311o0kujwt.jpg" alt="image-20191026211202448"></figure>
+<p>get 方法通过条件变量的 await 方法实现等待，而另一边在 onChange 方法通过条件变量的 signalAll() 方法实现唤醒功能。</p>
+<h2 id="其他">其他</h2>
+<p>Guarded Suspension模式是一种等待唤醒机制的实现，也常被称作Guarded Wait模式、Spin Lock模式，可以理解为 “多线程版本的 if ”。</p>
+<h2 id="balking模式线程安全的单例模式">Balking模式：线程安全的单例模式</h2>
+<h3 id="模式定义">模式定义</h3>
+<p>在多线程中，当状态满足某个条件时，执行某个业务逻辑的模式称为 <strong>Balking模式</strong>。</p>
+<h3 id="如何实现">如何实现</h3>
+<p>将并发处理逻辑和业务逻辑分开，使用 synchronized 或者 volatile（但使用 volatile 的前提是对原子性没有要求）</p>
+<h3 id="应用场景双重检查">应用场景：双重检查</h3>
+<pre><code class="language-java">class Singleton{ 
+    private static volatile
+	Singleton singleton; //构造⽅法私有化 
+	private Singleton() {} //获取实例（单例） 
+	public static Singleton getInstance() { //第⼀次检查 
+		if(singleton==null){ 
+        	synchronize{Singleton.class){ //获取锁后⼆次检查 
+				if(singleton==null){
+                	singleton=new Singleton(); 
+            	} 
+        	}
+		} 
+		return singleton;
+	}
+}
+</code></pre>
+<h3 id="注意点">注意点</h3>
+<p>与 Guarded Suspension 模式会等待if条件为真不同，Balking模式 不会等待。</p>
+<p>通常实现是采用互斥锁，也可以使用 volatile。</p>
+<h2 id="thread-per-message-模式-最简化分工操作">Thread-Per-Message 模式: 最简化分工操作</h2>
+<p>Thread-Per-Message 模式是指每个任务分配一个独立线程的模式。</p>
+<p>使用 Thread 实现 Thread-Per-Message 模式耗费资源，创建成本比较大，需要使用轻量级线程-协程代替。</p>
+<p>OpenJDK有个Loom项目，就是要解决Java语言的轻量级线程问题，在这个项目中，轻量级线程被叫做Fiber。</p>
+<h2 id="workerthread-模式-避免线程的重复创建">WorkerThread 模式: 避免线程的重复创建</h2>
+<p>提供固定数量的工作线程执行任务，利用阻塞队列做任务池。</p>
+<p>Java 线程池就是 WorkerThread 模式的应用。</p>
+<p>Java的线程池既能够避免无限制地创建线程导致OOM，创建有界队列避免无限制地接收任务导致OOM。</p>
+<p>同样创建线程池时，需要明确指明拒绝策略和线程名称。</p>
+<h3 id="线程池中的线程死锁">线程池中的线程死锁</h3>
+<p>如果提交的任务不是独立，存在先后依赖关系，就会导致线程死锁。提交到相同线程池中的任务一定是相互独立的，否则就一定要慎重。</p>
+<h2 id="两阶段终止模式终止线程">两阶段终止模式：终止线程</h2>
+<h3 id="什么是两阶段终止模式">什么是两阶段终止模式？</h3>
+<p>第一阶段线程T1向线程T2发送终止指令发送终止指令，第二阶段T2线程响应终止命令</p>
+<figure data-type="image" tabindex="16"><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8dloliqg4j30yg0g8dk5.jpg" alt=""></figure>
+<p>在 Java 领域中要靠 Thread 类提供的 interrupt() 方法实现：让Java线程自己执行完 run() 方法，所以一般我们采用的方法是设置一个标志位，然后线程会在合适的时机检查这个标志位，如果发现符合终止条件，则自动退出run()方法。</p>
+<h3 id="如何优雅地终止线程池">如何优雅地终止线程池</h3>
+<p>Java 线程池提供了两个方法：shutdown()和shutdownNow()：</p>
+<ul>
+<li>shutdown：拒绝新的任务，等待执行中的任务和进入队列的任务执行完后关闭</li>
+<li>shutdownNow：立即关闭线程池，返回进入队列的任务。</li>
+</ul>
+<h2 id="生产者-消费者模式">生产者-消费者模式</h2>
+<p>生产者就是生产数据的线程，消费者就是消费数据的线程，通过阻塞队列进行通讯，生产者生产完数据之后不用等待消费者处理，直接扔给阻塞队列，消费者不找生产者要数据，而是直接从阻塞队列里取。</p>
+<figure data-type="image" tabindex="17"><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8e7u9yw19j30sg0f4mzv.jpg" alt=""></figure>
+<p>Java 线程池就是用生产者-消费者模式实现的，能提高并发效率。</p>
+<h3 id="优点">优点</h3>
+<ul>
+<li>解耦</li>
+<li>异步支持，平衡生产者和消费者的处理速度差异。</li>
+<li>批量执行以提升性能</li>
+<li>支持分阶段提交以提升性能</li>
+</ul>
+<h3 id="其他应用">其他应用</h3>
+<ul>
+<li>分布式消息队列</li>
+</ul>
+<h2 id="高性能限流器-guavaratelimiter">高性能限流器 GuavaRateLimiter</h2>
+<p>基本实现算法为令牌桶算法，想要通过限流器，必须拿到令牌。</p>
+<p>Guava 实现令牌桶算法，采用记录并动态计算下一令牌发放的时间记录并动态计算下一令牌发放的时间。</p>
+<p>请求令牌存在两种情况：</p>
+<ul>
+<li>在下一令牌产生时间之前下一令牌产生时间之前请求令牌
+<ul>
+<li>预定令牌，下一令牌产生的时间需要加上 interval 秒</li>
+</ul>
+</li>
+<li>在下一令牌产生时间之后下一令牌产生时间之后请求令牌
+<ul>
+<li>立刻就能够获取令牌，然后下 个 interval 秒后生成令牌</li>
+</ul>
+</li>
+</ul>
+<p>经典的限流算法有两个，一个是令牌桶算法（Token令牌桶算法（Token Bucket），另一个是漏桶算法（Leaky漏桶算法（Leaky Bucket）。</p>
+<p>GuavaRateLimiter 还具缓存预热功能，实现方式复制，用积分函数解决。</p>
+<h2 id="高性能网络应用框架netty">高性能网络应用框架Netty</h2>
+<p>用 Java 提供的非阻塞API可以实现一个线程处理多个连接，对于一个网络连接，读写操作都是单线程执行的，从而避免了并发程序的各种问题。</p>
+<p>这样的好处在于对于一个网络连接，读写操作都是单线程执行的，从而避免了并发程序的各种问题。</p>
+<h3 id="reactor-模式">Reactor 模式</h3>
+<p>Reactor 是 Netty 的实现模式。</p>
+<figure data-type="image" tabindex="18"><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8ercdyozkj31gb0u0x6p.jpg" alt="image-20191029081913580"></figure>
+<p>核心类 Reactor 注册和删除，执行事件处理器；Event Handler 就是一个事件处理器，它的 handle_event() 方法处理I/O事件；Synchronous Event Demultiplexer可以理解为操作系统提供的I/O多路复用API。</p>
+<h3 id="netty中的线程模型">Netty中的线程模型</h3>
+<p>Netty 采用 EventLoop 来负责监听网络事件并调用，一个网络连接对应一个 EventLoop，最终对应一个 Java 线程。</p>
+<figure data-type="image" tabindex="19"><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8erjhxd6vj31800ti7g5.jpg" alt=""></figure>
+<p>Netty中还有一个核心概念是EventLoopGroup，由一组EventLoop组成，一般有两个 EventLoopGroup：bossGroup 和 workGroup，来用分别处理TCP连接请求和读写请求。</p>
+<p>在Netty中，bossGroup就用来处理连接请求的，而workerGroup是用来处理读写请求的。bossGroup处理 完连接请求后，会将这个连接提交给workerGroup来处理， workerGroup里面有多个EventLoop，具体哪个EventLoop 处理采用轮训方式分配。</p>
+<h2 id="高性能队列disruptor">高性能队列Disruptor</h2>
+<p>Disruptor是一款高性能的有界内存队列，应用非常广泛，Log4j2、Spring Messaging、HBase、Storm 都用到了Disruptor。</p>
+<p>Disruptor 高性能在于：</p>
+<ul>
+<li>
+<p>内存分配更加合理，使用RingBuffer数据结构，数组元素在初始化时一次性全部创建，提升缓存命中率； 对象循环利用，避免频繁GC</p>
+</li>
+<li>
+<p>能够避免伪共享，提升缓存利用率</p>
+</li>
+<li>
+<p>采用无锁算法，避免频繁加锁、解锁的性能消耗</p>
+</li>
+<li>
+<p>支持批量消费，消费者可以无锁方式消费多个消息</p>
+</li>
+<li></li>
+</ul>
+<figure data-type="image" tabindex="20"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g8fd3gdap4j30rm0v4acg.jpg" alt=""></figure>
+<h3 id="程序的局部性原理">程序的局部性原理</h3>
+<p>Disruptor在RingBuffer的基础上还做了很多优化，其中内存分配的优化有就跟局部性原理有关</p>
+<ul>
+<li><strong>时间局部性</strong>指的是程序中的某条指令一旦被执行，不久之后这条指令很可能再次被执行；如果某条数据被访问，不久之后这条数据很可能再次被访问。</li>
+<li><strong>空间局部性</strong>指的是不久之后这块内存附近的内存也很可能被访问。</li>
+</ul>
+<h3 id="处理伪共享">处理“伪共享”</h3>
+<p>Disruptor中很多对象，例如RingBuffer、RingBuffer内部的数组都用到了这种填充 技术来避免伪共享。</p>
+<p>伪共享指的是由于共享缓存行导致缓存无效的场景。采用缓存行填充的方式，让每个变量独占一个缓存行、不共享缓存行。</p>
+<h3 id="disruptor中的无锁算法">Disruptor中的无锁算法</h3>
+<p>Disruptor生产者入队操作时如果没有足够的空余位 置，就出让CPU使用权，然后重新计算；反之则用CAS设置入队索引。</p>
+<h2 id="高性能数据库连接池-hikaricp">高性能数据库连接池 HiKariCP</h2>
+<p>HiKariCP 号称是业界跑得最快的数据库连接池。</p>
+<p>为什么高性能？</p>
+<ul>
+<li>站在字节码的角度去优化Java代码</li>
+<li>特殊的适合并发的数据结构：FastList，ConcurrentBag</li>
+</ul>
+<h3 id="fastlist-解决了哪些性能问题">FastList 解决了哪些性能问题</h3>
+<ul>
+<li>查找成了逆序查找</li>
+<li>不会越界，没有越界检查</li>
+</ul>
+<figure data-type="image" tabindex="21"><img src="https://tva1.sinaimg.cn/large/006y8mN6gy1g8fwk07fznj30j60jsjvb.jpg" alt=""></figure>
+<h3 id="concurrentbag-解决了哪些性能问题">ConcurrentBag 解决了哪些性能问题</h3>
+<ul>
+<li>
+<p>获取数据库连接采用无锁方式</p>
+</li>
+<li>
+<p>使用 ThreadLocal 预分配，避免直接竞争共享资源。</p>
+</li>
+</ul>
+<h2 id="actor模型面向对象原生的并发模型">Actor模型：面向对象原生的并发模型</h2>
+<p>基本的计算单元称为 Actor，在 Actor 模型里，一切都是 Actor，并且 Actor 之间是完全隔离的，单线程处理，不会共享任何变量。</p>
+<p>Java 语言本身不支持 Actor 模型，想在Java语言里使用Actor模型，就需要借助第三方类库 Akka。</p>
+<h3 id="消息和对象方法的区别">消息和对象方法的区别</h3>
+<p>Actor中的消息机制是完全异步的，发送消息和接收消息的Actor可以不在一个进程中，也可以不在同一台机器上。</p>
+<h3 id="actor的规范化定义">Actor的规范化定义</h3>
+<ul>
+<li>处理能力，处理接收到的消息。</li>
+<li>存储能力，Actor可以存储自己的内部状态，并且内部状态在不同Actor之间是绝对隔离的。</li>
+<li>通信能力，Actor可以和其他Actor之间通信。</li>
+</ul>
+<h2 id="软件事务内存">软件事务内存</h2>
+<p>软件事务内存（Software Transactional Memory，简称STM）,支持 原子性 （Atomicity）、一致性（Consistency）、隔离性（Isolation），STM借鉴的是数据库的经验。</p>
+<p>Java语言并不支持STM，不过可以借助第三方的类库来支持，比如 <a href="https://github.com/pveentjer/Multiverse">Multiverse</a></p>
+<h2 id="协程更轻量级的线程">协程：更轻量级的线程</h2>
+<p>协程可简单理解为更轻量级的线程，从操作系统角度说，在用户态处调度。Java 语言不支持协程，但在其他语言如 Golang、Python、Lua、Kotlin 都支持。</p>
+<h2 id="csp-模型">CSP 模型</h2>
+<p>CSP：Communicating Sequential Processes	协程之间以消息传递（Message-Passing）的方式通信。</p>
+<p>Java 领域可以借助第三方的类库 JCSP 来支持 CSP 模型，但没有经过生产环境检验，不推荐生产环境使用。</p>
+
+        </div>
+
+        
+
+
+        <div class="flex justify-between py-8">
+          
+
+          
+            <div class="next-post">
+              <a href="https://wrcj12138aaa.github.io//post/zhang-wo-she-ji-mo-shi-zhi-ce-lue-mo-shi">
+                <h3 class="post-title">
+                  掌握设计模式之策略模式
+                  <i class="remixicon-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '2ba76d6fe50ad2b384eb',
+    clientSecret: '90db763ed48942571725d6aef11229900c8bb656',
+    repo: 'wrcj12138aaa.github.io',
+    owner: 'wrcj12138aaa',
+    admin: ['wrcj12138aaa'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+      </div>
+    </div>
+
+    <script src="https://wrcj12138aaa.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>
