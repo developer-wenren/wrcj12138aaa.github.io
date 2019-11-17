@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://wrcj12138aaa.github.io/</id>
     <title>闻人的技术博客</title>
-    <updated>2019-11-08T13:56:34.144Z</updated>
+    <updated>2019-11-17T03:58:25.614Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://wrcj12138aaa.github.io/"/>
     <link rel="self" href="https://wrcj12138aaa.github.io//atom.xml"/>
@@ -10,6 +10,19 @@
     <logo>https://wrcj12138aaa.github.io//images/avatar.png</logo>
     <icon>https://wrcj12138aaa.github.io//favicon.ico</icon>
     <rights>All rights reserved 2019, 闻人的技术博客</rights>
+    <entry>
+        <title type="html"><![CDATA[做好网上阅读和读书积累]]></title>
+        <id>https://wrcj12138aaa.github.io//post/ru-he-zuo-hao-yue-du-he-ji-lei</id>
+        <link href="https://wrcj12138aaa.github.io//post/ru-he-zuo-hao-yue-du-he-ji-lei">
+        </link>
+        <updated>2019-11-17T03:46:15.000Z</updated>
+        <summary type="html"><![CDATA[<h2 id="前言">前言</h2>
+<p>本文是《万万没想到：用理工科思维理解世界》一书中关于如何网上阅读和读书的几节内容小结，记录下帮助自己能有效地阅读和学习，在平时生活中实践改进来贴合自己实际情况。</p>
+]]></summary>
+        <content type="html"><![CDATA[<h2 id="前言">前言</h2>
+<p>本文是《万万没想到：用理工科思维理解世界》一书中关于如何网上阅读和读书的几节内容小结，记录下帮助自己能有效地阅读和学习，在平时生活中实践改进来贴合自己实际情况。</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[一览 Java并发编程实战（极客时间）]]></title>
         <id>https://wrcj12138aaa.github.io//post/yi-lan-java-bing-fa-bian-cheng-shi-zhan-ji-ke-shi-jian</id>
@@ -134,12 +147,5 @@
         <link href="https://wrcj12138aaa.github.io//post/20190728-一文掌握 Spring Boot Profiles">
         </link>
         <updated>2019-07-28T10:33:20.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[如何优雅关闭 Spring Boot 应用]]></title>
-        <id>https://wrcj12138aaa.github.io//post/20190721-如何优雅关闭 Spring Boot 应用</id>
-        <link href="https://wrcj12138aaa.github.io//post/20190721-如何优雅关闭 Spring Boot 应用">
-        </link>
-        <updated>2019-07-21T10:52:20.000Z</updated>
     </entry>
 </feed>
