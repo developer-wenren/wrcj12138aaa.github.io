@@ -1,211 +1,223 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
   <head>
-    <meta charset="utf-8" >
-
-<title>闻人的技术博客</title>
-<meta name="description" content="做一个终生学习的技术人">
-
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1574522179527">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
-<link rel="stylesheet" href="https://wrcj12138aaa.github.io//styles/main.css">
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
-
-<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-
-
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta content="yes" name="apple-mobile-web-app-capable" />
+  <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+  <meta name="referrer" content="never">
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+  <meta name="author" content="kveln">
+  <title>闻人的技术博客</title>
+  <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <!-- <link href="https://wrcj12138aaa.github.io//media/css/bootstrap.min.css" rel="stylesheet"> -->
+  <!--  <link href="https://wrcj12138aaa.github.io//media/css/all.min.css" rel="stylesheet" type="text/css"> -->
+  <link href="https://cdn.bootcss.com/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+  <link rel="alternate" type="application/rss+xml" title="闻人的技术博客 » Feed" href="https://wrcj12138aaa.github.io//atom.xml">
+  <link rel="stylesheet"href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/styles/androidstudio.min.css">
+  <link href="https://wrcj12138aaa.github.io//styles/main.css" rel="stylesheet">
+  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/highlight.min.js"></script>
+  <!-- <script src="https://wrcj12138aaa.github.io//media/scripts/jquery.min.js"></script> -->
+  <script>hljs.initHighlightingOnLoad();</script>
+  
 
   </head>
   <body>
-    <div id="app" class="main">
-
-      <div class="sidebar" :class="{ 'full-height': menuVisible }">
-  <div class="top-container" data-aos="fade-right">
-    <div class="top-header-container">
-      <a class="site-title-container" href="https://wrcj12138aaa.github.io/">
-        <img src="https://wrcj12138aaa.github.io//images/avatar.png?v=1574522179527" class="site-logo">
-        <h1 class="site-title">闻人的技术博客</h1>
-      </a>
-      <div class="menu-btn" @click="menuVisible = !menuVisible">
-        <div class="line"></div>
+     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="https://wrcj12138aaa.github.io/">闻人的技术博客</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          
+          <li class="nav-item">
+              
+              <a class="nav-link" href="/">首页</a>
+              
+          </li>
+          
+          <li class="nav-item">
+              
+              <a class="nav-link" href="/archives">归档</a>
+              
+          </li>
+          
+          <li class="nav-item">
+              
+              <a class="nav-link" href="/tags">标签</a>
+              
+          </li>
+          
+          <li class="nav-item">
+              
+              <a class="nav-link" href="/post/about">关于</a>
+              
+          </li>
+          
+        </ul>
       </div>
     </div>
-    <div>
-      
-        
-          <a href="/" class="site-nav">
-            首页
-          </a>
-        
-      
-        
-          <a href="/archives" class="site-nav">
-            归档
-          </a>
-        
-      
-        
-          <a href="/tags" class="site-nav">
-            标签
-          </a>
-        
-      
-        
-          <a href="/post/about" class="site-nav">
-            关于
-          </a>
-        
-      
+  </nav>
+  <header class="masthead" style="background-image: url('https://wrcj12138aaa.github.io//media/images/home-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>闻人的技术博客</h1>
+            <span class="subheading">做一个终生学习的技术人</span>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
-    <div class="social-container">
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    </div>
-    <div class="site-description">
-      做一个终生学习的技术人
-    </div>
-    <div class="site-footer">
-       | <a class="rss" href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">RSS</a>
-    </div>
-  </div>
-</div>
-
-
-      <div class="main-container">
-        <div class="content-container" data-aos="fade-up">
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://wrcj12138aaa.github.io//post/20181107-译文-String的比较">
-                  <h2 class="post-title">译|Java挑战者系列-String的比较</h2>
-                </a>
-                <div class="post-date">
-                  2018-11-07
-                </div>
-                <div class="post-abstract">
-                  
-                </div>
-              </div>
+  </header>
+      <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+       
+        <div class="post-preview">
+          <a href="https://wrcj12138aaa.github.io//post/20181107-译文-String的比较">
+            <h2 class="post-title">
+              译|Java挑战者系列-String的比较
+            </h2>
+            </a>
+            <h3 class="post-subtitle">
               
-            </article>
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://wrcj12138aaa.github.io//post/20181030-一起学模式之代理模式">
-                  <h2 class="post-title">一起学模式之代理模式</h2>
-                </a>
-                <div class="post-date">
-                  2018-10-30
-                </div>
-                <div class="post-abstract">
-                  <h2 id="前言">前言</h2>
+            </h3>
+          <p class="post-meta">
+             <span class="time">2018-11-07</span>
+             <span>,</span>
+             <span class="post-stats">10 min read</span>
+            </p>
+        </div>
+        <hr>
+        <div class="clearfix">
+        </div>
+        
+        <div class="post-preview">
+          <a href="https://wrcj12138aaa.github.io//post/20181030-一起学模式之代理模式">
+            <h2 class="post-title">
+              一起学模式之代理模式
+            </h2>
+            </a>
+            <h3 class="post-subtitle">
+              <h2 id="前言">前言</h2>
 <p>本文学习下二十三设计模式之一的代理模式,也是日常开发中的十分常见的模式.它能帮我们在实现业务上更加灵活有扩展性.</p>
 
-                </div>
-              </div>
-              
-            </article>
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://wrcj12138aaa.github.io//post/20181029-Scala入门之如何用IDEA实现Scala版的HelloWord">
-                  <h2 class="post-title">Scala入门之项目创建</h2>
-                </a>
-                <div class="post-date">
-                  2018-10-29
-                </div>
-                <div class="post-abstract">
-                  <h2 id="前言">前言</h2>
+            </h3>
+          <p class="post-meta">
+             <span class="time">2018-10-30</span>
+             <span>,</span>
+             <span class="post-stats">4 min read</span>
+            </p>
+        </div>
+        <hr>
+        <div class="clearfix">
+        </div>
+        
+        <div class="post-preview">
+          <a href="https://wrcj12138aaa.github.io//post/20181029-Scala入门之如何用IDEA实现Scala版的HelloWord">
+            <h2 class="post-title">
+              Scala入门之项目创建
+            </h2>
+            </a>
+            <h3 class="post-subtitle">
+              <h2 id="前言">前言</h2>
 <p>本文快速通过 IDEA 创建一个基于 Scala 语言的 HelloWord 程序,以及对 Scala 语言进行基础的介绍.</p>
 
-                </div>
-              </div>
-              
-            </article>
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://wrcj12138aaa.github.io//post/20181029-MySQL安装">
-                  <h2 class="post-title">后端架构搭建系列之 MySQL</h2>
-                </a>
-                <div class="post-date">
-                  2018-10-29
-                </div>
-                <div class="post-abstract">
-                  <h2 id="前言">前言</h2>
+            </h3>
+          <p class="post-meta">
+             <span class="time">2018-10-29</span>
+             <span>,</span>
+             <span class="post-stats">6 min read</span>
+            </p>
+        </div>
+        <hr>
+        <div class="clearfix">
+        </div>
+        
+        <div class="post-preview">
+          <a href="https://wrcj12138aaa.github.io//post/20181029-MySQL安装">
+            <h2 class="post-title">
+              后端架构搭建系列之 MySQL
+            </h2>
+            </a>
+            <h3 class="post-subtitle">
+              <h2 id="前言">前言</h2>
 <p>MySQL 作为关系型数据库中热门的开源数据库,在中小企业中广泛应用到各自数据场景,本文主要介绍了 Linux环境下用RPM方式安装MySQL5.7的操作流程,方便后期再有搭建MySQL 数据库的情况.</p>
 <blockquote>
 <p>目前MySQL5.7的最新版本是5.7.24</p>
 <p>Linux CentOS 7</p>
 </blockquote>
 
-                </div>
-              </div>
-              
-            </article>
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://wrcj12138aaa.github.io//post/20181028-文摘-深度，归纳和坚持实践">
-                  <h2 class="post-title">文摘-深度，归纳和坚持实践</h2>
-                </a>
-                <div class="post-date">
-                  2018-10-28
-                </div>
-                <div class="post-abstract">
-                  <h2 id="前言">前言</h2>
+            </h3>
+          <p class="post-meta">
+             <span class="time">2018-10-29</span>
+             <span>,</span>
+             <span class="post-stats">3 min read</span>
+            </p>
+        </div>
+        <hr>
+        <div class="clearfix">
+        </div>
+        
+        <div class="post-preview">
+          <a href="https://wrcj12138aaa.github.io//post/20181028-文摘-深度，归纳和坚持实践">
+            <h2 class="post-title">
+              文摘-深度，归纳和坚持实践
+            </h2>
+            </a>
+            <h3 class="post-subtitle">
+              <h2 id="前言">前言</h2>
 <p>本短文是对极客时间专栏<a href="https://time.geekbang.org/column/48">左耳听风</a> 文章<a href="https://time.geekbang.org/column/article/14360">深度，归纳和坚持实践</a>的阅读小结.</p>
 
-                </div>
-              </div>
-              
-            </article>
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://wrcj12138aaa.github.io//post/20181028-如何学习和阅读代码">
-                  <h2 class="post-title">文摘-如何学习和阅读代码</h2>
-                </a>
-                <div class="post-date">
-                  2018-10-28
-                </div>
-                <div class="post-abstract">
-                  <h2 id="前言">前言</h2>
+            </h3>
+          <p class="post-meta">
+             <span class="time">2018-10-28</span>
+             <span>,</span>
+             <span class="post-stats">2 min read</span>
+            </p>
+        </div>
+        <hr>
+        <div class="clearfix">
+        </div>
+        
+        <div class="post-preview">
+          <a href="https://wrcj12138aaa.github.io//post/20181028-如何学习和阅读代码">
+            <h2 class="post-title">
+              文摘-如何学习和阅读代码
+            </h2>
+            </a>
+            <h3 class="post-subtitle">
+              <h2 id="前言">前言</h2>
 <p>本短文是对极客时间专栏<a href="https://time.geekbang.org/column/48">左耳听风</a> 文章<a href="https://time.geekbang.org/column/article/14380">高效学习：如何学习和阅读代码</a>的阅读小结,针对关于阅读代码这块的学习和总结.</p>
 
-                </div>
-              </div>
-              
-            </article>
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://wrcj12138aaa.github.io//post/20181022-Gradle入门">
-                  <h2 class="post-title">Java 修炼之道:Gradle</h2>
-                </a>
-                <div class="post-date">
-                  2018-10-22
-                </div>
-                <div class="post-abstract">
-                  <h3 id="前言">前言</h3>
+            </h3>
+          <p class="post-meta">
+             <span class="time">2018-10-28</span>
+             <span>,</span>
+             <span class="post-stats">2 min read</span>
+            </p>
+        </div>
+        <hr>
+        <div class="clearfix">
+        </div>
+        
+        <div class="post-preview">
+          <a href="https://wrcj12138aaa.github.io//post/20181022-Gradle入门">
+            <h2 class="post-title">
+              Java 修炼之道:Gradle
+            </h2>
+            </a>
+            <h3 class="post-subtitle">
+              <h3 id="前言">前言</h3>
 <p>一款目前流行的项目构建工具,使用基于 Groovy  的特定领域语言 DSL定义配置, 不再使用 XML 文件管理构建脚本,这样一来极大简化了配置. Gradle 还有优势如下</p>
 <ul>
 <li>
@@ -223,91 +235,155 @@
 <p>Groovy 是基于 JVM 的一种面向对象的动态语言,在 Gradle中用来编写构建脚本.</p>
 </blockquote>
 
-                </div>
-              </div>
+            </h3>
+          <p class="post-meta">
+             <span class="time">2018-10-22</span>
+             <span>,</span>
+             <span class="post-stats">7 min read</span>
+            </p>
+        </div>
+        <hr>
+        <div class="clearfix">
+        </div>
+        
+        <div class="post-preview">
+          <a href="https://wrcj12138aaa.github.io//post/20181021-SpringBoot实战分析-MongoDB操作">
+            <h2 class="post-title">
+              SpringBoot实战分析-MongoDB操作
+            </h2>
+            </a>
+            <h3 class="post-subtitle">
               
-            </article>
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://wrcj12138aaa.github.io//post/20181021-SpringBoot实战分析-MongoDB操作">
-                  <h2 class="post-title">SpringBoot实战分析-MongoDB操作</h2>
-                </a>
-                <div class="post-date">
-                  2018-10-21
-                </div>
-                <div class="post-abstract">
-                  
-                </div>
-              </div>
+            </h3>
+          <p class="post-meta">
+             <span class="time">2018-10-21</span>
+             <span>,</span>
+             <span class="post-stats">12 min read</span>
+            </p>
+        </div>
+        <hr>
+        <div class="clearfix">
+        </div>
+        
+        <div class="post-preview">
+          <a href="https://wrcj12138aaa.github.io//post/20181019-Java 修炼之道-构建工具Maven">
+            <h2 class="post-title">
+              Java 修炼之道:Maven
+            </h2>
+            </a>
+            <h3 class="post-subtitle">
               
-            </article>
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://wrcj12138aaa.github.io//post/20181019-Java 修炼之道-构建工具Maven">
-                  <h2 class="post-title">Java 修炼之道:Maven</h2>
-                </a>
-                <div class="post-date">
-                  2018-10-19
-                </div>
-                <div class="post-abstract">
-                  
-                </div>
-              </div>
-              
-            </article>
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://wrcj12138aaa.github.io//post/20181018-Maven 常用命令">
-                  <h2 class="post-title">Java 修炼之道:Maven 常用命令清单</h2>
-                </a>
-                <div class="post-date">
-                  2018-10-18
-                </div>
-                <div class="post-abstract">
-                  <h2 id="前言">前言</h2>
+            </h3>
+          <p class="post-meta">
+             <span class="time">2018-10-19</span>
+             <span>,</span>
+             <span class="post-stats">6 min read</span>
+            </p>
+        </div>
+        <hr>
+        <div class="clearfix">
+        </div>
+        
+        <div class="post-preview">
+          <a href="https://wrcj12138aaa.github.io//post/20181018-Maven 常用命令">
+            <h2 class="post-title">
+              Java 修炼之道:Maven 常用命令清单
+            </h2>
+            </a>
+            <h3 class="post-subtitle">
+              <h2 id="前言">前言</h2>
 <p>Maven 代替 Ant 作为 Java 项目的构建工具已经很久,除了会在 IDE 的图形化界面上操作 Maven, 学会命令行方式操作也十分重要. 这里先记录下基本的Maven命令,后续新增再来更新.</p>
 
-                </div>
-              </div>
+            </h3>
+          <p class="post-meta">
+             <span class="time">2018-10-18</span>
+             <span>,</span>
+             <span class="post-stats">2 min read</span>
+            </p>
+        </div>
+        <hr>
+        <div class="clearfix">
+        </div>
+        
+        
+        <a class="btn btn-primary float-left" href="https://wrcj12138aaa.github.io//page/3/">&larr; 上一页</a>
+        
+        
+        <a class="btn btn-primary float-right" href="https://wrcj12138aaa.github.io//page/5/">下一页 &rarr;</a>
+        
+      </div>
+    </div>
+  </div>
+
+  
+    <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <ul class="list-inline text-center">
+            
+            
               
-            </article>
-          
-
-          <div class="pagination-container">
-  
-    <a href="https://wrcj12138aaa.github.io//page/3/" class="prev"><i class="icon-arrow-ios-back-outline"></i> 上一页</a>
-  
-  
-    <a href="https://wrcj12138aaa.github.io//page/5/" class="next">下一页 <i class="icon-arrow-ios-forward-outline"></i></a>
-  
-</div>
-
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+              <li class="list-inline-item">
+              <a href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+              </li>
+          </ul>
+          <p class="copyright text-muted">Copyright &copy;<span>闻人的技术博客</span><br><a href="https://github.com/getgridea/gridea" class="Themeinfo">Powered by Gridea</a></p>
         </div>
       </div>
     </div>
-
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-
-<script type="application/javascript">
-
-AOS.init();
-
-hljs.initHighlightingOnLoad()
-
-var app = new Vue({
-  el: '#app',
-  data: {
-    menuVisible: false,
-  },
-})
-
-</script>
-
-
-
-
+   </footer>
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+  <!-- <script src="https://wrcj12138aaa.github.io//media/scripts/bootstrap.bundle.min.js"></script> -->
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://cdn.jsdelivr.net/gh/Alanrk/clean-cdn@1.0/scripts/clean-blog.min.js"></script>
+  <!-- <script src="https://wrcj12138aaa.github.io//media/scripts/clean-blog.min.js"></script> -->
+  <script src="//instant.page/3.0.0" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+  <style type="text/css">a.back_to_top{text-decoration:none;position:fixed;bottom:40px;right:30px;background:#f0f0f0;height:40px;width:40px;border-radius:50%;line-height:36px;font-size:18px;text-align:center;transition-duration:.5s;transition-propety:background-color;display:none}a.back_to_top span{color:#888}a.back_to_top:hover{cursor:pointer;background:#dfdfdf}a.back_to_top:hover span{color:#555}@media print,screen and(max-width:580px){.back_to_top{display:none!important}}</style>
+<a id="back_to_top" href="#" class="back_to_top">
+  <span>▲</span></a>
+<script>$(document).ready((function(_this) {
+    return function() {
+      var bt;
+      bt = $('#back_to_top');
+      if ($(document).width() > 480) {
+        $(window).scroll(function() {
+          var st;
+          st = $(window).scrollTop();
+          if (st > 30) {
+            return bt.css('display', 'block')
+          } else {
+            return bt.css('display', 'none')
+          }
+        });
+        return bt.click(function() {
+          $('body,html').animate({
+            scrollTop: 0
+          },
+          800);
+          return false
+        })
+      }
+    }
+  })(this));</script>
   </body>
 </html>

@@ -1,739 +1,727 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" >
-
-<title>文章归档 | 闻人的技术博客</title>
-<meta name="description" content="做一个终生学习的技术人">
-
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1574522179527">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
-<link rel="stylesheet" href="https://wrcj12138aaa.github.io//styles/main.css">
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
-
-<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-
-
+       <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta content="yes" name="apple-mobile-web-app-capable" />
+  <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+  <meta name="referrer" content="never">
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+  <meta name="author" content="kveln">
+  <title>归档 | 闻人的技术博客</title>
+  <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <!-- <link href="https://wrcj12138aaa.github.io//media/css/bootstrap.min.css" rel="stylesheet"> -->
+  <!--  <link href="https://wrcj12138aaa.github.io//media/css/all.min.css" rel="stylesheet" type="text/css"> -->
+  <link href="https://cdn.bootcss.com/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+  <link rel="alternate" type="application/rss+xml" title="归档 | 闻人的技术博客 » Feed" href="https://wrcj12138aaa.github.io//atom.xml">
+  <link rel="stylesheet"href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/styles/androidstudio.min.css">
+  <link href="https://wrcj12138aaa.github.io//styles/main.css" rel="stylesheet">
+  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/highlight.min.js"></script>
+  <!-- <script src="https://wrcj12138aaa.github.io//media/scripts/jquery.min.js"></script> -->
+  <script>hljs.initHighlightingOnLoad();</script>
+  
 
   </head>
   <body>
-    <div id="app" class="main">
-
-      <div class="sidebar" :class="{ 'full-height': menuVisible }">
-  <div class="top-container" data-aos="fade-right">
-    <div class="top-header-container">
-      <a class="site-title-container" href="https://wrcj12138aaa.github.io/">
-        <img src="https://wrcj12138aaa.github.io//images/avatar.png?v=1574522179527" class="site-logo">
-        <h1 class="site-title">闻人的技术博客</h1>
-      </a>
-      <div class="menu-btn" @click="menuVisible = !menuVisible">
-        <div class="line"></div>
+  	<!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="https://wrcj12138aaa.github.io/">闻人的技术博客</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          
+          <li class="nav-item">
+              
+              <a class="nav-link" href="/">首页</a>
+              
+          </li>
+          
+          <li class="nav-item">
+              
+              <a class="nav-link" href="/archives">归档</a>
+              
+          </li>
+          
+          <li class="nav-item">
+              
+              <a class="nav-link" href="/tags">标签</a>
+              
+          </li>
+          
+          <li class="nav-item">
+              
+              <a class="nav-link" href="/post/about">关于</a>
+              
+          </li>
+          
+        </ul>
       </div>
     </div>
-    <div>
-      
-        
-          <a href="/" class="site-nav">
-            首页
-          </a>
-        
-      
-        
-          <a href="/archives" class="site-nav">
-            归档
-          </a>
-        
-      
-        
-          <a href="/tags" class="site-nav">
-            标签
-          </a>
-        
-      
-        
-          <a href="/post/about" class="site-nav">
-            关于
-          </a>
-        
-      
-    </div>
-  </div>
-  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
-    <div class="social-container">
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    </div>
-    <div class="site-description">
-      做一个终生学习的技术人
-    </div>
-    <div class="site-footer">
-       | <a class="rss" href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">RSS</a>
-    </div>
-  </div>
-</div>
-
-
-      <div class="main-container">
-        <div class="content-container" data-aos="fade-up">
-          
-
-          <h2 class="archives-title">文章归档</h2>
-          <div class="archives-container">
-            
-              <h2 class="year" data-aos="fade-in" data-aos-delay="500">2019</h2>
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/shuo-tou-zhong-tai-xue-xi-bi-ji-w">
-                      <h2 class="post-title">
-                        关于中台那些事
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/ru-he-zuo-hao-yue-du-he-ji-lei">
-                      <h2 class="post-title">
-                        如何做好网上阅读和读书积累
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/yi-lan-java-bing-fa-bian-cheng-shi-zhan-ji-ke-shi-jian">
-                      <h2 class="post-title">
-                        一览 Java并发编程实战（极客时间）
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/zhang-wo-she-ji-mo-shi-zhi-ce-lue-mo-shi">
-                      <h2 class="post-title">
-                        掌握设计模式之策略模式
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/java-dan-yuan-ce-shi-zhi-junit5-kuai-su-shang-shou">
-                      <h2 class="post-title">
-                        Java 单元测试之 Junit5 快速上手
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/chu-liao-fastjsonni-huan-you-xuan-ze-gson-jian-yi-zhi-nan">
-                      <h2 class="post-title">
-                        除了FastJson,你还有选择：Gson简易指南
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/arraylist-de-quan-mian-tu-ji">
-                      <h2 class="post-title">
-                        ArrayList的全面突击
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/20190825-掌握 Maven 私服">
-                      <h2 class="post-title">
-                        掌握 Maven 私服
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/20190817-聊一聊 Java 字符串的不可变">
-                      <h2 class="post-title">
-                        聊一聊 Java 字符串的不可变
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/20190813-SpringBootProfiles源码解析">
-                      <h2 class="post-title">
-                        Spring Boot Profiles 源码解析
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/20190728-一文掌握 Spring Boot Profiles">
-                      <h2 class="post-title">
-                        一文掌握 Spring Boot Profiles
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/20190721-如何优雅关闭 Spring Boot 应用">
-                      <h2 class="post-title">
-                        如何优雅关闭 Spring Boot 应用
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/20190714-掌握设计模式之装饰者模式">
-                      <h2 class="post-title">
-                        掌握设计模式之装饰者模式
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/20190707-YApi使用指南">
-                      <h2 class="post-title">
-                        YApi使用指南
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/20190630-掌握设计模式之适配器模式">
-                      <h2 class="post-title">
-                        掌握设计模式之适配器模式
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/20190623-Java微服务新生代Nacos之配置管理">
-                      <h2 class="post-title">
-                        Java微服务新生代Nacos之配置管理
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/20190616-Java微服务新生代之Nacos">
-                      <h2 class="post-title">
-                        Java微服务新生代之Nacos
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/20190609-Java 开发看的 Scala 入门">
-                      <h2 class="post-title">
-                        Java开发看的Scala入门
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/20190602-Java必备之Lombok必知必会">
-                      <h2 class="post-title">
-                        Java必备之Lombok必知必会
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/20190526-一起学Spring之事件处理">
-                      <h2 class="post-title">
-                        一起学Spring之事件处理
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/20190518-一起学 Spring 之异常处理">
-                      <h2 class="post-title">
-                        一起学 Spring 之 异常处理
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/20190511-一起学 Spring 之 RestTemplate">
-                      <h2 class="post-title">
-                        一起学 Spring 之 RestTemplate
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/20190504-译 - Spring 核心技术之 Spring 容器扩展点">
-                      <h2 class="post-title">
-                        译- Spring 核心技术之 Spring 容器扩展点
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/20190407-Linux OS 下 Maven 环境搭建">
-                      <h2 class="post-title">
-                        Linux OS 的 Maven 环境搭建
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/20190218-中文技术文档的写作规范">
-                      <h2 class="post-title">
-                        中文技术写作规范摘要
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/20190217-Spring Boot 快速集成 Ehcache3">
-                      <h2 class="post-title">
-                        Spring Boot 快速集成 Ehcache3
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/20190128-快速实现 Tomcat 集群 Session 共享">
-                      <h2 class="post-title">
-                        快速实现 Tomcat 集群 Session 共享
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/20190121-HaProxy 实现 MySQL 负载均衡">
-                      <h2 class="post-title">
-                        HaProxy 实现 MySQL 负载均衡
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/20190120-Docker 方式 MySQL 主从搭建">
-                      <h2 class="post-title">
-                        Docker 方式 MySQL 主从搭建
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-            
-              <h2 class="year" data-aos="fade-in" data-aos-delay="500">2018</h2>
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/20181127-JSON 序列化与反序列化框架 - Gson">
-                      <h2 class="post-title">
-                        Json序列化与反序列化框架-Gson 入门
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/20181107-译文-String的比较">
-                      <h2 class="post-title">
-                        译|Java挑战者系列-String的比较
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/20181030-一起学模式之代理模式">
-                      <h2 class="post-title">
-                        一起学模式之代理模式
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/20181029-Scala入门之如何用IDEA实现Scala版的HelloWord">
-                      <h2 class="post-title">
-                        Scala入门之项目创建
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/20181029-MySQL安装">
-                      <h2 class="post-title">
-                        后端架构搭建系列之 MySQL
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/20181028-文摘-深度，归纳和坚持实践">
-                      <h2 class="post-title">
-                        文摘-深度，归纳和坚持实践
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/20181028-如何学习和阅读代码">
-                      <h2 class="post-title">
-                        文摘-如何学习和阅读代码
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/20181022-Gradle入门">
-                      <h2 class="post-title">
-                        Java 修炼之道:Gradle
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/20181021-SpringBoot实战分析-MongoDB操作">
-                      <h2 class="post-title">
-                        SpringBoot实战分析-MongoDB操作
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/20181019-Java 修炼之道-构建工具Maven">
-                      <h2 class="post-title">
-                        Java 修炼之道:Maven
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/20181018-Maven 常用命令">
-                      <h2 class="post-title">
-                        Java 修炼之道:Maven 常用命令清单
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/20181017-MongDB">
-                      <h2 class="post-title">
-                        Java CRUD 之 MongoDB
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/20181014-SpringBoot以Tomcat方式部署">
-                      <h2 class="post-title">
-                        SpringBoot实战-Tomcat方式部署
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/20181013-定位Java程序CPU满负载元凶">
-                      <h2 class="post-title">
-                        快速定位Java程序CPU满负载元凶
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/20181012-Spring Boot 初体验">
-                      <h2 class="post-title">
-                        SpringBoot实战-初体验
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/20181011-实战Java高并发程序设计笔记">
-                      <h2 class="post-title">
-                        《实战Java高并发程序设计》读书笔记
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/20181008-Linux环境yum安装JDK   ">
-                      <h2 class="post-title">
-                        Linux环境安装JDK-yum方式
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/20181007-一起学模式之建造者模式">
-                      <h2 class="post-title">
-                        一起学模式之建造者模式
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/20180920-一起学模式之依赖倒置与注入">
-                      <h2 class="post-title">
-                        一起学模式之依赖倒置与注入
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/20180918-设计模式之抽象工厂模式">
-                      <h2 class="post-title">
-                        一起学模式之抽象工厂
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-                
-                  <article class="post">
-                    <a href="https://wrcj12138aaa.github.io//post/20180917-设计模式之工厂方法模式">
-                      <h2 class="post-title">
-                        一起学模式之工厂方法模式
-                      </h2>
-                    </a>
-                  </article>
-                
-              
-            
+  </nav>
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('https://wrcj12138aaa.github.io//media/images/home-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1 class="tag-tl">Archives</h1>
           </div>
-
-          <div class="pagination-container">
-  
-  
-    <a href="https://wrcj12138aaa.github.io//archives/page/2/" class="next">下一页 <i class="icon-arrow-ios-forward-outline"></i></a>
-  
-</div>
-
         </div>
       </div>
     </div>
+  </header>
+  <!-- Post Content -->
+  <article>
+    <div class="container">
+      <div class="row">
+        
+      
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-archives">
+    <h2 class="year">2019</h2>
+    
+                
+        <a href="https://wrcj12138aaa.github.io//post/shuo-tou-zhong-tai-xue-xi-bi-ji-w" class="post">
+          <h2 class="post-title Archives">
+            关于中台那些事
+          </h2>
+          <div class="time post-meta">2019-11-23</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/ru-he-zuo-hao-yue-du-he-ji-lei" class="post">
+          <h2 class="post-title Archives">
+            如何做好网上阅读和读书积累
+          </h2>
+          <div class="time post-meta">2019-11-17</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/yi-lan-java-bing-fa-bian-cheng-shi-zhan-ji-ke-shi-jian" class="post">
+          <h2 class="post-title Archives">
+            一览 Java并发编程实战（极客时间）
+          </h2>
+          <div class="time post-meta">2019-11-08</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/zhang-wo-she-ji-mo-shi-zhi-ce-lue-mo-shi" class="post">
+          <h2 class="post-title Archives">
+            掌握设计模式之策略模式
+          </h2>
+          <div class="time post-meta">2019-10-27</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/java-dan-yuan-ce-shi-zhi-junit5-kuai-su-shang-shou" class="post">
+          <h2 class="post-title Archives">
+            Java 单元测试之 Junit5 快速上手
+          </h2>
+          <div class="time post-meta">2019-09-15</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/chu-liao-fastjsonni-huan-you-xuan-ze-gson-jian-yi-zhi-nan" class="post">
+          <h2 class="post-title Archives">
+            除了FastJson,你还有选择：Gson简易指南
+          </h2>
+          <div class="time post-meta">2019-09-08</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/arraylist-de-quan-mian-tu-ji" class="post">
+          <h2 class="post-title Archives">
+            ArrayList的全面突击
+          </h2>
+          <div class="time post-meta">2019-09-01</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/20190825-掌握 Maven 私服" class="post">
+          <h2 class="post-title Archives">
+            掌握 Maven 私服
+          </h2>
+          <div class="time post-meta">2019-08-25</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/20190817-聊一聊 Java 字符串的不可变" class="post">
+          <h2 class="post-title Archives">
+            聊一聊 Java 字符串的不可变
+          </h2>
+          <div class="time post-meta">2019-08-17</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/20190813-SpringBootProfiles源码解析" class="post">
+          <h2 class="post-title Archives">
+            Spring Boot Profiles 源码解析
+          </h2>
+          <div class="time post-meta">2019-08-13</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/20190728-一文掌握 Spring Boot Profiles" class="post">
+          <h2 class="post-title Archives">
+            一文掌握 Spring Boot Profiles
+          </h2>
+          <div class="time post-meta">2019-07-28</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/20190721-如何优雅关闭 Spring Boot 应用" class="post">
+          <h2 class="post-title Archives">
+            如何优雅关闭 Spring Boot 应用
+          </h2>
+          <div class="time post-meta">2019-07-21</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/20190714-掌握设计模式之装饰者模式" class="post">
+          <h2 class="post-title Archives">
+            掌握设计模式之装饰者模式
+          </h2>
+          <div class="time post-meta">2019-07-14</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/20190707-YApi使用指南" class="post">
+          <h2 class="post-title Archives">
+            YApi使用指南
+          </h2>
+          <div class="time post-meta">2019-07-07</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/20190630-掌握设计模式之适配器模式" class="post">
+          <h2 class="post-title Archives">
+            掌握设计模式之适配器模式
+          </h2>
+          <div class="time post-meta">2019-06-30</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/20190623-Java微服务新生代Nacos之配置管理" class="post">
+          <h2 class="post-title Archives">
+            Java微服务新生代Nacos之配置管理
+          </h2>
+          <div class="time post-meta">2019-06-23</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/20190616-Java微服务新生代之Nacos" class="post">
+          <h2 class="post-title Archives">
+            Java微服务新生代之Nacos
+          </h2>
+          <div class="time post-meta">2019-06-16</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/20190609-Java 开发看的 Scala 入门" class="post">
+          <h2 class="post-title Archives">
+            Java开发看的Scala入门
+          </h2>
+          <div class="time post-meta">2019-06-09</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/20190602-Java必备之Lombok必知必会" class="post">
+          <h2 class="post-title Archives">
+            Java必备之Lombok必知必会
+          </h2>
+          <div class="time post-meta">2019-06-02</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/20190526-一起学Spring之事件处理" class="post">
+          <h2 class="post-title Archives">
+            一起学Spring之事件处理
+          </h2>
+          <div class="time post-meta">2019-05-26</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/20190518-一起学 Spring 之异常处理" class="post">
+          <h2 class="post-title Archives">
+            一起学 Spring 之 异常处理
+          </h2>
+          <div class="time post-meta">2019-05-18</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/20190511-一起学 Spring 之 RestTemplate" class="post">
+          <h2 class="post-title Archives">
+            一起学 Spring 之 RestTemplate
+          </h2>
+          <div class="time post-meta">2019-05-11</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/20190504-译 - Spring 核心技术之 Spring 容器扩展点" class="post">
+          <h2 class="post-title Archives">
+            译- Spring 核心技术之 Spring 容器扩展点
+          </h2>
+          <div class="time post-meta">2019-05-04</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/20190407-Linux OS 下 Maven 环境搭建" class="post">
+          <h2 class="post-title Archives">
+            Linux OS 的 Maven 环境搭建
+          </h2>
+          <div class="time post-meta">2019-04-07</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/20190218-中文技术文档的写作规范" class="post">
+          <h2 class="post-title Archives">
+            中文技术写作规范摘要
+          </h2>
+          <div class="time post-meta">2019-02-18</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/20190217-Spring Boot 快速集成 Ehcache3" class="post">
+          <h2 class="post-title Archives">
+            Spring Boot 快速集成 Ehcache3
+          </h2>
+          <div class="time post-meta">2019-02-17</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/20190128-快速实现 Tomcat 集群 Session 共享" class="post">
+          <h2 class="post-title Archives">
+            快速实现 Tomcat 集群 Session 共享
+          </h2>
+          <div class="time post-meta">2019-01-28</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/20190121-HaProxy 实现 MySQL 负载均衡" class="post">
+          <h2 class="post-title Archives">
+            HaProxy 实现 MySQL 负载均衡
+          </h2>
+          <div class="time post-meta">2019-01-21</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/20190120-Docker 方式 MySQL 主从搭建" class="post">
+          <h2 class="post-title Archives">
+            Docker 方式 MySQL 主从搭建
+          </h2>
+          <div class="time post-meta">2019-01-20</div>
+        </a>
+  
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+        </div>
+        </div>
+        
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-archives">
+    <h2 class="year">2018</h2>
+    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/20181127-JSON 序列化与反序列化框架 - Gson" class="post">
+          <h2 class="post-title Archives">
+            Json序列化与反序列化框架-Gson 入门
+          </h2>
+          <div class="time post-meta">2018-11-27</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/20181107-译文-String的比较" class="post">
+          <h2 class="post-title Archives">
+            译|Java挑战者系列-String的比较
+          </h2>
+          <div class="time post-meta">2018-11-07</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/20181030-一起学模式之代理模式" class="post">
+          <h2 class="post-title Archives">
+            一起学模式之代理模式
+          </h2>
+          <div class="time post-meta">2018-10-30</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/20181029-Scala入门之如何用IDEA实现Scala版的HelloWord" class="post">
+          <h2 class="post-title Archives">
+            Scala入门之项目创建
+          </h2>
+          <div class="time post-meta">2018-10-29</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/20181029-MySQL安装" class="post">
+          <h2 class="post-title Archives">
+            后端架构搭建系列之 MySQL
+          </h2>
+          <div class="time post-meta">2018-10-29</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/20181028-文摘-深度，归纳和坚持实践" class="post">
+          <h2 class="post-title Archives">
+            文摘-深度，归纳和坚持实践
+          </h2>
+          <div class="time post-meta">2018-10-28</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/20181028-如何学习和阅读代码" class="post">
+          <h2 class="post-title Archives">
+            文摘-如何学习和阅读代码
+          </h2>
+          <div class="time post-meta">2018-10-28</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/20181022-Gradle入门" class="post">
+          <h2 class="post-title Archives">
+            Java 修炼之道:Gradle
+          </h2>
+          <div class="time post-meta">2018-10-22</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/20181021-SpringBoot实战分析-MongoDB操作" class="post">
+          <h2 class="post-title Archives">
+            SpringBoot实战分析-MongoDB操作
+          </h2>
+          <div class="time post-meta">2018-10-21</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/20181019-Java 修炼之道-构建工具Maven" class="post">
+          <h2 class="post-title Archives">
+            Java 修炼之道:Maven
+          </h2>
+          <div class="time post-meta">2018-10-19</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/20181018-Maven 常用命令" class="post">
+          <h2 class="post-title Archives">
+            Java 修炼之道:Maven 常用命令清单
+          </h2>
+          <div class="time post-meta">2018-10-18</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/20181017-MongDB" class="post">
+          <h2 class="post-title Archives">
+            Java CRUD 之 MongoDB
+          </h2>
+          <div class="time post-meta">2018-10-17</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/20181014-SpringBoot以Tomcat方式部署" class="post">
+          <h2 class="post-title Archives">
+            SpringBoot实战-Tomcat方式部署
+          </h2>
+          <div class="time post-meta">2018-10-14</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/20181013-定位Java程序CPU满负载元凶" class="post">
+          <h2 class="post-title Archives">
+            快速定位Java程序CPU满负载元凶
+          </h2>
+          <div class="time post-meta">2018-10-13</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/20181012-Spring Boot 初体验" class="post">
+          <h2 class="post-title Archives">
+            SpringBoot实战-初体验
+          </h2>
+          <div class="time post-meta">2018-10-12</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/20181011-实战Java高并发程序设计笔记" class="post">
+          <h2 class="post-title Archives">
+            《实战Java高并发程序设计》读书笔记
+          </h2>
+          <div class="time post-meta">2018-10-11</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/20181008-Linux环境yum安装JDK   " class="post">
+          <h2 class="post-title Archives">
+            Linux环境安装JDK-yum方式
+          </h2>
+          <div class="time post-meta">2018-10-08</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/20181007-一起学模式之建造者模式" class="post">
+          <h2 class="post-title Archives">
+            一起学模式之建造者模式
+          </h2>
+          <div class="time post-meta">2018-10-07</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/20180920-一起学模式之依赖倒置与注入" class="post">
+          <h2 class="post-title Archives">
+            一起学模式之依赖倒置与注入
+          </h2>
+          <div class="time post-meta">2018-09-20</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/20180918-设计模式之抽象工厂模式" class="post">
+          <h2 class="post-title Archives">
+            一起学模式之抽象工厂
+          </h2>
+          <div class="time post-meta">2018-09-18</div>
+        </a>
+  
+                    
+                
+        <a href="https://wrcj12138aaa.github.io//post/20180917-设计模式之工厂方法模式" class="post">
+          <h2 class="post-title Archives">
+            一起学模式之工厂方法模式
+          </h2>
+          <div class="time post-meta">2018-09-17</div>
+        </a>
+  
+                    
+        </div>
+        </div>
+        
+      </div>
+    </div>
+  </article>
 
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 
-<script type="application/javascript">
-
-AOS.init();
-
-hljs.initHighlightingOnLoad()
-
-var app = new Vue({
-  el: '#app',
-  data: {
-    menuVisible: false,
-  },
-})
-
-</script>
-
-
-
-
+ <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <ul class="list-inline text-center">
+            
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+              <li class="list-inline-item">
+              <a href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+              </li>
+          </ul>
+          <p class="copyright text-muted">Copyright &copy;<span>闻人的技术博客</span><br><a href="https://github.com/getgridea/gridea" class="Themeinfo">Powered by Gridea</a></p>
+        </div>
+      </div>
+    </div>
+   </footer>
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+  <!-- <script src="https://wrcj12138aaa.github.io//media/scripts/bootstrap.bundle.min.js"></script> -->
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://cdn.jsdelivr.net/gh/Alanrk/clean-cdn@1.0/scripts/clean-blog.min.js"></script>
+  <!-- <script src="https://wrcj12138aaa.github.io//media/scripts/clean-blog.min.js"></script> -->
+  <script src="//instant.page/3.0.0" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+  <style type="text/css">a.back_to_top{text-decoration:none;position:fixed;bottom:40px;right:30px;background:#f0f0f0;height:40px;width:40px;border-radius:50%;line-height:36px;font-size:18px;text-align:center;transition-duration:.5s;transition-propety:background-color;display:none}a.back_to_top span{color:#888}a.back_to_top:hover{cursor:pointer;background:#dfdfdf}a.back_to_top:hover span{color:#555}@media print,screen and(max-width:580px){.back_to_top{display:none!important}}</style>
+<a id="back_to_top" href="#" class="back_to_top">
+  <span>▲</span></a>
+<script>$(document).ready((function(_this) {
+    return function() {
+      var bt;
+      bt = $('#back_to_top');
+      if ($(document).width() > 480) {
+        $(window).scroll(function() {
+          var st;
+          st = $(window).scrollTop();
+          if (st > 30) {
+            return bt.css('display', 'block')
+          } else {
+            return bt.css('display', 'none')
+          }
+        });
+        return bt.click(function() {
+          $('body,html').animate({
+            scrollTop: 0
+          },
+          800);
+          return false
+        })
+      }
+    }
+  })(this));</script>
   </body>
 </html>

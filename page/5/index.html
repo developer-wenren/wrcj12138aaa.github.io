@@ -1,158 +1,158 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
   <head>
-    <meta charset="utf-8" >
-
-<title>闻人的技术博客</title>
-<meta name="description" content="做一个终生学习的技术人">
-
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1574522179527">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
-<link rel="stylesheet" href="https://wrcj12138aaa.github.io//styles/main.css">
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
-
-<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-
-
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta content="yes" name="apple-mobile-web-app-capable" />
+  <meta content="black" name="apple-mobile-web-app-status-bar-style" />
+  <meta name="referrer" content="never">
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+  <meta name="author" content="kveln">
+  <title>闻人的技术博客</title>
+  <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <!-- <link href="https://wrcj12138aaa.github.io//media/css/bootstrap.min.css" rel="stylesheet"> -->
+  <!--  <link href="https://wrcj12138aaa.github.io//media/css/all.min.css" rel="stylesheet" type="text/css"> -->
+  <link href="https://cdn.bootcss.com/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+  <link rel="alternate" type="application/rss+xml" title="闻人的技术博客 » Feed" href="https://wrcj12138aaa.github.io//atom.xml">
+  <link rel="stylesheet"href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/styles/androidstudio.min.css">
+  <link href="https://wrcj12138aaa.github.io//styles/main.css" rel="stylesheet">
+  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.15.10/build/highlight.min.js"></script>
+  <!-- <script src="https://wrcj12138aaa.github.io//media/scripts/jquery.min.js"></script> -->
+  <script>hljs.initHighlightingOnLoad();</script>
+  
 
   </head>
   <body>
-    <div id="app" class="main">
-
-      <div class="sidebar" :class="{ 'full-height': menuVisible }">
-  <div class="top-container" data-aos="fade-right">
-    <div class="top-header-container">
-      <a class="site-title-container" href="https://wrcj12138aaa.github.io/">
-        <img src="https://wrcj12138aaa.github.io//images/avatar.png?v=1574522179527" class="site-logo">
-        <h1 class="site-title">闻人的技术博客</h1>
-      </a>
-      <div class="menu-btn" @click="menuVisible = !menuVisible">
-        <div class="line"></div>
+     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+      <a class="navbar-brand" href="https://wrcj12138aaa.github.io/">闻人的技术博客</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          
+          <li class="nav-item">
+              
+              <a class="nav-link" href="/">首页</a>
+              
+          </li>
+          
+          <li class="nav-item">
+              
+              <a class="nav-link" href="/archives">归档</a>
+              
+          </li>
+          
+          <li class="nav-item">
+              
+              <a class="nav-link" href="/tags">标签</a>
+              
+          </li>
+          
+          <li class="nav-item">
+              
+              <a class="nav-link" href="/post/about">关于</a>
+              
+          </li>
+          
+        </ul>
       </div>
     </div>
-    <div>
-      
-        
-          <a href="/" class="site-nav">
-            首页
-          </a>
-        
-      
-        
-          <a href="/archives" class="site-nav">
-            归档
-          </a>
-        
-      
-        
-          <a href="/tags" class="site-nav">
-            标签
-          </a>
-        
-      
-        
-          <a href="/post/about" class="site-nav">
-            关于
-          </a>
-        
-      
+  </nav>
+  <header class="masthead" style="background-image: url('https://wrcj12138aaa.github.io//media/images/home-bg.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>闻人的技术博客</h1>
+            <span class="subheading">做一个终生学习的技术人</span>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
-    <div class="social-container">
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    </div>
-    <div class="site-description">
-      做一个终生学习的技术人
-    </div>
-    <div class="site-footer">
-       | <a class="rss" href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">RSS</a>
-    </div>
-  </div>
-</div>
-
-
-      <div class="main-container">
-        <div class="content-container" data-aos="fade-up">
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://wrcj12138aaa.github.io//post/20181017-MongDB">
-                  <h2 class="post-title">Java CRUD 之 MongoDB</h2>
-                </a>
-                <div class="post-date">
-                  2018-10-17
-                </div>
-                <div class="post-abstract">
-                  <h2 id="前言">前言</h2>
+  </header>
+      <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+       
+        <div class="post-preview">
+          <a href="https://wrcj12138aaa.github.io//post/20181017-MongDB">
+            <h2 class="post-title">
+              Java CRUD 之 MongoDB
+            </h2>
+            </a>
+            <h3 class="post-subtitle">
+              <h2 id="前言">前言</h2>
 <p>MongoDB 作为非关系性数据库中佼佼者,越来越受到后台开发的欢迎,应用范围也越来越大,本文就简单介绍下如何用 Java 对 MongoDB 数据进行基本的 CRUD.一起来看下吧.</p>
 
-                </div>
-              </div>
-              
-            </article>
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://wrcj12138aaa.github.io//post/20181014-SpringBoot以Tomcat方式部署">
-                  <h2 class="post-title">SpringBoot实战-Tomcat方式部署</h2>
-                </a>
-                <div class="post-date">
-                  2018-10-14
-                </div>
-                <div class="post-abstract">
-                  <h2 id="前言">前言</h2>
+            </h3>
+          <p class="post-meta">
+             <span class="time">2018-10-17</span>
+             <span>,</span>
+             <span class="post-stats">7 min read</span>
+            </p>
+        </div>
+        <hr>
+        <div class="clearfix">
+        </div>
+        
+        <div class="post-preview">
+          <a href="https://wrcj12138aaa.github.io//post/20181014-SpringBoot以Tomcat方式部署">
+            <h2 class="post-title">
+              SpringBoot实战-Tomcat方式部署
+            </h2>
+            </a>
+            <h3 class="post-subtitle">
+              <h2 id="前言">前言</h2>
 <p>在[Spring Boot 初体验][1]一文中我们学习了以 JAR 形式快速启动一个<code>Spring Boot</code>程序,而 <code>Spring Boot</code> 也支持传统的部署方式: 将项目打包成 <code>WAR</code>,然后由 <code>Web</code> 服务器进行加载启动,这次以 <code>Tomcat</code> 为例,我们就快速学习下如何以 <code>WAR</code> 方式部署一个 <code>Spring Boot</code> 项目,代码托管于 [Github][4], 并做一些简单的源码分析.</p>
 
-                </div>
-              </div>
-              
-            </article>
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://wrcj12138aaa.github.io//post/20181013-定位Java程序CPU满负载元凶">
-                  <h2 class="post-title">快速定位Java程序CPU满负载元凶</h2>
-                </a>
-                <div class="post-date">
-                  2018-10-13
-                </div>
-                <div class="post-abstract">
-                  <h2 id="前言">前言</h2>
+            </h3>
+          <p class="post-meta">
+             <span class="time">2018-10-14</span>
+             <span>,</span>
+             <span class="post-stats">7 min read</span>
+            </p>
+        </div>
+        <hr>
+        <div class="clearfix">
+        </div>
+        
+        <div class="post-preview">
+          <a href="https://wrcj12138aaa.github.io//post/20181013-定位Java程序CPU满负载元凶">
+            <h2 class="post-title">
+              快速定位Java程序CPU满负载元凶
+            </h2>
+            </a>
+            <h3 class="post-subtitle">
+              <h2 id="前言">前言</h2>
 <p>最近线上后台服务器老是出现<code>CPU</code>满负载情况,影响后台业务处理,很是头疼. 但遇到这个问题却始终找不到原因,主要还是没有具体定位原因的思路.从一开始只知道重启了事, 到获取程序线程日志进行分析,现在又学习到了一种更具体的分析方式,这次通过博客方式记录下来,方便后面遇到类似问题时能快速处理应对.</p>
 
-                </div>
-              </div>
-              
-            </article>
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://wrcj12138aaa.github.io//post/20181012-Spring Boot 初体验">
-                  <h2 class="post-title">SpringBoot实战-初体验</h2>
-                </a>
-                <div class="post-date">
-                  2018-10-12
-                </div>
-                <div class="post-abstract">
-                  <h2 id="前言">前言</h2>
+            </h3>
+          <p class="post-meta">
+             <span class="time">2018-10-13</span>
+             <span>,</span>
+             <span class="post-stats">2 min read</span>
+            </p>
+        </div>
+        <hr>
+        <div class="clearfix">
+        </div>
+        
+        <div class="post-preview">
+          <a href="https://wrcj12138aaa.github.io//post/20181012-Spring Boot 初体验">
+            <h2 class="post-title">
+              SpringBoot实战-初体验
+            </h2>
+            </a>
+            <h3 class="post-subtitle">
+              <h2 id="前言">前言</h2>
 <p>在分布式时代潮流中, 随着微服务的流行, <code>Spring Boot</code> 作为用来快速交付微服务的<code>Java</code>开源框架名声大噪,<code>Spring Boot</code>依托于请强大的<code>Spring Framework</code>,其优势在于</p>
 <ul>
 <li>
@@ -167,87 +167,107 @@
 </ul>
 <p>这篇文章将以实战方式创建一个基于<code>Spring Boot</code>搭建的简单Rest服务程序,来学习下如何开发<code>Spring Boot</code>程序.</p>
 
-                </div>
-              </div>
+            </h3>
+          <p class="post-meta">
+             <span class="time">2018-10-12</span>
+             <span>,</span>
+             <span class="post-stats">7 min read</span>
+            </p>
+        </div>
+        <hr>
+        <div class="clearfix">
+        </div>
+        
+        <div class="post-preview">
+          <a href="https://wrcj12138aaa.github.io//post/20181011-实战Java高并发程序设计笔记">
+            <h2 class="post-title">
+              《实战Java高并发程序设计》读书笔记
+            </h2>
+            </a>
+            <h3 class="post-subtitle">
               
-            </article>
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://wrcj12138aaa.github.io//post/20181011-实战Java高并发程序设计笔记">
-                  <h2 class="post-title">《实战Java高并发程序设计》读书笔记</h2>
-                </a>
-                <div class="post-date">
-                  2018-10-11
-                </div>
-                <div class="post-abstract">
-                  
-                </div>
-              </div>
-              
-            </article>
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://wrcj12138aaa.github.io//post/20181008-Linux环境yum安装JDK   ">
-                  <h2 class="post-title">Linux环境安装JDK-yum方式</h2>
-                </a>
-                <div class="post-date">
-                  2018-10-08
-                </div>
-                <div class="post-abstract">
-                  <h2 id="前言">前言</h2>
+            </h3>
+          <p class="post-meta">
+             <span class="time">2018-10-11</span>
+             <span>,</span>
+             <span class="post-stats">5 min read</span>
+            </p>
+        </div>
+        <hr>
+        <div class="clearfix">
+        </div>
+        
+        <div class="post-preview">
+          <a href="https://wrcj12138aaa.github.io//post/20181008-Linux环境yum安装JDK   ">
+            <h2 class="post-title">
+              Linux环境安装JDK-yum方式
+            </h2>
+            </a>
+            <h3 class="post-subtitle">
+              <h2 id="前言">前言</h2>
 <p>为了在公司能搭建一个系统服务系统, 需要在一台新的阿里云服务器上搭建持续集成环境,却发现连基本的Java环境都没有,上网一搜各种五花八门的安装方式眼花缭乱,这次还是通过自己实践记录方式输出到博客,方便以后遇到类似情况需要搭建Java环境时使用.话不多说,马上进入正题.</p>
 
-                </div>
-              </div>
-              
-            </article>
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://wrcj12138aaa.github.io//post/20181007-一起学模式之建造者模式">
-                  <h2 class="post-title">一起学模式之建造者模式</h2>
-                </a>
-                <div class="post-date">
-                  2018-10-07
-                </div>
-                <div class="post-abstract">
-                  <h2 id="前言">前言</h2>
+            </h3>
+          <p class="post-meta">
+             <span class="time">2018-10-08</span>
+             <span>,</span>
+             <span class="post-stats">2 min read</span>
+            </p>
+        </div>
+        <hr>
+        <div class="clearfix">
+        </div>
+        
+        <div class="post-preview">
+          <a href="https://wrcj12138aaa.github.io//post/20181007-一起学模式之建造者模式">
+            <h2 class="post-title">
+              一起学模式之建造者模式
+            </h2>
+            </a>
+            <h3 class="post-subtitle">
+              <h2 id="前言">前言</h2>
 <p>这次学习下属于创建型模式的 建造者模式 <code>Builder Pattern</code>, 希望能通过具体描述和代码能够掌握这个设计模式,能有机会后续开发中使用到.</p>
 
-                </div>
-              </div>
-              
-            </article>
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://wrcj12138aaa.github.io//post/20180920-一起学模式之依赖倒置与注入">
-                  <h2 class="post-title">一起学模式之依赖倒置与注入</h2>
-                </a>
-                <div class="post-date">
-                  2018-09-20
-                </div>
-                <div class="post-abstract">
-                  <h2 id="前言">前言</h2>
+            </h3>
+          <p class="post-meta">
+             <span class="time">2018-10-07</span>
+             <span>,</span>
+             <span class="post-stats">5 min read</span>
+            </p>
+        </div>
+        <hr>
+        <div class="clearfix">
+        </div>
+        
+        <div class="post-preview">
+          <a href="https://wrcj12138aaa.github.io//post/20180920-一起学模式之依赖倒置与注入">
+            <h2 class="post-title">
+              一起学模式之依赖倒置与注入
+            </h2>
+            </a>
+            <h3 class="post-subtitle">
+              <h2 id="前言">前言</h2>
 <p>这次,我们来学习下设计模式六大原则之一的依赖倒置原则,以及基于此的依赖注入模式, 提到依赖注入,我们就不由想到强大Spring框架,那依赖倒置原则和依赖注入究竟是什么呢,让我们来一步步揭开它神秘的面纱.</p>
 
-                </div>
-              </div>
-              
-            </article>
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://wrcj12138aaa.github.io//post/20180918-设计模式之抽象工厂模式">
-                  <h2 class="post-title">一起学模式之抽象工厂</h2>
-                </a>
-                <div class="post-date">
-                  2018-09-18
-                </div>
-                <div class="post-abstract">
-                  <h2 id="前言">前言</h2>
+            </h3>
+          <p class="post-meta">
+             <span class="time">2018-09-20</span>
+             <span>,</span>
+             <span class="post-stats">6 min read</span>
+            </p>
+        </div>
+        <hr>
+        <div class="clearfix">
+        </div>
+        
+        <div class="post-preview">
+          <a href="https://wrcj12138aaa.github.io//post/20180918-设计模式之抽象工厂模式">
+            <h2 class="post-title">
+              一起学模式之抽象工厂
+            </h2>
+            </a>
+            <h3 class="post-subtitle">
+              <h2 id="前言">前言</h2>
 <p>学习过简单工厂，工厂方法模式后，我们再来看下工厂模式中最后一个模式：抽象工厂模式。它是《<a href="https://baike.baidu.com/item/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F">设计模式</a>》之一，并且被广泛应用在程序框架中。本文主要从以下方面进行：</p>
 <ul>
 <li>模式定义</li>
@@ -256,61 +276,117 @@
 <li>场景应用</li>
 </ul>
 
-                </div>
-              </div>
-              
-            </article>
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://wrcj12138aaa.github.io//post/20180917-设计模式之工厂方法模式">
-                  <h2 class="post-title">一起学模式之工厂方法模式</h2>
-                </a>
-                <div class="post-date">
-                  2018-09-17
-                </div>
-                <div class="post-abstract">
-                  <h2 id="前言">前言</h2>
+            </h3>
+          <p class="post-meta">
+             <span class="time">2018-09-18</span>
+             <span>,</span>
+             <span class="post-stats">6 min read</span>
+            </p>
+        </div>
+        <hr>
+        <div class="clearfix">
+        </div>
+        
+        <div class="post-preview">
+          <a href="https://wrcj12138aaa.github.io//post/20180917-设计模式之工厂方法模式">
+            <h2 class="post-title">
+              一起学模式之工厂方法模式
+            </h2>
+            </a>
+            <h3 class="post-subtitle">
+              <h2 id="前言">前言</h2>
 <p>学习过简单工厂模式,知道了其优点和不足,再来看工厂方法模式就更容易掌握了,工厂方法模式解决简单工厂模式扩展不足的缺陷,就让我们看看它是如何做到的.</p>
 
-                </div>
-              </div>
+            </h3>
+          <p class="post-meta">
+             <span class="time">2018-09-17</span>
+             <span>,</span>
+             <span class="post-stats">4 min read</span>
+            </p>
+        </div>
+        <hr>
+        <div class="clearfix">
+        </div>
+        
+        
+        <a class="btn btn-primary float-left" href="https://wrcj12138aaa.github.io//page/4/">&larr; 上一页</a>
+        
+        
+        <a class="btn btn-primary float-right" href="https://wrcj12138aaa.github.io//page/6/">下一页 &rarr;</a>
+        
+      </div>
+    </div>
+  </div>
+
+  
+    <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <ul class="list-inline text-center">
+            
+            
               
-            </article>
-          
-
-          <div class="pagination-container">
-  
-    <a href="https://wrcj12138aaa.github.io//page/4/" class="prev"><i class="icon-arrow-ios-back-outline"></i> 上一页</a>
-  
-  
-    <a href="https://wrcj12138aaa.github.io//page/6/" class="next">下一页 <i class="icon-arrow-ios-forward-outline"></i></a>
-  
-</div>
-
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+              <li class="list-inline-item">
+              <a href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">
+                <span class="fa-stack fa-lg">
+                  <i class="fas fa-circle fa-stack-2x"></i>
+                  <i class="fas fa-rss fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+              </li>
+          </ul>
+          <p class="copyright text-muted">Copyright &copy;<span>闻人的技术博客</span><br><a href="https://github.com/getgridea/gridea" class="Themeinfo">Powered by Gridea</a></p>
         </div>
       </div>
     </div>
-
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-
-<script type="application/javascript">
-
-AOS.init();
-
-hljs.initHighlightingOnLoad()
-
-var app = new Vue({
-  el: '#app',
-  data: {
-    menuVisible: false,
-  },
-})
-
-</script>
-
-
-
-
+   </footer>
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+  <!-- <script src="https://wrcj12138aaa.github.io//media/scripts/bootstrap.bundle.min.js"></script> -->
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://cdn.jsdelivr.net/gh/Alanrk/clean-cdn@1.0/scripts/clean-blog.min.js"></script>
+  <!-- <script src="https://wrcj12138aaa.github.io//media/scripts/clean-blog.min.js"></script> -->
+  <script src="//instant.page/3.0.0" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+  <style type="text/css">a.back_to_top{text-decoration:none;position:fixed;bottom:40px;right:30px;background:#f0f0f0;height:40px;width:40px;border-radius:50%;line-height:36px;font-size:18px;text-align:center;transition-duration:.5s;transition-propety:background-color;display:none}a.back_to_top span{color:#888}a.back_to_top:hover{cursor:pointer;background:#dfdfdf}a.back_to_top:hover span{color:#555}@media print,screen and(max-width:580px){.back_to_top{display:none!important}}</style>
+<a id="back_to_top" href="#" class="back_to_top">
+  <span>▲</span></a>
+<script>$(document).ready((function(_this) {
+    return function() {
+      var bt;
+      bt = $('#back_to_top');
+      if ($(document).width() > 480) {
+        $(window).scroll(function() {
+          var st;
+          st = $(window).scrollTop();
+          if (st > 30) {
+            return bt.css('display', 'block')
+          } else {
+            return bt.css('display', 'none')
+          }
+        });
+        return bt.click(function() {
+          $('body,html').animate({
+            scrollTop: 0
+          },
+          800);
+          return false
+        })
+      }
+    }
+  })(this));</script>
   </body>
 </html>
