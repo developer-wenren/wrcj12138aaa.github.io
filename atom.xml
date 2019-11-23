@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://wrcj12138aaa.github.io/</id>
     <title>闻人的技术博客</title>
-    <updated>2019-11-17T09:40:07.622Z</updated>
+    <updated>2019-11-23T15:04:34.364Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://wrcj12138aaa.github.io/"/>
     <link rel="self" href="https://wrcj12138aaa.github.io//atom.xml"/>
@@ -10,6 +10,13 @@
     <logo>https://wrcj12138aaa.github.io//images/avatar.png</logo>
     <icon>https://wrcj12138aaa.github.io//favicon.ico</icon>
     <rights>All rights reserved 2019, 闻人的技术博客</rights>
+    <entry>
+        <title type="html"><![CDATA[关于中台那些事]]></title>
+        <id>https://wrcj12138aaa.github.io//post/shuo-tou-zhong-tai-xue-xi-bi-ji-w</id>
+        <link href="https://wrcj12138aaa.github.io//post/shuo-tou-zhong-tai-xue-xi-bi-ji-w">
+        </link>
+        <updated>2019-11-23T15:01:47.000Z</updated>
+    </entry>
     <entry>
         <title type="html"><![CDATA[如何做好网上阅读和读书积累]]></title>
         <id>https://wrcj12138aaa.github.io//post/ru-he-zuo-hao-yue-du-he-ji-lei</id>
@@ -140,12 +147,5 @@
         <link href="https://wrcj12138aaa.github.io//post/20190813-SpringBootProfiles源码解析">
         </link>
         <updated>2019-08-13T13:13:20.000Z</updated>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[一文掌握 Spring Boot Profiles]]></title>
-        <id>https://wrcj12138aaa.github.io//post/20190728-一文掌握 Spring Boot Profiles</id>
-        <link href="https://wrcj12138aaa.github.io//post/20190728-一文掌握 Spring Boot Profiles">
-        </link>
-        <updated>2019-07-28T10:33:20.000Z</updated>
     </entry>
 </feed>

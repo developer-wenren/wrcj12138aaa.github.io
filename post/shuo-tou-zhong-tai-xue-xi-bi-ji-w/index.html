@@ -1,0 +1,457 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>闻人的技术博客</title>
+<meta name="description" content="做一个终生学习的技术人" />
+<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1574521470719">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+<link rel="stylesheet" href="https://wrcj12138aaa.github.io//styles/main.css">
+<link rel="alternate" type="application/atom+xml" title="闻人的技术博客 - Atom Feed" href="https://wrcj12138aaa.github.io//atom.xml">
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main px-4 flex flex-col lg:flex-row">
+      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
+  <div class="lg:sticky top-0">
+    <div class="sidebar-content">
+      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
+        <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
+        <a href="https://wrcj12138aaa.github.io/">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://wrcj12138aaa.github.io//images/avatar.png?v=1574521470719" alt="">
+        </a>
+        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">闻人的技术博客</h1>
+      </div>
+      
+        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
+          <p class="my-4 text-gray-600 font-light hidden lg:block">
+            文章目录
+          </p>
+          <div class="toc-container hidden lg:block">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#%E4%B8%AD%E5%8F%B0%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%99%E4%B9%88%E7%81%AB">中台为什么这么火</a>
+<ul>
+<li><a href="#%E4%B8%AD%E5%8F%B0%E7%9A%84%E5%8E%86%E5%8F%B2%E6%BA%AF%E6%BA%90">中台的历史溯源</a></li>
+<li><a href="#%E4%B8%AD%E5%8F%B0%E7%81%AB%E7%9A%84%E5%8E%9F%E5%9B%A0">中台火的原因</a></li>
+</ul>
+</li>
+<li><a href="#%E4%B8%AD%E5%8F%B0%E7%A7%8D%E7%B1%BB%E4%BD%A0%E5%90%AC%E8%AF%B4%E7%9A%84%E4%B8%AD%E5%8F%B0%E7%9C%9F%E7%9A%84%E6%98%AF%E4%B8%AD%E5%8F%B0%E5%90%97">中台种类：你听说的中台真的是中台吗</a>
+<ul>
+<li><a href="#%E4%B8%9A%E5%8A%A1%E4%B8%AD%E5%8F%B0">业务中台</a></li>
+<li><a href="#%E6%95%B0%E6%8D%AE%E4%B8%AD%E5%8F%B0">数据中台</a></li>
+<li><a href="#%E5%85%B6%E4%BB%96%E4%B8%AD%E5%8F%B0">其他中台</a></li>
+</ul>
+</li>
+<li><a href="#%E4%B8%AD%E5%8F%B0%E5%AE%9A%E4%B9%89%E5%BD%93%E6%88%91%E4%BB%AC%E8%B0%88%E4%B8%AD%E5%8F%B0%E6%97%B6%E5%88%B0%E5%BA%95%E5%9C%A8%E8%B0%88%E4%BA%9B%E4%BB%80%E4%B9%88">中台定义：当我们谈中台时到底在谈些什么？</a>
+<ul>
+<li><a href="#%E4%BC%81%E4%B8%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%BB%BA%E4%B8%AD%E5%8F%B0">企业为什么要建中台？</a></li>
+<li><a href="#%E4%B8%AD%E5%8F%B0%E7%9A%84%E5%AE%9A%E4%B9%89">中台的定义</a></li>
+</ul>
+</li>
+<li><a href="#%E4%B8%AD%E5%8F%B0%E5%BB%BA%E8%AE%BE%E5%89%8D%E5%BF%85%E9%A1%BB%E6%83%B3%E6%B8%85%E6%A5%9A%E7%9A%84%E5%9B%9B%E4%B8%AA%E9%97%AE%E9%A2%98">中台建设前必须想清楚的四个问题</a>
+<ul>
+<li><a href="#%E6%84%BF%E6%99%AF">愿景</a></li>
+<li><a href="#%E7%94%A8%E6%88%B7%E5%92%8C%E5%AE%A2%E6%88%B7">用户和客户</a></li>
+<li><a href="#%E5%BB%BA%E8%AE%BE%E8%B5%84%E6%BA%90">建设资源</a></li>
+<li><a href="#%E5%BA%A6%E9%87%8F">度量</a></li>
+</ul>
+</li>
+<li><a href="#%E4%B8%AD%E5%8F%B0%E8%A7%84%E5%88%92%E5%BB%BA%E8%AE%BE%E6%96%B9%E6%B3%95%E8%AE%BA%E6%A6%82%E8%BF%B0">中台规划建设方法论概述</a>
+<ul>
+<li><a href="#%E4%B8%9A%E5%8A%A1%E4%B8%AD%E5%8F%B0%E4%B8%8E%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E5%8C%BA%E5%88%AB%E5%9C%A8%E5%93%AA">业务中台与分布式系统区别在哪？</a></li>
+<li><a href="#d4-%E6%A8%A1%E5%9E%8B">D4 模型</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BC%81%E4%B8%9A%E6%88%98%E7%95%A5%E5%88%86%E8%A7%A3%E5%8F%8A%E7%8E%B0%E7%8A%B6%E8%B0%83%E7%A0%94">企业战略分解及现状调研</a></li>
+<li><a href="#%E4%BC%81%E4%B8%9A%E6%95%B0%E5%AD%97%E5%8C%96%E5%85%A8%E6%99%AF%E8%A7%84%E5%88%92">企业数字化全景规划</a>
+<ul>
+<li><a href="#%E5%B9%B3%E5%8F%B0%E5%9E%8B%E4%BC%81%E4%B8%9A%E6%9E%B6%E6%9E%84%E8%A7%84%E5%88%92%E8%BF%87%E7%A8%8B">平台型企业架构规划过程</a></li>
+</ul>
+</li>
+<li><a href="#%E4%B8%AD%E5%8F%B0%E7%9A%84%E8%A7%84%E5%88%92%E4%B8%8E%E8%AE%BE%E8%AE%A1">中台的规划与设计</a></li>
+<li><a href="#%E4%B8%AD%E5%8F%B0%E7%9A%84%E5%BB%BA%E8%AE%BE%E4%B8%8E%E6%8E%A5%E5%85%A5">中台的建设与接入</a>
+<ul>
+<li><a href="#%E7%B2%BE%E7%9B%8A%E4%B8%8E%E6%95%8F%E6%8D%B7%E7%9A%84%E5%8C%BA%E5%88%AB">精益与敏捷的区别</a></li>
+<li><a href="#%E8%BF%90%E8%90%A5%E4%B8%AD%E5%8F%B0">运营中台</a></li>
+</ul>
+</li>
+<li><a href="#%E4%B8%AD%E5%8F%B0%E8%90%BD%E5%9C%B0%E5%B7%A5%E5%85%B7%E8%B5%84%E6%BA%90%E6%B1%87%E6%80%BB">中台落地工具资源汇总</a>
+<ul>
+<li><a href="#%E4%B8%AD%E5%8F%B0%E6%A6%82%E5%BF%B5">中台概念</a></li>
+<li><a href="#%E6%88%98%E7%95%A5%E4%B8%8E%E5%8F%98%E9%9D%A9">战略与变革</a></li>
+<li><a href="#%E4%BC%81%E4%B8%9A%E6%9E%B6%E6%9E%84%E6%96%B9%E6%B3%95">企业架构方法</a></li>
+<li><a href="#%E8%AE%BE%E8%AE%A1%E6%80%9D%E7%BB%B4design-thinking">设计思维（Design Thinking)</a></li>
+<li><a href="#%E6%95%8F%E6%8D%B7%E7%B2%BE%E7%9B%8A">敏捷&amp;精益</a></li>
+<li><a href="#%E6%9E%B6%E6%9E%84%E6%BC%94%E8%BF%9B">架构演进</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="menu-container">
+  <i class="remixicon-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
+  <div>
+    
+      
+        <a href="/" class="menu" style="animation-delay: 0s">
+          首页
+        </a>
+      
+    
+      
+        <a href="/archives" class="menu" style="animation-delay: 0.2s">
+          归档
+        </a>
+      
+    
+      
+        <a href="/tags" class="menu" style="animation-delay: 0.4s">
+          标签
+        </a>
+      
+    
+      
+        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
+          关于
+        </a>
+      
+    
+  </div>
+  <div class="site-footer">
+    <div class="py-4 text-gray-700"></div>
+    <a class="rss" href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">RSS</a>
+  </div>
+</div>
+<div class="mask" onclick="closeMenu()">
+</div>
+      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
+        <h1 class="text-3xl font-bold lg:mt-16">关于中台那些事</h1>
+        <div class="text-sm text-gray-700 lg:my-8">
+          2019-11-23 / 8 min read
+        </div>
+        
+        <div class="post-content yue">
+          <h2 id="前言">前言</h2>
+<p>本文为极客时间专栏《说透中台》的学习笔记。</p>
+<h2 id="中台为什么这么火">中台为什么这么火</h2>
+<h3 id="中台的历史溯源">中台的历史溯源</h3>
+<pre><code class="language-mermaid">graph TD
+   2008年的淘宝与天猫的重复建设改造 --&gt;2015年马云拜访Supercell公司开启中台战略
+   2015年马云拜访Supercell公司开启中台战略 --&gt;2017年阿里和滴滴传播中台建设经验
+   2017年阿里和滴滴传播中台建设经验 --&gt;2018年多个互联网巨头开始打造技术中台
+   2018年多个互联网巨头开始打造技术中台 --&gt;2019年中台概念持续火热
+</code></pre>
+<h3 id="中台火的原因">中台火的原因</h3>
+<ul>
+<li>互联网企业对大厂的实践模仿，中台的建设效果不错。</li>
+<li>业务互联网ToB市场的火爆，帮助传统企业上云和数字化转型。</li>
+<li>适逢企业内部系统的转型</li>
+<li>经济环境的不乐观促使企业通过中台将业务能力进行沉淀和复用，用于快速试错和创新。</li>
+</ul>
+<h2 id="中台种类你听说的中台真的是中台吗">中台种类：你听说的中台真的是中台吗</h2>
+<blockquote>
+<p>中台有哪些分类，主流的是业务中台和数据中台。</p>
+</blockquote>
+<figure data-type="image" tabindex="1"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g91eueg0y8j31a00m4aew.jpg" alt=""></figure>
+<h3 id="业务中台">业务中台</h3>
+<p>所有的中台都属于业务中台，但是这里<strong>业务中台</strong>指代着狭隘层面的业务概念，是正对特定业务开展提供能力的解决方案，来实现对不同业务线的支撑。</p>
+<figure data-type="image" tabindex="2"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g91ey1e2roj31560l0wiq.jpg" alt=""></figure>
+<h3 id="数据中台">数据中台</h3>
+<p>用于业务数据的管理，再次构建利用，为业务中台服务。</p>
+<p>数据中台好比数据工厂，收集处理数据，最后生产数据产品给业务提供帮助。</p>
+<figure data-type="image" tabindex="3"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g91f113w6tj31540j2gok.jpg" alt=""></figure>
+<blockquote>
+<p>“<strong>业务中台就是在产生数据，数据中台是做数据的二次加工，并将结果再服务于业务，为业务进行数据和智能的赋能。</strong>”  —— 阿里巴巴技术方案总监谢纯良在一次 InfoQ 采访。</p>
+</blockquote>
+<p>业务中台与数据中台相互支持。业务中台提供业务能力的支撑，数据中台提供业务数据的支撑。</p>
+<h3 id="其他中台">其他中台</h3>
+<ul>
+<li>
+<p>技术中台：软件开发中所需基础设施，中间件的整合，更像一个中间件平台。</p>
+</li>
+<li>
+<p>研发中台：用于关联企业研发效能的平台。</p>
+</li>
+<li>
+<p>移动中台：专为 App 开发所需通用组件进行封装沉淀，实现开发App时的组件和能力的复用。</p>
+</li>
+<li>
+<p>管理中台：企业内部利用中台思维的改造，旨在提升企业运营能力。</p>
+</li>
+<li>
+<p>组织中台：企业内部风投和创新孵化器，用于支持前台组织和应用的创新和尝试。</p>
+</li>
+</ul>
+<h2 id="中台定义当我们谈中台时到底在谈些什么">中台定义：当我们谈中台时到底在谈些什么？</h2>
+<blockquote>
+<p>为什么企业需要中台？</p>
+<p>中台的定义是什么？</p>
+</blockquote>
+<h3 id="企业为什么要建中台">企业为什么要建中台？</h3>
+<p>企业构建中台是为了能更快地响应用户需求和提供服务，给前台业务提供更好更快的服务去支撑。</p>
+<ul>
+<li>关于前台：前端业务平台，如网站，App，公众号等。</li>
+<li>关于后台：后端支撑平台，如客户管理系统，产品系统等</li>
+</ul>
+<p>由于前台需要是快速影响用户需求，而后台需要的是稳定的后端资源，两种需求无法匹配，就需要引入中台作为中间层，为前台做更合适更快的业务支撑。</p>
+<h3 id="中台的定义">中台的定义</h3>
+<p>中台本质就是一个**企业级能力复用平台 **。</p>
+<ul>
+<li>企业级，指明了范围。</li>
+<li>能力，指明了主要承载的对象。</li>
+<li>复用，是核心价值。</li>
+<li>平台，具体的主要形式。</li>
+</ul>
+<p>中台化只是企业实现以用户为中心持续规模化创新的手段，而不是目标，提高对用户的响应力才是企业的核心竞争力的表现。</p>
+<figure data-type="image" tabindex="4"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g91hhzayylj311o0ku15a.jpg" alt=""></figure>
+<h2 id="中台建设前必须想清楚的四个问题">中台建设前必须想清楚的四个问题</h2>
+<blockquote>
+<p>从四个问题出发，可以来初步判断企业进行中台建设的环境是否成熟，能否成功落地：</p>
+<p>愿景是什么?</p>
+<p>用户和客户是谁？</p>
+<p>建设资源谁出？</p>
+<p>如何验证效果？</p>
+</blockquote>
+<figure data-type="image" tabindex="5"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g924tmmtwyj30u00vmwpm.jpg" alt=""></figure>
+<h3 id="愿景">愿景</h3>
+<p>“遇事不决看愿景”，给要建设的中台明确的目标，要解决什么问题，发挥什么实际价值，并且这个愿景需要所有的角色达成一致。这个可以帮助我们在建设过程中判断哪些符合愿景需要中台去做，哪些不是中台要做的。</p>
+<h3 id="用户和客户">用户和客户</h3>
+<p>把中台看成一个产品，设想的用户和客户是谁，用户代表着短期战术价值，而客户代表着长期战略目标，需要找到两者之间的结合点。</p>
+<p>中台建设主要还是以解决企业管理层对公司长期生存与可持续发展的恐惧与焦虑问题。</p>
+<h3 id="建设资源">建设资源</h3>
+<p>虽然中台是为前台业务服务，但是建设方式上采用<strong>投融资模式</strong>比较合适，从企业本身的战略储备资源投资建设，寻找合适的前端业务进行试点接入，改进升级后逐步推广。</p>
+<p>这样一来中台团队有更多自主权，更好实现中台的建设愿景，建设速度也更快。</p>
+<h3 id="度量">度量</h3>
+<p>以终为始，在建设之前考虑清楚如何度量的问题，根据愿景设定考核指标，比如稳定性，业务创新度，服务接入量，客户满意度等。</p>
+<h2 id="中台规划建设方法论概述">中台规划建设方法论概述</h2>
+<h3 id="业务中台与分布式系统区别在哪">业务中台与分布式系统区别在哪？</h3>
+<p>中台实际是企业级架构建设，面向用户与创新，不能只从现状业务入手，还要分析企业战略和未来规划。</p>
+<h3 id="d4-模型">D4 模型</h3>
+<p>D4模型包含从战略到落地的整个过程，使用敏捷+精益的开发思想。</p>
+<ul>
+<li>Discovery 建立全局视野</li>
+<li>Define 定义中台架构</li>
+<li>Design 设计中台，进行需求分析，功能设计和实施计划</li>
+<li>Delivery 采用敏捷+精益软件开发方式进行迭代交付</li>
+</ul>
+<figure data-type="image" tabindex="6"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g946wwmm4cj31gg0he79e.jpg" alt=""></figure>
+<h2 id="企业战略分解及现状调研">企业战略分解及现状调研</h2>
+<p>解决要不要建中台，建哪些中台，谁优先的问题，本质是资源分配的问题，如何达到较优解。</p>
+<figure data-type="image" tabindex="7"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g94ga5ue9uj30kn09s0tv.jpg" alt=""></figure>
+<p>根据企业愿景和战略，作为输入去制定蓝图和线路图。</p>
+<figure data-type="image" tabindex="8"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g94gfdrpquj30is0am3zz.jpg" alt=""></figure>
+<h2 id="企业数字化全景规划">企业数字化全景规划</h2>
+<p>寻找不同业务线的共享能</p>
+<ul>
+<li>业务数据</li>
+<li>业务功能</li>
+<li>业务流程</li>
+<li>通用技术能力</li>
+</ul>
+<p>作者认为中台与微服务没有关系，两者解决的是不同问题，一个是业务复用，另一个是技术架构。</p>
+<h3 id="平台型企业架构规划过程">平台型企业架构规划过程</h3>
+<ul>
+<li>做现有业务架构分析，找痛点。</li>
+<li>改进设计业务架构，解决痛点。</li>
+<li>使用 DDD 战略设计针对业务建立领域模型。</li>
+<li>识别多业务线的业务重合度，如功能重合，数据重合，模式重合等，考虑是否引入中台建设。</li>
+<li>分析目标与当前现状的差距，列出具体的可执行列表，进行优先排序。</li>
+</ul>
+<h2 id="中台的规划与设计">中台的规划与设计</h2>
+<p>对业务场景进行梳理，识别出中台共性需求，并进行优先级限定；</p>
+<figure data-type="image" tabindex="9"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g983j5soulj313i0u0juu.jpg" alt=""></figure>
+<p>然后进行业务模型梳理，采用MVP原则开始建设中台；</p>
+<p>最后的中台建设验收指标可以采用多问几个“HOW”来明确。</p>
+<figure data-type="image" tabindex="10"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g983j0bmx4j314g0u0qsm.jpg" alt=""></figure>
+<h2 id="中台的建设与接入">中台的建设与接入</h2>
+<p>面对中台建设的不确定性，可以利用精益思想进行产品研发流程，结合敏捷开发实践进行小步快跑。</p>
+<figure data-type="image" tabindex="11"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g98cw4m5nlj31d20tmwpr.jpg" alt=""></figure>
+<h3 id="精益与敏捷的区别">精益与敏捷的区别</h3>
+<p>敏捷关注的是价值确定的情况下，如何通过小步快跑的迭代方式按节奏交 付价值；而精益关注的则是在价值并不确定的情况下，如何用最小成本，快速定位到真正价值点。</p>
+<h3 id="运营中台">运营中台</h3>
+<p>中台作为企业内部平台类产品，目标用户为前台，需要为前台用户进行划分，对于不同级别用户采用对应响应。</p>
+<figure data-type="image" tabindex="12"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g98d27je44j31es0nm4b7.jpg" alt=""></figure>
+<p>这样一来可以有效利用中台资源，可持续化发展中台。</p>
+<h2 id="中台落地工具资源汇总">中台落地工具资源汇总</h2>
+<h3 id="中台概念">中台概念</h3>
+<p>《企业 T 架构转型之道阿里巴巴中台战略思想与架构实战》《中台战略：中台建设与数字商业》</p>
+<h3 id="战略与变革">战略与变革</h3>
+<p>《论大战略》《战略的本质》《领导变革》《商业模式新生代》《系统思考》</p>
+<h3 id="企业架构方法">企业架构方法</h3>
+<p>《TOGAF 标准 9.1 版》《企业级业务架构设计：方法论与实践》《决胜 B 端：产品经理升级之路》</p>
+<h3 id="设计思维design-thinking">设计思维（Design Thinking)</h3>
+<p>《战略设计思维》《创新设计思维》</p>
+<h3 id="敏捷精益">敏捷&amp;精益</h3>
+<p>《精益思想》《精益创业》《精益企业：高效能组织如何规模化创新》《看板方法：科技企业渐进变革成功之道》《持续交付：发布可靠软件的系统方法》</p>
+<h3 id="架构演进">架构演进</h3>
+<p>《演进式架构》《架构整洁之道》《微服务设计》</p>
+
+        </div>
+
+        
+
+
+        <div class="flex justify-between py-8">
+          
+
+          
+            <div class="next-post">
+              <a href="https://wrcj12138aaa.github.io//post/ru-he-zuo-hao-yue-du-he-ji-lei">
+                <h3 class="post-title">
+                  如何做好网上阅读和读书积累
+                  <i class="remixicon-arrow-right-line"></i>
+                </h3>
+              </a>
+            </div>
+          
+        </div>
+
+        
+          
+            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+
+<div id="gitalk-container"></div>
+
+<script>
+
+  var gitalk = new Gitalk({
+    clientID: '2ba76d6fe50ad2b384eb',
+    clientSecret: '90db763ed48942571725d6aef11229900c8bb656',
+    repo: 'wrcj12138aaa.github.io',
+    owner: 'wrcj12138aaa',
+    admin: ['wrcj12138aaa'],
+    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+    distractionFreeMode: false  // Facebook-like distraction free mode
+  })
+
+  gitalk.render('gitalk-container')
+
+</script>
+
+          
+
+          
+        
+
+      </div>
+    </div>
+
+    <script src="https://wrcj12138aaa.github.io//media/prism.js"></script>  
+<script>
+
+Prism.highlightAll()
+
+let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+
+// This should probably be throttled.
+// Especially because it triggers during smooth scrolling.
+// https://lodash.com/docs/4.17.10#throttle
+// You could do like...
+// window.addEventListener("scroll", () => {
+//    _.throttle(doThatStuff, 100);
+// });
+// Only not doing it here to keep this Pen dependency-free.
+
+window.addEventListener("scroll", event => {
+  let fromTop = window.scrollY;
+
+  mainNavLinks.forEach((link, index) => {
+    let section = document.getElementById(decodeURI(link.hash).substring(1));
+    let nextSection = null
+    if (mainNavLinks[index + 1]) {
+      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
+    }
+    if (section.offsetTop <= fromTop) {
+      if (nextSection) {
+        if (nextSection.offsetTop > fromTop) {
+          link.classList.add("current");
+        } else {
+          link.classList.remove("current");    
+        }
+      } else {
+        link.classList.add("current");
+      }
+    } else {
+      link.classList.remove("current");
+    }
+  });
+});
+
+
+document.addEventListener("DOMContentLoaded", function() {
+  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
+
+  if ("IntersectionObserver" in window) {
+    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          let lazyImage = entry.target
+          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
+          lazyImage.classList.remove("lazy")
+          lazyImageObserver.unobserve(lazyImage)
+        }
+      });
+    });
+
+    lazyImages.forEach(function(lazyImage) {
+      lazyImageObserver.observe(lazyImage)
+    })
+  } else {
+    // Possibly fall back to a more compatible method here
+  }
+});
+
+const menuContainer = document.querySelector('.menu-container')
+const menus = document.querySelectorAll('.menu-container .menu')
+const mask = document.querySelector('.mask')
+const contentWrapper = document.querySelector('.content-wrapper')
+const latestArticle = document.querySelector('.latest-article')
+const readMore = document.querySelector('.read-more')
+const indexPage = document.querySelector('.index-page')
+
+const isHome = location.pathname === '/'
+if (latestArticle) {
+  latestArticle.style.display = isHome ? 'block' : 'none'
+  readMore.style.display = isHome ? 'block' : 'none'
+  indexPage.style.display = isHome ? 'none' : 'block'
+}
+
+const openMenu = () => {
+  menuContainer.classList.add('open')
+  menus.forEach(menu => {
+    menu.classList.add('animated', 'fadeInLeft')
+  })
+  mask.classList.add('open')
+  contentWrapper.classList.add('is-second')
+}
+
+const closeMenu = () => {
+  menuContainer.classList.remove('open')
+  menus.forEach(menu => {
+    menu.classList.remove('animated', 'fadeInLeft')
+  })
+  mask.classList.remove('open')
+  contentWrapper.classList.remove('is-second')
+}
+</script>
+  
+  </body>
+</html>
