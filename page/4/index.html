@@ -1,217 +1,211 @@
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>闻人的技术博客</title>
-<meta name="description" content="做一个终生学习的技术人" />
-<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1574521603262">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
-<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <meta charset="utf-8" >
 
+<title>闻人的技术博客</title>
+<meta name="description" content="做一个终生学习的技术人">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1574522179527">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://wrcj12138aaa.github.io//styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="闻人的技术博客 - Atom Feed" href="https://wrcj12138aaa.github.io//atom.xml">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
 
 
   </head>
   <body>
-    <div class="main px-4 flex flex-col lg:flex-row">
-      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
-  <div class="lg:sticky top-0">
-    <div class="sidebar-content">
-      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
-        <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
-        <a href="https://wrcj12138aaa.github.io/">
-          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://wrcj12138aaa.github.io//images/avatar.png?v=1574521603262" alt="">
-        </a>
-        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">闻人的技术博客</h1>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://wrcj12138aaa.github.io/">
+        <img src="https://wrcj12138aaa.github.io//images/avatar.png?v=1574522179527" class="site-logo">
+        <h1 class="site-title">闻人的技术博客</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
       </div>
+    </div>
+    <div>
       
-        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
-          <p class="my-4 text-gray-600 font-light hidden lg:block">
-            做一个终生学习的技术人
-          </p>
-          <div class="animated fadeInLeft social-container hidden lg:block" style="animation-delay: 0.6s">
-            
-              
-                <a href="https://github.com/wrcj12138aaa" target="_blank" class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
-                  <i class="remixicon-github-line"></i>
-                </a>
-              
-            
-              
-            
-              
-            
-              
-                <a href="https://www.zhihu.com/people/cj-wr/activities" target="_blank" class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
-                  <i class="remixicon-zhihu-line"></i>
-                </a>
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-          </div>
-        </div>
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
       
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      做一个终生学习的技术人
+    </div>
+    <div class="site-footer">
+       | <a class="rss" href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">RSS</a>
     </div>
   </div>
 </div>
 
-<div class="menu-container">
-  <i class="remixicon-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
-  <div>
-    
-      
-        <a href="/" class="menu" style="animation-delay: 0s">
-          首页
-        </a>
-      
-    
-      
-        <a href="/archives" class="menu" style="animation-delay: 0.2s">
-          归档
-        </a>
-      
-    
-      
-        <a href="/tags" class="menu" style="animation-delay: 0.4s">
-          标签
-        </a>
-      
-    
-      
-        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
-          关于
-        </a>
-      
-    
-  </div>
-  <div class="site-footer">
-    <div class="py-4 text-gray-700"></div>
-    <a class="rss" href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">RSS</a>
-  </div>
-</div>
-<div class="mask" onclick="closeMenu()">
-</div>
-      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4">
-        <h2 class="latest-article text-lg text-gray-700 mb-8">
-          <i class="remixicon-article-line"></i>
-          最新文章
-        </h2>
-        
-  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${0 * 0.2}s` }">
-    
-    <div class="content">
-      <a href="https://wrcj12138aaa.github.io//post/20181107-译文-String的比较">
-        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">译|Java挑战者系列-String的比较</h2>
-      </a>
-      <div class="post-abstract text-gray-700 font-light my-4">
-        
-      </div>
-      <div class="text-gray-400 text-sm font-light">2018-11-07 / 10 min read</div>
-    </div>
-  </section>
 
-  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${1 * 0.2}s` }">
-    
-    <div class="content">
-      <a href="https://wrcj12138aaa.github.io//post/20181030-一起学模式之代理模式">
-        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">一起学模式之代理模式</h2>
-      </a>
-      <div class="post-abstract text-gray-700 font-light my-4">
-        <h2 id="前言">前言</h2>
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://wrcj12138aaa.github.io//post/20181107-译文-String的比较">
+                  <h2 class="post-title">译|Java挑战者系列-String的比较</h2>
+                </a>
+                <div class="post-date">
+                  2018-11-07
+                </div>
+                <div class="post-abstract">
+                  
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://wrcj12138aaa.github.io//post/20181030-一起学模式之代理模式">
+                  <h2 class="post-title">一起学模式之代理模式</h2>
+                </a>
+                <div class="post-date">
+                  2018-10-30
+                </div>
+                <div class="post-abstract">
+                  <h2 id="前言">前言</h2>
 <p>本文学习下二十三设计模式之一的代理模式,也是日常开发中的十分常见的模式.它能帮我们在实现业务上更加灵活有扩展性.</p>
 
-      </div>
-      <div class="text-gray-400 text-sm font-light">2018-10-30 / 4 min read</div>
-    </div>
-  </section>
-
-  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${2 * 0.2}s` }">
-    
-    <div class="content">
-      <a href="https://wrcj12138aaa.github.io//post/20181029-Scala入门之如何用IDEA实现Scala版的HelloWord">
-        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">Scala入门之项目创建</h2>
-      </a>
-      <div class="post-abstract text-gray-700 font-light my-4">
-        <h2 id="前言">前言</h2>
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://wrcj12138aaa.github.io//post/20181029-Scala入门之如何用IDEA实现Scala版的HelloWord">
+                  <h2 class="post-title">Scala入门之项目创建</h2>
+                </a>
+                <div class="post-date">
+                  2018-10-29
+                </div>
+                <div class="post-abstract">
+                  <h2 id="前言">前言</h2>
 <p>本文快速通过 IDEA 创建一个基于 Scala 语言的 HelloWord 程序,以及对 Scala 语言进行基础的介绍.</p>
 
-      </div>
-      <div class="text-gray-400 text-sm font-light">2018-10-29 / 6 min read</div>
-    </div>
-  </section>
-
-  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${3 * 0.2}s` }">
-    
-    <div class="content">
-      <a href="https://wrcj12138aaa.github.io//post/20181029-MySQL安装">
-        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">后端架构搭建系列之 MySQL</h2>
-      </a>
-      <div class="post-abstract text-gray-700 font-light my-4">
-        <h2 id="前言">前言</h2>
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://wrcj12138aaa.github.io//post/20181029-MySQL安装">
+                  <h2 class="post-title">后端架构搭建系列之 MySQL</h2>
+                </a>
+                <div class="post-date">
+                  2018-10-29
+                </div>
+                <div class="post-abstract">
+                  <h2 id="前言">前言</h2>
 <p>MySQL 作为关系型数据库中热门的开源数据库,在中小企业中广泛应用到各自数据场景,本文主要介绍了 Linux环境下用RPM方式安装MySQL5.7的操作流程,方便后期再有搭建MySQL 数据库的情况.</p>
 <blockquote>
 <p>目前MySQL5.7的最新版本是5.7.24</p>
 <p>Linux CentOS 7</p>
 </blockquote>
 
-      </div>
-      <div class="text-gray-400 text-sm font-light">2018-10-29 / 3 min read</div>
-    </div>
-  </section>
-
-  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${4 * 0.2}s` }">
-    
-    <div class="content">
-      <a href="https://wrcj12138aaa.github.io//post/20181028-文摘-深度，归纳和坚持实践">
-        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">文摘-深度，归纳和坚持实践</h2>
-      </a>
-      <div class="post-abstract text-gray-700 font-light my-4">
-        <h2 id="前言">前言</h2>
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://wrcj12138aaa.github.io//post/20181028-文摘-深度，归纳和坚持实践">
+                  <h2 class="post-title">文摘-深度，归纳和坚持实践</h2>
+                </a>
+                <div class="post-date">
+                  2018-10-28
+                </div>
+                <div class="post-abstract">
+                  <h2 id="前言">前言</h2>
 <p>本短文是对极客时间专栏<a href="https://time.geekbang.org/column/48">左耳听风</a> 文章<a href="https://time.geekbang.org/column/article/14360">深度，归纳和坚持实践</a>的阅读小结.</p>
 
-      </div>
-      <div class="text-gray-400 text-sm font-light">2018-10-28 / 2 min read</div>
-    </div>
-  </section>
-
-  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${5 * 0.2}s` }">
-    
-    <div class="content">
-      <a href="https://wrcj12138aaa.github.io//post/20181028-如何学习和阅读代码">
-        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">文摘-如何学习和阅读代码</h2>
-      </a>
-      <div class="post-abstract text-gray-700 font-light my-4">
-        <h2 id="前言">前言</h2>
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://wrcj12138aaa.github.io//post/20181028-如何学习和阅读代码">
+                  <h2 class="post-title">文摘-如何学习和阅读代码</h2>
+                </a>
+                <div class="post-date">
+                  2018-10-28
+                </div>
+                <div class="post-abstract">
+                  <h2 id="前言">前言</h2>
 <p>本短文是对极客时间专栏<a href="https://time.geekbang.org/column/48">左耳听风</a> 文章<a href="https://time.geekbang.org/column/article/14380">高效学习：如何学习和阅读代码</a>的阅读小结,针对关于阅读代码这块的学习和总结.</p>
 
-      </div>
-      <div class="text-gray-400 text-sm font-light">2018-10-28 / 2 min read</div>
-    </div>
-  </section>
-
-  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${6 * 0.2}s` }">
-    
-    <div class="content">
-      <a href="https://wrcj12138aaa.github.io//post/20181022-Gradle入门">
-        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">Java 修炼之道:Gradle</h2>
-      </a>
-      <div class="post-abstract text-gray-700 font-light my-4">
-        <h3 id="前言">前言</h3>
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://wrcj12138aaa.github.io//post/20181022-Gradle入门">
+                  <h2 class="post-title">Java 修炼之道:Gradle</h2>
+                </a>
+                <div class="post-date">
+                  2018-10-22
+                </div>
+                <div class="post-abstract">
+                  <h3 id="前言">前言</h3>
 <p>一款目前流行的项目构建工具,使用基于 Groovy  的特定领域语言 DSL定义配置, 不再使用 XML 文件管理构建脚本,这样一来极大简化了配置. Gradle 还有优势如下</p>
 <ul>
 <li>
@@ -229,67 +223,65 @@
 <p>Groovy 是基于 JVM 的一种面向对象的动态语言,在 Gradle中用来编写构建脚本.</p>
 </blockquote>
 
-      </div>
-      <div class="text-gray-400 text-sm font-light">2018-10-22 / 7 min read</div>
-    </div>
-  </section>
-
-  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${7 * 0.2}s` }">
-    
-    <div class="content">
-      <a href="https://wrcj12138aaa.github.io//post/20181021-SpringBoot实战分析-MongoDB操作">
-        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">SpringBoot实战分析-MongoDB操作</h2>
-      </a>
-      <div class="post-abstract text-gray-700 font-light my-4">
-        
-      </div>
-      <div class="text-gray-400 text-sm font-light">2018-10-21 / 12 min read</div>
-    </div>
-  </section>
-
-  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${8 * 0.2}s` }">
-    
-    <div class="content">
-      <a href="https://wrcj12138aaa.github.io//post/20181019-Java 修炼之道-构建工具Maven">
-        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">Java 修炼之道:Maven</h2>
-      </a>
-      <div class="post-abstract text-gray-700 font-light my-4">
-        
-      </div>
-      <div class="text-gray-400 text-sm font-light">2018-10-19 / 6 min read</div>
-    </div>
-  </section>
-
-  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${9 * 0.2}s` }">
-    
-    <div class="content">
-      <a href="https://wrcj12138aaa.github.io//post/20181018-Maven 常用命令">
-        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">Java 修炼之道:Maven 常用命令清单</h2>
-      </a>
-      <div class="post-abstract text-gray-700 font-light my-4">
-        <h2 id="前言">前言</h2>
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://wrcj12138aaa.github.io//post/20181021-SpringBoot实战分析-MongoDB操作">
+                  <h2 class="post-title">SpringBoot实战分析-MongoDB操作</h2>
+                </a>
+                <div class="post-date">
+                  2018-10-21
+                </div>
+                <div class="post-abstract">
+                  
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://wrcj12138aaa.github.io//post/20181019-Java 修炼之道-构建工具Maven">
+                  <h2 class="post-title">Java 修炼之道:Maven</h2>
+                </a>
+                <div class="post-date">
+                  2018-10-19
+                </div>
+                <div class="post-abstract">
+                  
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://wrcj12138aaa.github.io//post/20181018-Maven 常用命令">
+                  <h2 class="post-title">Java 修炼之道:Maven 常用命令清单</h2>
+                </a>
+                <div class="post-date">
+                  2018-10-18
+                </div>
+                <div class="post-abstract">
+                  <h2 id="前言">前言</h2>
 <p>Maven 代替 Ant 作为 Java 项目的构建工具已经很久,除了会在 IDE 的图形化界面上操作 Maven, 学会命令行方式操作也十分重要. 这里先记录下基本的Maven命令,后续新增再来更新.</p>
 
-      </div>
-      <div class="text-gray-400 text-sm font-light">2018-10-18 / 2 min read</div>
-    </div>
-  </section>
+                </div>
+              </div>
+              
+            </article>
+          
 
-        <div class="read-more">
-          
-            <a href="https://wrcj12138aaa.github.io//page/5/" class="animated fadeIn font-extrabold text-gray-700 hover:text-gray-900 more-btn">
-              阅读更多
-              <i class="remixicon-arrow-right-line"></i>
-            </a>
-          
-        </div>
-        <div class="index-page">
-          <div class="pagination-container animated fadeIn">
+          <div class="pagination-container">
   
-    <a href="https://wrcj12138aaa.github.io//page/3/" class="page-btn"><i class="remixicon-arrow-left-line"></i> 上一页</a>
+    <a href="https://wrcj12138aaa.github.io//page/3/" class="prev"><i class="icon-arrow-ios-back-outline"></i> 上一页</a>
   
   
-    <a href="https://wrcj12138aaa.github.io//page/5/" class="page-btn">下一页 <i class="remixicon-arrow-right-line"></i></a>
+    <a href="https://wrcj12138aaa.github.io//page/5/" class="next">下一页 <i class="icon-arrow-ios-forward-outline"></i></a>
   
 </div>
 
@@ -297,104 +289,25 @@
       </div>
     </div>
 
-    <script src="https://wrcj12138aaa.github.io//media/prism.js"></script>  
-<script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 
-Prism.highlightAll()
+<script type="application/javascript">
 
-let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+AOS.init();
 
-// This should probably be throttled.
-// Especially because it triggers during smooth scrolling.
-// https://lodash.com/docs/4.17.10#throttle
-// You could do like...
-// window.addEventListener("scroll", () => {
-//    _.throttle(doThatStuff, 100);
-// });
-// Only not doing it here to keep this Pen dependency-free.
+hljs.initHighlightingOnLoad()
 
-window.addEventListener("scroll", event => {
-  let fromTop = window.scrollY;
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
 
-  mainNavLinks.forEach((link, index) => {
-    let section = document.getElementById(decodeURI(link.hash).substring(1));
-    let nextSection = null
-    if (mainNavLinks[index + 1]) {
-      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
-    }
-    if (section.offsetTop <= fromTop) {
-      if (nextSection) {
-        if (nextSection.offsetTop > fromTop) {
-          link.classList.add("current");
-        } else {
-          link.classList.remove("current");    
-        }
-      } else {
-        link.classList.add("current");
-      }
-    } else {
-      link.classList.remove("current");
-    }
-  });
-});
-
-
-document.addEventListener("DOMContentLoaded", function() {
-  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
-
-  if ("IntersectionObserver" in window) {
-    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          let lazyImage = entry.target
-          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
-          lazyImage.classList.remove("lazy")
-          lazyImageObserver.unobserve(lazyImage)
-        }
-      });
-    });
-
-    lazyImages.forEach(function(lazyImage) {
-      lazyImageObserver.observe(lazyImage)
-    })
-  } else {
-    // Possibly fall back to a more compatible method here
-  }
-});
-
-const menuContainer = document.querySelector('.menu-container')
-const menus = document.querySelectorAll('.menu-container .menu')
-const mask = document.querySelector('.mask')
-const contentWrapper = document.querySelector('.content-wrapper')
-const latestArticle = document.querySelector('.latest-article')
-const readMore = document.querySelector('.read-more')
-const indexPage = document.querySelector('.index-page')
-
-const isHome = location.pathname === '/'
-if (latestArticle) {
-  latestArticle.style.display = isHome ? 'block' : 'none'
-  readMore.style.display = isHome ? 'block' : 'none'
-  indexPage.style.display = isHome ? 'none' : 'block'
-}
-
-const openMenu = () => {
-  menuContainer.classList.add('open')
-  menus.forEach(menu => {
-    menu.classList.add('animated', 'fadeInLeft')
-  })
-  mask.classList.add('open')
-  contentWrapper.classList.add('is-second')
-}
-
-const closeMenu = () => {
-  menuContainer.classList.remove('open')
-  menus.forEach(menu => {
-    menu.classList.remove('animated', 'fadeInLeft')
-  })
-  mask.classList.remove('open')
-  contentWrapper.classList.remove('is-second')
-}
 </script>
-  
+
+
+
+
   </body>
 </html>

@@ -1,214 +1,208 @@
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>闻人的技术博客</title>
-<meta name="description" content="做一个终生学习的技术人" />
-<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1574521603262">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
-<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <meta charset="utf-8" >
 
+<title>闻人的技术博客</title>
+<meta name="description" content="做一个终生学习的技术人">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1574522179527">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://wrcj12138aaa.github.io//styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="闻人的技术博客 - Atom Feed" href="https://wrcj12138aaa.github.io//atom.xml">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
 
 
   </head>
   <body>
-    <div class="main px-4 flex flex-col lg:flex-row">
-      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
-  <div class="lg:sticky top-0">
-    <div class="sidebar-content">
-      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
-        <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
-        <a href="https://wrcj12138aaa.github.io/">
-          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://wrcj12138aaa.github.io//images/avatar.png?v=1574521603262" alt="">
-        </a>
-        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">闻人的技术博客</h1>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://wrcj12138aaa.github.io/">
+        <img src="https://wrcj12138aaa.github.io//images/avatar.png?v=1574522179527" class="site-logo">
+        <h1 class="site-title">闻人的技术博客</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
       </div>
+    </div>
+    <div>
       
-        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
-          <p class="my-4 text-gray-600 font-light hidden lg:block">
-            做一个终生学习的技术人
-          </p>
-          <div class="animated fadeInLeft social-container hidden lg:block" style="animation-delay: 0.6s">
-            
-              
-                <a href="https://github.com/wrcj12138aaa" target="_blank" class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
-                  <i class="remixicon-github-line"></i>
-                </a>
-              
-            
-              
-            
-              
-            
-              
-                <a href="https://www.zhihu.com/people/cj-wr/activities" target="_blank" class="mr-4 text-xl text-gray-400 font-light hover:text-gray-900">
-                  <i class="remixicon-zhihu-line"></i>
-                </a>
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-          </div>
-        </div>
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
       
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      做一个终生学习的技术人
+    </div>
+    <div class="site-footer">
+       | <a class="rss" href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">RSS</a>
     </div>
   </div>
 </div>
 
-<div class="menu-container">
-  <i class="remixicon-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
-  <div>
-    
-      
-        <a href="/" class="menu" style="animation-delay: 0s">
-          首页
-        </a>
-      
-    
-      
-        <a href="/archives" class="menu" style="animation-delay: 0.2s">
-          归档
-        </a>
-      
-    
-      
-        <a href="/tags" class="menu" style="animation-delay: 0.4s">
-          标签
-        </a>
-      
-    
-      
-        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
-          关于
-        </a>
-      
-    
-  </div>
-  <div class="site-footer">
-    <div class="py-4 text-gray-700"></div>
-    <a class="rss" href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">RSS</a>
-  </div>
-</div>
-<div class="mask" onclick="closeMenu()">
-</div>
-      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4">
-        <h2 class="latest-article text-lg text-gray-700 mb-8">
-          <i class="remixicon-article-line"></i>
-          最新文章
-        </h2>
-        
-  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${0 * 0.2}s` }">
-    
-    <div class="content">
-      <a href="https://wrcj12138aaa.github.io//post/shuo-tou-zhong-tai-xue-xi-bi-ji-w">
-        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">关于中台那些事</h2>
-      </a>
-      <div class="post-abstract text-gray-700 font-light my-4">
-        <h2 id="前言">前言</h2>
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://wrcj12138aaa.github.io//post/shuo-tou-zhong-tai-xue-xi-bi-ji-w">
+                  <h2 class="post-title">关于中台那些事</h2>
+                </a>
+                <div class="post-date">
+                  2019-11-23
+                </div>
+                <div class="post-abstract">
+                  <h2 id="前言">前言</h2>
 <p>本文为极客时间专栏《说透中台》的学习笔记。</p>
 
-      </div>
-      <div class="text-gray-400 text-sm font-light">2019-11-23 / 8 min read</div>
-    </div>
-  </section>
-
-  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${1 * 0.2}s` }">
-    
-    <div class="content">
-      <a href="https://wrcj12138aaa.github.io//post/ru-he-zuo-hao-yue-du-he-ji-lei">
-        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">如何做好网上阅读和读书积累</h2>
-      </a>
-      <div class="post-abstract text-gray-700 font-light my-4">
-        <h2 id="前言">前言</h2>
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://wrcj12138aaa.github.io//post/ru-he-zuo-hao-yue-du-he-ji-lei">
+                  <h2 class="post-title">如何做好网上阅读和读书积累</h2>
+                </a>
+                <div class="post-date">
+                  2019-11-17
+                </div>
+                <div class="post-abstract">
+                  <h2 id="前言">前言</h2>
 <p>本文是《万万没想到：用理工科思维理解世界》一书中关于如何网上阅读和读书的几节内容小结，记录下帮助自己能有效地阅读和学习，在平时生活中实践改进来贴合自己实际情况。</p>
 
-      </div>
-      <div class="text-gray-400 text-sm font-light">2019-11-17 / 3 min read</div>
-    </div>
-  </section>
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://wrcj12138aaa.github.io//post/yi-lan-java-bing-fa-bian-cheng-shi-zhan-ji-ke-shi-jian">
+                  <h2 class="post-title">一览 Java并发编程实战（极客时间）</h2>
+                </a>
+                <div class="post-date">
+                  2019-11-08
+                </div>
+                <div class="post-abstract">
+                  <p>Java 开发中并发编程算是复杂而又重要的一块了，掌握基础的并发知识和解决并发场景中所可能遇到的问题，很有必要，本文是对极客时间专栏《Java并发编程实战》的学习总结。</p>
 
-  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${2 * 0.2}s` }">
-    
-    <div class="content">
-      <a href="https://wrcj12138aaa.github.io//post/yi-lan-java-bing-fa-bian-cheng-shi-zhan-ji-ke-shi-jian">
-        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">一览 Java并发编程实战（极客时间）</h2>
-      </a>
-      <div class="post-abstract text-gray-700 font-light my-4">
-        <p>Java 开发中并发编程算是复杂而又重要的一块了，掌握基础的并发知识和解决并发场景中所可能遇到的问题，很有必要，本文是对极客时间专栏《Java并发编程实战》的学习总结。</p>
-
-      </div>
-      <div class="text-gray-400 text-sm font-light">2019-11-08 / 29 min read</div>
-    </div>
-  </section>
-
-  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${3 * 0.2}s` }">
-    
-    <div class="content">
-      <a href="https://wrcj12138aaa.github.io//post/zhang-wo-she-ji-mo-shi-zhi-ce-lue-mo-shi">
-        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">掌握设计模式之策略模式</h2>
-      </a>
-      <div class="post-abstract text-gray-700 font-light my-4">
-        <h2 id="前言">前言</h2>
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://wrcj12138aaa.github.io//post/zhang-wo-she-ji-mo-shi-zhi-ce-lue-mo-shi">
+                  <h2 class="post-title">掌握设计模式之策略模式</h2>
+                </a>
+                <div class="post-date">
+                  2019-10-27
+                </div>
+                <div class="post-abstract">
+                  <h2 id="前言">前言</h2>
 <p>最近段时间，接到一个需求：开发一个聚合支付服务，对其他内部项目提供统一的接口来实现不同支付平台的支付能力发起，比如支付宝，微信，银联等。为了处理相似的支付操作而各平台具体实现不同的情况，要让各个平台接口能力能相互独立，并要方便扩展后续新增的支付平台，我引入了设计模式的策略模式来应对需求场景，借此深入学习总结下策略模式，于是也就有了本文，希望对学习策略模式的同学有所帮助。</p>
 
-      </div>
-      <div class="text-gray-400 text-sm font-light">2019-10-27 / 13 min read</div>
-    </div>
-  </section>
-
-  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${4 * 0.2}s` }">
-    
-    <div class="content">
-      <a href="https://wrcj12138aaa.github.io//post/java-dan-yuan-ce-shi-zhi-junit5-kuai-su-shang-shou">
-        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">Java 单元测试之 Junit5 快速上手</h2>
-      </a>
-      <div class="post-abstract text-gray-700 font-light my-4">
-        <h2 id="前言">前言</h2>
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://wrcj12138aaa.github.io//post/java-dan-yuan-ce-shi-zhi-junit5-kuai-su-shang-shou">
+                  <h2 class="post-title">Java 单元测试之 Junit5 快速上手</h2>
+                </a>
+                <div class="post-date">
+                  2019-09-15
+                </div>
+                <div class="post-abstract">
+                  <h2 id="前言">前言</h2>
 <p>单元测试是软件开发中必不可少的一环，但是在平常开发中往往因为项目周期紧，工作量大而被选择忽略，这样往往导致软件问题层出不穷。线上出现的不少问题其实在有单元测试的情况下就可以及时发现和处理，因此培养自己在日常开发中写单元测试的能力是很有必要的。无论是对自己的编码能力的提高，还是项目质量的提升，都是大有好处，本文将介绍 Java 单元测试框架 JUnit 5 的基础认识和使用来编写单元测试，希望同样对你有所帮助。</p>
 
-      </div>
-      <div class="text-gray-400 text-sm font-light">2019-09-15 / 16 min read</div>
-    </div>
-  </section>
-
-  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${5 * 0.2}s` }">
-    
-    <div class="content">
-      <a href="https://wrcj12138aaa.github.io//post/chu-liao-fastjsonni-huan-you-xuan-ze-gson-jian-yi-zhi-nan">
-        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">除了FastJson,你还有选择：Gson简易指南</h2>
-      </a>
-      <div class="post-abstract text-gray-700 font-light my-4">
-        <h2 id="前言">前言</h2>
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://wrcj12138aaa.github.io//post/chu-liao-fastjsonni-huan-you-xuan-ze-gson-jian-yi-zhi-nan">
+                  <h2 class="post-title">除了FastJson,你还有选择：Gson简易指南</h2>
+                </a>
+                <div class="post-date">
+                  2019-09-08
+                </div>
+                <div class="post-abstract">
+                  <h2 id="前言">前言</h2>
 <p>这个周末被几个技术博主的同一篇公众号文章  <a href="https://mp.weixin.qq.com/s/yVzZTTR5R6QbspTg5WI5hg">fastjson又被发现漏洞，这次危害可导致服务瘫痪！</a> 刷屏，离之前漏洞事件没多久，fastjson 又出现严重 Bug。目前项目中不少使用了 fastjson 做对象与JSON数据的转换，又需要更新版本重新部署，可以说是费时费力。与此同时，也带给我新的思考，面对大量功能强大的开源库，我们不能盲目地引入到项目之中，众多开源框架中某个不稳定因素就足以让一个项目遭受灭顶之灾。趁着周末，在家学习下同样具备JSON与对象转换功能的优秀开源框架 Gson，并且打算将今后项目使用 fastjson 的地方逐渐换成使用 Gson，记录下学习总结的内容，希望对小伙伴也有所帮助。</p>
 
-      </div>
-      <div class="text-gray-400 text-sm font-light">2019-09-08 / 19 min read</div>
-    </div>
-  </section>
-
-  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${6 * 0.2}s` }">
-    
-    <div class="content">
-      <a href="https://wrcj12138aaa.github.io//post/arraylist-de-quan-mian-tu-ji">
-        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">ArrayList的全面突击</h2>
-      </a>
-      <div class="post-abstract text-gray-700 font-light my-4">
-        <h2 id="前言">前言</h2>
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://wrcj12138aaa.github.io//post/arraylist-de-quan-mian-tu-ji">
+                  <h2 class="post-title">ArrayList的全面突击</h2>
+                </a>
+                <div class="post-date">
+                  2019-09-01
+                </div>
+                <div class="post-abstract">
+                  <h2 id="前言">前言</h2>
 <p>ArrayList 作为 Java 集合框架中最常用的类，在一般情况下，用它存储集合数据最适合不过。知其然知其所以然，为了能更好地认识和使用 ArrayList，本文将从下面几方面深入理解 ArrayList：</p>
 <ul>
 <li>为什么不用数组，用 ArrayList</li>
@@ -217,19 +211,21 @@
 <li>正确的 ArrayList 使用姿势</li>
 </ul>
 
-      </div>
-      <div class="text-gray-400 text-sm font-light">2019-09-01 / 16 min read</div>
-    </div>
-  </section>
-
-  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${7 * 0.2}s` }">
-    
-    <div class="content">
-      <a href="https://wrcj12138aaa.github.io//post/20190825-掌握 Maven 私服">
-        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">掌握 Maven 私服</h2>
-      </a>
-      <div class="post-abstract text-gray-700 font-light my-4">
-        <h2 id="前言">前言</h2>
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="https://wrcj12138aaa.github.io//post/20190825-掌握 Maven 私服">
+                  <h2 class="post-title">掌握 Maven 私服</h2>
+                </a>
+                <div class="post-date">
+                  2019-08-25
+                </div>
+                <div class="post-abstract">
+                  <h2 id="前言">前言</h2>
 <p>在 Java EE 开发中，我们使用 Maven 构建工具主要来管理项目的第三方库的依赖，以及公司内部其他项目服务的依赖，而 Maven 私服就是必不可少的一环，本文主要对 Maven 私服的三大方面进行介绍：</p>
 <ul>
 <li>什么是 Maven 私服</li>
@@ -240,50 +236,46 @@
 <p>本文面对的读者应有 Maven 使用经验，了解 Maven 的一些基本概念，如果不太熟悉可以参见文末的参考资料学习。</p>
 </blockquote>
 
-      </div>
-      <div class="text-gray-400 text-sm font-light">2019-08-25 / 12 min read</div>
-    </div>
-  </section>
-
-  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${8 * 0.2}s` }">
-    
-    <div class="content">
-      <a href="https://wrcj12138aaa.github.io//post/20190817-聊一聊 Java 字符串的不可变">
-        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">聊一聊 Java 字符串的不可变</h2>
-      </a>
-      <div class="post-abstract text-gray-700 font-light my-4">
-        
-      </div>
-      <div class="text-gray-400 text-sm font-light">2019-08-17 / 7 min read</div>
-    </div>
-  </section>
-
-  <section class="post-item md:flex pb-12 animated fadeIn" :style="{ 'animation-delay': `${9 * 0.2}s` }">
-    
-    <div class="content">
-      <a href="https://wrcj12138aaa.github.io//post/20190813-SpringBootProfiles源码解析">
-        <h2 class="post-title text-xl font-extrabold mt-5 md:mt-0">Spring Boot Profiles 源码解析</h2>
-      </a>
-      <div class="post-abstract text-gray-700 font-light my-4">
-        
-      </div>
-      <div class="text-gray-400 text-sm font-light">2019-08-13 / 13 min read</div>
-    </div>
-  </section>
-
-        <div class="read-more">
+                </div>
+              </div>
+              
+            </article>
           
-            <a href="https://wrcj12138aaa.github.io//page/2/" class="animated fadeIn font-extrabold text-gray-700 hover:text-gray-900 more-btn">
-              阅读更多
-              <i class="remixicon-arrow-right-line"></i>
-            </a>
+            <article class="post-item">
+              <div class="left">
+                <a href="https://wrcj12138aaa.github.io//post/20190817-聊一聊 Java 字符串的不可变">
+                  <h2 class="post-title">聊一聊 Java 字符串的不可变</h2>
+                </a>
+                <div class="post-date">
+                  2019-08-17
+                </div>
+                <div class="post-abstract">
+                  
+                </div>
+              </div>
+              
+            </article>
           
-        </div>
-        <div class="index-page">
-          <div class="pagination-container animated fadeIn">
+            <article class="post-item">
+              <div class="left">
+                <a href="https://wrcj12138aaa.github.io//post/20190813-SpringBootProfiles源码解析">
+                  <h2 class="post-title">Spring Boot Profiles 源码解析</h2>
+                </a>
+                <div class="post-date">
+                  2019-08-13
+                </div>
+                <div class="post-abstract">
+                  
+                </div>
+              </div>
+              
+            </article>
+          
+
+          <div class="pagination-container">
   
   
-    <a href="https://wrcj12138aaa.github.io//page/2/" class="page-btn">下一页 <i class="remixicon-arrow-right-line"></i></a>
+    <a href="https://wrcj12138aaa.github.io//page/2/" class="next">下一页 <i class="icon-arrow-ios-forward-outline"></i></a>
   
 </div>
 
@@ -291,104 +283,25 @@
       </div>
     </div>
 
-    <script src="https://wrcj12138aaa.github.io//media/prism.js"></script>  
-<script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 
-Prism.highlightAll()
+<script type="application/javascript">
 
-let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+AOS.init();
 
-// This should probably be throttled.
-// Especially because it triggers during smooth scrolling.
-// https://lodash.com/docs/4.17.10#throttle
-// You could do like...
-// window.addEventListener("scroll", () => {
-//    _.throttle(doThatStuff, 100);
-// });
-// Only not doing it here to keep this Pen dependency-free.
+hljs.initHighlightingOnLoad()
 
-window.addEventListener("scroll", event => {
-  let fromTop = window.scrollY;
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
 
-  mainNavLinks.forEach((link, index) => {
-    let section = document.getElementById(decodeURI(link.hash).substring(1));
-    let nextSection = null
-    if (mainNavLinks[index + 1]) {
-      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
-    }
-    if (section.offsetTop <= fromTop) {
-      if (nextSection) {
-        if (nextSection.offsetTop > fromTop) {
-          link.classList.add("current");
-        } else {
-          link.classList.remove("current");    
-        }
-      } else {
-        link.classList.add("current");
-      }
-    } else {
-      link.classList.remove("current");
-    }
-  });
-});
-
-
-document.addEventListener("DOMContentLoaded", function() {
-  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
-
-  if ("IntersectionObserver" in window) {
-    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          let lazyImage = entry.target
-          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
-          lazyImage.classList.remove("lazy")
-          lazyImageObserver.unobserve(lazyImage)
-        }
-      });
-    });
-
-    lazyImages.forEach(function(lazyImage) {
-      lazyImageObserver.observe(lazyImage)
-    })
-  } else {
-    // Possibly fall back to a more compatible method here
-  }
-});
-
-const menuContainer = document.querySelector('.menu-container')
-const menus = document.querySelectorAll('.menu-container .menu')
-const mask = document.querySelector('.mask')
-const contentWrapper = document.querySelector('.content-wrapper')
-const latestArticle = document.querySelector('.latest-article')
-const readMore = document.querySelector('.read-more')
-const indexPage = document.querySelector('.index-page')
-
-const isHome = location.pathname === '/'
-if (latestArticle) {
-  latestArticle.style.display = isHome ? 'block' : 'none'
-  readMore.style.display = isHome ? 'block' : 'none'
-  indexPage.style.display = isHome ? 'none' : 'block'
-}
-
-const openMenu = () => {
-  menuContainer.classList.add('open')
-  menus.forEach(menu => {
-    menu.classList.add('animated', 'fadeInLeft')
-  })
-  mask.classList.add('open')
-  contentWrapper.classList.add('is-second')
-}
-
-const closeMenu = () => {
-  menuContainer.classList.remove('open')
-  menus.forEach(menu => {
-    menu.classList.remove('animated', 'fadeInLeft')
-  })
-  mask.classList.remove('open')
-  contentWrapper.classList.remove('is-second')
-}
 </script>
-  
+
+
+
+
   </body>
 </html>

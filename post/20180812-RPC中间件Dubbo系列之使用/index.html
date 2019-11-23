@@ -1,197 +1,108 @@
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>闻人的技术博客</title>
-<meta name="description" content="做一个终生学习的技术人" />
-<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1574521603262">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
-<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <meta charset="utf-8" >
 
+<title>RPC框架Dubbo之实践 | 闻人的技术博客</title>
+<meta name="description" content="做一个终生学习的技术人">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1574522179527">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://wrcj12138aaa.github.io//styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="闻人的技术博客 - Atom Feed" href="https://wrcj12138aaa.github.io//atom.xml">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
 
 
   </head>
   <body>
-    <div id="app" class="main px-4 flex flex-col lg:flex-row">
-      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
-  <div class="lg:sticky top-0">
-    <div class="sidebar-content">
-      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
-        <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
-        <a href="https://wrcj12138aaa.github.io/">
-          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://wrcj12138aaa.github.io//images/avatar.png?v=1574521603262" alt="">
-        </a>
-        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">闻人的技术博客</h1>
-      </div>
-      
-        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
-          <p class="my-4 text-gray-600 font-light hidden lg:block">
-            文章目录
-          </p>
-          <div class="toc-container hidden lg:block">
-            <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li><a href="#%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5">最佳实践</a>
-<ul>
-<li><a href="#%E5%88%86%E5%8C%85">分包</a></li>
-<li><a href="#%E7%B2%92%E5%BA%A6">粒度</a></li>
-<li><a href="#%E7%89%88%E6%9C%AC">版本</a></li>
-<li><a href="#%E5%85%BC%E5%AE%B9%E6%80%A7">兼容性</a></li>
-<li><a href="#%E5%BA%8F%E5%88%97%E5%8C%96">序列化</a></li>
-<li><a href="#%E5%BC%82%E5%B8%B8">异常</a></li>
-<li><a href="#%E8%B0%83%E7%94%A8">调用</a></li>
-<li><a href="#%E9%85%8D%E7%BD%AE">配置</a></li>
-</ul>
-</li>
-<li><a href="#%E7%94%A8%E6%B3%95%E7%A4%BA%E4%BE%8B">用法示例</a>
-<ul>
-<li><a href="#%E5%90%AF%E5%8A%A8%E6%97%B6%E6%A3%80%E6%9F%A5">启动时检查</a>
-<ul>
-<li><a href="#%E4%BB%8B%E7%BB%8D">介绍</a></li>
-<li><a href="#%E7%A4%BA%E4%BE%8B">示例</a></li>
-<li><a href="#%E8%AF%B4%E6%98%8E">说明</a></li>
-</ul>
-</li>
-<li><a href="#%E9%9B%86%E7%BE%A4%E5%AE%B9%E9%94%99">集群容错</a>
-<ul>
-<li><a href="#%E4%BB%8B%E7%BB%8D-2">介绍</a></li>
-<li><a href="#%E7%A4%BA%E4%BE%8B-2">示例</a></li>
-<li><a href="#%E8%AF%B4%E6%98%8E-2">说明</a></li>
-</ul>
-</li>
-<li><a href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1">负载均衡</a>
-<ul>
-<li><a href="#%E5%9D%87%E8%A1%A1%E7%AD%96%E7%95%A5"><strong>均衡策略</strong></a></li>
-<li><a href="#%E9%85%8D%E7%BD%AE-2">配置</a></li>
-</ul>
-</li>
-<li><a href="#%E4%BC%98%E9%9B%85%E5%81%9C%E6%9C%BA">优雅停机</a>
-<ul>
-<li><a href="#%E5%8E%9F%E7%90%86">原理</a></li>
-<li><a href="#%E9%85%8D%E7%BD%AE-3">配置</a></li>
-<li><a href="#%E8%AF%B4%E6%98%8E-3">说明</a></li>
-</ul>
-</li>
-<li><a href="#%E7%9B%B4%E8%BF%9E%E6%8F%90%E4%BE%9B%E8%80%85">直连提供者</a>
-<ul>
-<li><a href="#%E8%AF%B4%E6%98%8E-4">说明</a></li>
-<li><a href="#%E9%85%8D%E7%BD%AE-4">配置</a></li>
-</ul>
-</li>
-<li><a href="#%E5%A4%9A%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83">多注册中心</a>
-<ul>
-<li><a href="#%E8%AF%B4%E6%98%8E-5">说明</a></li>
-</ul>
-</li>
-<li><a href="#%E6%97%A5%E5%BF%97%E9%80%82%E9%85%8D">日志适配</a>
-<ul>
-<li><a href="#%E5%90%AF%E7%94%A8%E9%85%8D%E7%BD%AE">启用配置</a></li>
-</ul>
-</li>
-<li><a href="#%E5%A4%9A%E7%89%88%E6%9C%AC">多版本</a>
-<ul>
-<li><a href="#%E8%AF%B4%E6%98%8E-6">说明</a></li>
-<li><a href="#%E9%85%8D%E7%BD%AE-5">配置</a></li>
-</ul>
-</li>
-<li><a href="#%E7%BB%93%E6%9E%9C%E7%BC%93%E5%AD%98">结果缓存</a>
-<ul>
-<li><a href="#%E8%AF%B4%E6%98%8E-7"><strong>说明</strong></a></li>
-<li><a href="#%E7%BC%93%E5%AD%98%E7%B1%BB%E5%9E%8B"><strong>缓存类型</strong></a></li>
-<li><a href="#%E9%85%8D%E7%BD%AE-6">配置</a></li>
-</ul>
-</li>
-<li><a href="#%E5%9B%9E%E5%A3%B0%E6%B5%8B%E8%AF%95">回声测试</a>
-<ul>
-<li><a href="#%E8%AF%B4%E6%98%8E-8">说明</a></li>
-<li><a href="#%E7%A4%BA%E4%BE%8B-3">示例</a></li>
-</ul>
-</li>
-<li><a href="#%E5%BC%82%E6%AD%A5%E8%B0%83%E7%94%A8">异步调用</a>
-<ul>
-<li><a href="#%E8%AF%B4%E6%98%8E-9">说明</a></li>
-<li><a href="#%E7%A4%BA%E4%BE%8B-4">示例</a></li>
-</ul>
-</li>
-<li><a href="#%E8%B7%AF%E7%94%B1%E8%A7%84%E5%88%99">路由规则</a>
-<ul>
-<li><a href="#%E8%AF%B4%E6%98%8E-10">说明</a></li>
-<li><a href="#%E6%9D%A1%E4%BB%B6%E8%B7%AF%E7%94%B1%E8%A7%84%E5%88%99"><strong>条件路由规则</strong></a>
-<ul>
-<li><a href="#%E8%A1%A8%E8%BE%BE%E5%BC%8F">表达式</a></li>
-<li><a href="#%E7%A4%BA%E4%BE%8B-5">示例</a></li>
-</ul>
-</li>
-<li><a href="#%E8%84%9A%E6%9C%AC%E8%B7%AF%E7%94%B1%E8%A7%84%E5%88%99"><strong>脚本路由规则</strong></a>
-<ul>
-<li><a href="#%E7%A4%BA%E4%BE%8B-6"><strong>示例</strong></a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+    <div id="app" class="main">
 
-          </div>
-        </div>
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://wrcj12138aaa.github.io/">
+        <img src="https://wrcj12138aaa.github.io//images/avatar.png?v=1574522179527" class="site-logo">
+        <h1 class="site-title">闻人的技术博客</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
       
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      做一个终生学习的技术人
+    </div>
+    <div class="site-footer">
+       | <a class="rss" href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">RSS</a>
     </div>
   </div>
 </div>
 
-<div class="menu-container">
-  <i class="remixicon-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
-  <div>
-    
-      
-        <a href="/" class="menu" style="animation-delay: 0s">
-          首页
-        </a>
-      
-    
-      
-        <a href="/archives" class="menu" style="animation-delay: 0.2s">
-          归档
-        </a>
-      
-    
-      
-        <a href="/tags" class="menu" style="animation-delay: 0.4s">
-          标签
-        </a>
-      
-    
-      
-        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
-          关于
-        </a>
-      
-    
-  </div>
-  <div class="site-footer">
-    <div class="py-4 text-gray-700"></div>
-    <a class="rss" href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">RSS</a>
-  </div>
-</div>
-<div class="mask" onclick="closeMenu()">
-</div>
-      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
-        <h1 class="text-3xl font-bold lg:mt-16">RPC框架Dubbo之实践</h1>
-        <div class="text-sm text-gray-700 lg:my-8">
-          2018-08-12 / 19 min read
-        </div>
-        
-        <div class="post-content yue">
-          <h2 id="最佳实践">最佳实践</h2>
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">RPC框架Dubbo之实践</h2>
+            <div class="post-date">2018-08-12</div>
+            
+            <div class="post-content">
+              <h2 id="最佳实践">最佳实践</h2>
 <h3 id="分包">分包</h3>
 <p>将服务接口，服务模型，服务异常等均放在 API 包中。也可以考虑在 API 包中放置一份 spring 的引用配置，这样使用方，只需在 spring 加载过程中引用此配置即可，配置建议放在模块的包目录下，以免冲突，如：<code>com/alibaba/china/xxx/dubbo-reference.xml</code> 。</p>
 <h3 id="粒度">粒度</h3>
@@ -623,171 +534,86 @@ method != find*,list*,get*,is* =&gt; host = 172.22.3.97,172.22.3.98
 } (invokers)）; // 表示立即执行方法
 </code></pre>
 
-        </div>
-
-        
-          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://wrcj12138aaa.github.io//tag/llypUO29A">
-            <span class="flex-auto">Java</span>
-          </a>
-        
-          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://wrcj12138aaa.github.io//tag/4lwZWuWrgxf">
-            <span class="flex-auto">Dubbo</span>
-          </a>
-        
-          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://wrcj12138aaa.github.io//tag/h0i0p6S38HI">
-            <span class="flex-auto">RPC</span>
-          </a>
-        
-          <a class="animated fadeInUp p-2 items-center text-sm text-gray-700 border hover:bg-gray-300 leading-none rounded-full flex lg:inline-flex m-4 " href="https://wrcj12138aaa.github.io//tag/Ja-ep9raqKx">
-            <span class="flex-auto">分布式</span>
-          </a>
-        
-
-
-        <div class="flex justify-between py-8">
-          
-            <div class="prev-post">
-              <a href="https://wrcj12138aaa.github.io//post/20180814-RPC中间件Dubbo系列之总览">
-                <h3 class="post-title">
-                  <i class="remixicon-arrow-left-line"></i>
-                  RPC框架Dubbo系列之总览
-                </h3>
-              </a>
             </div>
-          
+            
+              <div class="tag-container">
+                
+                  <a href="https://wrcj12138aaa.github.io//tag/llypUO29A" class="tag">
+                    Java
+                  </a>
+                
+                  <a href="https://wrcj12138aaa.github.io//tag/4lwZWuWrgxf" class="tag">
+                    Dubbo
+                  </a>
+                
+                  <a href="https://wrcj12138aaa.github.io//tag/h0i0p6S38HI" class="tag">
+                    RPC
+                  </a>
+                
+                  <a href="https://wrcj12138aaa.github.io//tag/Ja-ep9raqKx" class="tag">
+                    分布式
+                  </a>
+                
+              </div>
+            
+            
 
-          
+            
+              
+                <div id="gitalk-container" data-aos="fade-in"></div>
+              
+
+              
+            
+
+          </div>
+
         </div>
-
-        
-          
-            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-
-<div id="gitalk-container"></div>
-
-<script>
-
-  var gitalk = new Gitalk({
-    clientID: '2ba76d6fe50ad2b384eb',
-    clientSecret: '90db763ed48942571725d6aef11229900c8bb656',
-    repo: 'wrcj12138aaa.github.io',
-    owner: 'wrcj12138aaa',
-    admin: ['wrcj12138aaa'],
-    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
-    distractionFreeMode: false  // Facebook-like distraction free mode
-  })
-
-  gitalk.render('gitalk-container')
-
-</script>
-
-          
-
-          
-        
-
       </div>
     </div>
 
-    <script src="https://wrcj12138aaa.github.io//media/prism.js"></script>  
-<script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 
-Prism.highlightAll()
+<script type="application/javascript">
 
-let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+AOS.init();
 
-// This should probably be throttled.
-// Especially because it triggers during smooth scrolling.
-// https://lodash.com/docs/4.17.10#throttle
-// You could do like...
-// window.addEventListener("scroll", () => {
-//    _.throttle(doThatStuff, 100);
-// });
-// Only not doing it here to keep this Pen dependency-free.
+hljs.initHighlightingOnLoad()
 
-window.addEventListener("scroll", event => {
-  let fromTop = window.scrollY;
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
 
-  mainNavLinks.forEach((link, index) => {
-    let section = document.getElementById(decodeURI(link.hash).substring(1));
-    let nextSection = null
-    if (mainNavLinks[index + 1]) {
-      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
-    }
-    if (section.offsetTop <= fromTop) {
-      if (nextSection) {
-        if (nextSection.offsetTop > fromTop) {
-          link.classList.add("current");
-        } else {
-          link.classList.remove("current");    
-        }
-      } else {
-        link.classList.add("current");
-      }
-    } else {
-      link.classList.remove("current");
-    }
-  });
-});
-
-
-document.addEventListener("DOMContentLoaded", function() {
-  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
-
-  if ("IntersectionObserver" in window) {
-    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          let lazyImage = entry.target
-          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
-          lazyImage.classList.remove("lazy")
-          lazyImageObserver.unobserve(lazyImage)
-        }
-      });
-    });
-
-    lazyImages.forEach(function(lazyImage) {
-      lazyImageObserver.observe(lazyImage)
-    })
-  } else {
-    // Possibly fall back to a more compatible method here
-  }
-});
-
-const menuContainer = document.querySelector('.menu-container')
-const menus = document.querySelectorAll('.menu-container .menu')
-const mask = document.querySelector('.mask')
-const contentWrapper = document.querySelector('.content-wrapper')
-const latestArticle = document.querySelector('.latest-article')
-const readMore = document.querySelector('.read-more')
-const indexPage = document.querySelector('.index-page')
-
-const isHome = location.pathname === '/'
-if (latestArticle) {
-  latestArticle.style.display = isHome ? 'block' : 'none'
-  readMore.style.display = isHome ? 'block' : 'none'
-  indexPage.style.display = isHome ? 'none' : 'block'
-}
-
-const openMenu = () => {
-  menuContainer.classList.add('open')
-  menus.forEach(menu => {
-    menu.classList.add('animated', 'fadeInLeft')
-  })
-  mask.classList.add('open')
-  contentWrapper.classList.add('is-second')
-}
-
-const closeMenu = () => {
-  menuContainer.classList.remove('open')
-  menus.forEach(menu => {
-    menu.classList.remove('animated', 'fadeInLeft')
-  })
-  mask.classList.remove('open')
-  contentWrapper.classList.remove('is-second')
-}
 </script>
+
+
+
   
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '2ba76d6fe50ad2b384eb',
+        clientSecret: '90db763ed48942571725d6aef11229900c8bb656',
+        repo: 'wrcj12138aaa.github.io',
+        owner: 'wrcj12138aaa',
+        admin: ['wrcj12138aaa'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
   </body>
 </html>

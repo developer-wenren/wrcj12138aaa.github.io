@@ -1,296 +1,108 @@
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>闻人的技术博客</title>
-<meta name="description" content="做一个终生学习的技术人" />
-<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1574521603262">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
-<link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <meta charset="utf-8" >
 
+<title>一览 Java并发编程实战（极客时间） | 闻人的技术博客</title>
+<meta name="description" content="做一个终生学习的技术人">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1574522179527">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://wrcj12138aaa.github.io//styles/main.css">
-<link rel="alternate" type="application/atom+xml" title="闻人的技术博客 - Atom Feed" href="https://wrcj12138aaa.github.io//atom.xml">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
 
 
   </head>
   <body>
-    <div id="app" class="main px-4 flex flex-col lg:flex-row">
-      <div id="sidebar" class="sidebar-wrapper lg:static lg:w-1/4">
-  <div class="lg:sticky top-0">
-    <div class="sidebar-content">
-      <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
-        <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
-        <a href="https://wrcj12138aaa.github.io/">
-          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://wrcj12138aaa.github.io//images/avatar.png?v=1574521603262" alt="">
-        </a>
-        <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">闻人的技术博客</h1>
-      </div>
-      
-        <div class="animated fadeInLeft" style="animation-delay: 0.4s">
-          <p class="my-4 text-gray-600 font-light hidden lg:block">
-            文章目录
-          </p>
-          <div class="toc-container hidden lg:block">
-            <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li><a href="#%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E7%9A%84%E5%8F%AF%E8%A7%81%E6%80%A7-%E5%8E%9F%E5%AD%90%E6%80%A7%E5%92%8C%E6%9C%89%E5%BA%8F%E6%80%A7%E9%97%AE%E9%A2%98">并发编程的可见性、原子性和有序性问题</a>
-<ul>
-<li><a href="#cpu-%E7%BC%93%E5%AD%98%E5%AF%BC%E8%87%B4%E7%9A%84%E5%8F%AF%E8%A7%81%E6%80%A7%E9%97%AE%E9%A2%98">CPU 缓存导致的可见性问题</a></li>
-<li><a href="#%E7%BA%BF%E7%A8%8B%E5%88%87%E6%8D%A2%E5%B8%A6%E6%9D%A5%E7%9A%84%E5%8E%9F%E5%AD%90%E6%80%A7%E9%97%AE%E9%A2%98">线程切换带来的原子性问题</a></li>
-<li><a href="#%E7%BC%96%E8%AF%91%E4%BC%98%E5%8C%96%E5%B8%A6%E6%9D%A5%E7%9A%84%E6%9C%89%E5%BA%8F%E6%80%A7%E9%97%AE%E9%A2%98">编译优化带来的有序性问题</a></li>
-</ul>
-</li>
-<li><a href="#java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E8%A7%A3%E5%86%B3%E5%8F%AF%E8%A7%81%E6%80%A7%E5%92%8C%E6%9C%89%E5%BA%8F%E6%80%A7%E9%97%AE%E9%A2%98">Java内存模型：解决可见性和有序性问题</a>
-<ul>
-<li><a href="#java-%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B">Java 内存模型</a></li>
-<li><a href="#happens-before-%E8%A7%84%E5%88%99">Happens-Before 规则</a></li>
-<li><a href="#final-%E5%85%B3%E9%94%AE%E5%AD%97">final 关键字</a></li>
-</ul>
-</li>
-<li><a href="#%E4%BA%92%E6%96%A5%E9%94%81">互斥锁</a>
-<ul>
-<li><a href="#synchronized">synchronized</a></li>
-<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%B9%B6%E5%8F%91%E4%B8%AD%E7%9A%84%E9%94%81">什么是并发中的锁</a></li>
-</ul>
-</li>
-<li><a href="#%E5%A4%84%E7%90%86%E6%AD%BB%E9%94%81">处理死锁</a>
-<ul>
-<li><a href="#%E9%A2%84%E9%98%B2%E6%AD%BB%E9%94%81">预防死锁</a></li>
-</ul>
-</li>
-<li><a href="#%E7%AD%89%E5%BE%85-%E9%80%9A%E7%9F%A5%E6%9C%BA%E5%88%B6%E4%BC%98%E5%8C%96%E5%BE%AA%E7%8E%AF%E7%AD%89%E5%BE%85">“等待-通知”机制优化循环等待</a>
-<ul>
-<li><a href="#synchronized-%E5%AE%9E%E7%8E%B0%E7%AD%89%E5%BE%85-%E9%80%9A%E7%9F%A5%E6%9C%BA%E5%88%B6">synchronized 实现等待-通知机制</a></li>
-</ul>
-</li>
-<li><a href="#%E5%AE%89%E5%85%A8%E6%80%A7-%E6%B4%BB%E8%B7%83%E6%80%A7%E4%BB%A5%E5%8F%8A%E6%80%A7%E8%83%BD%E9%97%AE%E9%A2%98">安全性、活跃性以及性能问题</a>
-<ul>
-<li><a href="#%E6%95%B0%E6%8D%AE%E7%AB%9E%E4%BA%89">数据竞争</a></li>
-<li><a href="#%E7%AB%9E%E6%80%81%E6%9D%A1%E4%BB%B6">竞态条件</a></li>
-<li><a href="#%E6%B4%BB%E9%94%81">活锁</a></li>
-<li><a href="#%E9%94%81%E9%A5%A5%E9%A5%BF">锁饥饿</a></li>
-<li><a href="#%E9%94%81%E6%80%A7%E8%83%BD">锁性能</a></li>
-</ul>
-</li>
-<li><a href="#%E7%AE%A1%E7%A8%8B%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E7%9A%84%E4%B8%87%E8%83%BD%E9%92%A5%E5%8C%99">管程：并发编程的万能钥匙</a>
-<ul>
-<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%AE%A1%E7%A8%8B">什么是管程</a></li>
-</ul>
-</li>
-<li><a href="#java-%E7%BA%BF%E7%A8%8B">Java 线程</a>
-<ul>
-<li><a href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F">生命周期</a></li>
-<li><a href="#%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2">线程状态转换</a></li>
-<li><a href="#%E5%90%88%E9%80%82%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%95%B0">合适的线程数</a></li>
-<li><a href="#%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F">线程安全的局部变量</a></li>
-</ul>
-</li>
-<li><a href="#lockcondition">Lock&amp;Condition</a>
-<ul>
-<li><a href="#%E5%8F%AF%E9%87%8D%E5%85%A5%E9%94%81">可重入锁</a></li>
-<li><a href="#%E5%85%AC%E5%B9%B3%E9%94%81%E4%B8%8E%E9%9D%9E%E5%85%AC%E5%B9%B3%E9%94%81">公平锁与非公平锁</a></li>
-<li><a href="#%E7%94%A8%E9%94%81%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5">用锁的最佳实践</a></li>
-</ul>
-</li>
-<li><a href="#semaphore-%E4%BF%A1%E5%8F%B7%E9%87%8F">Semaphore 信号量</a>
-<ul>
-<li><a href="#%E4%BF%A1%E5%8F%B7%E9%87%8F%E6%A8%A1%E5%9E%8B">信号量模型</a></li>
-</ul>
-</li>
-<li><a href="#readwritelock-%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%E9%94%81">ReadWriteLock 读写分离锁</a></li>
-<li><a href="#stampedlock-%E9%82%AE%E7%A5%A8%E9%94%81">StampedLock 邮票锁</a>
-<ul>
-<li><a href="#stampedlock-%E6%B3%A8%E6%84%8F%E7%82%B9">StampedLock 注意点</a></li>
-</ul>
-</li>
-<li><a href="#countdownlatch-%E4%B8%8E-cyclicbarrier">CountDownLatch 与 CyclicBarrier</a>
-<ul>
-<li><a href="#countdownlatch-%E8%AE%A1%E6%95%B0%E5%99%A8">CountDownLatch 计数器</a></li>
-<li><a href="#cyclicbarrier-%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5">CyclicBarrier 线程同步</a></li>
-</ul>
-</li>
-<li><a href="#%E5%B9%B6%E5%8F%91%E5%AE%B9%E5%99%A8%E9%83%BD%E6%9C%89%E5%93%AA%E4%BA%9B%E5%9D%91%E9%9C%80%E8%A6%81%E6%88%91%E4%BB%AC%E5%A1%AB">并发容器：都有哪些“坑”需要我们填？</a>
-<ul>
-<li><a href="#%E5%90%8C%E6%AD%A5%E5%AE%B9%E5%99%A8">同步容器</a></li>
-<li><a href="#%E5%B9%B6%E5%8F%91%E5%AE%B9%E5%99%A8">并发容器</a></li>
-</ul>
-</li>
-<li><a href="#executor%E4%B8%8E%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA%E6%AD%A3%E7%A1%AE%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%B1%A0">Executor与线程池：如何创建正确的线程池？</a>
-<ul>
-<li><a href="#%E4%BD%BF%E7%94%A8%E7%BA%BF%E7%A8%8B%E6%B1%A0%E8%A6%81%E6%B3%A8%E6%84%8F%E4%BA%9B%E4%BB%80%E4%B9%88">使用线程池要注意些什么</a></li>
-</ul>
-</li>
-<li><a href="#future%E5%9C%A8%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96%E5%BC%82%E6%AD%A5%E4%BB%BB%E5%8A%A1%E7%9A%84%E6%89%A7%E8%A1%8C%E7%BB%93%E6%9E%9C">Future：在多线程如何获取异步任务的执行结果</a>
-<ul>
-<li><a href="#future-%E5%AF%B9%E8%B1%A1">Future 对象</a></li>
-<li><a href="#future-%E5%AF%B9%E8%B1%A1%E7%9B%B8%E5%85%B3%E7%BA%BF%E7%A8%8B%E6%B1%A0%E7%9A%84%E6%96%B9%E6%B3%95">Future 对象相关线程池的方法</a></li>
-<li><a href="#futuretask-%E5%B7%A5%E5%85%B7%E7%B1%BB">FutureTask 工具类</a></li>
-</ul>
-</li>
-<li><a href="#completablefuture%E7%AE%80%E5%8C%96%E5%BC%82%E6%AD%A5%E7%BC%96%E7%A8%8B">CompletableFuture：简化异步编程</a>
-<ul>
-<li><a href="#completablefuture-%E5%AF%B9%E8%B1%A1">CompletableFuture 对象</a></li>
-<li><a href="#completionstage-%E6%8E%A5%E5%8F%A3">CompletionStage 接口</a>
-<ul>
-<li><a href="#%E6%8F%8F%E8%BF%B0%E4%B8%B2%E8%A1%8C%E5%85%B3%E7%B3%BB">描述串行关系</a></li>
-<li><a href="#%E6%8F%8F%E8%BF%B0%E6%B1%87%E8%81%9A%E5%85%B3%E7%B3%BB">描述汇聚关系</a></li>
-</ul>
-</li>
-<li><a href="#completablefuture-%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86">CompletableFuture 异常处理</a></li>
-</ul>
-</li>
-<li><a href="#completionservice%E5%A6%82%E4%BD%95%E6%89%B9%E9%87%8F%E6%89%A7%E8%A1%8C%E5%BC%82%E6%AD%A5%E4%BB%BB%E5%8A%A1">CompletionService：如何批量执行异步任务</a></li>
-<li><a href="#forkjoin%E5%88%86%E8%80%8C%E6%B2%BB%E4%B9%8B%E7%9A%84%E5%B9%B6%E8%A1%8C%E8%AE%A1%E7%AE%97">Fork/Join：分而治之的并行计算</a>
-<ul>
-<li><a href="#%E5%88%86%E6%B2%BB%E4%BB%BB%E5%8A%A1%E6%A8%A1%E5%9E%8B">分治任务模型</a></li>
-<li><a href="#forkjoinpool-%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86">ForkJoinPool 工作原理</a></li>
-</ul>
-</li>
-<li><a href="#immutability-%E6%A8%A1%E5%BC%8F%E4%B8%8D%E5%8F%98%E6%80%A7%E8%A7%A3%E5%86%B3%E5%B9%B6%E5%8F%91%E9%97%AE%E9%A2%98">Immutability 模式：不变性解决并发问题</a>
-<ul>
-<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%8D%E5%8F%98%E6%80%A7%E6%A8%A1%E5%BC%8F">什么是不变性模式？</a></li>
-<li><a href="#%E5%BF%AB%E9%80%9F%E5%AE%9E%E7%8E%B0%E5%85%B7%E5%A4%87%E4%B8%8D%E5%8F%AF%E5%8F%98%E6%80%A7%E7%9A%84%E7%B1%BB">快速实现具备不可变性的类</a></li>
-<li><a href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9">注意事项</a></li>
-<li><a href="#%E8%BF%98%E6%9C%89%E6%97%A0%E7%8A%B6%E6%80%81">还有无状态</a></li>
-</ul>
-</li>
-<li><a href="#copy-on-write-%E6%A8%A1%E5%BC%8F">Copy-on-Write 模式</a>
-<ul>
-<li><a href="#cow-%E6%98%AF%E4%BB%80%E4%B9%88">COW 是什么</a></li>
-<li><a href="#%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3">设计思想</a></li>
-<li><a href="#%E7%BC%BA%E9%99%B7">缺陷</a></li>
-</ul>
-</li>
-<li><a href="#threadlocal-%E7%BA%BF%E7%A8%8B%E6%9C%AC%E5%9C%B0%E5%AD%98%E5%82%A8%E6%A8%A1%E5%BC%8F">ThreadLocal 线程本地存储模式</a>
-<ul>
-<li><a href="#%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2%E9%97%AE%E9%A2%98">内存泄露问题</a>
-<ul>
-<li><a href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E5%8F%91%E7%94%9F%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2">为什么会发生内存泄露？</a></li>
-<li><a href="#%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3">如何解决</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#guarded-suspension-%E6%A8%A1%E5%BC%8F%E7%AD%89%E5%BE%85%E5%94%A4%E9%86%92%E6%9C%BA%E5%88%B6%E7%9A%84%E8%A7%84%E8%8C%83%E5%AE%9E%E7%8E%B0">Guarded Suspension 模式：等待唤醒机制的规范实现</a>
-<ul>
-<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF-guarded-suspension-%E6%A8%A1%E5%BC%8F">什么是 Guarded Suspension 模式？</a></li>
-</ul>
-</li>
-<li><a href="#%E5%85%B6%E4%BB%96">其他</a></li>
-<li><a href="#balking%E6%A8%A1%E5%BC%8F%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F">Balking模式：线程安全的单例模式</a>
-<ul>
-<li><a href="#%E6%A8%A1%E5%BC%8F%E5%AE%9A%E4%B9%89">模式定义</a></li>
-<li><a href="#%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0">如何实现</a></li>
-<li><a href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF%E5%8F%8C%E9%87%8D%E6%A3%80%E6%9F%A5">应用场景：双重检查</a></li>
-<li><a href="#%E6%B3%A8%E6%84%8F%E7%82%B9">注意点</a></li>
-</ul>
-</li>
-<li><a href="#thread-per-message-%E6%A8%A1%E5%BC%8F-%E6%9C%80%E7%AE%80%E5%8C%96%E5%88%86%E5%B7%A5%E6%93%8D%E4%BD%9C">Thread-Per-Message 模式: 最简化分工操作</a></li>
-<li><a href="#workerthread-%E6%A8%A1%E5%BC%8F-%E9%81%BF%E5%85%8D%E7%BA%BF%E7%A8%8B%E7%9A%84%E9%87%8D%E5%A4%8D%E5%88%9B%E5%BB%BA">WorkerThread 模式: 避免线程的重复创建</a>
-<ul>
-<li><a href="#%E7%BA%BF%E7%A8%8B%E6%B1%A0%E4%B8%AD%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%AD%BB%E9%94%81">线程池中的线程死锁</a></li>
-</ul>
-</li>
-<li><a href="#%E4%B8%A4%E9%98%B6%E6%AE%B5%E7%BB%88%E6%AD%A2%E6%A8%A1%E5%BC%8F%E7%BB%88%E6%AD%A2%E7%BA%BF%E7%A8%8B">两阶段终止模式：终止线程</a>
-<ul>
-<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%A4%E9%98%B6%E6%AE%B5%E7%BB%88%E6%AD%A2%E6%A8%A1%E5%BC%8F">什么是两阶段终止模式？</a></li>
-<li><a href="#%E5%A6%82%E4%BD%95%E4%BC%98%E9%9B%85%E5%9C%B0%E7%BB%88%E6%AD%A2%E7%BA%BF%E7%A8%8B%E6%B1%A0">如何优雅地终止线程池</a></li>
-</ul>
-</li>
-<li><a href="#%E7%94%9F%E4%BA%A7%E8%80%85-%E6%B6%88%E8%B4%B9%E8%80%85%E6%A8%A1%E5%BC%8F">生产者-消费者模式</a>
-<ul>
-<li><a href="#%E4%BC%98%E7%82%B9">优点</a></li>
-<li><a href="#%E5%85%B6%E4%BB%96%E5%BA%94%E7%94%A8">其他应用</a></li>
-</ul>
-</li>
-<li><a href="#%E9%AB%98%E6%80%A7%E8%83%BD%E9%99%90%E6%B5%81%E5%99%A8-guavaratelimiter">高性能限流器 GuavaRateLimiter</a></li>
-<li><a href="#%E9%AB%98%E6%80%A7%E8%83%BD%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8%E6%A1%86%E6%9E%B6netty">高性能网络应用框架Netty</a>
-<ul>
-<li><a href="#reactor-%E6%A8%A1%E5%BC%8F">Reactor 模式</a></li>
-<li><a href="#netty%E4%B8%AD%E7%9A%84%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B">Netty中的线程模型</a></li>
-</ul>
-</li>
-<li><a href="#%E9%AB%98%E6%80%A7%E8%83%BD%E9%98%9F%E5%88%97disruptor">高性能队列Disruptor</a>
-<ul>
-<li><a href="#%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%B1%80%E9%83%A8%E6%80%A7%E5%8E%9F%E7%90%86">程序的局部性原理</a></li>
-<li><a href="#%E5%A4%84%E7%90%86%E4%BC%AA%E5%85%B1%E4%BA%AB">处理“伪共享”</a></li>
-<li><a href="#disruptor%E4%B8%AD%E7%9A%84%E6%97%A0%E9%94%81%E7%AE%97%E6%B3%95">Disruptor中的无锁算法</a></li>
-</ul>
-</li>
-<li><a href="#%E9%AB%98%E6%80%A7%E8%83%BD%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E6%B1%A0-hikaricp">高性能数据库连接池 HiKariCP</a>
-<ul>
-<li><a href="#fastlist-%E8%A7%A3%E5%86%B3%E4%BA%86%E5%93%AA%E4%BA%9B%E6%80%A7%E8%83%BD%E9%97%AE%E9%A2%98">FastList 解决了哪些性能问题</a></li>
-<li><a href="#concurrentbag-%E8%A7%A3%E5%86%B3%E4%BA%86%E5%93%AA%E4%BA%9B%E6%80%A7%E8%83%BD%E9%97%AE%E9%A2%98">ConcurrentBag 解决了哪些性能问题</a></li>
-</ul>
-</li>
-<li><a href="#actor%E6%A8%A1%E5%9E%8B%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%8E%9F%E7%94%9F%E7%9A%84%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%9E%8B">Actor模型：面向对象原生的并发模型</a>
-<ul>
-<li><a href="#%E6%B6%88%E6%81%AF%E5%92%8C%E5%AF%B9%E8%B1%A1%E6%96%B9%E6%B3%95%E7%9A%84%E5%8C%BA%E5%88%AB">消息和对象方法的区别</a></li>
-<li><a href="#actor%E7%9A%84%E8%A7%84%E8%8C%83%E5%8C%96%E5%AE%9A%E4%B9%89">Actor的规范化定义</a></li>
-</ul>
-</li>
-<li><a href="#%E8%BD%AF%E4%BB%B6%E4%BA%8B%E5%8A%A1%E5%86%85%E5%AD%98">软件事务内存</a></li>
-<li><a href="#%E5%8D%8F%E7%A8%8B%E6%9B%B4%E8%BD%BB%E9%87%8F%E7%BA%A7%E7%9A%84%E7%BA%BF%E7%A8%8B">协程：更轻量级的线程</a></li>
-<li><a href="#csp-%E6%A8%A1%E5%9E%8B">CSP 模型</a></li>
-</ul>
-</li>
-</ul>
+    <div id="app" class="main">
 
-          </div>
-        </div>
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://wrcj12138aaa.github.io/">
+        <img src="https://wrcj12138aaa.github.io//images/avatar.png?v=1574522179527" class="site-logo">
+        <h1 class="site-title">闻人的技术博客</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
       
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      做一个终生学习的技术人
+    </div>
+    <div class="site-footer">
+       | <a class="rss" href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">RSS</a>
     </div>
   </div>
 </div>
 
-<div class="menu-container">
-  <i class="remixicon-arrow-left-line text-2xl cursor-pointer animated fadeIn close-menu-btn" onclick="closeMenu()"></i>
-  <div>
-    
-      
-        <a href="/" class="menu" style="animation-delay: 0s">
-          首页
-        </a>
-      
-    
-      
-        <a href="/archives" class="menu" style="animation-delay: 0.2s">
-          归档
-        </a>
-      
-    
-      
-        <a href="/tags" class="menu" style="animation-delay: 0.4s">
-          标签
-        </a>
-      
-    
-      
-        <a href="/post/about" class="menu" style="animation-delay: 0.6000000000000001s">
-          关于
-        </a>
-      
-    
-  </div>
-  <div class="site-footer">
-    <div class="py-4 text-gray-700"></div>
-    <a class="rss" href="https://wrcj12138aaa.github.io//atom.xml" target="_blank">RSS</a>
-  </div>
-</div>
-<div class="mask" onclick="closeMenu()">
-</div>
-      <div class="content-wrapper py-32 lg:p-8 lg:w-3/4 post-detail animated fadeIn">
-        <h1 class="text-3xl font-bold lg:mt-16">一览 Java并发编程实战（极客时间）</h1>
-        <div class="text-sm text-gray-700 lg:my-8">
-          2019-11-08 / 29 min read
-        </div>
-        
-        <div class="post-content yue">
-          <p>Java 开发中并发编程算是复杂而又重要的一块了，掌握基础的并发知识和解决并发场景中所可能遇到的问题，很有必要，本文是对极客时间专栏《Java并发编程实战》的学习总结。</p>
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">一览 Java并发编程实战（极客时间）</h2>
+            <div class="post-date">2019-11-08</div>
+            
+            <div class="post-content">
+              <p>Java 开发中并发编程算是复杂而又重要的一块了，掌握基础的并发知识和解决并发场景中所可能遇到的问题，很有必要，本文是对极客时间专栏《Java并发编程实战》的学习总结。</p>
 <!-- more -->
 <h2 id="并发编程的可见性-原子性和有序性问题">并发编程的可见性、原子性和有序性问题</h2>
 <p>并发问题的核心矛盾在于：CPU，内存，I/O 处理速度的差异巨大。程序整体的性能取决于最慢的操作——读写 I/O 设备。</p>
@@ -1111,164 +923,75 @@ static class Fibonacci extends RecursiveTask&lt;Integer&gt; {
 <p>CSP：Communicating Sequential Processes	协程之间以消息传递（Message-Passing）的方式通信。</p>
 <p>Java 领域可以借助第三方的类库 JCSP 来支持 CSP 模型，但没有经过生产环境检验，不推荐生产环境使用。</p>
 
-        </div>
-
-        
-
-
-        <div class="flex justify-between py-8">
-          
-            <div class="prev-post">
-              <a href="https://wrcj12138aaa.github.io//post/ru-he-zuo-hao-yue-du-he-ji-lei">
-                <h3 class="post-title">
-                  <i class="remixicon-arrow-left-line"></i>
-                  如何做好网上阅读和读书积累
-                </h3>
-              </a>
             </div>
-          
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://wrcj12138aaa.github.io//post/zhang-wo-she-ji-mo-shi-zhi-ce-lue-mo-shi">
+                  <h3 class="post-title">
+                    掌握设计模式之策略模式
+                  </h3>
+                </a>
+              </div>
+            
 
-          
-            <div class="next-post">
-              <a href="https://wrcj12138aaa.github.io//post/zhang-wo-she-ji-mo-shi-zhi-ce-lue-mo-shi">
-                <h3 class="post-title">
-                  掌握设计模式之策略模式
-                  <i class="remixicon-arrow-right-line"></i>
-                </h3>
-              </a>
-            </div>
-          
+            
+              
+                <div id="gitalk-container" data-aos="fade-in"></div>
+              
+
+              
+            
+
+          </div>
+
         </div>
-
-        
-          
-            <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-
-<div id="gitalk-container"></div>
-
-<script>
-
-  var gitalk = new Gitalk({
-    clientID: '2ba76d6fe50ad2b384eb',
-    clientSecret: '90db763ed48942571725d6aef11229900c8bb656',
-    repo: 'wrcj12138aaa.github.io',
-    owner: 'wrcj12138aaa',
-    admin: ['wrcj12138aaa'],
-    id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
-    distractionFreeMode: false  // Facebook-like distraction free mode
-  })
-
-  gitalk.render('gitalk-container')
-
-</script>
-
-          
-
-          
-        
-
       </div>
     </div>
 
-    <script src="https://wrcj12138aaa.github.io//media/prism.js"></script>  
-<script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 
-Prism.highlightAll()
+<script type="application/javascript">
 
-let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+AOS.init();
 
-// This should probably be throttled.
-// Especially because it triggers during smooth scrolling.
-// https://lodash.com/docs/4.17.10#throttle
-// You could do like...
-// window.addEventListener("scroll", () => {
-//    _.throttle(doThatStuff, 100);
-// });
-// Only not doing it here to keep this Pen dependency-free.
+hljs.initHighlightingOnLoad()
 
-window.addEventListener("scroll", event => {
-  let fromTop = window.scrollY;
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
 
-  mainNavLinks.forEach((link, index) => {
-    let section = document.getElementById(decodeURI(link.hash).substring(1));
-    let nextSection = null
-    if (mainNavLinks[index + 1]) {
-      nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
-    }
-    if (section.offsetTop <= fromTop) {
-      if (nextSection) {
-        if (nextSection.offsetTop > fromTop) {
-          link.classList.add("current");
-        } else {
-          link.classList.remove("current");    
-        }
-      } else {
-        link.classList.add("current");
-      }
-    } else {
-      link.classList.remove("current");
-    }
-  });
-});
-
-
-document.addEventListener("DOMContentLoaded", function() {
-  var lazyImages = [].slice.call(document.querySelectorAll(".post-feature-image.lazy"));
-
-  if ("IntersectionObserver" in window) {
-    let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          let lazyImage = entry.target
-          lazyImage.style.backgroundImage = `url(${lazyImage.dataset.bg})`
-          lazyImage.classList.remove("lazy")
-          lazyImageObserver.unobserve(lazyImage)
-        }
-      });
-    });
-
-    lazyImages.forEach(function(lazyImage) {
-      lazyImageObserver.observe(lazyImage)
-    })
-  } else {
-    // Possibly fall back to a more compatible method here
-  }
-});
-
-const menuContainer = document.querySelector('.menu-container')
-const menus = document.querySelectorAll('.menu-container .menu')
-const mask = document.querySelector('.mask')
-const contentWrapper = document.querySelector('.content-wrapper')
-const latestArticle = document.querySelector('.latest-article')
-const readMore = document.querySelector('.read-more')
-const indexPage = document.querySelector('.index-page')
-
-const isHome = location.pathname === '/'
-if (latestArticle) {
-  latestArticle.style.display = isHome ? 'block' : 'none'
-  readMore.style.display = isHome ? 'block' : 'none'
-  indexPage.style.display = isHome ? 'none' : 'block'
-}
-
-const openMenu = () => {
-  menuContainer.classList.add('open')
-  menus.forEach(menu => {
-    menu.classList.add('animated', 'fadeInLeft')
-  })
-  mask.classList.add('open')
-  contentWrapper.classList.add('is-second')
-}
-
-const closeMenu = () => {
-  menuContainer.classList.remove('open')
-  menus.forEach(menu => {
-    menu.classList.remove('animated', 'fadeInLeft')
-  })
-  mask.classList.remove('open')
-  contentWrapper.classList.remove('is-second')
-}
 </script>
+
+
+
   
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '2ba76d6fe50ad2b384eb',
+        clientSecret: '90db763ed48942571725d6aef11229900c8bb656',
+        repo: 'wrcj12138aaa.github.io',
+        owner: 'wrcj12138aaa',
+        admin: ['wrcj12138aaa'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
   </body>
 </html>
