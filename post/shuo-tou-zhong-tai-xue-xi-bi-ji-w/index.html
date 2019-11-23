@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>闻人的技术博客</title>
 <meta name="description" content="做一个终生学习的技术人" />
-<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1574521470719">
+<link rel="shortcut icon" href="https://wrcj12138aaa.github.io//favicon.ico?v=1574521603262">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link href="https://cdn.remixicon.com/releases/v1.3.1/remixicon.css" rel="stylesheet">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
@@ -24,7 +24,7 @@
       <div class="flex lg:block p-4 lg:px-0 items-center fixed lg:static lg:block top-0 right-0 left-0 bg-white z-50">
         <i class="remixicon-menu-2-line lg:mt-4 text-2xl cursor-pointer animated fadeIn" onclick="openMenu()"></i>
         <a href="https://wrcj12138aaa.github.io/">
-          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://wrcj12138aaa.github.io//images/avatar.png?v=1574521470719" alt="">
+          <img class="animated fadeInLeft avatar rounded-lg mx-4 lg:mt-32 lg:mx-0 mt-0 lg:w-24 lg:h-24 w-12 w-12" src="https://wrcj12138aaa.github.io//images/avatar.png?v=1574521603262" alt="">
         </a>
         <h1 class="animated fadeInLeft lg:text-4xl font-extrabold lg:mt-8 mt-0 text-xl" style="animation-delay: 0.2s">闻人的技术博客</h1>
       </div>
@@ -150,14 +150,10 @@
         <div class="post-content yue">
           <h2 id="前言">前言</h2>
 <p>本文为极客时间专栏《说透中台》的学习笔记。</p>
+<!-- more -->
 <h2 id="中台为什么这么火">中台为什么这么火</h2>
 <h3 id="中台的历史溯源">中台的历史溯源</h3>
-<pre><code class="language-mermaid">graph TD
-   2008年的淘宝与天猫的重复建设改造 --&gt;2015年马云拜访Supercell公司开启中台战略
-   2015年马云拜访Supercell公司开启中台战略 --&gt;2017年阿里和滴滴传播中台建设经验
-   2017年阿里和滴滴传播中台建设经验 --&gt;2018年多个互联网巨头开始打造技术中台
-   2018年多个互联网巨头开始打造技术中台 --&gt;2019年中台概念持续火热
-</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g98dgvd9ibj30u80omwgc.jpg" alt="image-20191123230551892"></figure>
 <h3 id="中台火的原因">中台火的原因</h3>
 <ul>
 <li>互联网企业对大厂的实践模仿，中台的建设效果不错。</li>
@@ -169,14 +165,14 @@
 <blockquote>
 <p>中台有哪些分类，主流的是业务中台和数据中台。</p>
 </blockquote>
-<figure data-type="image" tabindex="1"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g91eueg0y8j31a00m4aew.jpg" alt=""></figure>
+<figure data-type="image" tabindex="2"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g91eueg0y8j31a00m4aew.jpg" alt=""></figure>
 <h3 id="业务中台">业务中台</h3>
 <p>所有的中台都属于业务中台，但是这里<strong>业务中台</strong>指代着狭隘层面的业务概念，是正对特定业务开展提供能力的解决方案，来实现对不同业务线的支撑。</p>
-<figure data-type="image" tabindex="2"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g91ey1e2roj31560l0wiq.jpg" alt=""></figure>
+<figure data-type="image" tabindex="3"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g91ey1e2roj31560l0wiq.jpg" alt=""></figure>
 <h3 id="数据中台">数据中台</h3>
 <p>用于业务数据的管理，再次构建利用，为业务中台服务。</p>
 <p>数据中台好比数据工厂，收集处理数据，最后生产数据产品给业务提供帮助。</p>
-<figure data-type="image" tabindex="3"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g91f113w6tj31540j2gok.jpg" alt=""></figure>
+<figure data-type="image" tabindex="4"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g91f113w6tj31540j2gok.jpg" alt=""></figure>
 <blockquote>
 <p>“<strong>业务中台就是在产生数据，数据中台是做数据的二次加工，并将结果再服务于业务，为业务进行数据和智能的赋能。</strong>”  —— 阿里巴巴技术方案总监谢纯良在一次 InfoQ 采访。</p>
 </blockquote>
@@ -220,7 +216,7 @@
 <li>平台，具体的主要形式。</li>
 </ul>
 <p>中台化只是企业实现以用户为中心持续规模化创新的手段，而不是目标，提高对用户的响应力才是企业的核心竞争力的表现。</p>
-<figure data-type="image" tabindex="4"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g91hhzayylj311o0ku15a.jpg" alt=""></figure>
+<figure data-type="image" tabindex="5"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g91hhzayylj311o0ku15a.jpg" alt=""></figure>
 <h2 id="中台建设前必须想清楚的四个问题">中台建设前必须想清楚的四个问题</h2>
 <blockquote>
 <p>从四个问题出发，可以来初步判断企业进行中台建设的环境是否成熟，能否成功落地：</p>
@@ -229,7 +225,7 @@
 <p>建设资源谁出？</p>
 <p>如何验证效果？</p>
 </blockquote>
-<figure data-type="image" tabindex="5"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g924tmmtwyj30u00vmwpm.jpg" alt=""></figure>
+<figure data-type="image" tabindex="6"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g924tmmtwyj30u00vmwpm.jpg" alt=""></figure>
 <h3 id="愿景">愿景</h3>
 <p>“遇事不决看愿景”，给要建设的中台明确的目标，要解决什么问题，发挥什么实际价值，并且这个愿景需要所有的角色达成一致。这个可以帮助我们在建设过程中判断哪些符合愿景需要中台去做，哪些不是中台要做的。</p>
 <h3 id="用户和客户">用户和客户</h3>
@@ -251,12 +247,12 @@
 <li>Design 设计中台，进行需求分析，功能设计和实施计划</li>
 <li>Delivery 采用敏捷+精益软件开发方式进行迭代交付</li>
 </ul>
-<figure data-type="image" tabindex="6"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g946wwmm4cj31gg0he79e.jpg" alt=""></figure>
+<figure data-type="image" tabindex="7"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g946wwmm4cj31gg0he79e.jpg" alt=""></figure>
 <h2 id="企业战略分解及现状调研">企业战略分解及现状调研</h2>
 <p>解决要不要建中台，建哪些中台，谁优先的问题，本质是资源分配的问题，如何达到较优解。</p>
-<figure data-type="image" tabindex="7"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g94ga5ue9uj30kn09s0tv.jpg" alt=""></figure>
+<figure data-type="image" tabindex="8"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g94ga5ue9uj30kn09s0tv.jpg" alt=""></figure>
 <p>根据企业愿景和战略，作为输入去制定蓝图和线路图。</p>
-<figure data-type="image" tabindex="8"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g94gfdrpquj30is0am3zz.jpg" alt=""></figure>
+<figure data-type="image" tabindex="9"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g94gfdrpquj30is0am3zz.jpg" alt=""></figure>
 <h2 id="企业数字化全景规划">企业数字化全景规划</h2>
 <p>寻找不同业务线的共享能</p>
 <ul>
@@ -276,18 +272,18 @@
 </ul>
 <h2 id="中台的规划与设计">中台的规划与设计</h2>
 <p>对业务场景进行梳理，识别出中台共性需求，并进行优先级限定；</p>
-<figure data-type="image" tabindex="9"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g983j5soulj313i0u0juu.jpg" alt=""></figure>
+<figure data-type="image" tabindex="10"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g983j5soulj313i0u0juu.jpg" alt=""></figure>
 <p>然后进行业务模型梳理，采用MVP原则开始建设中台；</p>
 <p>最后的中台建设验收指标可以采用多问几个“HOW”来明确。</p>
-<figure data-type="image" tabindex="10"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g983j0bmx4j314g0u0qsm.jpg" alt=""></figure>
+<figure data-type="image" tabindex="11"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g983j0bmx4j314g0u0qsm.jpg" alt=""></figure>
 <h2 id="中台的建设与接入">中台的建设与接入</h2>
 <p>面对中台建设的不确定性，可以利用精益思想进行产品研发流程，结合敏捷开发实践进行小步快跑。</p>
-<figure data-type="image" tabindex="11"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g98cw4m5nlj31d20tmwpr.jpg" alt=""></figure>
+<figure data-type="image" tabindex="12"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g98cw4m5nlj31d20tmwpr.jpg" alt=""></figure>
 <h3 id="精益与敏捷的区别">精益与敏捷的区别</h3>
 <p>敏捷关注的是价值确定的情况下，如何通过小步快跑的迭代方式按节奏交 付价值；而精益关注的则是在价值并不确定的情况下，如何用最小成本，快速定位到真正价值点。</p>
 <h3 id="运营中台">运营中台</h3>
 <p>中台作为企业内部平台类产品，目标用户为前台，需要为前台用户进行划分，对于不同级别用户采用对应响应。</p>
-<figure data-type="image" tabindex="12"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g98d27je44j31es0nm4b7.jpg" alt=""></figure>
+<figure data-type="image" tabindex="13"><img src="https://tva1.sinaimg.cn/large/006y8mN6ly1g98d27je44j31es0nm4b7.jpg" alt=""></figure>
 <p>这样一来可以有效利用中台资源，可持续化发展中台。</p>
 <h2 id="中台落地工具资源汇总">中台落地工具资源汇总</h2>
 <h3 id="中台概念">中台概念</h3>

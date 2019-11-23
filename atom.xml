@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://wrcj12138aaa.github.io/</id>
     <title>闻人的技术博客</title>
-    <updated>2019-11-23T15:04:34.364Z</updated>
+    <updated>2019-11-23T15:06:46.864Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://wrcj12138aaa.github.io/"/>
     <link rel="self" href="https://wrcj12138aaa.github.io//atom.xml"/>
@@ -16,6 +16,12 @@
         <link href="https://wrcj12138aaa.github.io//post/shuo-tou-zhong-tai-xue-xi-bi-ji-w">
         </link>
         <updated>2019-11-23T15:01:47.000Z</updated>
+        <summary type="html"><![CDATA[<h2 id="前言">前言</h2>
+<p>本文为极客时间专栏《说透中台》的学习笔记。</p>
+]]></summary>
+        <content type="html"><![CDATA[<h2 id="前言">前言</h2>
+<p>本文为极客时间专栏《说透中台》的学习笔记。</p>
+]]></content>
     </entry>
     <entry>
         <title type="html"><![CDATA[如何做好网上阅读和读书积累]]></title>
